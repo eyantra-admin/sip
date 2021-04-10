@@ -1,0 +1,160 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Model\OnlineProfile;
+use App\Model\CollegeDetails;
+use App\Model\ElsiState;
+use App\Model\Projects;
+use App\Model\StudentProjPrefer;
+use App\User;
+
+use Illuminate\Http\Request; 
+use Illuminate\Support\Facades\Input;
+use Log;
+use DB;
+use Auth;
+use Validator;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+
+    protected $request;
+
+    protected static $thisClass = 'HomeController';
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index()
+    {
+        $chksubmitted = User::where('email',Auth::user()->email)->first();
+        return view('dashboard')
+        ->with('form_submitted', $chksubmitted->profilesubmitted);
+
+        //return view('dashboard');
+    }
+
+
+    public static function getCountrywiseStates(Request $request)
+    {
+        $country = $request->country;
+        log::info('-----------');
+        log::info($country);
+        $state=ElsiState::where('country',$country)->pluck('state');    
+    
+        return json_encode($state);
+    }
+
+    public static function getstatewiseColleges(Request $request)
+    {
+        $state = $request->state;
+        $clgs = CollegeDetails::where('state', $state)->select(['id', DB::raw("CONCAT_WS(',',college_list.college_name,college_list.district)  AS college_name"),'address'])->orderBy('college_name', 'ASC')->get();
+    
+        return json_encode($clgs);
+    }
+
+    public static function getcollegeinfo(Request $request)
+    {
+        $clg_id = $request->college_id;
+        $clgs = CollegeDetails::where('id', $clg_id)->get();
+        return json_encode($clgs);
+    }
+
+
+
+
+    public static function projectpreference(Request $request)
+    {
+        $projects = Projects::select('id','projectname')->orderBy('projectname')->get();
+        return view ('project.preference')
+        ->with('projects', $projects);
+    }
+
+    public static function preferenceupdate(Request $request)
+    {
+        $input = $request->all();
+        $rules=[
+        'project_preference_1'  => 'required|not_in:0',
+        'project_preference_2'  => 'required|not_in:0',
+        'project_preference_3'  => 'required|not_in:0',
+        ];
+        $messages = [   'project_preference_1.required' => 'Select first project preference',
+                        'project_preference_2.required' => 'Select second project preference',
+                        'project_preference_3.required' => 'Select third project preference',
+                    ];
+        $validate=Validator::make($request->all(),$rules,$messages);
+
+        if($validate->fails())
+        {
+            return redirect()->route('project.preferenceupdate')->withErrors($validate)->withInput($input);
+        }
+        else
+        {
+            if($request->project_preference_1 && $request->project_preference_2 && $request->project_preference_3 !=0)
+            {
+                $prefer1= $request->project_preference_1;
+                $prefer2= $request->project_preference_2;
+                $prefer3= $request->project_preference_3;
+                $userid= Auth::user()->id;
+                //Check if all 3 dropdowns have different selections
+                if($prefer2 == $prefer1 || $prefer2 == $prefer3)
+                {
+                    return back()->withErrors(__('All project preferences must be unique.'));
+                }
+                elseif ($prefer3 == $prefer1 || $prefer3 == $prefer2) {
+                    return back()->withErrors(__('All project preferences must be unique.'));
+                }
+                else
+                {
+                    // $post = StudentProjPrefer::create( $request->all() );
+                    $user = StudentProjPrefer::where('userid', '=', $userid)->first();
+                    if ($user === null) 
+                    {
+                       // user doesn't exist
+                        $studproj = StudentProjPrefer::create([
+                        'userid' => $userid,
+                        'projectprefer1' => $prefer1,
+                        'projectprefer2' => $prefer2,
+                        'projectprefer3' => $prefer3,
+                        ]);
+                        return back()->withStatus(__('Project preferences added successfully.'));
+                    }
+                    else
+                    {
+                         return back()->withErrors(__('Project preferences for this user already exists.'));
+                    }
+                }
+                
+            }
+            else
+            {
+                return back()->withErrors($errors, 'Select all there project preferences');
+            }
+            
+        }
+    }
+
+    public static function getprojectdetail($projectid)
+    {
+        log::info($projectid);
+        $getproject_dtl = Projects::where('id', $projectid)->first();
+        log::info($getproject_dtl);
+        return view('project.projectdetail')
+        ->with('projectdtl', $getproject_dtl);
+
+    }
+    
+
+}
