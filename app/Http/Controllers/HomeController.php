@@ -102,47 +102,53 @@ class HomeController extends Controller
         }
         else
         {
-            if($request->project_preference_1 && $request->project_preference_2 && $request->project_preference_3 !=0)
+            //Check if profile is submitted, if yes then only proceed with adding preferences
+            if(Auth::user()->profilesubmitted == 0)
             {
-                $prefer1= $request->project_preference_1;
-                $prefer2= $request->project_preference_2;
-                $prefer3= $request->project_preference_3;
-                $userid= Auth::user()->id;
-                //Check if all 3 dropdowns have different selections
-                if($prefer2 == $prefer1 || $prefer2 == $prefer3)
-                {
-                    return back()->withErrors(__('All project preferences must be unique.'));
-                }
-                elseif ($prefer3 == $prefer1 || $prefer3 == $prefer2) {
-                    return back()->withErrors(__('All project preferences must be unique.'));
-                }
-                else
-                {
-                    // $post = StudentProjPrefer::create( $request->all() );
-                    $user = StudentProjPrefer::where('userid', '=', $userid)->first();
-                    if ($user === null) 
-                    {
-                       // user doesn't exist
-                        $studproj = StudentProjPrefer::create([
-                        'userid' => $userid,
-                        'projectprefer1' => $prefer1,
-                        'projectprefer2' => $prefer2,
-                        'projectprefer3' => $prefer3,
-                        ]);
-                        return back()->withStatus(__('Project preferences added successfully.'));
-                    }
-                    else
-                    {
-                         return back()->withErrors(__('Project preferences for this user already exists.'));
-                    }
-                }
-                
+                return back()->withErrors(__('You have not submitted your profile. submit the form & then proceed with adding preferences.'));
             }
             else
             {
-                return back()->withErrors($errors, 'Select all there project preferences');
-            }
-            
+                if($request->project_preference_1 && $request->project_preference_2 && $request->project_preference_3 !=0)
+                {
+                    $prefer1= $request->project_preference_1;
+                    $prefer2= $request->project_preference_2;
+                    $prefer3= $request->project_preference_3;
+                    $userid= Auth::user()->id;
+                    //Check if all 3 dropdowns have different selections
+                    if($prefer2 == $prefer1 || $prefer2 == $prefer3)
+                    {
+                        return back()->withErrors(__('All project preferences must be unique.'));
+                    }
+                    elseif ($prefer3 == $prefer1 || $prefer3 == $prefer2) {
+                        return back()->withErrors(__('All project preferences must be unique.'));
+                    }
+                    else
+                    {
+                        // $post = StudentProjPrefer::create( $request->all() );
+                        $user = StudentProjPrefer::where('userid', '=', $userid)->first();
+                        if ($user === null) 
+                        {
+                           // user doesn't exist
+                            $studproj = StudentProjPrefer::create([
+                            'userid' => $userid,
+                            'projectprefer1' => $prefer1,
+                            'projectprefer2' => $prefer2,
+                            'projectprefer3' => $prefer3,
+                            ]);
+                            return back()->withStatus(__('Project preferences added successfully.'));
+                        }
+                        else
+                        {
+                             return back()->withErrors(__('Project preferences for this user already exists.'));
+                        }
+                    }           
+                }
+                else
+                {
+                    return back()->withErrors($errors, 'Select all there project preferences');
+                }
+            }   
         }
     }
 

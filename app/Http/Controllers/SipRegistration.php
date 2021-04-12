@@ -46,8 +46,8 @@ class SipRegistration extends Controller {
 		$project = StudentProjDtls::where('student_id',$stu_id)->first();
 
 		$exp = ExperienceDtls::where('online_profileid',$stu_id)->get();
-
-		$file = Storage::disk('public')->exists('Stu_'.$stu_id.'_MOOC.pdf');
+		$userid= $student->userid;
+		$file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
 		//$file = 0;
 		log::info('------------');
 		log::info($student);
@@ -58,17 +58,29 @@ class SipRegistration extends Controller {
 		return view('SipRegistration_student')->with('student',$student)->with('project',$project)->with('exp',$exp)->with('file',$file);
 	}	
 
-	public function download_certificate(){
-		///log::Info($request->stu_id);
-		$stu_id = Input::get('stu_id');
-		$filename = 'Stu_'.$stu_id.'_MOOC.pdf';
-		$file = Storage::disk('public')->exists('Stu_'.$stu_id.'_MOOC.pdf');
-		if ($file == 1)
-			return Storage::disk('public')->download($filename);
-		else
-			return response()->json([
-                'error' => "No certificates found."
-            ], 404);
+	public function download_certificate($studentid){
+		log::info('-------//////////-----');
+		$student = OnlineProfile::where('id',$studentid)->first();
+		$userid= $student->userid;
+		
+		log::info($userid);
+		$filename = 'Stu_'.$userid.'_MOOC.pdf';
+		log::info($filename);
+		// $response= Response::download(Config::get('constants.TBT_UPLOAD_FILES_LOC') . 'task1/TBT#'.$team_id.'.zip', 'TBT#'.$team_id.'.zip', ['content-type' => ['application/zip']]);
+		// ob_end_clean();
+		// return $response;
+		$file=Storage::disk('local')->download('sip_mooc_upload/Stu_'.$userid.'_MOOC.pdf');
+                    return $file;
+                      
+
+		//$file = Storage::disk('local')->exists('sip_mooc_upload/Stu_'.$userid.'_MOOC.pdf');
+		// if ($file == 1)
+		// 	return Storage::disk('local')->download($filename);
+			  
+		// else
+		// 	return response()->json([
+  //               'error' => "No certificates found."
+  //           ], 404);
 		//return Storage::disk('public')->download('letter-of-intent.docx');
 	}
 
@@ -96,8 +108,9 @@ class SipRegistration extends Controller {
 
 /*		$recentid = OnlineProfile::max('id');
 		$newid = $recentid + 1;*/
-		
-		$newfilename = 'Stu_'.$fullname.'_MOOC.'.$extension;
+		$userid= Auth::user()->id;
+		//$newfilename = 'Stu_'.$fullname.'_MOOC.'.$extension;
+		$newfilename = 'Stu_'.$userid.'_MOOC.'.$extension;
 		log::info($newfilename);
 		$path = Storage::disk('local')->putFileAs('sip_mooc_upload',$file,$newfilename);
 

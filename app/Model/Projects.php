@@ -9,7 +9,7 @@ class Projects extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'Projects';
+	protected $table = 'projects';
 	protected $connection = 'mysql';
 	protected $fillable = ['projectname'];
 }

@@ -101,10 +101,11 @@ Route::any('/SipStudent', [
 	'as'			=>	'SipStudent',
 	'uses'			=>	'SipRegistration@sip_student'
 	]);
-Route::any('/downloadCertificate', [
-	'as'			=>	'downloadCertificate',
-	'uses'			=>	'SipRegistration@download_certificate'
-	]);
+// Route::any('/downloadCertificate/{studentid}', [
+// 	'as'			=>	'downloadCertificate',
+// 	'uses'			=>	'SipRegistration@download_certificate'
+// 	]);
+Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate');
 
 
 	Route::any('/getstatewiseColleges', [
@@ -125,7 +126,7 @@ Route::any('/downloadCertificate', [
 
 
 	//get log info
-Route::prefix('admin')->middleware(['auth','ifAdmin'])->group(function () {
+Route::prefix('admin')->group(function () {
 Route::get('downloadLogFile', 'LogController@downloadLogFile');
 Route::get('viewLogFile', 'LogController@viewLogFile');
 Route::get('eraseLogFile', 'LogController@eraseLogFile');

@@ -16,7 +16,7 @@
                 </div>
 
                 <div class="tim-typo">
-                  <span class="tim-note">Project Abstract</span>
+                  <h3><b>Project Abstract</b></h3>
                   <blockquote class="blockquote">
                     <small>
                       {!!$projectdtl->abstract!!}
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="tim-typo">
-                  <span class="tim-note">Quote</span>
+                  <h3><b>Technology Stack</b></h3>
                   <blockquote class="blockquote">
                     <small>
                       {!!$projectdtl->technologystack!!}
