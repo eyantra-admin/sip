@@ -220,7 +220,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                           <div class="half-2">
                               <div class="form-field">    
                                   <label>Phone *</label>
-                                  <input type="text" id="phone" name="phone" placeholder="Type phone number" value="{{old('phone')}}">
+                                  <input type="number" min="0" id="phone" name="phone" placeholder="Type phone number"  value="{{old('phone')}}">
                               </div>
                           </div>
                       </div>
@@ -244,7 +244,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                       <option value="1" {{old('year') == 1 ? 'selected': '' }}>First year</option>
                                       <option value="2" {{old('year') == 2 ? 'selected': '' }}>Second year</option>
                                       <option value="3" {{old('year') == 3 ? 'selected': '' }}>Third year</option>
-                                      <option value="4" {{old('year') == 4 ? 'selected': '' }}>Four year</option>
+                                      <option value="4" {{old('year') == 4 ? 'selected': '' }}>Fourth year</option>
                                   </select>
                               </div>
                               <div class="form-field">
@@ -275,8 +275,8 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                           <hr>
                           <div class="half-2">
                               <div class="form-field">
-                                  <label>Present GPA *</label>
-                                  <input type="text" id="gpa" name="gpa" placeholder="Enter present GPA" value="{{old('gpa')}}">
+                                  <label>Present GPA/ Percentage *</label>
+                                  <input type="number" id="gpa" name="gpa" placeholder="Enter present GPA" value="{{old('gpa')}}">
                               </div>
                           </div>
                       </div>
@@ -310,7 +310,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                           <div class="half-2">
                               <div class="form-field">
                                   <label>Github Link*</label>
-                                  <input type="text" id="github" name="github" placeholder="https://abc@github.com" value="{{old('github')}}" onchange="isUrlValid(this);">
+                                  <input type="text" id="github" name="github" placeholder="github.com/abc" value="{{old('github')}}"><!-- onchange="isUrlValid(this);" -->
                               </div>
                               <div class="form-field">
                                   <label>LinkedIn</label>
@@ -356,13 +356,13 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Time duration (in months) *</label>
-                                    <input type="text" id= "projDuration1" name="projDuration1" value="{{old('projDuration1')}}">
+                                    <input type="number" id= "projDuration1" name="projDuration1" value="{{old('projDuration1')}}">
                                 </div>
                             </div>
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Number of team members *</label>
-                                    <input type="text" id= "projMembers1" name="projMembers1" value="{{old('projMembers1')}}">
+                                    <input type="number" id= "projMembers1" name="projMembers1" value="{{old('projMembers1')}}">
                                 </div>
                             </div>                      
                         </div>
@@ -475,13 +475,13 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Time duration (in months) </label>
-                                    <input type="text" id= "projDuration2" name="projDuration2" value="{{old('projDuration2')}}">
+                                    <input type="number" id= "projDuration2" name="projDuration2" value="{{old('projDuration2')}}">
                                 </div>
                             </div>
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Number of team members </label>
-                                    <input type="text" id= "projMembers2" name="projMembers2" value="{{old('projMembers2')}}">
+                                    <input type="number" id= "projMembers2" name="projMembers2" value="{{old('projMembers2')}}">
                                 </div>
                             </div>                      
                         </div>
@@ -591,13 +591,13 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Time duration (in months)</label>
-                                    <input type="text-danger" id= "projDuration3" name="projDuration3" value="{{old('projDuration3')}}">
+                                    <input type="number" id= "projDuration3" name="projDuration3" value="{{old('projDuration3')}}">
                                 </div>
                             </div>
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Number of team members</label>
-                                    <input type="text" id= "projMembers3" name="projMembers3" value="{{old('projMembers3')}}">
+                                    <input type="number" id= "projMembers3" name="projMembers3" value="{{old('projMembers3')}}">
                                 </div>
                             </div>                      
                         </div>
@@ -707,13 +707,13 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Time duration (in months) </label>
-                                    <input type="text" id= "projDuration4" name="projDuration4" value="{{old('projDuration4')}}">
+                                    <input type="number" id= "projDuration4" name="projDuration4" value="{{old('projDuration4')}}">
                                 </div>
                             </div>
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Number of team members</label>
-                                    <input type="text" id= "projMembers4" name="projMembers4" value="{{old('projMembers4')}}">
+                                    <input type="number" id= "projMembers4" name="projMembers4" value="{{old('projMembers4')}}">
                                 </div>
                             </div>                      
                         </div>
@@ -821,13 +821,13 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Time duration (in months) *</label>
-                                    <input type="text" id= "projDuration5" name="projDuration5" value="{{old('projDuration5')}}">
+                                    <input type="number" id= "projDuration5" name="projDuration5" value="{{old('projDuration5')}}">
                                 </div>
                             </div>
                             <div class="half-2">
                                 <div class="form-field">
                                     <label>Number of team members </label>
-                                    <input type="text" id= "projMembers5" name="projMembers5" value="{{old('projMembers5')}}">
+                                    <input type="number" id= "projMembers5" name="projMembers5" value="{{old('projMembers5')}}">
                                 </div>
                             </div>                      
                         </div>
@@ -942,7 +942,18 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                           </div>
                           <div class="form-field">
                               <label>Platform</label>
-                              <input type="text" id="moocPlatform" name="moocPlatform" placeholder="Enter platform" value="{{old('moocPlatform')}}">
+                              <!-- <input type="text" id="moocPlatform" name="moocPlatform" placeholder="Enter platform" value="{{old('moocPlatform')}}"> -->
+                              <select name="moocPlatform" id= "moocPlatform" class="form-control">
+                                  <option hidden>Select</option>
+                                  <option value="Coursera" {{old('moocPlatform') == 1 ? 'selected' : '' }}>Coursera</option>
+                                  <option value="edX" {{old('moocPlatform') == 1 ? 'selected' : '' }}>edX</option>
+                                  <option value="e-Yantra MOOC" {{old('moocPlatform') == 1 ? 'selected' : '' }}>e-Yantra MOOC</option>
+                                  <option value="NPTEL" {{old('moocPlatform') == 1 ? 'selected' : '' }}>NPTEL</option>
+                                  <option value="Swayam" {{old('moocPlatform') == 1 ? 'selected' : '' }}>Swayam</option>
+                                  <option value="Diksha" {{old('moocPlatform') == 1 ? 'selected' : '' }}>Diksha</option>
+                                  <option value="Udemy" {{old('moocPlatform') == 1 ? 'selected' : '' }}>Udemy</option>
+                                  <option value="Others" {{old('moocPlatform') == 1 ? 'selected' : '' }}>Others</option> 
+                              </select>
                           </div>
                           <div class="form-field">
                               <label>Upload all Certificate image / Progress (online screenshot) compiled in one PDF.<br> (less than 5MB, formats allowed- PDF Only)</label>
@@ -985,7 +996,15 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                           <br>
                           <div id="showeyrc" class="form-field" style="display: none;">
                               <label for="theme">eYRC Theme *</label>
-                              <input type="text" name="theme" id="theme" placeholder="Enter theme name" value="{{old('theme')}}">
+                              <!-- <input type="text" name="theme" id="theme" placeholder="Enter theme name" value="{{old('theme')}}"> -->
+                              <select name="theme" id= "theme" class="form-control">
+                                  <option hidden>Select theme</option>
+                                  <option value="Vitarana Drone" {{old('theme') == 1 ? 'selected' : '' }}>Vitarana Drone (VD)</option>
+                                  <option value="Sahayak Bot" {{old('theme') == 1 ? 'selected' : '' }}>Sahayak Bot (SB)</option>
+                                  <option value="Sankatmochan Bot" {{old('theme') == 1 ? 'selected' : '' }}>Sankatmochan Bot (SM)</option>
+                                  <option value="Vargi Bot" {{old('theme') == 1 ? 'selected' : '' }}>Vargi Bots (VB)</option>
+                                  <option value="Nirikshak Bot" {{old('theme') == 1 ? 'selected' : '' }}>Nirikshak Bots (NB)</option>
+                              </select>
                               <br>                                
                               <label>Where is your Theme Kit? *</label>
                               <select name="hardware" id= "hardware" class="form-control">
@@ -1097,9 +1116,11 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
   <div class="col-md-8 col-md-offset-2" style ="padding-top: 70px; padding-bottom: 70px;">
     <div class="card-body">
       <center>
-        <h4 class="card-title"><b>You have successfully submitted your profile.<br> You can now proceed with the project preferences.</b> </h4>
+        <h4 class="card-title"><b>You have successfully submitted your profile.<br> 
+        <!-- You can now proceed with the project preferences.</b> </h4>
      
-      <a href="/project" class="btn btn-success">View Projects</a>
+      <a href="/project" class="btn btn-success">View Projects</a> -->
+      <a href="/home" class="btn btn-success">Back</a>
        </center>
     </div>
   </div>
@@ -1171,16 +1192,16 @@ function incrementValue()
     document.getElementById('number').value = value;
 }
 
-    function isUrlValid(url)
-    {
-        var url = $('#github').val();  
-        if(url.includes("www") || url.includes('http') || url.includes('github'))
-        {
-        }
-        else{ 
-              alert('Invalid github URL');
-        }
-    }
+    // function isUrlValid(url)
+    // {
+    //     var url = $('#github').val();  
+    //     if(url.includes('github'))
+    //     {
+    //     }
+    //     else{ 
+    //           alert('Invalid github URL');
+    //     }
+    // }
     
     
     function isUrlValid1(url)

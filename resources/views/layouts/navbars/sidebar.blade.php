@@ -52,7 +52,7 @@
       </li> -->
 
 
-       <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
+       <!-- <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('project.preference') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Project Preferences') }}</p>
@@ -63,7 +63,7 @@
           <i class="material-icons">library_books</i>
             <p>{{ __('Interview Slot') }}</p>
         </a>
-      </li>
+      </li> -->
       <!-- <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('icons') }}">
           <i class="material-icons">bubble_chart</i>

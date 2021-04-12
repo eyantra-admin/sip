@@ -248,10 +248,10 @@ class SipRegistration extends Controller {
 					case "6": $board = "Diploma"; break;
 				}
 
-		if (!filter_var($request->github, FILTER_VALIDATE_URL) ) {
-			//log::Info('inside error');
-			return redirect()->route('SipRegistration')->withErrors('General profile github must be a URL');
-		}
+		// if (!filter_var($request->github, FILTER_VALIDATE_URL) ) {
+		// 	//log::Info('inside error');
+		// 	return redirect()->route('SipRegistration')->withErrors('General profile github must be a URL');
+		// }
 		
 		DB::beginTransaction();		
 			try
