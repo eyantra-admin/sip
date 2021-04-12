@@ -22,6 +22,7 @@ use App\Model\StudentProjDtls;
 use App\Model\skills_list;
 use App\User;
 
+
 class SipRegistration extends Controller {
 
 	protected static $thisClass = 'SipRegistration';
@@ -31,40 +32,45 @@ class SipRegistration extends Controller {
 		//log::Info('students view');
 		$students = OnlineProfile::select('online_profile_response.id','name','email','phone','eyrc_eyic_participating', 'eyrc_theme','college','branch','year')
 							->join('student_project_dtls as st','st.student_id','=','online_profile_response.id')
-							->where('online_profile_response.id','>',7)
+							//->where('online_profile_response.id','>',1)
+							->distinct('online_profile_response.id')
 							->get();
 
 		return view('SipRegistration_view')->with('students',$students);
 	}	
 
-	// public function sip_student()
-	// {
-	// 	$stu_id = Input::get('stu_id');
-	// 	$student = OnlineProfile::where('id',$stu_id)
-	// 						->first();
-	// 	$project = StudentProjDtls::where('student_id',$stu_id)->first();
+	public function sip_student(Request $request)
+	{
+		$stu_id = $request->stu_id;
+		$student = OnlineProfile::where('id',$stu_id)->first();
+		$project = StudentProjDtls::where('student_id',$stu_id)->first();
 
-	// 	$exp = ExperienceDtls::where('online_profileid',$stu_id)->get();
+		$exp = ExperienceDtls::where('online_profileid',$stu_id)->get();
 
-	// 	$file = Storage::disk('public')->exists('Stu_'.$stu_id.'_MOOC.pdf');
-	// 	//$file = 0;
+		$file = Storage::disk('public')->exists('Stu_'.$stu_id.'_MOOC.pdf');
+		//$file = 0;
+		log::info('------------');
+		log::info($student);
+		log::info($project);
+		log::info($exp);
 
-	// 	return view('SipRegistration_student')->with('student',$student)->with('project',$project)->with('exp',$exp)->with('file',$file);
-	// }	
 
-	// public function download_certificate(){
-	// 	///log::Info($request->stu_id);
-	// 	$stu_id = Input::get('stu_id');
-	// 	$filename = 'Stu_'.$stu_id.'_MOOC.pdf';
-	// 	$file = Storage::disk('public')->exists('Stu_'.$stu_id.'_MOOC.pdf');
-	// 	if ($file == 1)
-	// 		return Storage::disk('public')->download($filename);
-	// 	else
-	// 		return response()->json([
- //                'error' => "No certificates found."
- //            ], 404);
-	// 	//return Storage::disk('public')->download('letter-of-intent.docx');
-	// }
+		return view('SipRegistration_student')->with('student',$student)->with('project',$project)->with('exp',$exp)->with('file',$file);
+	}	
+
+	public function download_certificate(){
+		///log::Info($request->stu_id);
+		$stu_id = Input::get('stu_id');
+		$filename = 'Stu_'.$stu_id.'_MOOC.pdf';
+		$file = Storage::disk('public')->exists('Stu_'.$stu_id.'_MOOC.pdf');
+		if ($file == 1)
+			return Storage::disk('public')->download($filename);
+		else
+			return response()->json([
+                'error' => "No certificates found."
+            ], 404);
+		//return Storage::disk('public')->download('letter-of-intent.docx');
+	}
 
 	public function registerload(){
 		$colleges = CollegeDetails::select('clg_code','college_name')->orderBy('college_name')->get();
@@ -92,7 +98,7 @@ class SipRegistration extends Controller {
 		$newid = $recentid + 1;*/
 		
 		$newfilename = 'Stu_'.$fullname.'_MOOC.'.$extension;
-
+		log::info($newfilename);
 		$path = Storage::disk('local')->putFileAs('sip_mooc_upload',$file,$newfilename);
 
 		return json_encode('image uploaded successfully');

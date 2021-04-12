@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="_token" content="{!! csrf_token() !!}"/>
+
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>@yield('title')</title>
   <!-- Bootstrap -->
@@ -159,7 +160,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
             <div class="devider-row">
                 <div class="half-2">
                     <div class="logo-area">
-                        <h1><center><p>Summer Internship 2020</p></center></h1>
+                        <h1><center><p>Summer Internship 2021</p></center></h1>
                     </div>
                 </div>
                 <div class="half-2">
@@ -309,7 +310,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                           <div class="half-2">
                               <div class="form-field">
                                   <label>Github Link*</label>
-                                  <input type="text" id="github" name="github" placeholder="Enter github info" value="{{old('github')}}" onchange="isUrlValid(this);">
+                                  <input type="text" id="github" name="github" placeholder="https://abc@github.com" value="{{old('github')}}" onchange="isUrlValid(this);">
                               </div>
                               <div class="form-field">
                                   <label>LinkedIn</label>
@@ -1247,10 +1248,10 @@ function showeyrc(){
       $(document).on('change', '#image', function (){
         var property = document.getElementById("image").files[0];        
         var image_name = property.name;
-        alert(image_name);
+        // alert(image_name);
         var image_extension = image_name.split('.').pop().toLowerCase();
         var fullname = document.getElementById("fullname").value;
-        console.log(image_extension);
+        console.log(fullname);
         if(jQuery.inArray(image_extension, ['pdf']) == -1)
         {
             alert("Invalid PDF File");
@@ -1267,7 +1268,7 @@ function showeyrc(){
             }
             else
             {
-              alert(10);
+              // alert(10);
                 document.getElementById("filename").value = image_extension;
                 var form_data = new FormData();
                 form_data.append("image", property);
@@ -1275,7 +1276,7 @@ function showeyrc(){
                 
                 $.ajax({
                     headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },
                     url: "/attachmentUpload",
                     method: "POST",

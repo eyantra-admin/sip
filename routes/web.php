@@ -62,8 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//Route::get('studentprofile', ['as' => 'studentprofile', 'uses' => 'ProfileController@studentprofile']);
 	Route::put('submitform', ['as' => 'submitform', 'uses' => 'ProfileController@submitform']);
 	
-	Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
-	]);
+	
 
 	Route::any('/studentprofile', ['as'=>	'studentprofile','uses'=>	'ProfileController@studentprofile'
 	]);
@@ -87,10 +86,25 @@ Route::any('/SipRegistration', [
 	'as'			=>	'SipRegistration',
 	'uses'			=>	'SipRegistration@registerload'
 	])->middleware('auth');
-	Route::any('/submitprofile', [
+Route::any('/submitprofile', [
 	'as'			=>	'submitprofile',
 	'uses'			=>	'SipRegistration@submitprofile'
 	])->middleware('auth');
+Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
+	])->middleware('auth');
+
+Route::any('/SipView', [
+	'as'			=>	'SipView',
+	'uses'			=>	'SipRegistration@sip_view'
+	]);
+Route::any('/SipStudent', [
+	'as'			=>	'SipStudent',
+	'uses'			=>	'SipRegistration@sip_student'
+	]);
+Route::any('/downloadCertificate', [
+	'as'			=>	'downloadCertificate',
+	'uses'			=>	'SipRegistration@download_certificate'
+	]);
 
 
 	Route::any('/getstatewiseColleges', [
@@ -105,6 +119,17 @@ Route::any('/SipRegistration', [
 	'as'			=>	'getcollegeinfo',
 	'uses'			=>	'elsiRegistrationResponse@getcollegeinfo'
 	]);
+
+
+
+
+
+	//get log info
+Route::prefix('admin')->middleware(['auth','ifAdmin'])->group(function () {
+Route::get('downloadLogFile', 'LogController@downloadLogFile');
+Route::get('viewLogFile', 'LogController@viewLogFile');
+Route::get('eraseLogFile', 'LogController@eraseLogFile');
+});
 
 
 
