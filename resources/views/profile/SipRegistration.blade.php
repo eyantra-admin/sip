@@ -207,14 +207,14 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                       <div class="devider-row">
                           <div class="form-field">
                               <label>Full Name *</label>
-                              <input type="text" id="fullname" name="fullname" placeholder="Enter your name" value="{{ old('fullname') }}">
+                              <input type="text" id="fullname" name="fullname" placeholder="Enter your name" value="{{ old('fullname', auth()->user()->name) }}" disabled="true">
                           </div>
                       </div>
                       <div class="devider-row">
                           <div class="half-2">                                
                               <div class="form-field">
                                   <label>Email ID *</label>
-                                  <input type="email"  id="email" name="email" placeholder="Enter email id" value="{{old('email')}}">                                    
+                                  <input type="email"  id="email" name="email" placeholder="Enter email id" value="{{old('email', auth()->user()->email)}}" disabled="true">                                    
                               </div>
                           </div>
                           <div class="half-2">
