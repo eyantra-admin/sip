@@ -7,6 +7,17 @@
       <form class="form" method="POST" action="{{ route('register') }}">
         @csrf
 
+
+
+        @if($errors->any())
+          <div class="alert alert-danger" role='alert'>
+          @foreach($errors->all() as $error)
+          <p>{!!$error!!}</p>
+          @endforeach
+          </div>
+          <hr/>
+          @endif
+
         <div class="card card-login card-hidden mb-3">
           <div class="card-header card-header-primary text-center">
             <h4 class="card-title"><strong>{{ __('Register') }}</strong></h4>

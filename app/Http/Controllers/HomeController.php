@@ -146,7 +146,7 @@ class HomeController extends Controller
                 }
                 else
                 {
-                    return back()->withErrors($errors, 'Select all there project preferences');
+                    return back()->withErrors($errors, 'Select all three project preferences');
                 }
             }   
         }
