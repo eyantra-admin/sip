@@ -128,10 +128,10 @@ class SipRegistration extends Controller {
 		log::info($userid);
 
 		$rules=[
-		'fullname'	=> 'required',
+		// 'fullname'	=> 'required',
 		'phone' => 'required|numeric|digits_between:10,12',
 		'phone.digits' => 'Phone number should be of 10 to 12 digits.',
-		'email' => 'required',
+		// 'email' => 'required',
 		'college' => 'required',
 		'department' => 'required',
 		'year' => 'required',
@@ -200,8 +200,8 @@ class SipRegistration extends Controller {
 						//'applyintern.required' => 'Question 4 in General Questions section is required',
 						'troubleshoot.required' => 'Question 5 in General Questions section is required',
 						'workbest.required' => 'Question 6 in General Questions section is required',
-						'fullname.required'	=> 'Full name is required',
-						'email.required' => 'Email is required',
+						// 'fullname.required'	=> 'Full name is required',
+						// 'email.required' => 'Email is required',
 						'phone.digits' => 'Phone number should be of 10 to 12 digits',
 						'phone.required' => 'Phone number is required',
 						'college.required' => 'College is required',
