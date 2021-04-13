@@ -17,7 +17,7 @@
           </div>
         @else
           <div class="card-body">
-             <h4 class="card-title"><b>Profile submission done successfully.<br> It's time to see projects and add your preferences.</b> </h4><br><br>
+             <!-- <h4 class="card-title"><b>Profile submission done successfully.<br> It's time to see projects and add your preferences.</b> </h4><br><br>
              <h4 class="card-title"><b><p style="font-weight: 2px; color: Red">
                Please note the following points before proceeding with adding your project preferences.</p></b>
             </h4>
@@ -27,7 +27,7 @@
                <li>We will try our best to allot a project to you depending upon the preferences given by you. But do not gurantee this.</li>
                <li>It is possible that, in any case of project allotment, you may be assigned a project that is not in your preference list.</li>
              </h4>
-             </ul>
+             </ul> -->
           </div>
         @endif
         
