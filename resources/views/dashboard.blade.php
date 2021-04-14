@@ -14,8 +14,8 @@
             <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
              <p class="card-text"><b>NOTE:</b> If you have already participated in any of the MOOC Cources, create a single file of all Certificate images / Progress (online screenshot) compiled in one PDF.<br> You need to upload the PDF while submitting your form.</p>
 
-             <p>We will start the registrations soon. You will be notified for the same.</p>
-          <!--   <a href="/SipRegistration" class="btn btn-primary">Fill Form</a> -->
+             <!-- <p>We will start the registrations soon. You will be notified for the same.</p> -->
+            <a href="/SipRegistration" class="btn btn-primary">Fill Form</a>
           </div>
         @else
           <div class="card-body">
