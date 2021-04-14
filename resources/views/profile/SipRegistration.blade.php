@@ -395,7 +395,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired *</label>
                                     <select class="form-control" id="skills1_1" name="skills1_1" value="{{old('skills1_1')}}">
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}" {{old('skills1_1') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -404,7 +404,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired *</label>
                                     <select class="form-control" id="skills2_1" name="skills2_1" value="{{old('skills2_1')}}">
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills2_1') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -413,7 +413,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired *</label>
                                     <select class="form-control" id="skills3_1" name="skills3_1" value="{{old('skills3_1')}}">
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills3_1') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -513,7 +513,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills1_2" name="skills1_2" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills1_2') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -522,7 +522,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills2_2" name="skills2_2" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills2_2') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -531,7 +531,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills3_2" name="skills3_2" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills3_2') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -628,7 +628,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills1_3" name="skills1_3" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills1_3') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -637,7 +637,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills2_3" name="skills2_3" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills2_3') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -646,7 +646,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills3_3" name="skills3_3" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills3_3') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -744,7 +744,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills1_4" name="skills1_4" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills1_4') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -753,7 +753,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills2_4" name="skills2_4" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills2_4') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -762,7 +762,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills3_4" name="skills3_4" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills3_4') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -858,7 +858,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills1_5" name="skills1_5" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills1_5') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -867,7 +867,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills2_5" name="skills2_5" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills2_5') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
@@ -876,7 +876,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                 <div class="form-field">
                                     <label>Skills acquired </label>
                                     <select class="form-control" id="skills3_5" name="skills3_5" >
-                                    <option hidden>Select Skills</option>
+                                    <option hidden value="null">Select Skills</option>
                                         @foreach($skills as $skill)
                                         <option value="{{$skill->id}}"  {{old('skills3_5') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
                                         @endforeach
