@@ -527,8 +527,10 @@ class SipRegistration extends Controller {
 						throw new Exception('Unable to save your data.');
 					}
 */					//Section 4 answers
+					$expvalue=$request->expdtl[0];
 					$exp=$request->expdtl;
-					if(!empty ($exp))
+					log::info($expvalue);
+					if(!empty($expvalue))
 					{
 						foreach($exp as $exp)
 						{
@@ -548,6 +550,10 @@ class SipRegistration extends Controller {
 								}
 							}									
 						}						
+					}
+					else
+					{
+						return redirect()->route('SipRegistration')->withError('Add Atleast one experience details');
 					}
 					
 					//Section 5 answers

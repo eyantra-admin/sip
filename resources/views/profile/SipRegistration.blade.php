@@ -1027,7 +1027,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                  <!-- //experience details -->
                 <div class="tabs-panels" id="expdtls">
                     <div class="tab-part">
-                        <h4>Experience Details</h4>
+                        <h4>Experience Details (Adding atleast 1 experience is mandatory)</h4>
                         <hr>
                         <div class="devider-row">
                             <div class="form-field"></div>
