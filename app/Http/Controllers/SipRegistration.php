@@ -303,21 +303,28 @@ class SipRegistration extends Controller {
 						$proj->project1_github = $request->projGithub1;
 					if(!empty($request->skills1_1)){
 						$s = skills_list::select('skill')->where('id', $request->skills1_1)->first();	
-						$proj->project1_skills1 = $s['skill'];
+						if($s != null)
+						{
+							$proj->project1_skills1 = $s['skill'];
+						}
 					}
 					if(!empty($request->rating1_1))
 						$proj->project1_rating1 = $request->rating1_1;
 					if(!empty($request->skills2_1))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills2_1)->first();
-						$proj->project1_skills2 = $s['skill'];
+						if($s != null)
+						{
+							$proj->project1_skills2 = $s['skill'];
+						}
 					}
 					if(!empty($request->rating2_1))
 						$proj->project1_rating2 = $request->rating2_1;
 					if(!empty($request->skills3_1))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills3_1)->first();
-						$proj->project1_skills3 = $s['skill'];
+						if($s != null)
+						{$proj->project1_skills3 = $s['skill'];}
 					}
 					if(!empty($request->rating3_1))
 						$proj->project1_rating3 = $request->rating3_1;
@@ -342,22 +349,29 @@ class SipRegistration extends Controller {
 					if(!empty($request->skills1_2))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills1_2)->first();
-						$proj->project2_skills1 = $s['skill'];
+						if($s != null)
+						{$proj->project2_skills1 = $s['skill'];}
 					}
 
 					if(!empty($request->rating1_2))
 						$proj->project2_rating1 = $request->rating1_2;
 					if(!empty($request->skills2_2))
 					{
+						log::info('========================');
+						log::info($request->skills2_2);
 						$s = skills_list::select('skill')->where('id', $request->skills2_2)->first();
-						$proj->project2_skills2 = $s['skill'];
+						if($s != null)
+						{
+							$proj->project2_skills2 = $s['skill'];
+						}
 					}
 					if(!empty($request->rating2_2))
 						$proj->project2_rating2 = $request->rating2_2;
 					if(!empty($request->skills3_2))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills3_2)->first();
-						$proj->project2_skills3 = $s['skill'];
+						if($s != null)
+						{$proj->project2_skills3 = $s['skill'];}
 					}
 					if(!empty($request->rating3_2))
 						$proj->project2_rating3 = $request->rating3_2;
@@ -382,21 +396,24 @@ class SipRegistration extends Controller {
 					if(!empty($request->skills1_3))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills1_3)->first();
-						$proj->project3_skills1 = $s['skill'];
+						if($s != null)
+						{$proj->project3_skills1 = $s['skill'];}
 					}
 					if(!empty($request->rating1_3))
 						$proj->project3_rating1 = $request->rating1_3;
 					if(!empty($request->skills2_3))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills2_3)->first();
-						$proj->project3_skills2 = $s['skill'];
+						if($s != null)
+						{$proj->project3_skills2 = $s['skill'];}
 					}
 					if(!empty($request->rating2_3))
 						$proj->project3_rating2 = $request->rating2_3;
-					if(!empty($request->skills3_3))
+					if(!empty($request->skills3_3) || ($request->skills3_3 != 'null'))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills3_3)->first();
-						$proj->project3_skills3 = $s['skill'];
+						if($s != null)
+						{$proj->project3_skills3 = $s['skill'];}
 					}
 					if(!empty($request->rating3_3))
 						$proj->project3_rating3 = $request->rating3_3;
@@ -422,21 +439,24 @@ class SipRegistration extends Controller {
 					if(!empty($request->skills1_4))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills1_4)->first();
-						$proj->project4_skills1 = $s['skill'];
+						if($s != null)
+						{$proj->project4_skills1 = $s['skill'];}
 					}
 					if(!empty($request->rating1_4))
 						$proj->project4_rating1 = $request->rating1_4;
 					if(!empty($request->skills2_4))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills2_4)->first();
-						$proj->project4_skills2 = $s['skill'];
+						if($s != null)
+						{$proj->project4_skills2 = $s['skill'];}
 					}
 					if(!empty($request->rating2_4))
 						$proj->project4_rating2 = $request->rating2_4;
 					if(!empty($request->skills3_4))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills3_4)->first();
-						$proj->project4_skills3 = $s['skill'];
+						if($s != null)
+						{$proj->project4_skills3 = $s['skill'];}
 					}
 					if(!empty($request->rating3_4))
 						$proj->project4_rating3 = $request->rating3_4;
@@ -461,21 +481,24 @@ class SipRegistration extends Controller {
 					if(!empty($request->skills1_5))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills1_5)->first();
-						$proj->project5_skills1 = $s['skill'];
+						if($s != null)
+						{$proj->project5_skills1 = $s['skill'];}
 					}
 					if(!empty($request->rating1_5))
 						$proj->project5_rating1 = $request->rating1_5;
 					if(!empty($request->skills2_5))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills2_5)->first();
-						$proj->project5_skills2 = $s['skill'];
+						if($s != null)
+						{$proj->project5_skills2 = $s['skill'];}
 					}
 					if(!empty($request->rating2_5))
 						$proj->project5_rating2 = $request->rating2_5;
 					if(!empty($request->skills3_5))
 					{
 						$s = skills_list::select('skill')->where('id', $request->skills3_5)->first();
-						$proj->project5_skills3 = $s['skill'];
+						if($s != null)
+						{$proj->project5_skills3 = $s['skill'];}
 					}
 					if(!empty($request->rating3_5))
 						$proj->project5_rating3 = $request->rating3_5;
