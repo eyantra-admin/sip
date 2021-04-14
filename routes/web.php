@@ -54,26 +54,28 @@ Route::group(['middleware' => 'auth'], function () {
 	})->name('upgrade');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () 
+{
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
-	//Route::get('studentprofile', ['as' => 'studentprofile', 'uses' => 'ProfileController@studentprofile']);
-	Route::put('submitform', ['as' => 'submitform', 'uses' => 'ProfileController@submitform']);
-	
-	
+	// Change Password
+	Route::get('changepassword', ['as' => 'changepassword', 'uses' => 'ProfileController@changepassword']);
+	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
-	Route::any('/studentprofile', ['as'=>	'studentprofile','uses'=>	'ProfileController@studentprofile'
+	Route::put('submitform', ['as' => 'submitform', 'uses' => 'ProfileController@submitform']);
+	Route::any('/studentprofile', ['as'=>'studentprofile','uses'=>'ProfileController@studentprofile'
 	]);
 
 	Route::get('project', ['as' => 'project.preference', 'uses' => 'HomeController@projectpreference']);
 	Route::put('project', ['as' => 'project.preferenceupdate', 'uses' => 'HomeController@preferenceupdate']);
-	
 	Route::any('/projectdetail/{projectid}','HomeController@getprojectdetail');
 
-	Route::get('changepassword', ['as' => 'changepassword', 'uses' => 'ProfileController@changepassword']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+	Route::get('timeslotbooking', ['as' => 'timeslotbooking', 'uses' => 'HomeController@timeslotbooking']);
+	Route::any('gettimeslot', ['as' => 'gettimeslot', 'uses' => 'HomeController@gettimeslot']);
+	Route::put('booktimeslot', ['as' => 'booktimeslot', 'uses' => 'HomeController@booktimeslot']);
+	
 });
 
 Route::get('wizard', function () {
@@ -97,14 +99,8 @@ Route::any('/SipView', [
 	'as'			=>	'SipView',
 	'uses'			=>	'SipRegistration@sip_view'
 	]);
-Route::any('/SipStudent', [
-	'as'			=>	'SipStudent',
-	'uses'			=>	'SipRegistration@sip_student'
-	]);
-// Route::any('/downloadCertificate/{studentid}', [
-// 	'as'			=>	'downloadCertificate',
-// 	'uses'			=>	'SipRegistration@download_certificate'
-// 	]);
+Route::any('/SipStudent', ['as' =>	'SipStudent','uses'	=>	'SipRegistration@sip_student']);
+
 Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate');
 
 
@@ -131,6 +127,10 @@ Route::get('downloadLogFile', 'LogController@downloadLogFile');
 Route::get('viewLogFile', 'LogController@viewLogFile');
 Route::get('eraseLogFile', 'LogController@eraseLogFile');
 });
+
+Route::get('/log/downloadLogFile/{year}/{month}/{date}', 'LogController@downloadLogFile');
+Route::get('/log/viewLogFile/{year}/{month}/{date}', 'LogController@viewLogFile');
+Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFile');
 
 
 
