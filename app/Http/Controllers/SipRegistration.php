@@ -553,7 +553,7 @@ class SipRegistration extends Controller {
 					}
 					else
 					{
-						return redirect()->route('SipRegistration')->withError('Add Atleast one experience details');
+						return redirect()->route('SipRegistration')->withErrors('Add Atleast one experience details');
 					}
 					
 					//Section 5 answers
