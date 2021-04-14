@@ -30,40 +30,29 @@ class SipRegistration extends Controller {
 	public function sip_view()
 	{
 		//log::Info('students view');
-		$students = OnlineProfile::select('online_profile_response.id','name','email','phone','eyrc_eyic_participating', 'eyrc_theme','college','branch','year')
-							->join('student_project_dtls as st','st.student_id','=','online_profile_response.id')
+		$students = OnlineProfile::select('online_profile_response.id','online_profile_response.userid','name','email','phone','eyrc_eyic_participating', 'eyrc_theme','college','branch','year')
+							->join('student_project_dtls as st','st.userid','=','online_profile_response.userid')
 							//->where('online_profile_response.id','>',1)
 							->distinct('online_profile_response.id')
 							->get();
-
 		return view('SipRegistration_view')->with('students',$students);
 	}	
 
-	public function sip_student(Request $request)
+	public function sip_student($userid)
 	{
-		$stu_id = $request->stu_id;
-		$student = OnlineProfile::where('id',$stu_id)->first();
-		$project = StudentProjDtls::where('student_id',$stu_id)->first();
+		$student = OnlineProfile::where('userid',$userid)->first();
 
-		$exp = ExperienceDtls::where('online_profileid',$stu_id)->get();
-		$userid= $student->userid;
+		$project = StudentProjDtls::where('userid',$userid)->first();
+		$exp = ExperienceDtls::where('userid',$userid)->get();
 		$file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
-		//$file = 0;
-		log::info('------------');
-		log::info($student);
-		log::info($project);
-		log::info($exp);
-
-
 		return view('SipRegistration_student')->with('student',$student)->with('project',$project)->with('exp',$exp)->with('file',$file);
 	}	
 
-	public function download_certificate($studentid){
-		log::info('-------//////////-----');
-		$student = OnlineProfile::where('id',$studentid)->first();
-		$userid= $student->userid;
-		
+	public function download_certificate($userid)
+	{
 		log::info($userid);
+		log::info('-------//////////-----');
+		$student = OnlineProfile::where('userid',$userid)->first();
 		$filename = 'Stu_'.$userid.'_MOOC.pdf';
 		log::info($filename);
 		// $response= Response::download(Config::get('constants.TBT_UPLOAD_FILES_LOC') . 'task1/TBT#'.$team_id.'.zip', 'TBT#'.$team_id.'.zip', ['content-type' => ['application/zip']]);

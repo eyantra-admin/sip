@@ -104,7 +104,7 @@ hr {
 	 				<div class="form-group col-lg-10 form-group-lg col-lg-offset-1">
 		 				<label>Full Name</label>
 		 				<input type="text" class="form-control" value= "{{$student->name}}" disabled>
-		 				<input type="hidden" name="stu_id" id="stu_id" value="{{$student->id}}"/>
+		 				<input type="hidden" name="stu_id" id="stu_id" value="{{$student->userid}}"/>
 	 				</div>
 
 	 				<div class="form-group col-lg-5 form-group-lg col-lg-offset-1">
@@ -548,7 +548,7 @@ hr {
 		 				<label>Certificate Progress screenshot</label>
 		 				<!-- <button  name="cert_img" id="cert_img" class="btn btn-info">Download</button>  --> 
 		 				<!-- <a href="/downloadCertificate/?stu_id={{$student->id}}">download PDF</a> -->
-		 				<a href="downloadCertificate/{{$student->id}}">download PDF</a>
+		 				<a href="/downloadCertificate/{{$student->userid}}">download PDF</a>
 		 					 				
 		 			</div>
 
@@ -653,8 +653,8 @@ hr {
 
 $(document).ready(function (){
 	var file = '<?php echo $file; ?>';
-	var stu_id = $('#stu_id').val();
-//	console.log(stu_id);
+	var userid = $('#userid').val();
+//	console.log(userid);
 	if(file == 1)
 	{
 		$('#cert_img_label').show();

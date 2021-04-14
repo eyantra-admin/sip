@@ -99,7 +99,7 @@ Route::any('/SipView', [
 	'as'			=>	'SipView',
 	'uses'			=>	'SipRegistration@sip_view'
 	]);
-Route::any('/SipStudent', ['as' =>	'SipStudent','uses'	=>	'SipRegistration@sip_student']);
+Route::any('/SipStudent/{user}', 'SipRegistration@sip_student');
 
 Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate');
 
