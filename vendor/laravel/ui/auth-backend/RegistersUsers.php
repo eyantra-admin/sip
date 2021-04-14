@@ -48,7 +48,7 @@ trait RegistersUsers
                         : redirect($this->redirectPath());
         }
         else{
-            return back()->withErrors('This email id is not registered with us, kindly use email id that was used by you in the competions.');
+            return back()->withErrors('This email id is not registered with us, kindly use email id that was used by you in the competitions.');
         }
 
         
