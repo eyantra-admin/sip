@@ -292,12 +292,12 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                   <label>Class 12 Board *</label>
                                   <select id="class12board" class="form-control" name="class12board" value="{{old('class12board')}}">
                                       <option hidden>Select</option>
-                                      <option value="1" {{ old('class12board') == 1 ? 'selected': '' }}>HSC</option>
-                                      <option value="2" {{ old('class12board') == 2 ? 'selected': '' }}>CBSE</option>
-                                      <option value="3" {{ old('class12board') == 3 ? 'selected': '' }}>ICSE</option>
-                                      <option value="4" {{ old('class12board') == 4 ? 'selected': '' }}>IGCSE</option>
-                                      <option value="5" {{ old('class12board') == 5 ? 'selected': '' }}>IB</option>
-                                      <option value="6" {{ old('class12board') == 6 ? 'selected': '' }}>Diploma</option>
+                                      <option value="HSC" {{ old('class12board') == "HSC" ? 'selected': '' }}>HSC</option>
+                                      <option value="CBSE" {{ old('class12board') == "CBSE" ? 'selected': '' }}>CBSE</option>
+                                      <option value="ICSE" {{ old('class12board') == "ICSE" ? 'selected': '' }}>ICSE</option>
+                                      <option value="IGCSE" {{ old('class12board') == "IGCSE" ? 'selected': '' }}>IGCSE</option>
+                                      <option value="IB" {{ old('class12board') == "IB" ? 'selected': '' }}>IB</option>
+                                      <option value="Diploma" {{ old('class12board') == "Diploma" ? 'selected': '' }}>Diploma</option>
                                   </select>
                               </div>
                           </div>

@@ -252,344 +252,327 @@ class SipRegistration extends Controller {
 		// 	//log::Info('inside error');
 		// 	return redirect()->route('SipRegistration')->withErrors('General profile github must be a URL');
 		// }
-		
-		DB::beginTransaction();		
-			try
+		DB::transaction(function() use ($request)
+		{
+				log::info('---------------');
+				$col_name= CollegeDetails::select('college_name')->where('clg_code',$request->college)->first();
+				$branch = ElsiDepartments::select('name')->where('id',$request->department)->first();
+
+				$profile = new OnlineProfile;
+
+				$profile->name = $request->fullname;
+				$profile->email = $request->email;
+				$profile->phone = $request->phone;
+				$profile->year = $request->year;
+				$profile->college = $col_name['college_name'];
+				$profile->collType = $request->collType;
+				$profile->clg_code = $request->college;
+				
+				$profile->branch = $branch['name'];
+				$profile->class12 = $request->class12;
+				$profile->class12board = $request->class12board;
+				$profile->gpa = $request->gpa;
+				$profile->github = $request->github;
+				$profile->linkedin = $request->linkedin;
+				$profile->instagram = $request->insta;
+				$profile->facebook = $request->fb;
+
+				if(!empty ($request->moocCourseName))
+					$profile->mooc_course = $request->moocCourseName;
+				if(!empty($request->moocPlatform))
+					$profile->platform = $request->moocPlatform;
+				if(!empty($request->fileToUpload))
+					$profile->certificate_progress_screenshot = $request->fileToUpload;
+				if(!empty($request->moocIncomplete))
+					$profile->number_of_courses_incomplete = $request->moocIncomplete;
+
+			
+				$stud = Auth::user()->id;
+				if(!empty($request->filename))
 				{
-					log::info('---------------');
-					$col_name= CollegeDetails::select('college_name')->where('clg_code',$request->college)->first();
-					$branch = ElsiDepartments::select('name')->where('id',$request->department)->first();
+					$imagename = 'Stu_'.$stud.'_MOOC'.$request->filename;
+					$profile->certificate_progress_screenshot = $imagename;
+				}
 
-					$profile = new OnlineProfile;
-
-					//student profile
-					$profile->name = $request->fullname;
-					$profile->email = $request->email;
-					$profile->phone = $request->phone;
-					$profile->year = $year;
-					$profile->college = $col_name['college_name'];
-					$profile->collType = $request->collType;
-					$profile->clg_code = $request->college;
-					$profile->year = $request->year;
-					$profile->branch = $branch['name'];
-					$profile->class12 = $request->class12;
-					$profile->class12board = $board;
-					$profile->gpa = $request->gpa;
-					$profile->github = $request->github;
-					$profile->linkedin = $request->linkedin;
-					$profile->instagram = $request->insta;
-					$profile->facebook = $request->fb;
-/*					if(!$profile->save()){
-						throw new Exception('Unable to save your data.');
-					}
-
-*/
-					//MOOC section
-					if(!empty ($request->moocCourseName))
-						$profile->mooc_course = $request->moocCourseName;
-					if(!empty($request->moocPlatform))
-						$profile->platform = $request->moocPlatform;
-					if(!empty($request->fileToUpload))
-						$profile->certificate_progress_screenshot = $request->fileToUpload;
-					if(!empty($request->moocIncomplete))
-						$profile->number_of_courses_incomplete = $request->moocIncomplete;
-
-					$recentid = OnlineProfile::max('id');	
-					$newid = $recentid + 1;
-					if(!empty($request->filename))
-					{
-						$imagename = 'Stu_'.$newid.'_MOOC'.$request->filename;
-						$profile->certificate_progress_screenshot = $imagename;
-					}
-
-
-					//Projects Dtls
-					//project 1
-					$proj = new StudentProjDtls;
-					$proj->student_id = $recentid + 1;
-						
-					if(!empty($request->projectTitle1))
-					{
-					//	log::Info('inside prject1');
-						$proj->project1_name =  $request->projectTitle1;
-						if(!empty($request->projDesc1))
-							$proj->project1_desc = $request->projDesc1 ;
-						if(!empty($request->projMembers1))
-							$proj->project1_members = $request->projMembers1;
-						if(!empty($request->projectRole1))
-							$proj->project1role =  $request->projectRole1;
-						if(!empty($request->projDuration1))
-							$proj->project1_duration = $request->projDuration1;
-						if(!empty($request->projGithub1))
-							$proj->project1_github = $request->projGithub1;
-						if(!empty($request->skills1_1)){
-							$s = skills_list::select('skill')->where('id', $request->skills1_1)->first();	
-							$proj->project1_skills1 = $s['skill'];
-						}
-						if(!empty($request->rating1_1))
-							$proj->project1_rating1 = $request->rating1_1;
-						if(!empty($request->skills2_1))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills2_1)->first();
-							$proj->project1_skills2 = $s['skill'];
-						}
-						if(!empty($request->rating2_1))
-							$proj->project1_rating2 = $request->rating2_1;
-						if(!empty($request->skills3_1))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills3_1)->first();
-							$proj->project1_skills3 = $s['skill'];
-						}
-						if(!empty($request->rating3_1))
-							$proj->project1_rating3 = $request->rating3_1;
-
-						if(!empty($request->proj1Publ))
-							$proj->project1_publ = $request->proj1Publ;
-						
-					}
-					//Project2
-					if(!empty($request->projectTitle2))
-					{
-						$proj->project2_name =  $request->projectTitle2;
-						if(!empty($request->projDesc2))
-							$proj->project2_desc = $request->projDesc2 ;
-						if(!empty($request->projMembers2))
-							$proj->project2_members = $request->projMembers2;
-						if(!empty($request->projectRole2))
-							$proj->project2role =  $request->projectRole2;
-						if(!empty($request->projDuration2))
-							$proj->project2_duration = $request->projDuration2;
-						if(!empty($request->projGithub2))
-							$proj->project2_github = $request->projGithub2;
-						if(!empty($request->skills1_2))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills1_2)->first();
-							$proj->project2_skills1 = $s['skill'];
-						}
-
-						if(!empty($request->rating1_2))
-							$proj->project2_rating1 = $request->rating1_2;
-						if(!empty($request->skills2_2))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills2_2)->first();
-							$proj->project2_skills2 = $s['skill'];
-						}
-						if(!empty($request->rating2_2))
-							$proj->project2_rating2 = $request->rating2_2;
-						if(!empty($request->skills3_2))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills3_2)->first();
-							$proj->project2_skills3 = $s['skill'];
-						}
-						if(!empty($request->rating3_2))
-							$proj->project2_rating3 = $request->rating3_2;
-
-						if(!empty($request->proj2Publ))
-							$proj->project2_publ = $request->proj2Publ;
-
-					}
-					//Project 3
-					if(!empty($request->projectTitle3))
-					{
-						$proj->student_id = $recentid + 1;
-						$proj->project3_name =  $request->projectTitle3;
-						if(!empty($request->projDesc3))
-							$proj->project3_desc = $request->projDesc3 ;
-						if(!empty($request->projMembers3))
-							$proj->project3_members = $request->projMembers3;
-						if(!empty($request->projectRole3))
-							$proj->project3role =  $request->projectRole3;
-						if(!empty($request->projDuration3))
-							$proj->project3_duration = $request->projDuration3;
-						if(!empty($request->projGithub3))
-							$proj->project3_github = $request->projGithub3;
-						if(!empty($request->skills1_3))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills1_3)->first();
-							$proj->project3_skills1 = $s['skill'];
-						}
-						if(!empty($request->rating1_3))
-							$proj->project3_rating1 = $request->rating1_3;
-						if(!empty($request->skills2_3))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills2_3)->first();
-							$proj->project3_skills2 = $s['skill'];
-						}
-						if(!empty($request->rating2_3))
-							$proj->project3_rating2 = $request->rating2_3;
-						if(!empty($request->skills3_3))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills3_3)->first();
-							$proj->project3_skills3 = $s['skill'];
-						}
-						if(!empty($request->rating3_3))
-							$proj->project3_rating3 = $request->rating3_3;
-
-						if(!empty($request->proj3Publ))
-							$proj->project3_publ = $request->proj3Publ;
-
-					}
-					//Project 4
-					if(!empty($request->projectTitle4))
-					{
-						$proj->student_id = $recentid + 1;
-						$proj->project4_name =  $request->projectTitle4;
-						if(!empty($request->projDesc4))
-							$proj->project4_desc = $request->projDesc4 ;
-						if(!empty($request->projMembers4))
-							$proj->project4_members = $request->projMembers4;
-						if(!empty($request->projectRole4))
-							$proj->project4role =  $request->projectRole4;
-						if(!empty($request->projDuration4))
-							$proj->project4_duration = $request->projDuration4;
-						if(!empty($request->projGithub4))
-							$proj->project4_github = $request->projGithub4;
-						if(!empty($request->skills1_4))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills1_4)->first();
-							$proj->project4_skills1 = $s['skill'];
-						}
-						if(!empty($request->rating1_4))
-							$proj->project4_rating1 = $request->rating1_4;
-						if(!empty($request->skills2_4))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills2_4)->first();
-							$proj->project4_skills2 = $s['skill'];
-						}
-						if(!empty($request->rating2_4))
-							$proj->project4_rating2 = $request->rating2_4;
-						if(!empty($request->skills3_4))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills3_4)->first();
-							$proj->project4_skills3 = $s['skill'];
-						}
-						if(!empty($request->rating3_4))
-							$proj->project4_rating3 = $request->rating3_4;
-
-						if(!empty($request->proj4Publ))
-							$proj->project4_publ = $request->proj4Publ;
-
-					}
-					//Project 5
-					if(!empty($request->projectTitle5))
-					{
-						$proj->project5_name =  $request->projectTitle5;
-						if(!empty($request->projDesc5))
-							$proj->project5_desc = $request->projDesc5 ;
-						if(!empty($request->projMembers5))
-							$proj->project5_members = $request->projMembers5;
-						if(!empty($request->projectRole5))
-							$proj->project5role =  $request->projectRole5;
-						if(!empty($request->projDuration5))
-							$proj->project5_duration = $request->projDuration5;
-						if(!empty($request->projGithub5))
-							$proj->project5_github = $request->projGithub5;
-						if(!empty($request->skills1_5))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills1_5)->first();
-							$proj->project5_skills1 = $s['skill'];
-						}
-						if(!empty($request->rating1_5))
-							$proj->project5_rating1 = $request->rating1_5;
-						if(!empty($request->skills2_5))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills2_5)->first();
-							$proj->project5_skills2 = $s['skill'];
-						}
-						if(!empty($request->rating2_5))
-							$proj->project5_rating2 = $request->rating2_5;
-						if(!empty($request->skills3_5))
-						{
-							$s = skills_list::select('skill')->where('id', $request->skills3_5)->first();
-							$proj->project5_skills3 = $s['skill'];
-						}
-						if(!empty($request->rating3_5))
-							$proj->project5_rating3 = $request->rating3_5;
-
-						if(!empty($request->proj5Publ))
-							$proj->project5_publ = $request->proj5Publ;
-					}
-
-					if(!empty($request->otherPubl))
-						$proj->otherPubl = $request->otherPubl;
-
-					$proj->save();
-					if(!$proj->save()){
-						throw new Exception('Unable to save your data.');
-					}
-
-					//Section 3 answers
-					$profile->eyrc_eyic_participating = $request->get('competition');
-					$profile->eyrc_theme = $request->get('theme');	
-					$profile->where_is_your_hardware = $request->get('hardware');
-					$profile->otherhw = $request->get('otherhw');
-/*					if(!$profile->save()){
-						throw new Exception('Unable to save your data.');
-					}
-*/					//Section 4 answers
-					$expvalue=$request->expdtl[0];
-					$exp=$request->expdtl;
-					log::info($expvalue);
-					if(!empty($expvalue))
-					{
-						foreach($exp as $exp)
-						{
-						//	log::info($exp);	
-							if(!empty($exp))
-							{
-								log::info('**********************');
-								$exp_dtls = new ExperienceDtls;	
-								$recentid = OnlineProfile::max('id');
-								log::info($recentid);				
-								$exp_dtls->exp_description = $exp;
-								$exp_dtls->online_profileid = $recentid + 1;	
-								// $exp_dtls->save();
-								if(!$exp_dtls->save())
-								{
-									throw new Exception('Unable to save your data.');
-								}
-							}									
-						}						
-					}
-					else
-					{
-						return redirect()->route('SipRegistration')->withErrors('Add Atleast one experience details');
-					}
+				//project 1
+				$proj = new StudentProjDtls;
 					
-					//Section 5 answers
-				//	log::info($request->get('whyselect'));
-					$profile->why_select_for_intership = $request->get('whyselect');	
-					$profile->expectations_from_remote_intership = $request->get('expectations');	
-					$profile->thoughts_on_remote_internship	 = $request->get('thoughts');
-					$profile->how_troubleshoot_remotely	 = $request->get('troubleshoot');
-					$profile->applied_for_other_internship = $request->get('applyintern');
-					$profile->individual_or_team_player = $request->get('workbest');
+				if(!empty($request->projectTitle1))
+				{
+					$proj->userid = Auth::user()->id;
 
-					$profile->userid= Auth::user()->id;
-				//	log::info($profile);
+					$proj->project1_name =  $request->projectTitle1;
+					if(!empty($request->projDesc1))
+						$proj->project1_desc = $request->projDesc1 ;
+					if(!empty($request->projMembers1))
+						$proj->project1_members = $request->projMembers1;
+					if(!empty($request->projectRole1))
+						$proj->project1role =  $request->projectRole1;
+					if(!empty($request->projDuration1))
+						$proj->project1_duration = $request->projDuration1;
+					if(!empty($request->projGithub1))
+						$proj->project1_github = $request->projGithub1;
+					if(!empty($request->skills1_1)){
+						$s = skills_list::select('skill')->where('id', $request->skills1_1)->first();	
+						$proj->project1_skills1 = $s['skill'];
+					}
+					if(!empty($request->rating1_1))
+						$proj->project1_rating1 = $request->rating1_1;
+					if(!empty($request->skills2_1))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills2_1)->first();
+						$proj->project1_skills2 = $s['skill'];
+					}
+					if(!empty($request->rating2_1))
+						$proj->project1_rating2 = $request->rating2_1;
+					if(!empty($request->skills3_1))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills3_1)->first();
+						$proj->project1_skills3 = $s['skill'];
+					}
+					if(!empty($request->rating3_1))
+						$proj->project1_rating3 = $request->rating3_1;
 
-					$profile->save();
+					if(!empty($request->proj1Publ))
+						$proj->project1_publ = $request->proj1Publ;
+				}
+				//Project2
+				if(!empty($request->projectTitle2))
+				{
+					$proj->project2_name =  $request->projectTitle2;
+					if(!empty($request->projDesc2))
+						$proj->project2_desc = $request->projDesc2 ;
+					if(!empty($request->projMembers2))
+						$proj->project2_members = $request->projMembers2;
+					if(!empty($request->projectRole2))
+						$proj->project2role =  $request->projectRole2;
+					if(!empty($request->projDuration2))
+						$proj->project2_duration = $request->projDuration2;
+					if(!empty($request->projGithub2))
+						$proj->project2_github = $request->projGithub2;
+					if(!empty($request->skills1_2))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills1_2)->first();
+						$proj->project2_skills1 = $s['skill'];
+					}
 
-					$exp_dtls->save();
+					if(!empty($request->rating1_2))
+						$proj->project2_rating1 = $request->rating1_2;
+					if(!empty($request->skills2_2))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills2_2)->first();
+						$proj->project2_skills2 = $s['skill'];
+					}
+					if(!empty($request->rating2_2))
+						$proj->project2_rating2 = $request->rating2_2;
+					if(!empty($request->skills3_2))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills3_2)->first();
+						$proj->project2_skills3 = $s['skill'];
+					}
+					if(!empty($request->rating3_2))
+						$proj->project2_rating3 = $request->rating3_2;
 
-					$user = User::where('id', Auth::user()->id)->first();
-					$user->profilesubmitted = 1;
-					$user->save();
+					if(!empty($request->proj2Publ))
+						$proj->project2_publ = $request->proj2Publ;
+				}
+				//Project 3
+				if(!empty($request->projectTitle3))
+				{
+					$proj->project3_name =  $request->projectTitle3;
+					if(!empty($request->projDesc3))
+						$proj->project3_desc = $request->projDesc3 ;
+					if(!empty($request->projMembers3))
+						$proj->project3_members = $request->projMembers3;
+					if(!empty($request->projectRole3))
+						$proj->project3role =  $request->projectRole3;
+					if(!empty($request->projDuration3))
+						$proj->project3_duration = $request->projDuration3;
+					if(!empty($request->projGithub3))
+						$proj->project3_github = $request->projGithub3;
+					if(!empty($request->skills1_3))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills1_3)->first();
+						$proj->project3_skills1 = $s['skill'];
+					}
+					if(!empty($request->rating1_3))
+						$proj->project3_rating1 = $request->rating1_3;
+					if(!empty($request->skills2_3))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills2_3)->first();
+						$proj->project3_skills2 = $s['skill'];
+					}
+					if(!empty($request->rating2_3))
+						$proj->project3_rating2 = $request->rating2_3;
+					if(!empty($request->skills3_3))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills3_3)->first();
+						$proj->project3_skills3 = $s['skill'];
+					}
+					if(!empty($request->rating3_3))
+						$proj->project3_rating3 = $request->rating3_3;
 
-					DB::commit();
-					if(!$profile->save())
-					{						
-						
+					if(!empty($request->proj3Publ))
+						$proj->project3_publ = $request->proj3Publ;
+				}
+				//Project 4
+				if(!empty($request->projectTitle4))
+				{
+					$proj->userid = Auth::user()->id;	
+					$proj->project4_name =  $request->projectTitle4;
+					if(!empty($request->projDesc4))
+						$proj->project4_desc = $request->projDesc4 ;
+					if(!empty($request->projMembers4))
+						$proj->project4_members = $request->projMembers4;
+					if(!empty($request->projectRole4))
+						$proj->project4role =  $request->projectRole4;
+					if(!empty($request->projDuration4))
+						$proj->project4_duration = $request->projDuration4;
+					if(!empty($request->projGithub4))
+						$proj->project4_github = $request->projGithub4;
+					if(!empty($request->skills1_4))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills1_4)->first();
+						$proj->project4_skills1 = $s['skill'];
+					}
+					if(!empty($request->rating1_4))
+						$proj->project4_rating1 = $request->rating1_4;
+					if(!empty($request->skills2_4))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills2_4)->first();
+						$proj->project4_skills2 = $s['skill'];
+					}
+					if(!empty($request->rating2_4))
+						$proj->project4_rating2 = $request->rating2_4;
+					if(!empty($request->skills3_4))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills3_4)->first();
+						$proj->project4_skills3 = $s['skill'];
+					}
+					if(!empty($request->rating3_4))
+						$proj->project4_rating3 = $request->rating3_4;
+
+					if(!empty($request->proj4Publ))
+						$proj->project4_publ = $request->proj4Publ;
+				}
+				//Project 5
+				if(!empty($request->projectTitle5))
+				{
+					$proj->project5_name =  $request->projectTitle5;
+					if(!empty($request->projDesc5))
+						$proj->project5_desc = $request->projDesc5 ;
+					if(!empty($request->projMembers5))
+						$proj->project5_members = $request->projMembers5;
+					if(!empty($request->projectRole5))
+						$proj->project5role =  $request->projectRole5;
+					if(!empty($request->projDuration5))
+						$proj->project5_duration = $request->projDuration5;
+					if(!empty($request->projGithub5))
+						$proj->project5_github = $request->projGithub5;
+					if(!empty($request->skills1_5))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills1_5)->first();
+						$proj->project5_skills1 = $s['skill'];
+					}
+					if(!empty($request->rating1_5))
+						$proj->project5_rating1 = $request->rating1_5;
+					if(!empty($request->skills2_5))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills2_5)->first();
+						$proj->project5_skills2 = $s['skill'];
+					}
+					if(!empty($request->rating2_5))
+						$proj->project5_rating2 = $request->rating2_5;
+					if(!empty($request->skills3_5))
+					{
+						$s = skills_list::select('skill')->where('id', $request->skills3_5)->first();
+						$proj->project5_skills3 = $s['skill'];
+					}
+					if(!empty($request->rating3_5))
+						$proj->project5_rating3 = $request->rating3_5;
+
+					if(!empty($request->proj5Publ))
+						$proj->project5_publ = $request->proj5Publ;
+				}
+
+				if(!empty($request->otherPubl))
+					$proj->otherPubl = $request->otherPubl;
+
+				$proj->save();
+				if(!$proj->save()){
+					throw new Exception('Unable to save your data.');
+				}
+
+				//Section 3 answers
+				$profile->eyrc_eyic_participating = $request->get('competition');
+				$profile->eyrc_theme = $request->get('theme');	
+				$profile->where_is_your_hardware = $request->get('hardware');
+				$profile->otherhw = $request->get('otherhw');
+
+				//Section 4 answers
+				$expvalue=$request->expdtl[0];
+				$exp=$request->expdtl;
+				log::info($expvalue);
+				if(!empty($expvalue))
+				{
+					foreach($exp as $exp)
+					{	
+						if(!empty($exp))
+						{
+							log::info('**********************');
+							$exp_dtls = new ExperienceDtls;				
+							$exp_dtls->exp_description = $exp;
+							$exp_dtls->userid = Auth::user()->id;	
+							if(!$exp_dtls->save())
+							{
+								throw new Exception('Unable to save your data.');
+							}
+						}									
 					}						
-			}
-			catch(exception $e){
-				DB::rollBack();
-				return redirect()->route('SipRegistration')->with(['status'=>"profile not added something went wrong"]);
-			}
+				}
+				else
+				{
+					return redirect()->back()->withErrors('Add Atleast one experience details');
+				}
+				
+				$profile->why_select_for_intership = $request->get('whyselect');	
+				$profile->expectations_from_remote_intership = $request->get('expectations');	
+				$profile->thoughts_on_remote_internship	 = $request->get('thoughts');
+				$profile->how_troubleshoot_remotely	 = $request->get('troubleshoot');
+				$profile->applied_for_other_internship = $request->get('applyintern');
+				$profile->individual_or_team_player = $request->get('workbest');
+
+				$profile->userid= Auth::user()->id;
+				$profile->save();
+
+				$exp_dtls->save();
+
+				$user = User::where('id', Auth::user()->id)->first();
+				$user->profilesubmitted = 1;
+				$user->save();
+		}); // End transaction
+
+		return redirect()->route('SipRegistration')->with(['status'=>"Successfully submitted!!"]);	
 		}
-		//project.preference
-			return redirect()->route('SipRegistration')->with(['status'=>"Successfully submitted!!"]);	
 	}
+}//End of Function
 
 
-}
+
+		// DB::beginTransaction();		
+		// 	try
+		// 		{
+				
+
+		// 			DB::commit();
+		// 			if(!$profile->save())
+		// 			{						
+						
+		// 			}						
+		// 	}
+		// 	catch(exception $e){
+		// 		DB::rollBack();
+		// 		return redirect()->route('SipRegistration')->with(['status'=>"profile not added something went wrong"]);
+		// 	}
+		// }
+		//project.preference
