@@ -1267,58 +1267,58 @@ function showeyrc(){
       });  
 
 
-      $(document).on('change', '#image', function (){
-        var property = document.getElementById("image").files[0];        
-        var image_name = property.name;
-        // alert(image_name);
-        var image_extension = image_name.split('.').pop().toLowerCase();
-        var fullname = document.getElementById("fullname").value;
-        console.log(fullname);
-        if(jQuery.inArray(image_extension, ['pdf']) == -1)
-        {
-            alert("Invalid PDF File");
-            $('#uploaded_image').html("<label class='text-success'></label>");
-        }
+    //   $(document).on('change', '#image', function (){
+    //     var property = document.getElementById("image").files[0];        
+    //     var image_name = property.name;
+    //     // alert(image_name);
+    //     var image_extension = image_name.split('.').pop().toLowerCase();
+    //     var fullname = document.getElementById("fullname").value;
+    //     console.log(fullname);
+    //     if(jQuery.inArray(image_extension, ['pdf']) == -1)
+    //     {
+    //         alert("Invalid PDF File");
+    //         $('#uploaded_image').html("<label class='text-success'></label>");
+    //     }
 
-        else 
-        {
-            var image_size = property.size;
-            if(image_size > 5242880)
-            {
-                alert("PDF size should be less than 5MB");
-                $('#uploaded_image').html("<label></label>");
-            }
-            else
-            {
-              // alert(10);
-                document.getElementById("filename").value = image_extension;
-                var form_data = new FormData();
-                form_data.append("image", property);
-                form_data.append("fullname", fullname);
+    //     else 
+    //     {
+    //         var image_size = property.size;
+    //         if(image_size > 5242880)
+    //         {
+    //             alert("PDF size should be less than 5MB");
+    //             $('#uploaded_image').html("<label></label>");
+    //         }
+    //         else
+    //         {
+    //           // alert(10);
+    //             document.getElementById("filename").value = image_extension;
+    //             var form_data = new FormData();
+    //             form_data.append("image", property);
+    //             form_data.append("fullname", fullname);
                 
-                $.ajax({
-                    headers: {
-                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    url: "/attachmentUpload",
-                    method: "POST",
-                    data: form_data,
-                    dataType: 'json', 
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    beforeSend: function (){
-                        $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
-                    },              
-                }).done(function (data){
-                      $('#uploaded_image').html("<label class='text-success'>Uploaded successfully </label>");
+    //             $.ajax({
+    //                 headers: {
+    //                   'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    //                 },
+    //                 url: "/attachmentUpload",
+    //                 method: "POST",
+    //                 data: form_data,
+    //                 dataType: 'json', 
+    //                 contentType: false,
+    //                 cache: false,
+    //                 processData: false,
+    //                 beforeSend: function (){
+    //                  $('#uploaded_image').html("<label class='text-success'>Image uploading...</label>");
+    //                 },              
+    //             }).done(function (data){
+    //                $('#uploaded_image').html("<label class='text-success'>Uploaded successfully </label>");
                    
-                }).fail(function (xhr,status,error){
-                    alert('Image could not be uploaded. Try again later.');
-                });            
-            }
-        }
-    });  
+    //             }).fail(function (xhr,status,error){
+    //                 alert('Image could not be uploaded. Try again later.');
+    //             });            
+    //         }
+    //     }
+    // });  
 
       function printErrorMsg (msg) {
          $(".print-error-msg").find("ul").html('');
