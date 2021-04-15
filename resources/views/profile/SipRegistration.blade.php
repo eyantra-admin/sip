@@ -368,7 +368,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                         </div>
                         <div class="devider-row">
                             <div class="form-field">
-                                <label>Your role in the project * (upto 200 characters)</label>
+                                <label>Your role in the project * (upto 250 characters)</label>
                                 <textarea id= "projectRole1" name="projectRole1" maxlength="250">{{old('projectRole1') }}</textarea>
                             </div>
                             <div class="form-field">
@@ -487,7 +487,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                         </div>
                         <div class="devider-row">
                             <div class="form-field">
-                                <label>Your role in the project  (upto 200 characters)</label>
+                                <label>Your role in the project  (upto 250 characters)</label>
                                 <textarea id= "projectRole2" name="projectRole2" maxlength="250">{{old('projectRole2') }}</textarea>
                             </div>
                             <div class="form-field">
@@ -603,7 +603,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                         </div>
                         <div class="devider-row">
                             <div class="form-field">
-                                <label>Your role in the project (upto 200 characters)</label>
+                                <label>Your role in the project (upto 250 characters)</label>
                                 <textarea id= "projectRole3" name="projectRole3" maxlength="250">{{old('projectRole3') }}</textarea>
                             </div>
                             <div class="form-field">
@@ -719,7 +719,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                         </div>
                         <div class="devider-row">
                             <div class="form-field">
-                                <label>Your role in the project  (upto 200 characters)</label>
+                                <label>Your role in the project  (upto 250 characters)</label>
                                 <textarea id= "projectRole4" name="projectRole4" maxlength="250">{{old('projectRole4') }}</textarea>
                             </div>
                             <div class="form-field">
@@ -833,7 +833,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                         </div>
                         <div class="devider-row">
                             <div class="form-field">
-                                <label>Your role in the project (upto 200 characters)</label>
+                                <label>Your role in the project (upto 250 characters)</label>
                                 <textarea id= "projectRole5" name="projectRole5" maxlength="250">{{old('projectRole5') }}</textarea>
                             </div>
                             <div class="form-field">
@@ -1032,7 +1032,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                         <div class="devider-row">
                             <div class="form-field"></div>
                             <div class="form-field">
-                              <label>Add Experience Description * (300 words)</label>
+                              <label>Add Experience Description * (600 characters)</label>
                               <label>(Co-Curricular/Extra-Curricular activities)</label>
                             </div>
                           <div class="alert alert-danger print-error-msg" style="display:none">
@@ -1045,7 +1045,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                           <div class="table-responsive">  
                             <table class="table table-bordered" id="dynamic_field">  
                                 <tr>  
-                                  <td><textarea name="expdtl[]" placeholder="Enter your experience details" class="form-control name_list" rows="5" cols="50" id="expdtl" onchange="checkWordLen(this);">{{ old('name.0') }}</textarea></td>  
+                                  <td><textarea name="expdtl[]" placeholder="Enter your experience details" class="form-control name_list" rows="5" cols="50" id="expdtl" maxlength="600">{{ old('name.0') }}</textarea></td>  
                                   <td align="center">
                                   <label id="number" name="number"></label>
                                   <button type="button" name="add" id="add" class="btn btn-success" value="1">Add More</button></td>  
@@ -1066,15 +1066,15 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                         <hr>
                     <div class="devider-row">
                         <div class="form-field">
-                           <label>1. Why should I be selected for this internship? (300 words) *</label>
+                           <label>1. Why should I be selected for this internship? (500 characters) *</label>
                            <textarea id="whyselect" name="whyselect" rows="4" cols="50" maxlength="500"
                             >{{old('whyselect') }}</textarea>
                             <br>
-                           <label>2. What are your expectations from this remote internship? (50 words) *
+                           <label>2. What are your expectations from this remote internship? (500 characters) *
                             </label>
                            <textarea id="expectations" name="expectations" rows="4" cols="50" maxlength="500">                          {{old('expectations') }}</textarea>
                             <br>
-                           <label>3. What are your thoughts on remote internships? (50 words) *</label>
+                           <label>3. What are your thoughts on remote internships? (500 characters) *</label>
                            <textarea id="thoughts" name="thoughts" rows="4" cols="50" maxlength="500">
                           {{old('thoughts') }}  </textarea>
                           <br>
@@ -1082,7 +1082,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                             <input type="text" id="applyintern" name="applyintern" value="{{old('applyintern')}}">
                             <br>
                            <label>5. How will you troubleshoot any problem while working remotely? *
-                            (300 words)</label>
+                            (500 characters)</label>
                            <textarea id="troubleshoot" name=troubleshoot rows="4" cols="50" maxlength="500" 
                             >{{old('troubleshoot') }}</textarea>
                           <br>
