@@ -955,12 +955,12 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                   <option value="Others" {{old('moocPlatform') == 1 ? 'selected' : '' }}>Others</option> 
                               </select>
                           </div>
-                          <div class="form-field">
+                          <!-- <div class="form-field">
                               <label>Upload all Certificate image / Progress (online screenshot) compiled in one PDF.<br> (less than 5MB, formats allowed- PDF Only)</label>
                               <input type="file" name="image" class="form-control" style="width:30%" id="image" />
                               <span id="uploaded_image"></span>
                                <input type="hidden" id="filename" name="filename">
-                          </div>
+                          </div> -->
                           <div class="form-field">
                               <label>Number of courses started but not completed</label>
                               <input type="text" id="moocIncomplete" name="moocIncomplete" value="{{old('moocIncomplete')}}">
