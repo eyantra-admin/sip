@@ -1075,8 +1075,8 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                            <textarea id="expectations" name="expectations" rows="4" cols="50" maxlength="500">                          {{old('expectations') }}</textarea>
                             <br>
                            <label>3. What are your thoughts on remote internships? (50 words) *</label>
-                           <textarea id="thoughts" name="thoughts" rows="4" cols="50">
-                          {{old('thoughts') }} maxlength="500" </textarea>
+                           <textarea id="thoughts" name="thoughts" rows="4" cols="50" maxlength="500">
+                          {{old('thoughts') }}  </textarea>
                           <br>
                             <label>4. Have you applied for an internship anywhere else? (Enter only if, yes).</label>
                             <input type="text" id="applyintern" name="applyintern" value="{{old('applyintern')}}">
