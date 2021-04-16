@@ -19,10 +19,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
+// Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::any('/home', 'HomeController@index')->name('home')->middleware('auth');
+//see dashboard after profile submission
+Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@dashboard'])->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {
@@ -100,6 +102,7 @@ Route::any('/SipView', [
 	'uses'			=>	'SipRegistration@sip_view'
 	]);
 Route::any('/SipStudent/{user}', 'SipRegistration@sip_student');
+Route::any('/ViewMyRegistration/{user}', 'SipRegistration@ViewMyRegistration');
 
 Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate');
 
@@ -112,10 +115,10 @@ Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certific
 	'as'			=>	'getCountrywiseStates',
 	'uses'			=>	'HomeController@getCountrywiseStates'
 	]);
-	Route::any('/getcollegeinfo', [
-	'as'			=>	'getcollegeinfo',
-	'uses'			=>	'elsiRegistrationResponse@getcollegeinfo'
-	]);
+	// Route::any('/getcollegeinfo', [
+	// 'as'			=>	'getcollegeinfo',
+	// 'uses'			=>	'elsiRegistrationResponse@getcollegeinfo'
+	// ]);
 
 
 

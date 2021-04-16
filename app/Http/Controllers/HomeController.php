@@ -7,6 +7,7 @@ use App\Model\ElsiState;
 use App\Model\Projects;
 use App\Model\StudentProjPrefer;
 use App\User;
+use App\Model\TimeslotBooking;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
@@ -45,6 +46,14 @@ class HomeController extends Controller
 
         //return view('dashboard');
     }
+    public function dashboard()
+    {
+        $chksubmitted = User::where('email',Auth::user()->email)->first();
+        return view('dashboard')
+        ->with('form_submitted', $chksubmitted->profilesubmitted);
+        //return view('dashboard');
+    }
+    
 
 
     public static function getCountrywiseStates(Request $request)
@@ -160,6 +169,47 @@ class HomeController extends Controller
         return view('project.projectdetail')
         ->with('projectdtl', $getproject_dtl);
 
+    }
+    
+
+    //TimeSlot Booking
+    public static function timeslotbooking(Request $request)
+    {
+        $dates = TimeslotBooking::select('date')->distinct()->orderBy('date')->get();
+        $availableslot = TimeslotBooking::select('availableslots')
+                        ->where('availableflag',1)
+                        ->get();
+        return view ('timeslotbooking')
+        ->with('dates', $dates)
+        ->with('availableslot', $availableslot);
+    }
+
+    public static function gettimeslot(Request $request)
+    {
+        log::info($request->date);
+        $dates = TimeslotBooking::select('date')->distinct()->orderBy('date')->get();
+        $availableslot = TimeslotBooking::select('availableslots')
+                        ->where('date',$request->date)
+                        ->where('availableflag',1)
+                        ->get();
+        log::info('------------');
+        log::info($availableslot);
+        // return view ('timeslotbooking')
+        // ->with('dates', $dates)
+        // ->with('availableslot', $availableslot);
+        return json_encode($availableslot);
+    }
+
+    public static function booktimeslot(Request $request)
+    {
+        log::info('into time slot booking');
+        $studentid = OnlineProfile::where('userid', Auth::user()->id)->pluck('id');
+
+        //update student id in table where date and slot is matched
+        $booking = DB::table('timeslot_booking')
+              ->where('date', $request->date)
+              ->where('availableslots', $request->timeslot)
+              ->update(['studentid' => $studentid]);
     }
     
 

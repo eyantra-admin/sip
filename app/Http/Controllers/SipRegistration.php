@@ -10,6 +10,7 @@ use Mail;
 use Log;
 use DB;
 use Storage;
+use Redirect;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
@@ -46,7 +47,18 @@ class SipRegistration extends Controller {
 		$exp = ExperienceDtls::where('userid',$userid)->get();
 		$file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
 		return view('SipRegistration_student')->with('student',$student)->with('project',$project)->with('exp',$exp)->with('file',$file);
-	}	
+	}
+	public function ViewMyRegistration($userid)
+	{
+		$student = OnlineProfile::where('userid',$userid)->first();
+
+		$project = StudentProjDtls::where('userid',$userid)->first();
+		$exp = ExperienceDtls::where('userid',$userid)->get();
+		// $file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
+		return view('profile.View_MyRegistration')->with('student',$student)->with('project',$project)->with('exp',$exp);
+		//->with('file',$file);
+	}
+		
 
 	public function download_certificate($userid)
 	{
@@ -564,7 +576,8 @@ class SipRegistration extends Controller {
 				$user->save();
 		}); // End transaction
 
-		return redirect()->route('SipRegistration')->with(['status'=>"Successfully submitted!!"]);	
+		//return redirect()->route('/dashboard')->with(['status'=>"Successfully submitted!!"]);	
+		return Redirect::route('dashboard');
 		}
 	}
 }//End of Function
