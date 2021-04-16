@@ -93,7 +93,7 @@ hr {
 	  </ul>
 
 	  
-	  <div class="tab-content" style="background-image: url('69.jpg')">
+	  <div class="tab-content">
 	    <div id="home" class="tab-pane fade in active">
 	    	 <div class="panel panel-default">
 	 			<div class="panel-heading">
