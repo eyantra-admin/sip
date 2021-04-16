@@ -51,7 +51,8 @@ class SipRegistration extends Controller {
 	public function ViewMyRegistration($userid)
 	{
 		$student = OnlineProfile::where('userid',$userid)->first();
-
+		log::info('aaaaaaaaaaaaaaaaaaaaaaaaaa');
+		log::info($student);
 		$project = StudentProjDtls::where('userid',$userid)->first();
 		$exp = ExperienceDtls::where('userid',$userid)->get();
 		// $file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');

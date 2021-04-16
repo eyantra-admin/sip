@@ -92,7 +92,6 @@ hr {
 	    <li><a data-toggle="pill" href="#menu5" style="font-size:20px;">General Questions</a></li>
 	  </ul>
 
-	  
 	  <div class="tab-content">
 	    <div id="home" class="tab-pane fade in active">
 	    	 <div class="panel panel-default">
