@@ -72,7 +72,7 @@
                   </div>
                 </div>
               @endif
-
+              <h3>Please select 5 different projects below. </h3><br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 1') }}</label>
                 <div class="col-sm-7">
@@ -80,7 +80,7 @@
                     <select class="col s12" name="project_preference_1" id="projectpref1" required>
                       <option hidden value="0">Select your first project preference</option>
                       @foreach($projects as $project)
-                        <option value="{{$project->id}}" {{old('project') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
+                        <option value="{{$project->id}}" {{old('projectpref1') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
                     </select>
                     @if ($errors->has('project_preference_1'))
@@ -97,7 +97,7 @@
                     <select class="col s12" name="project_preference_2" id="projectpref2" required>
                       <option hidden value="0">Select your second project preference</option>
                       @foreach($projects as $project)
-                        <option value="{{$project->id}}" {{old('project') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
+                        <option value="{{$project->id}}" {{old('projectpref2') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
                     </select>
                     @if ($errors->has('project_preference_2'))
@@ -113,7 +113,7 @@
                     <select class="col s12" name="project_preference_3" id="projectpref3" required>
                       <option hidden value="0">Select your third project preference</option>
                       @foreach($projects as $project)
-                        <option value="{{$project->id}}" {{old('project') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
+                        <option value="{{$project->id}}" {{old('projectpref3') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
                     </select>
                     @if ($errors->has('project_preference_3'))
@@ -122,11 +122,43 @@
                   </div>
                 </div>
               </div>
-              <center>
-                <div class="card-footer ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
+              <div class="row">
+                <label class="col-sm-2 col-form-label">{{ __('Project 4') }}</label>
+                <div class="col-sm-7">
+                  <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
+                    <select class="col s12" name="project_preference_4" id="projectpref4" required>
+                      <option hidden value="0">Select your fourth project preference</option>
+                      @foreach($projects as $project)
+                        <option value="{{$project->id}}" {{old('projectpref4') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
+                      @endforeach
+                    </select>
+                    @if ($errors->has('project_preference_4'))
+                      <span id="projectpref4-error" class="error text-danger" for="project_preference_4">{{ $errors->first('project_preference_4') }}</span>
+                    @endif
+                  </div>
+                </div>
               </div>
-              </center>
+              <div class="row">
+                <label class="col-sm-2 col-form-label">{{ __('Project 5') }}</label>
+                <div class="col-sm-7">
+                  <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
+                    <select class="col s12" name="project_preference_5" id="projectpref5" required>
+                      <option hidden value="0">Select your fifth project preference</option>
+                      @foreach($projects as $project)
+                        <option value="{{$project->id}}" {{old('projectpref5') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
+                      @endforeach
+                    </select>
+                    @if ($errors->has('project_preference_5'))
+                      <span id="projectpref5-error" class="error text-danger" for="project_preference_5">{{ $errors->first('project_preference_5') }}</span>
+                    @endif
+                  </div>
+                </div>
+              </div>
+              
+                <div class="card-footer ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
+              </div>
+             
               
             </div>
           </div>
@@ -135,3 +167,32 @@
     </div>
   </div>
 @endsection
+<!-- <script type="text/javascript">
+  
+function GetSelectedValues(value)
+{
+  var val;
+  val.push(value);
+  alert(val)
+  let _token   = $('meta[name="csrf-token"]').attr('content');
+  if(date != ' ')
+  {
+      $.ajax({
+        type    : 'POST',
+        url     : '/gettimeslot',
+        data    : { _token: _token, date: date, panel: panel},
+        dataType: 'json',
+      }).done(function (data) {
+        $('#timeslot').empty();
+       $('#timeslot').append($('<option>').text('--Select timeslot--').attr( {'value': '', 'selected': true} ) );
+        for(var i = 0; i < data.length; i++)
+        {
+          $('#timeslot').append($('<option>').text(data[i]).attr('value', data[i]));
+        }
+
+      }).fail(function () {
+          alert('Sorry, No Slots available.');
+      });
+  }
+}
+</script> -->

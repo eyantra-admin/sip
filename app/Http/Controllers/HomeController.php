@@ -8,6 +8,7 @@ use App\Model\Projects;
 use App\Model\StudentProjPrefer;
 use App\User;
 use App\Model\TimeslotBooking;
+use App\Model\UserPanel;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
@@ -98,10 +99,14 @@ class HomeController extends Controller
         'project_preference_1'  => 'required|not_in:0',
         'project_preference_2'  => 'required|not_in:0',
         'project_preference_3'  => 'required|not_in:0',
+        'project_preference_4'  => 'required|not_in:0',
+        'project_preference_5'  => 'required|not_in:0',
         ];
         $messages = [   'project_preference_1.required' => 'Select first project preference',
                         'project_preference_2.required' => 'Select second project preference',
                         'project_preference_3.required' => 'Select third project preference',
+                        'project_preference_4.required' => 'Select fourth project preference',
+                        'project_preference_5.required' => 'Select fifth project preference',
                     ];
         $validate=Validator::make($request->all(),$rules,$messages);
 
@@ -118,23 +123,26 @@ class HomeController extends Controller
             }
             else
             {
-                if($request->project_preference_1 && $request->project_preference_2 && $request->project_preference_3 !=0)
+                if($request->project_preference_1 && $request->project_preference_2 && 
+                   $request->project_preference_3 && $request->project_preference_4 &&
+                   $request->project_preference_5 !=0)
                 {
                     $prefer1= $request->project_preference_1;
                     $prefer2= $request->project_preference_2;
                     $prefer3= $request->project_preference_3;
+                    $prefer4= $request->project_preference_4;
+                    $prefer5= $request->project_preference_5;
                     $userid= Auth::user()->id;
-                    //Check if all 3 dropdowns have different selections
-                    if($prefer2 == $prefer1 || $prefer2 == $prefer3)
+                    //Check if all 5 dropdowns have different selections
+                    $chkarr  = array($prefer1,$prefer2,$prefer3,$prefer4,$prefer5);
+                    log::info($chkarr);
+                    $unique_values = count(array_count_values($chkarr));
+                    log::info($unique_values);
+                    // $count = array_count_values($unique_values);
+                    // log::info($count);
+
+                    if($unique_values == 5)
                     {
-                        return back()->withErrors(__('All project preferences must be unique.'));
-                    }
-                    elseif ($prefer3 == $prefer1 || $prefer3 == $prefer2) {
-                        return back()->withErrors(__('All project preferences must be unique.'));
-                    }
-                    else
-                    {
-                        // $post = StudentProjPrefer::create( $request->all() );
                         $user = StudentProjPrefer::where('userid', '=', $userid)->first();
                         if ($user === null) 
                         {
@@ -144,6 +152,8 @@ class HomeController extends Controller
                             'projectprefer1' => $prefer1,
                             'projectprefer2' => $prefer2,
                             'projectprefer3' => $prefer3,
+                            'projectprefer4' => $prefer4,
+                            'projectprefer5' => $prefer5,
                             ]);
                             return back()->withStatus(__('Project preferences added successfully.'));
                         }
@@ -151,6 +161,19 @@ class HomeController extends Controller
                         {
                              return back()->withErrors(__('Project preferences for this user already exists.'));
                         }
+                    }
+                    // if($prefer2 == $prefer1 || $prefer2 == $prefer3)
+                    // {
+                    //     return back()->withErrors(__('All project preferences must be unique.'));
+                    // }
+                    // elseif ($prefer3 == $prefer1 || $prefer3 == $prefer2) {
+                    //     return back()->withErrors(__('All project preferences must be unique.'));
+                    // }
+                    else
+                    {
+                        // $post = StudentProjPrefer::create( $request->all() );
+                      
+                        return back()->withErrors(__('All project preferences must be unique.'));
                     }           
                 }
                 else
@@ -175,41 +198,62 @@ class HomeController extends Controller
     //TimeSlot Booking
     public static function timeslotbooking(Request $request)
     {
-        $dates = TimeslotBooking::select('date')->distinct()->orderBy('date')->get();
-        $availableslot = TimeslotBooking::select('availableslots')
-                        ->where('availableflag',1)
-                        ->get();
+        $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
+        $dates = TimeslotBooking::select('date')->distinct()
+                                ->where('panel', $panel)
+                                ->orderBy('date')->get(); //get panel dates
         return view ('timeslotbooking')
         ->with('dates', $dates)
-        ->with('availableslot', $availableslot);
+        ->with('panel',$panel);
     }
 
     public static function gettimeslot(Request $request)
     {
         log::info($request->date);
-        $dates = TimeslotBooking::select('date')->distinct()->orderBy('date')->get();
-        $availableslot = TimeslotBooking::select('availableslots')
-                        ->where('date',$request->date)
+         log::info('------------PANEL-----------------');
+        log::info($request->panel);
+        $dates = TimeslotBooking::select('date')->distinct()
+                                ->orderBy('date')->get();
+        $availableslot = TimeslotBooking::
+                        where('date',$request->date)
                         ->where('availableflag',1)
-                        ->get();
+                        ->where('panel', $request->panel) 
+                        ->pluck('availableslots');
         log::info('------------');
         log::info($availableslot);
-        // return view ('timeslotbooking')
-        // ->with('dates', $dates)
-        // ->with('availableslot', $availableslot);
         return json_encode($availableslot);
     }
 
     public static function booktimeslot(Request $request)
     {
         log::info('into time slot booking');
-        $studentid = OnlineProfile::where('userid', Auth::user()->id)->pluck('id');
+        $rules=[
+        'date' => 'required',
+        'timeslot' => 'required',];
 
-        //update student id in table where date and slot is matched
-        $booking = DB::table('timeslot_booking')
-              ->where('date', $request->date)
-              ->where('availableslots', $request->timeslot)
-              ->update(['studentid' => $studentid]);
+        $messages = [   'date.required' => 'Please select date',
+                        'timeslot.required' =>  'Please select timeslot',
+                    ];
+        $validate=Validator::make($request->all(),$rules,$messages);
+
+        if($validate->fails())
+        {
+            return redirect()->back()->withErrors($validate);
+        }
+        else
+        {   
+            log::info($request->date);
+            log::info($request->timeslot);
+            $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
+            log::info($panel);
+            //update student id and flag in table where date ,slot and panel is matched
+            $booking = DB::table('timeslot_booking')
+                  ->where('date', $request->date)
+                  ->where('availableslots', $request->timeslot)
+                  ->where('panel', $panel)
+                  ->update(['userid' => Auth::user()->id, 'availableflag' => 0]);
+            return back()->withStatus(__('Timeslot booked successfully.'));
+        }
     }
     
 

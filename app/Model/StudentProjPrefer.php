@@ -11,5 +11,5 @@ class StudentProjPrefer extends Eloquent {
 	 */
 	protected $table = 'studentprojprefer';
 	protected $connection = 'mysql';
-	protected $fillable = ['userid','projectprefer1','projectprefer2','projectprefer3'];
+	protected $fillable = ['userid','projectprefer1','projectprefer2','projectprefer3','projectprefer4','projectprefer5'];
 }
