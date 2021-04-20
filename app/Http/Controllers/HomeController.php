@@ -49,9 +49,13 @@ class HomeController extends Controller
     }
     public function dashboard()
     {
+        $id = encrypt(Auth::user()->id);
+        log::info('8888888888888888');
+        log::info($id);
         $chksubmitted = User::where('email',Auth::user()->email)->first();
         return view('dashboard')
-        ->with('form_submitted', $chksubmitted->profilesubmitted);
+        ->with('form_submitted', $chksubmitted->profilesubmitted)
+        ->with('id', $id);
         //return view('dashboard');
     }
     

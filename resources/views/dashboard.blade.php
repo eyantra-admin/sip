@@ -23,7 +23,7 @@
             <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
               <p>To view your registration, Click the below button</p>
             </h4>
-            <a href="/ViewMyRegistration/{{ Auth::user()->id }}" target="_blank" class="btn btn-primary">
+            <a href="/ViewMyRegistration/{{Crypt::encrypt(Auth::user()->id)}}" target="_blank" class="btn btn-primary">
               {{ Auth::user()->name }}</a>
              <!-- <h4 class="card-title"><b>Profile submission done successfully.<br> It's time to see projects and add your preferences.</b> </h4><br><br>
              <h4 class="card-title"><b><p style="font-weight: 2px; color: Red">

@@ -22,6 +22,7 @@ use App\Model\ExperienceDtls;
 use App\Model\StudentProjDtls;
 use App\Model\skills_list;
 use App\User;
+use Illuminate\Support\Facades\Crypt;
 
 
 class SipRegistration extends Controller {
@@ -50,11 +51,12 @@ class SipRegistration extends Controller {
 	}
 	public function ViewMyRegistration($userid)
 	{
-		$student = OnlineProfile::where('userid',$userid)->first();
+		
+		$student = OnlineProfile::where('userid',Crypt::decrypt($userid))->first();
 		log::info('aaaaaaaaaaaaaaaaaaaaaaaaaa');
 		log::info($student);
-		$project = StudentProjDtls::where('userid',$userid)->first();
-		$exp = ExperienceDtls::where('userid',$userid)->get();
+		$project = StudentProjDtls::where('userid',Crypt::decrypt($userid))->first();
+		$exp = ExperienceDtls::where('userid',Crypt::decrypt($userid))->get();
 		// $file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
 		return view('profile.View_MyRegistration')->with('student',$student)->with('project',$project)->with('exp',$exp);
 		//->with('file',$file);
@@ -254,6 +256,14 @@ class SipRegistration extends Controller {
 		// 	//log::Info('inside error');
 		// 	return redirect()->route('SipRegistration')->withErrors('General profile github must be a URL');
 		// }
+		
+		//check if user already exists
+		// if(Auth::user()->id->exists(OnlineProfile))
+		// {
+		// 	return redirect()->route('SipRegistration')->withErrors('You have already submitted your form.');
+		// }
+		//End of user already exsists		
+
 		DB::transaction(function() use ($request)
 		{
 				log::info('---------------');
@@ -523,11 +533,6 @@ class SipRegistration extends Controller {
 				if(!empty($request->otherPubl))
 					$proj->otherPubl = $request->otherPubl;
 
-				$proj->save();
-				if(!$proj->save()){
-					throw new Exception('Unable to save your data.');
-				}
-
 				//Section 3 answers
 				$profile->eyrc_eyic_participating = $request->get('competition');
 				$profile->eyrc_theme = $request->get('theme');	
@@ -571,6 +576,11 @@ class SipRegistration extends Controller {
 				$profile->save();
 
 				$exp_dtls->save();
+
+				$proj->save();
+				if(!$proj->save()){
+					throw new Exception('Unable to save your data.');
+				}
 
 				$user = User::where('id', Auth::user()->id)->first();
 				$user->profilesubmitted = 1;
