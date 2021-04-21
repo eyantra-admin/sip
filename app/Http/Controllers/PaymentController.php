@@ -14,7 +14,7 @@ use GuzzleHttp\Exception\ClientException;
 
 use App\Model\Payment;
 use App\Model\ServerConf;
-
+use App\User;
 // use App\Model\CoursePaymentDetails;
 // use App\Model\TeamMemberDetails;
 // use App\Model\TeamCourseMap;
@@ -30,7 +30,7 @@ class PaymentController extends Controller
 {
     
     //get the amount applicable to the user
-    protected function getFees($user,$course_id){ //TODO change the logic to return the exact amt to be paid. if error then return -1
+    protected function getFees($user){ //TODO change the logic to return the exact amt to be paid. if error then return -1
 
         $now = new DateTime();
 
@@ -64,17 +64,17 @@ class PaymentController extends Controller
     }
 
 
-    protected function getPaymentInfo($course_id){
+    protected function getPaymentInfo(){
 
-        $user=TeamMemberDetails::where("login_id",Auth::user()->id)->first();//TODO get the user obj
+        $user=Auth::user();
 
-        $fee=$this->getFees($user,$course_id);//TODO change function call parameters
+        $fee=$this->getFees($user);
 
         if($fee == -1)
          return redirect()->route('home');
         
         //check if user has paid before once
-        $payment = Payment::where(['user_id'=>Auth::user()->id])->first();
+        $payment = Payment::where(['user_id'=>$user->id])->first();
  
         
     	//if no payments are done before
@@ -141,14 +141,14 @@ class PaymentController extends Controller
 
 
     public function makePayment(Request $request){
-        $user=TeamMemberDetails::where("login_id",Auth::user()->id)->first();
+        $user=Auth::user();
        
-        $fee=$this->getFees($user,$request->course_id);//get the amount to be paid
-        $payment = Payment::where(['c_id'=>$request->course_id,'user_id'=>$user->login_id])->first();
+        $fee=$this->getFees($user);//get the amount to be paid
+        $payment = Payment::where('user_id',$user->_id)->first();
         
         
 
-        //if payment exists then check if the payment was successful.
+        //if payment exists then check if the payment was successful.If successful then return.
         if( $payment!= NULL && $payment->status == 'S'){
             return view('payment_details',[
                 'fee'=>$fee,
@@ -170,7 +170,7 @@ class PaymentController extends Controller
         ]);
        
         $num_of_req=0;
-        while($num_of_req < 3)
+        while($num_of_req < 3)//try 3 times to get a token if the token has expired.
         {
             $num_of_req++;
         
@@ -184,7 +184,7 @@ class PaymentController extends Controller
                     Log::info($user);
                     $response = $client->post('users', [
                         'json' => [
-                            'clientUserId' => $user->login_id,
+                            'clientUserId' => $user->id,
                             'name' => $user->name,
                             'emailId' => $user->email,
                         ]
@@ -194,12 +194,12 @@ class PaymentController extends Controller
                 catch(ClientException $e) //exception
                 {
                     //check status code
-                    Log::info("Exception while creating user:".$user->login_id);
+                    Log::info("Exception while creating user:".$user->id);
                     Log::info("StatusCode:".$e->getResponse()->getStatusCode());
                     Log::info($response);
                     if($e->getResponse()->getStatusCode() == 401)//unauthorized! token expired
                     {
-                        Log::info('Token Expired!! while requesting for user_id: '.$user->login_id);
+                        Log::info('Token Expired!! while requesting for user_id: '.$user->id);
                         Log::info($e->getResponse()->getBody()->getContents());
 
                         //create another client without token in header
@@ -234,14 +234,14 @@ class PaymentController extends Controller
                     }
                     if($e->getResponse()->getStatusCode() == 409) //user already exists
                     {
-                        Log::info('user already exists: '.$user->login_id);
+                        Log::info('user already exists: '.$user->id);
                         Log::info($e->getResponse()->getBody()->getContents());
                         
 
                         //to get the user details
                         $response = $client->get('users/find',  [
                             'query' => [
-                                'clientUserId' => $user->login_id,
+                                'clientUserId' => $user->id,
                             ]
                         ])->getBody();
                         //return response()->json(['error'=> 'If you have tried the payment, wait for 24 hours for the payment status.'],400);
@@ -258,16 +258,15 @@ class PaymentController extends Controller
             
                 //create entry for the user in payment table
                 $payment = new Payment();
-                $payment->user_id= $user->login_id;
-                $payment->c_id= $request->course_id;
+                $payment->user_id= $user->id;
                 $payment->payer_user_id = $data->id;
                 $payment->amount = $fee;
                 $payment->currency= 'INR';
-                $payment->purpose='mooc_course_'.$request->course_id;
+                $payment->purpose='eysip2021';
                 $payment->save();
             }//if ends
     
-            //updating fees
+            //updating fees to ensure fees are always calculated and not taken from the stored value of DB
             $payment->amount=$fee;
             $payment->save();
 
@@ -280,7 +279,7 @@ class PaymentController extends Controller
                         'userId' => $payment->payer_user_id,
                         'amountDue' => (float)$payment->amount,  
                         // 'amountDue' => 1,
-                        'purpose' => 'mooc_course_'.$request->course_id,
+                        'purpose' => 'eysip2021',
                         'currency' => 'INR',
                     ]
                 ])->getBody();
@@ -289,13 +288,13 @@ class PaymentController extends Controller
             catch(ClientException $e) 
             {
                 //check status code
-                Log::info("Making payment for user id:".$user->login_id);
+                Log::info("Making payment for user id:".$user->id);
                 Log::info("StatusCode:".$e->getResponse()->getStatusCode());
                 Log::info($e->getResponse()->getBody()->getContents());
 
                 if($e->getResponse()->getStatusCode() == 401)//unauthorized! token expired
                 {
-                    Log::info('Token Expired!! while requesting for user_id: '.$user->login_id);
+                    Log::info('Token Expired!! while requesting for user_id: '.$user->id);
                     Log::info($e->getResponse()->getBody()->getContents());
 
 
@@ -349,9 +348,7 @@ class PaymentController extends Controller
                         $payment->save();
                     }
                     return response()->json(['We have recorded your payment.This section will reflect the status in 2-3 days.']);
-                    
-
-                
+                              
                     
                 }     
             }
@@ -366,7 +363,7 @@ class PaymentController extends Controller
             $payment->req_id = $param_array['sReqId'];
             $payment->save();
 
-            //Log::info("User: ".$user->login_id.":->".$data['url']);
+            //Log::info("User: ".$user->id.":->".$data['url']);
             return redirect($data['url']);
         }
         
@@ -430,20 +427,15 @@ class PaymentController extends Controller
             $payment->prov_id=$data['provId'];
             $payment->save();
 
-            
-            $user=TeamMemberDetails::where('login_id',$payment->user_id)->first();
-            if($payment->status == 'S'){
-                //insert course mapping 
-                $teamcoursemap=TeamCourseMap::where(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id])->first();
-                if($teamcoursemap == null)
-                    TeamCourseMap::create(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id,'not_paid'=>0]);
-                else
-                {
-                    $teamcoursemap->not_paid=0;
-                    $teamcoursemap->save();
-                }    
 
-            }
+            //check if the payment was success and mark payment done  //TODO check with maam if this is ok
+            $user= User::where('id',$payment->user_id)->first();
+            if($payment->status == 'S')
+            {
+                $user->payment_done=1;
+                $user->save();
+            }   
+                
             
             //send email
             Mail::to($user->email)
@@ -451,7 +443,7 @@ class PaymentController extends Controller
             ->queue(new PaymentEmail($payment,$user->name));
 
             //redirect to payment page
-            return redirect()->route('paymentpage',['course_id' => $payment->c_id]);
+            return redirect()->route('paymentpage');
        
         }
         
@@ -516,18 +508,10 @@ class PaymentController extends Controller
                 $payment->reconciled =1 ;
                 $payment->save();
 
-                
-                $user=TeamMemberDetails::where('login_id',$payment->user_id)->first();
-
-                $teamcoursemap=TeamCourseMap::where(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id])->first();
-                if($teamcoursemap == null)
-                    //insert course mapping 
-                    TeamCourseMap::create(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id,'not_paid'=>0]);
-                else
-                {
-                    $teamcoursemap->not_paid=0;
-                    $teamcoursemap->save();
-                }  
+                //recons are always successful therefore mark payment done  //TODO check with maam if this is ok
+                $user= User::where('id',$payment->user_id)->first();
+                $user->payment_done=1;
+                $user->save();
 
 
                 //send email
@@ -548,20 +532,16 @@ class PaymentController extends Controller
 
 
     //make a request for immediate response for a user
-    public function immediateResponseForUser($course_id,$user_id){
-
-     
-        $payment = Payment::where(['payer_user_id'=>$user_id,'c_id'=>$course_id])->first();
-      
+    public function immediateResponseForUser($user_id){
+    
+        $payment = Payment::where('user_id',$user_id)->first();
 
         if($payment == NULL)
-        {
             return response()->json(['msg'=>'No payment record in the table'],200);
-        }
+        
         if($payment->status == 'S')
-        {
             return response()->json(['msg'=>'The transaction was successful already!!'],200);
-        }
+        
         else{
                 //get server configuration
                 $server = ServerConf::first();
@@ -585,8 +565,8 @@ class PaymentController extends Controller
 
                     $pay_data=null;
                    
+                    //in case there are multiple transactions returning then map the request id from DB : mostly there will be one. The code is made generic to handle multiple transactions (especially incase of mooc)
                     foreach($data as $single_obj ){
-
                         if($single_obj->reqId == $payment->req_id )
                         {
                             $pay_data=$single_obj;
@@ -613,18 +593,9 @@ class PaymentController extends Controller
                         $payment->save();
                     }
                     if($payment->status == 'S'){
-                        $user=TeamMemberDetails::where('login_id',$payment->user_id)->first();
-                      
-          
-                        //insert course mapping 
-                        $teamcoursemap=TeamCourseMap::where(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id])->first();
-                        if($teamcoursemap == null)
-                            TeamCourseMap::create(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id,'not_paid'=>0]);
-                        else
-                        {
-                            $teamcoursemap->not_paid=0;
-                            $teamcoursemap->save();
-                        }    
+                        $user= User::where('id',$payment->user_id)->first();
+                        $user->payment_done=1;
+                        $user->save();   
 
                         Log::info('Sending mail');
                         //send email
@@ -649,10 +620,10 @@ class PaymentController extends Controller
     }
 
     //make a request for recon response for a user
-    public function reconciliationForUser($course_id,$user_id){
+    public function reconciliationForUser($user_id){
         
        
-        $payment = Payment::where(['payer_user_id'=>$user_id,'c_id'=>$course_id])->first();
+        $payment = Payment::where('payer_user_id',$user_id)->first();
        
 
         if($payment == NULL)
@@ -684,6 +655,7 @@ class PaymentController extends Controller
                     $pay_data=null;
                    
                     //if there are multiple payments match the transaction with reqid
+                    //in case there are multiple transactions returning then map the request id from DB : mostly there will be one. The code is made generic to handle multiple transactions (especially incase of mooc)
                     foreach($data as $single_obj ){
 
                         if($single_obj->reqId == $payment->req_id )
@@ -711,16 +683,13 @@ class PaymentController extends Controller
                         $payment->reconciled =1 ;
                         $payment->save();
 
-                        $user=TeamMemberDetails::where('login_id',$payment->user_id)->first();
-                        //insert course mapping 
-                        $teamcoursemap=TeamCourseMap::where(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id])->first();
-                        if($teamcoursemap == null)
-                            TeamCourseMap::create(['team_id'=>$payment->user_id,'c_id'=>$payment->c_id,'not_paid'=>0]);
-                        else
-                        {
-                            $teamcoursemap->not_paid=0;
-                            $teamcoursemap->save();
-                        }   
+                        
+                        //mark payment_done flag
+                        $user= User::where('id',$payment->user_id)->first();
+                        $user->payment_done=1;
+                        $user->save();   
+                        
+                        
                         //send email
                         Mail::to($user->email)
                         ->bcc('master@e-yantra.org')
