@@ -140,8 +140,8 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 
 //Payment routes
 
-	Route::get('/ir','PaymentController@paymentImmediateResponse');//immediateresponse
-	Route::get('/recon','PaymentController@reconcile'); //reconcile 
+	Route::get('/api/ir','PaymentController@paymentImmediateResponse');//immediateresponse
+	Route::get('/api/recon','PaymentController@reconcile'); //reconcile 
 
 
 	//authenticated

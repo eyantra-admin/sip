@@ -2,7 +2,29 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+
+use DateTime;
+
+use GuzzleHttp\Psr7;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ClientException;
+
+use App\Model\Payment;
+use App\Model\ServerConf;
+
+// use App\Model\CoursePaymentDetails;
+// use App\Model\TeamMemberDetails;
+// use App\Model\TeamCourseMap;
+
+use App\Mail\PaymentEmail;
+
+use Log;
+use Mail;
+use Auth;
+
 
 class PaymentController extends Controller
 {
