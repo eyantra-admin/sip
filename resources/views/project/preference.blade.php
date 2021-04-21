@@ -3,8 +3,41 @@
 @section('content') 
   <div class="content">
     <div class="container-fluid">
+      <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title">{{ __('Disclaimers') }}</h4>
+        </div>
+        <div class="card-body">
+          <h3><b>1) Please only choose the projects that you feel you are qualified to do. Do not select a project, just because you want to learn a skill/technology stack.<br><br>
+            2) Internship Projects are allocated based on a number of factors such as skill level of candidates, number of vacancies in any particular project etc. It is possible that you may not be allocated a project out of your 5 given choices. We strive to find the best fit for each project, and try to do that by thoroughly assessing the candidate's skills during the internship. No requests for changing project once allocated will be  entertained.
+          </b></h3>
+        </div>
+      </div>
+
+      @if($errors->any())
+      <div class="alert alert-danger" role='alert'>
+      @foreach($errors->all() as $error)
+      <p>{!!$error!!}</p>
+      @endforeach
+      </div>
+      <hr/>
+      @endif
+
+      @if (session('status'))
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="material-icons">close</i>
+              </button>
+              <span>{{ session('status') }}</span>
+            </div>
+          </div>
+        </div>
+      @endif
+
       <div class = "row">
-         <div class="col-md-12" style="margin-top: 25px">
+        <div class="col-md-12" style="margin-top: 25px">
           <div class="card">
             <div class="card-header card-header-primary">
               <h4 class="card-title ">Project List</h4>
@@ -13,22 +46,18 @@
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table" id="project_table" style="text-align: center;"> 
-                    <thead class="thead-inverse">
-                      <tr>
-                        <th>Sr. #</th>
-                        <th>Project Name</th>
-                        <th>Abstract</th>
-                        <th>Project Details</th>
-                      </tr>
-                    </thead>
+                <thead class=" text-primary">
+                  <th><b>Sr No.</b></th>
+                  <th><b>Project Name</b></th>
+                  <th><b>Project Details</b></th>
+                </thead>
                     <tbody>
                       @foreach($projects as $key=>$cur)
                       <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$cur->projectname}}</td>
-                        <td>{{$cur->projectdesc}}</td>
+                        <!-- <td>{{$cur->projectdesc}}</td> -->
                         <td><a href="projectdetail/{{ $cur->id }}" target="_blank">View Detail</a></td>
-                        
                       </tr>
                       @endforeach
                     </tbody>
@@ -38,21 +67,12 @@
           </div>
         </div>
       </div>
-         
+
       <!-- ------Preference table------- -->
       <div class="col-md-12" style="margin-top: 100px">
         <form method="post" action="{{ route('project.preferenceupdate') }}" autocomplete="off" class="form-horizontal">
           @csrf
           @method('put')
-
-          @if($errors->any())
-          <div class="alert alert-danger" role='alert'>
-          @foreach($errors->all() as $error)
-          <p>{!!$error!!}</p>
-          @endforeach
-          </div>
-          <hr/>
-          @endif
 
           <div class="card">
             <div class="card-header card-header-primary">
@@ -60,19 +80,8 @@
               <p class="card-category">{{ __('Select your project preferences based on the skills you acquire') }}</p>
             </div>
             <div class="card-body">
-              @if (session('status'))
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="alert alert-success">
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <i class="material-icons">close</i>
-                      </button>
-                      <span>{{ session('status') }}</span>
-                    </div>
-                  </div>
-                </div>
-              @endif
               <h3>Please select 5 different projects below. </h3><br>
+              <h3>Please apply due deligence while adding project preferences. Preferences once added cannot be modified.</h3><br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 1') }}</label>
                 <div class="col-sm-7">

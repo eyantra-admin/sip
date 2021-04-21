@@ -97,14 +97,13 @@ Route::any('/submitprofile', [
 Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
 	])->middleware('auth');
 
-Route::any('/SipView', [
-	'as'			=>	'SipView',
-	'uses'			=>	'SipRegistration@sip_view'
-	]);
+Route::any('/SipView', ['as'=>	'SipView','uses'=>	'SipRegistration@sip_view']);
 Route::any('/SipStudent/{user}', 'SipRegistration@sip_student');
 Route::any('/ViewMyRegistration/{user}', 'SipRegistration@ViewMyRegistration');
 
 Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate');
+
+Route::any('/upload', ['as'=>'upload','uses'=>'HomeController@Upload'])->middleware('auth');
 
 
 	Route::any('/getstatewiseColleges', [

@@ -47,6 +47,7 @@ class HomeController extends Controller
 
         //return view('dashboard');
     }
+
     public function dashboard()
     {
         $id = encrypt(Auth::user()->id);
@@ -59,8 +60,6 @@ class HomeController extends Controller
         //return view('dashboard');
     }
     
-
-
     public static function getCountrywiseStates(Request $request)
     {
         $country = $request->country;
@@ -85,9 +84,6 @@ class HomeController extends Controller
         $clgs = CollegeDetails::where('id', $clg_id)->get();
         return json_encode($clgs);
     }
-
-
-
 
     public static function projectpreference(Request $request)
     {
@@ -197,7 +193,6 @@ class HomeController extends Controller
         ->with('projectdtl', $getproject_dtl);
 
     }
-    
 
     //TimeSlot Booking
     public static function timeslotbooking(Request $request)
@@ -258,6 +253,11 @@ class HomeController extends Controller
                   ->update(['userid' => Auth::user()->id, 'availableflag' => 0]);
             return back()->withStatus(__('Timeslot booked successfully.'));
         }
+    }
+
+    public static function Upload(Request $request)
+    {
+       return view('upload'); 
     }
     
 
