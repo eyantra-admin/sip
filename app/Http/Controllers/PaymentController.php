@@ -32,34 +32,35 @@ class PaymentController extends Controller
     //get the amount applicable to the user
     protected function getFees($user){ //TODO change the logic to return the exact amt to be paid. if error then return -1
 
-        $now = new DateTime();
+       //  $now = new DateTime();
 
-        $c_payment_dtls=CoursePaymentDetails::where('c_id',$course_id)->first();
-        if($c_payment_dtls == null || $user->pay_category == NULL)
-             return -1;
+       //  $c_payment_dtls=CoursePaymentDetails::where('c_id',$course_id)->first();
+       //  if($c_payment_dtls == null || $user->pay_category == NULL)
+       //       return -1;
 
         
-        $fee=0;
+       //  $fee=0;
        
-       //student
-       if($user->pay_category == 1)
-        {    //check if discount is applicable
-            if( $c_payment_dtls->ebd != NULL && $now <= new DateTime($c_payment_dtls->discount_end_date))
-                $fee = $c_payment_dtls->price -round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->ebd/100)));
-            else
-                $fee = $c_payment_dtls->price - round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->student_disc/100)));
-        }
-        else //non-student
-        {
-            //check if discount is applicable
-            if( $c_payment_dtls->non_student_ebd != NULL && $now <= new DateTime($c_payment_dtls->discount_end_date))
-                $fee = $c_payment_dtls->price -round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->non_student_ebd/100)));
-            else
-                $fee = $c_payment_dtls->price - round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->non_student_disc/100)));
-        }
-        Log::info('Fee:'.$fee);
-        // $fee=1;
-        return $fee;
+       // //student
+       // if($user->pay_category == 1)
+       //  {    //check if discount is applicable
+       //      if( $c_payment_dtls->ebd != NULL && $now <= new DateTime($c_payment_dtls->discount_end_date))
+       //          $fee = $c_payment_dtls->price -round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->ebd/100)));
+       //      else
+       //          $fee = $c_payment_dtls->price - round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->student_disc/100)));
+       //  }
+       //  else //non-student
+       //  {
+       //      //check if discount is applicable
+       //      if( $c_payment_dtls->non_student_ebd != NULL && $now <= new DateTime($c_payment_dtls->discount_end_date))
+       //          $fee = $c_payment_dtls->price -round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->non_student_ebd/100)));
+       //      else
+       //          $fee = $c_payment_dtls->price - round(((float)$c_payment_dtls->price *((float)$c_payment_dtls->non_student_disc/100)));
+       //  }
+       //  Log::info('Fee:'.$fee);
+       //  // $fee=1;
+       //  return $fee;
+        return 1;
 
     }
 
