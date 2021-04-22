@@ -75,7 +75,7 @@ class PaymentController extends Controller
          return redirect()->route('home');
         
         //check if user has paid before once
-        $payment = Payment::where(['user_id'=>$user->id])->first();
+        $payment = Payment::where('user_id',$user->id)->first();
  
         
     	//if no payments are done before
@@ -145,7 +145,7 @@ class PaymentController extends Controller
         $user=Auth::user();
        
         $fee=$this->getFees($user);//get the amount to be paid
-        $payment = Payment::where('user_id',$user->_id)->first();
+        $payment = Payment::where('user_id',$user->id)->first();
         
         
 
@@ -348,7 +348,7 @@ class PaymentController extends Controller
                         $payment->req_id = $data[0]->reqId;
                         $payment->save();
                     }
-                    return response()->json(['We have recorded your payment.This section will reflect the status in 2-3 days.']);
+                    return response()->json(['It seems you have already attempted payment and we have recorded your payment.This section will reflect the status in 2-3 days.']);
                               
                     
                 }     

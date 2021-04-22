@@ -20,7 +20,7 @@ class PaymentEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($payment,$name)
     {
         $this->payment=$payment;
         $this->name=$name;
@@ -38,7 +38,7 @@ class PaymentEmail extends Mailable
             $trans_date=$this->payment->recon_date;
 
 
-        return $this->view('emails.registration.payment')
+        return $this->view('emails.payment')
         ->subject('e-Yantra Summer Internship 2021: Payment Details')
         ->with([
             'amountPaid' => $this->payment->amount,
