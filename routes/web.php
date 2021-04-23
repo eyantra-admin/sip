@@ -136,3 +136,18 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 
 
 
+
+
+//Payment routes
+
+	Route::get('/api/ir','PaymentController@paymentImmediateResponse');//immediateresponse
+	Route::get('/api/recon','PaymentController@reconcile'); //reconcile 
+
+
+	//authenticated
+	Route::get('get-payment-info','PaymentController@getPaymentInfo')->name('paymentpage')->middleware('auth');
+	Route::post('make-payment','PaymentController@makePayment')->middleware('auth');
+
+	//for admin use
+	Route::get('/fetchrecon/{user_id}','PaymentController@reconciliationForUser'); //request server for ir response
+	Route::get('/fetchir/{user_id}','PaymentController@immediateResponseForUser'); //request server for recon response
