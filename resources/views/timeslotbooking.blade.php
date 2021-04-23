@@ -25,7 +25,7 @@
               <h3><b>You have been allocated to Panel No- {{$panel}}</b></h3>
             </div>
           </div>
-<br><br>
+<br>
           <div class="card">
             <div class="card-header card-header-primary">
               <h4 class="card-title">{{ __('Time Slot Booking') }}</h4>
@@ -45,7 +45,7 @@
                 </div>
               @endif
 
-
+               <h3><b>Please ensure about your availability on the date and time you wish to book the slot. <br>No change is the timeslot is permitted.</b></h3> <br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Date') }}</label>
                 <div class="col-sm-7">
@@ -79,7 +79,7 @@
 
               <center>
                 <div class="card-footer ml-auto mr-auto">
-                <button type="submit" value="submit" class="btn btn-primary">{{ __('Save') }}</button>
+                <button type="submit" value="submit" class="btn btn-primary" style=" margin-left: 500px">{{ __('Save') }}</button>
               </div>
               </center>
               

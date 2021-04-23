@@ -246,12 +246,21 @@ class HomeController extends Controller
             $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
             log::info($panel);
             //update student id and flag in table where date ,slot and panel is matched
-            $booking = DB::table('timeslot_booking')
+            $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
+            if($already_booked == 0)
+            {
+                $booking = DB::table('timeslot_booking')
                   ->where('date', $request->date)
                   ->where('availableslots', $request->timeslot)
                   ->where('panel', $panel)
                   ->update(['userid' => Auth::user()->id, 'availableflag' => 0]);
-            return back()->withStatus(__('Timeslot booked successfully.'));
+                return back()->withStatus(__('Timeslot booked successfully.'));
+            }
+            else
+            {
+                return back()->withErrors(__('You have already booked the timeslot.'));
+            }
+            
         }
     }
 

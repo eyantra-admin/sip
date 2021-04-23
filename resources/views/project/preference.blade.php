@@ -81,7 +81,7 @@
             </div>
             <div class="card-body">
               <h3>Please select 5 different projects below. </h3><br>
-              <h3>Please apply due deligence while adding project preferences. Preferences once added cannot be modified.</h3><br>
+              <h3><b>Please apply due deligence while adding project preferences. Preferences once added cannot be modified.</b></h3><br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 1') }}</label>
                 <div class="col-sm-7">
