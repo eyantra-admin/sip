@@ -270,26 +270,33 @@ class HomeController extends Controller
         }
         else
         {   
-            log::info($request->date);
-            log::info($request->timeslot);
-            $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
-            log::info($panel);
-            //update student id and flag in table where date ,slot and panel is matched
-            $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
-            if($already_booked == 0)
+             //Check if profile is submitted, if yes then only proceed with adding preferences
+            if(Auth::user()->profilesubmitted == 0)
             {
-                $booking = DB::table('timeslot_booking')
-                  ->where('date', $request->date)
-                  ->where('availableslots', $request->timeslot)
-                  ->where('panel', $panel)
-                  ->update(['userid' => Auth::user()->id, 'availableflag' => 0]);
-                return back()->withStatus(__('Timeslot booked successfully.'));
+                return back()->withErrors(__('You have not submitted your profile. Time slot booking is not allowed'));
             }
             else
             {
-                return back()->withErrors(__('You have already booked the timeslot.'));
+                log::info($request->date);
+                log::info($request->timeslot);
+                $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
+                log::info($panel);
+                //update student id and flag in table where date ,slot and panel is matched
+                $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
+                if($already_booked == 0)
+                {
+                    $booking = DB::table('timeslot_booking')
+                      ->where('date', $request->date)
+                      ->where('availableslots', $request->timeslot)
+                      ->where('panel', $panel)
+                      ->update(['userid' => Auth::user()->id, 'availableflag' => 0]);
+                    return back()->withStatus(__('Timeslot booked successfully.'));
+                }
+                else
+                {
+                    return back()->withErrors(__('You have already booked the timeslot.'));
+                }
             }
-            
         }
     }
 
