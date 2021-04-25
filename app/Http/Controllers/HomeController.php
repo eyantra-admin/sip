@@ -88,8 +88,31 @@ class HomeController extends Controller
     public static function projectpreference(Request $request)
     {
         $projects = Projects::select('id','projectname')->orderBy('projectname')->get();
-        return view ('project.preference')
-        ->with('projects', $projects);
+        $proj_prefer = StudentProjPrefer ::where('userid', Auth::user()->id)->count();
+        if($proj_prefer == 0)
+        {
+            return view ('project.preference')
+            ->with('proj_prefer',$proj_prefer)
+            ->with('projects', $projects);
+        }
+        else
+        {
+            $selected_projects = StudentProjPrefer ::where('userid', Auth::user()->id)->first();
+            log::info($selected_projects);
+            $project1 = Projects::where('id' ,$selected_projects->projectprefer1)->value('projectname');
+            $project2 = Projects::where('id' ,$selected_projects->projectprefer2)->value('projectname');
+            $project3= Projects::where('id' ,$selected_projects->projectprefer3)->value('projectname');
+            $project4 = Projects::where('id' ,$selected_projects->projectprefer4)->value('projectname');
+            $project5 = Projects::where('id' ,$selected_projects->projectprefer5)->value('projectname');
+            return view ('project.preference')
+            ->with('project1', $project1)
+            ->with('project2', $project2)
+            ->with('project3', $project3)
+            ->with('project4', $project4)
+            ->with('project5', $project5)
+            ->with('proj_prefer',$proj_prefer)
+            ->with('projects', $projects);
+        }
     }
 
     public static function preferenceupdate(Request $request)
@@ -119,7 +142,7 @@ class HomeController extends Controller
             //Check if profile is submitted, if yes then only proceed with adding preferences
             if(Auth::user()->profilesubmitted == 0)
             {
-                return back()->withErrors(__('You have not submitted your profile. submit the form & then proceed with adding preferences.'));
+                return back()->withErrors(__('You have not submitted your profile.'));
             }
             else
             {
@@ -138,9 +161,6 @@ class HomeController extends Controller
                     log::info($chkarr);
                     $unique_values = count(array_count_values($chkarr));
                     log::info($unique_values);
-                    // $count = array_count_values($unique_values);
-                    // log::info($count);
-
                     if($unique_values == 5)
                     {
                         $user = StudentProjPrefer::where('userid', '=', $userid)->first();
@@ -162,17 +182,8 @@ class HomeController extends Controller
                              return back()->withErrors(__('Project preferences for this user already exists.'));
                         }
                     }
-                    // if($prefer2 == $prefer1 || $prefer2 == $prefer3)
-                    // {
-                    //     return back()->withErrors(__('All project preferences must be unique.'));
-                    // }
-                    // elseif ($prefer3 == $prefer1 || $prefer3 == $prefer2) {
-                    //     return back()->withErrors(__('All project preferences must be unique.'));
-                    // }
                     else
                     {
-                        // $post = StudentProjPrefer::create( $request->all() );
-                      
                         return back()->withErrors(__('All project preferences must be unique.'));
                     }           
                 }
@@ -201,9 +212,27 @@ class HomeController extends Controller
         $dates = TimeslotBooking::select('date')->distinct()
                                 ->where('panel', $panel)
                                 ->orderBy('date')->get(); //get panel dates
-        return view ('timeslotbooking')
-        ->with('dates', $dates)
-        ->with('panel',$panel);
+        $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
+        if($already_booked == 0)
+            {
+                return view ('timeslotbooking')
+                ->with('dates', $dates)
+                ->with('panel',$panel)
+                ->with('UserBooked_slots', 0)
+                ->with('already_booked', $already_booked);
+            }
+            else
+            {
+                $UserBooked_slots = TimeslotBooking::where('userid', Auth::user()->id)->first();
+                log::info($UserBooked_slots);  
+                return view ('timeslotbooking')
+                ->with('dates', $dates)
+                ->with('panel',$panel)
+                ->with('UserBooked_slots', $UserBooked_slots)
+                ->with('already_booked', $already_booked);
+            }
+
+           
     }
 
     public static function gettimeslot(Request $request)

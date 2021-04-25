@@ -23,9 +23,13 @@
             </div>
             <div class="card-body">
               <h3><b>You have been allocated to Panel No- {{$panel}}</b></h3>
+              @if($already_booked == 1)
+               <h3><b>You have Booked the timeslot on Date: {{$UserBooked_slots->date}} and Time: {{$UserBooked_slots->availableslots}}</b></h3>
+              @endif
             </div>
           </div>
 <br>
+        @if($already_booked == 0)
           <div class="card">
             <div class="card-header card-header-primary">
               <h4 class="card-title">{{ __('Time Slot Booking') }}</h4>
@@ -85,6 +89,7 @@
               
             </div>
           </div>
+        @endif
         </form>
       </div> 
     </div>
