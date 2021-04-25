@@ -78,7 +78,7 @@
                         <td>{{$key+1}}</td>
                         <td>{{$cur->projectname}}</td>
                         <!-- <td>{{$cur->projectdesc}}</td> -->
-                        <td><a href="projectdetail/{{ $cur->id }}" target="_blank">View Detail</a></td>
+                        <td><a href="projectdetail/{{Crypt::encrypt($cur->id)}}" target="_blank">View Detail</a></td>
                       </tr>
                       @endforeach
                     </tbody>

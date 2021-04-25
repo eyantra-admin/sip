@@ -12,6 +12,7 @@ use App\Model\UserPanel;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Crypt;
 use Log;
 use DB;
 use Auth;
@@ -198,7 +199,8 @@ class HomeController extends Controller
     public static function getprojectdetail($projectid)
     {
         log::info($projectid);
-        $getproject_dtl = Projects::where('id', $projectid)->first();
+        $getproject_dtl = Projects::where('id',Crypt::decrypt($projectid))->first();
+        //$getproject_dtl = Projects::where('id', $projectid)->first();
         log::info($getproject_dtl);
         return view('project.projectdetail')
         ->with('projectdtl', $getproject_dtl);
