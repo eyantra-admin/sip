@@ -39,7 +39,7 @@
               <h4 class="card-title">{{ __('The projects you prefered') }}</h4>
           </div> -->
           <div class="card-body">
-           <h3><b>Technology Stack for the project</b></h3><br>
+           <h3><b>Technology Stack</b></h3><br>
            <blockquote class="blockquote">
               <small>
                 {!!$projectdtl->technologystack!!}
