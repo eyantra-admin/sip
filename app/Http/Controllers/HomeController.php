@@ -306,6 +306,39 @@ class HomeController extends Controller
     {
        return view('upload'); 
     }
+
+    public static function viewpreferences(Request $request)
+    {
+        $result = StudentProjPrefer::select('studentprojprefer.userid','o.name',
+         'studentprojprefer.projectprefer1','p1.projectname as P1name',
+         'studentprojprefer.projectprefer2','p2.projectname as P2name', 
+         'studentprojprefer.projectprefer3','p3.projectname as P3name',
+         'studentprojprefer.projectprefer4','p4.projectname as P4name',
+         'studentprojprefer.projectprefer5','p5.projectname as P5name')
+        ->join('online_profile_response as o', 'o.userid', '=', 'studentprojprefer.userid')
+        ->join('projects as p1','p1.id', '=', 'studentprojprefer.projectprefer1')
+        ->join('projects as p2','p2.id', '=', 'studentprojprefer.projectprefer2')
+        ->join('projects as p3','p3.id', '=', 'studentprojprefer.projectprefer3')
+        ->join('projects as p4','p4.id', '=', 'studentprojprefer.projectprefer4')
+        ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
+        ->orderBy('studentprojprefer.userid')
+        ->get();
+        log::info($result);
+        return view('View_preferences')->with('preference', $result);
+    }
+
+    public static function viewtimeslot(Request $request)
+    {
+        $result = TimeslotBooking::select('timeslot_booking.panel','timeslot_booking.userid',
+            'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots')
+        ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
+        ->orderBy('timeslot_booking.date')
+        ->get();
+        return view('View_timeslot')->with('timeslot', $result);
+    }
+    
+
+    
     
 
 }

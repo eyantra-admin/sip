@@ -42,11 +42,12 @@ class SipRegistration extends Controller {
 
 	public function sip_student($userid)
 	{
-		$student = OnlineProfile::where('userid',$userid)->first();
+		
+		$student = OnlineProfile::where('userid',Crypt::decrypt($userid))->first();
 
-		$project = StudentProjDtls::where('userid',$userid)->first();
-		$exp = ExperienceDtls::where('userid',$userid)->get();
-		$file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
+		$project = StudentProjDtls::where('userid',Crypt::decrypt($userid))->first();
+		$exp = ExperienceDtls::where('userid',Crypt::decrypt($userid))->get();
+		$file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.Crypt::decrypt($userid).'_MOOC.pdf');
 		return view('SipRegistration_student')->with('student',$student)->with('project',$project)->with('exp',$exp)->with('file',$file);
 	}
 	public function ViewMyRegistration($userid)

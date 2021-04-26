@@ -65,6 +65,20 @@
         </a>
       </li>
     @endif
+    @if( Auth::user()->id == 2)
+    <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
+      <a class="nav-link" href="{{ route('viewpreferences') }}">
+        <i class="material-icons">content_paste</i>
+          <p>{{ __('View Project Preferences') }}</p>
+      </a>
+    </li>
+    <li class="nav-item{{ $activePage == 'viewtimeslot' ? ' active' : '' }}">
+      <a class="nav-link" href="{{ route('viewtimeslot') }}">
+        <i class="material-icons">content_paste</i>
+          <p>{{ __('View Timeslot Bookings') }}</p>
+      </a>
+    </li>
+    @endif
       <!-- <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('icons') }}">
           <i class="material-icons">bubble_chart</i>

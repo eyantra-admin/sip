@@ -89,7 +89,7 @@ table.myFormat tr td { font-size: 13px; }
 				<tr>
 					<td>{{ $i }}</td>
 					<!-- <td><a href="SipStudent?user={{$stu->userid}}" target="_blank"><font color="#9742ff">{{ $stu->name}}</td> -->
-						<td><a href="/SipStudent/{{ $stu->userid }}" target="_blank"><font color="#9742ff">{{ $stu->name}}</font></a></td>
+						<td><a href="/SipStudent/{{Crypt::encrypt($stu->userid)}}" target="_blank"><font color="#9742ff">{{ $stu->name}}</font></a></td>
 					<td>{{ $stu->phone}}</td>
 					<td>{{ $stu->email}}</td>
 					<td>{{ $stu->college}}</td>
