@@ -33,7 +33,7 @@
                       <tr>
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->userid}}</b></td>
-                        <td><b><a href="/SipStudent/{{ $cur->userid }}" target="_blank">{{ $cur->name}}</a></b></td>
+                         <td><b><a href="/SipStudent/{{Crypt::encrypt($cur->userid)}}" target="_blank">{{ $cur->name}}</a></b></td>
                         <td><b>{{$cur->P1name}}</b></td>
                         <td><b>{{$cur->P2name}}</b></td>
                         <td><b>{{$cur->P3name}}</b></td>
