@@ -103,8 +103,17 @@ function downloadCSV(csv, filename) {
 <script>
   
   $(document).ready(function(){
-     $('#timeslot_table').DataTable();
+     $('#timeslot_table').DataTable(
+      {
+         // Sets the row-num-selection "Show %n entries" for the user
+        "lengthMenu": [ 25, 50, 75, 100, 125,150, 175,200,250 ], 
+        
+        // Set the default no. of rows to display
+        "pageLength": 50 
+      });
+    
   });
+
   
 </script>
 @endpush
