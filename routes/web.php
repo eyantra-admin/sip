@@ -73,6 +73,12 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('project', ['as' => 'project.preference', 'uses' => 'HomeController@projectpreference']);
 	Route::put('project', ['as' => 'project.preferenceupdate', 'uses' => 'HomeController@preferenceupdate']);
 	Route::any('/projectdetail/{projectid}','HomeController@getprojectdetail');
+	
+	Route::any('/viewpreferences', ['as'=>'viewpreferences','uses'=>'HomeController@viewpreferences'
+	]);
+	Route::any('/viewtimeslot', ['as'=>'viewtimeslot','uses'=>'HomeController@viewtimeslot'
+	]);
+	
 
 	Route::get('timeslotbooking', ['as' => 'timeslotbooking', 'uses' => 'HomeController@timeslotbooking']);
 	Route::any('gettimeslot', ['as' => 'gettimeslot', 'uses' => 'HomeController@gettimeslot']);

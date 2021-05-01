@@ -9,14 +9,12 @@
         </div>
         @if($form_submitted != 1)
           <div class="card-body">
-            <h4 class="card-title"><b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
+            <!-- <h4 class="card-title"><b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
             <br><br>
             <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
             <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
-            <!--  <p class="card-text"><b>NOTE:</b> If you have already participated in any of the MOOC Cources, create a single file of all Certificate images / Progress (online screenshot) compiled in one PDF.<br> You need to upload the PDF while submitting your form.</p> -->
-
-             <!-- <p>We will start the registrations soon. You will be notified for the same.</p> -->
-            <a href="/SipRegistration" class="btn btn-primary">Fill Form</a>
+           
+            <a href="/SipRegistration" class="btn btn-primary">Fill Form</a> -->
           </div>
         @else
           <div class="card-body">

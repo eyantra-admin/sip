@@ -8,9 +8,9 @@
             <h4 class="card-title">{{ __('Disclaimers') }}</h4>
         </div>
         <div class="card-body">
-          <h3><b>1) Please only choose the projects that you feel you are qualified to do. Do not select a project, just because you want to learn a skill/technology stack.<br><br>
+          <h4><b>1) Please only choose the projects that you feel you are qualified to do. Do not select a project, just because you want to learn a skill/technology stack.<br><br>
             2) Internship Projects are allocated based on a number of factors such as skill level of candidates, number of vacancies in any particular project etc. It is possible that you may not be allocated a project out of your 5 given choices. We strive to find the best fit for each project, and try to do that by thoroughly assessing the candidate's skills during the internship. No requests for changing project once allocated will be  entertained.
-          </b></h3>
+          </b></h4>
         </div>
       </div>
 
@@ -36,6 +36,27 @@
         </div>
       @endif
 
+      <!-- ------Show names of selected projects------- -->
+      @if($proj_prefer == 1)
+        <div class="card">
+          <div class="card-header card-header-primary">
+              <h4 class="card-title">{{ __('The projects you prefered') }}</h4>
+          </div>
+          <div class="card-body">
+           <h3><b>You have selected following projects:</b></h3><br>
+           <ol>
+             <h3><b><li>{{$project1}}</b></h3></li>
+             <h3><b><li>{{$project2}}</b></h3></li>
+             <h3><b><li>{{$project3}}</b></h3></li>
+             <h3><b><li>{{$project4}}</b></h3></li>
+             <h3><b><li>{{$project5}}</b></h3></li>
+           </ol>
+          
+          </div>
+        </div>
+      @endif
+
+<!------------ Project list --------------->
       <div class = "row">
         <div class="col-md-12" style="margin-top: 25px">
           <div class="card">
@@ -57,7 +78,7 @@
                         <td>{{$key+1}}</td>
                         <td>{{$cur->projectname}}</td>
                         <!-- <td>{{$cur->projectdesc}}</td> -->
-                        <td><a href="projectdetail/{{ $cur->id }}" target="_blank">View Detail</a></td>
+                        <td><a href="projectdetail/{{Crypt::encrypt($cur->id)}}" target="_blank">View Detail</a></td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -69,6 +90,7 @@
       </div>
 
       <!-- ------Preference table------- -->
+      @if($proj_prefer == 0)
       <div class="col-md-12" style="margin-top: 100px">
         <form method="post" action="{{ route('project.preferenceupdate') }}" autocomplete="off" class="form-horizontal">
           @csrf
@@ -80,8 +102,8 @@
               <p class="card-category">{{ __('Select your project preferences based on the skills you acquire') }}</p>
             </div>
             <div class="card-body">
-              <h3>Please select 5 different projects below. </h3><br>
-              <h3>Please apply due deligence while adding project preferences. Preferences once added cannot be modified.</h3><br>
+              <h3><b>Please select 5 different projects below.</b> </h3><br>
+              <h3><b>Please apply due deligence while adding project preferences. Preferences once added cannot be modified.</b></h3><br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 1') }}</label>
                 <div class="col-sm-7">
@@ -173,35 +195,7 @@
           </div>
         </form>
       </div> 
+      @endif
     </div>
   </div>
 @endsection
-<!-- <script type="text/javascript">
-  
-function GetSelectedValues(value)
-{
-  var val;
-  val.push(value);
-  alert(val)
-  let _token   = $('meta[name="csrf-token"]').attr('content');
-  if(date != ' ')
-  {
-      $.ajax({
-        type    : 'POST',
-        url     : '/gettimeslot',
-        data    : { _token: _token, date: date, panel: panel},
-        dataType: 'json',
-      }).done(function (data) {
-        $('#timeslot').empty();
-       $('#timeslot').append($('<option>').text('--Select timeslot--').attr( {'value': '', 'selected': true} ) );
-        for(var i = 0; i < data.length; i++)
-        {
-          $('#timeslot').append($('<option>').text(data[i]).attr('value', data[i]));
-        }
-
-      }).fail(function () {
-          alert('Sorry, No Slots available.');
-      });
-  }
-}
-</script> -->

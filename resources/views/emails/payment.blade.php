@@ -28,7 +28,7 @@
                 </tr>
             </table>
            
-            <p>For any queries, please contact us at <b>resources@e-yantra.org</b> <p>
+            <p>For any queries, please contact us at <b>eysip@e-yantra.org</b> <p>
             <p>
             	Best wishes,<br/>
                 e-Yantra Team

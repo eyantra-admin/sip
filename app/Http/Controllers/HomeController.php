@@ -12,6 +12,7 @@ use App\Model\UserPanel;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Crypt;
 use Log;
 use DB;
 use Auth;
@@ -88,8 +89,31 @@ class HomeController extends Controller
     public static function projectpreference(Request $request)
     {
         $projects = Projects::select('id','projectname')->orderBy('projectname')->get();
-        return view ('project.preference')
-        ->with('projects', $projects);
+        $proj_prefer = StudentProjPrefer ::where('userid', Auth::user()->id)->count();
+        if($proj_prefer == 0)
+        {
+            return view ('project.preference')
+            ->with('proj_prefer',$proj_prefer)
+            ->with('projects', $projects);
+        }
+        else
+        {
+            $selected_projects = StudentProjPrefer ::where('userid', Auth::user()->id)->first();
+            log::info($selected_projects);
+            $project1 = Projects::where('id' ,$selected_projects->projectprefer1)->value('projectname');
+            $project2 = Projects::where('id' ,$selected_projects->projectprefer2)->value('projectname');
+            $project3= Projects::where('id' ,$selected_projects->projectprefer3)->value('projectname');
+            $project4 = Projects::where('id' ,$selected_projects->projectprefer4)->value('projectname');
+            $project5 = Projects::where('id' ,$selected_projects->projectprefer5)->value('projectname');
+            return view ('project.preference')
+            ->with('project1', $project1)
+            ->with('project2', $project2)
+            ->with('project3', $project3)
+            ->with('project4', $project4)
+            ->with('project5', $project5)
+            ->with('proj_prefer',$proj_prefer)
+            ->with('projects', $projects);
+        }
     }
 
     public static function preferenceupdate(Request $request)
@@ -119,7 +143,7 @@ class HomeController extends Controller
             //Check if profile is submitted, if yes then only proceed with adding preferences
             if(Auth::user()->profilesubmitted == 0)
             {
-                return back()->withErrors(__('You have not submitted your profile. submit the form & then proceed with adding preferences.'));
+                return back()->withErrors(__('You have not submitted your profile.'));
             }
             else
             {
@@ -138,9 +162,6 @@ class HomeController extends Controller
                     log::info($chkarr);
                     $unique_values = count(array_count_values($chkarr));
                     log::info($unique_values);
-                    // $count = array_count_values($unique_values);
-                    // log::info($count);
-
                     if($unique_values == 5)
                     {
                         $user = StudentProjPrefer::where('userid', '=', $userid)->first();
@@ -162,17 +183,8 @@ class HomeController extends Controller
                              return back()->withErrors(__('Project preferences for this user already exists.'));
                         }
                     }
-                    // if($prefer2 == $prefer1 || $prefer2 == $prefer3)
-                    // {
-                    //     return back()->withErrors(__('All project preferences must be unique.'));
-                    // }
-                    // elseif ($prefer3 == $prefer1 || $prefer3 == $prefer2) {
-                    //     return back()->withErrors(__('All project preferences must be unique.'));
-                    // }
                     else
                     {
-                        // $post = StudentProjPrefer::create( $request->all() );
-                      
                         return back()->withErrors(__('All project preferences must be unique.'));
                     }           
                 }
@@ -187,7 +199,8 @@ class HomeController extends Controller
     public static function getprojectdetail($projectid)
     {
         log::info($projectid);
-        $getproject_dtl = Projects::where('id', $projectid)->first();
+        $getproject_dtl = Projects::where('id',Crypt::decrypt($projectid))->first();
+        //$getproject_dtl = Projects::where('id', $projectid)->first();
         log::info($getproject_dtl);
         return view('project.projectdetail')
         ->with('projectdtl', $getproject_dtl);
@@ -201,9 +214,27 @@ class HomeController extends Controller
         $dates = TimeslotBooking::select('date')->distinct()
                                 ->where('panel', $panel)
                                 ->orderBy('date')->get(); //get panel dates
-        return view ('timeslotbooking')
-        ->with('dates', $dates)
-        ->with('panel',$panel);
+        $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
+        if($already_booked == 0)
+            {
+                return view ('timeslotbooking')
+                ->with('dates', $dates)
+                ->with('panel',$panel)
+                ->with('UserBooked_slots', 0)
+                ->with('already_booked', $already_booked);
+            }
+            else
+            {
+                $UserBooked_slots = TimeslotBooking::where('userid', Auth::user()->id)->first();
+                log::info($UserBooked_slots);  
+                return view ('timeslotbooking')
+                ->with('dates', $dates)
+                ->with('panel',$panel)
+                ->with('UserBooked_slots', $UserBooked_slots)
+                ->with('already_booked', $already_booked);
+            }
+
+           
     }
 
     public static function gettimeslot(Request $request)
@@ -241,17 +272,33 @@ class HomeController extends Controller
         }
         else
         {   
-            log::info($request->date);
-            log::info($request->timeslot);
-            $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
-            log::info($panel);
-            //update student id and flag in table where date ,slot and panel is matched
-            $booking = DB::table('timeslot_booking')
-                  ->where('date', $request->date)
-                  ->where('availableslots', $request->timeslot)
-                  ->where('panel', $panel)
-                  ->update(['userid' => Auth::user()->id, 'availableflag' => 0]);
-            return back()->withStatus(__('Timeslot booked successfully.'));
+             //Check if profile is submitted, if yes then only proceed with adding preferences
+            if(Auth::user()->profilesubmitted == 0)
+            {
+                return back()->withErrors(__('You have not submitted your profile. Time slot booking is not allowed'));
+            }
+            else
+            {
+                log::info($request->date);
+                log::info($request->timeslot);
+                $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
+                log::info($panel);
+                //update student id and flag in table where date ,slot and panel is matched
+                $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
+                if($already_booked == 0)
+                {
+                    $booking = DB::table('timeslot_booking')
+                      ->where('date', $request->date)
+                      ->where('availableslots', $request->timeslot)
+                      ->where('panel', $panel)
+                      ->update(['userid' => Auth::user()->id, 'availableflag' => 0]);
+                    return back()->withStatus(__('Timeslot booked successfully.'));
+                }
+                else
+                {
+                    return back()->withErrors(__('You have already booked the timeslot.'));
+                }
+            }
         }
     }
 
@@ -259,6 +306,39 @@ class HomeController extends Controller
     {
        return view('upload'); 
     }
+
+    public static function viewpreferences(Request $request)
+    {
+        $result = StudentProjPrefer::select('studentprojprefer.userid','o.name',
+         'studentprojprefer.projectprefer1','p1.projectname as P1name',
+         'studentprojprefer.projectprefer2','p2.projectname as P2name', 
+         'studentprojprefer.projectprefer3','p3.projectname as P3name',
+         'studentprojprefer.projectprefer4','p4.projectname as P4name',
+         'studentprojprefer.projectprefer5','p5.projectname as P5name')
+        ->join('online_profile_response as o', 'o.userid', '=', 'studentprojprefer.userid')
+        ->join('projects as p1','p1.id', '=', 'studentprojprefer.projectprefer1')
+        ->join('projects as p2','p2.id', '=', 'studentprojprefer.projectprefer2')
+        ->join('projects as p3','p3.id', '=', 'studentprojprefer.projectprefer3')
+        ->join('projects as p4','p4.id', '=', 'studentprojprefer.projectprefer4')
+        ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
+        ->orderBy('studentprojprefer.userid')
+        ->get();
+        log::info($result);
+        return view('View_preferences')->with('preference', $result);
+    }
+
+    public static function viewtimeslot(Request $request)
+    {
+        $result = TimeslotBooking::select('timeslot_booking.panel','timeslot_booking.userid',
+            'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots')
+        ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
+        ->orderBy('timeslot_booking.date')
+        ->get();
+        return view('View_timeslot')->with('timeslot', $result);
+    }
+    
+
+    
     
 
 }
