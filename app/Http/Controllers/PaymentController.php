@@ -15,9 +15,7 @@ use GuzzleHttp\Exception\ClientException;
 use App\Model\Payment;
 use App\Model\ServerConf;
 use App\User;
-// use App\Model\CoursePaymentDetails;
-// use App\Model\TeamMemberDetails;
-// use App\Model\TeamCourseMap;
+
 
 use App\Mail\PaymentEmail;
 
@@ -412,9 +410,12 @@ class PaymentController extends Controller
                 if($param[0] == 'msg'){
                     $data['msg'] = $param[1];
                 }
+                if($param[0] == 'purpose'){
+                    $data['purpose'] = $param[1];
+                }
             }
         }
-        $payment = Payment::where(['payer_user_id' => $data['userId'],'req_id'=>$data['reqId']])->first();
+        $payment = Payment::where(['payer_user_id' => $data['userId']])->first();
 
         if($payment){
             //update payment details
@@ -489,10 +490,13 @@ class PaymentController extends Controller
                 if($param[0] == 'msg'){
                     $data['msg'] = $param[1];
                 }
+                if($param[0] == 'purpose'){
+                    $data['purpose'] = $param[1];
+                }
             }
         }
         Log::info('USER iS: '.$data['userId']);
-        $payment = Payment::where(['payer_user_id' => $data['userId'],'req_id'=>$data['reqId']])->first();
+        $payment = Payment::where(['payer_user_id' => $data['userId']])->first();
 
 
         if($payment){
@@ -564,33 +568,18 @@ class PaymentController extends Controller
                     if($data == null || count($data) == 0)
                      return response()->json(['msg'=>'NO IR response available' ],200);
 
-                    $pay_data=null;
-                   
-                    //in case there are multiple transactions returning then map the request id from DB : mostly there will be one. The code is made generic to handle multiple transactions (especially incase of mooc)
-                    foreach($data as $single_obj ){
-                        if($single_obj->reqId == $payment->req_id )
-                        {
-                            $pay_data=$single_obj;
-                            break;
-                        }
-                    }
-                    if($pay_data==null)
-                    {
-                        Log::info("Error while requesting immediate response for user id: ".$payment->payer_user_id);
-                        Log::info('Couldnt find the matching reqId');
-                        return response()->json(['error'=>'Request ID not found. Check logs.'], 400);
-                    }
+                 
                     
                     
                     if( $payment->status == null  || $payment->status == 'F' || $payment->status == 'X'){
-                        Log::info($pay_data->status);
+                        
                         //update the table payment
-                        $payment->status =   $pay_data->status;
-                        $payment->trans_id = $pay_data->transId;
-                        $payment->ref_no =  $pay_data->refNo;
-                        $payment->trans_date = new  DateTime($pay_data->transDateTime);
-                        $payment->remark = $pay_data->msg;
-                        $payment->req_id = $pay_data->reqId;
+                        $payment->status =   $data[0]->status;
+                        $payment->trans_id = $data[0]->transId;
+                        $payment->ref_no =  $data[0]->refNo;
+                        $payment->trans_date = new  DateTime($data[0]->transDateTime);
+                        $payment->remark = $data[0]->msg;
+                        $payment->req_id = $data[0]->reqId;
                         $payment->save();
                     }
                     if($payment->status == 'S'){
@@ -652,35 +641,16 @@ class PaymentController extends Controller
 
                     if($data == null || count($data) == 0)
                         return response()->json(['msg'=>'NO recon response available' ],200);
-
-                    $pay_data=null;
-                   
-                    //if there are multiple payments match the transaction with reqid
-                    //in case there are multiple transactions returning then map the request id from DB : mostly there will be one. The code is made generic to handle multiple transactions (especially incase of mooc)
-                    foreach($data as $single_obj ){
-
-                        if($single_obj->reqId == $payment->req_id )
-                        {
-                            $pay_data=$single_obj;
-                            break;
-                        }
-                    }
-                    if($pay_data==null)
-                    {
-                        Log::info("Error while requesting immediate response for user id: ".$payment->payer_user_id);
-                        Log::info('Couldnt find the matching reqId');
-                        return response()->json(['error'=>'Request ID not found. Check logs.'], 400);
-                    }    
                    
                     if($payment->status == null || $payment->status == "F" || $payment->status == "X") 
                     {    //update the table payment
-                        $payment->trans_id = $pay_data->transId;
-                        $payment->amount=$pay_data->totalAmt;
-                        $payment->ref_no =  $pay_data->refNo;
-                        $payment->req_id = $pay_data->reqId;
+                        $payment->trans_id = $data[0]->transId;
+                        $payment->amount= $data[0]->totalAmt;
+                        $payment->ref_no =   $data[0]->refNo;
+                        $payment->req_id =  $data[0]->reqId;
                         $payment->remark = "Transaction Successful";
-                        $payment->recon_date=new DateTime($pay_data->reconDateTime);
-                        $payment->prov_id=$pay_data->provId;
+                        $payment->recon_date=new DateTime($data[0]->reconDateTime);
+                        $payment->prov_id= $data[0]->provId;
                         $payment->reconciled =1 ;
                         $payment->save();
 
