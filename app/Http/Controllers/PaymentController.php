@@ -556,6 +556,7 @@ class PaymentController extends Controller
             }
             else{
                 $payment->reconciled =1;
+                $payment->remark = "Transaction Successful";
                 $payment->recon_date=$data['reconDateTime'];
                 $payment->prov_id=$data['provId'];
                 $payment->save();
@@ -698,6 +699,7 @@ class PaymentController extends Controller
                     }   
                     else{
                         $payment->reconciled =1;
+                        $payment->remark = "Transaction Successful";
                         $payment->recon_date=$data[0]->reconDateTime;
                         $payment->prov_id=$data[0]->provId;
                         $payment->save();
