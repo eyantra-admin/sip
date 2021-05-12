@@ -65,13 +65,19 @@
         </a>
       </li>
       @if(Auth::user()->selected == 1)
-      <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
+      <!-- <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('paymentpage') }}">
           <i class="material-icons">Payment</i>
             <p>{{ __('Internship Fee Payment') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage == 'nda' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('nda') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('NDA') }}</p>
+        </a>
+      </li> -->
+      <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('survey') }}">
           <i class="material-icons">list</i>
             <p>{{ __('Pre-Internship Survey') }}</p>
@@ -82,7 +88,7 @@
           <i class="material-icons">language</i>
             <p>{{ __('FAQ') }}</p>
         </a>
-      </li>
+      </li> -->
       @endif 
     @endif
     @if( Auth::user()->id == 2)
