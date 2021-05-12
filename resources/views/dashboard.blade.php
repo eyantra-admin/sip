@@ -164,8 +164,8 @@ a.portfolio-link {
           <!-- </div>
         @endif -->
 
-        @if(Auth::user()->selected == 1)
-        <!-- <div>
+       <!--  @if(Auth::user()->selected == 1)
+        <div>
           <center>
             <h2><b>
               Congratulations !!!<br>
