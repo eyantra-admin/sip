@@ -164,7 +164,7 @@ a.portfolio-link {
           <!-- </div>
         @endif -->
 
-        @if(Auth::user()->selected == 1)
+       <!--  @if(Auth::user()->selected == 1)
         <div>
           <center>
             <h2><b>
@@ -179,9 +179,9 @@ a.portfolio-link {
                 Project Description : {{$project_alloted[0]->abstract}} <br>
               </p>
           </b></h3>
-          </div>
+          </div> -->
 
-          <section id="timeline" class="timeline-outer">
+          <!-- <section id="timeline" class="timeline-outer">
             <div class="container" id="content">
               <div class="row">
                 <div class="col-lg-12">
@@ -198,16 +198,7 @@ a.portfolio-link {
                         You are required to pay the Internship fee of ₹5,000/- Please use the “Internship Fee Payment” tab to do so.
                       </p>
                     </li>
-                    <li class="event" data-date="Survey">
-                       @if(Auth::user()->survey_done == 0)
-                      <h3 style="color: Red"><b>Pre-Internship Survey</b></h3>
-                      @else
-                      <h3 style="color: Green"><b>Pre-Internship Survey</b></h3>
-                      @endif
-                      <p>
-                        Please use the Pre-Internship Survey Tab to do so.
-                      </p>
-                    </li>
+                    
                     <li class="event" data-date="NDA">
                        @if(Auth::user()->nda_done == 0)
                       <h3 style="color: Red"><b>Submit NDA</b></h3>
@@ -223,10 +214,20 @@ a.portfolio-link {
                       @else
                       <h3 style="color: Green"><b>LoR (Letter of Recommendation)</b></h3>
                       @endif
-                      <p>Mail from Professor</p>
-                    </li>
+                      <p>If your professor has sent an email, please wait for 2-3 days for status to be updated here.</p>
+                    </li> -->
+                    <!-- <li class="event" data-date="Survey">
+                       @if(Auth::user()->survey_done == 0)
+                      <h3 style="color: Red"><b>Pre-Internship Survey</b></h3>
+                      @else
+                      <h3 style="color: Green"><b>Pre-Internship Survey</b></h3>
+                      @endif
+                      <p>
+                        Please use the Pre-Internship Survey Tab to do so.
+                      </p>
+                    </li> -->
                     
-                  </ul>
+                  <!-- </ul>
                 </div>
               </div>
             </div>
@@ -241,7 +242,7 @@ a.portfolio-link {
           </b></h2>
         </center>
         @endif  
-    </div>
+    </div> -->
        
   </div>
 
