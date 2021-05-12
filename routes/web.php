@@ -116,6 +116,20 @@ Route::any('/submitsurvey', ['as'=>'submitsurvey','uses'=>'HomeController@submit
 Route::any('/faq', ['as'=>'faq','uses'=>'HomeController@faq'])->middleware('auth');
 Route::any('/nda', ['as'=>'nda','uses'=>'HomeController@nda'])->middleware('auth');
 Route::any('/submitnda', ['as'=>'submitnda','uses'=>'HomeController@submitnda'])->middleware('auth');
+
+Route::get('/all-nda', [
+	'middleware'	=>	'auth',
+	'as'			=>	'nda_all',
+	'uses'			=>	'HomeController@listAllnda'
+	]);
+
+// Route::get('/download-nda/{id}', [
+// 	'middleware'	=>	'auth',
+// 	'as'			=>	'download_nda_all',
+// 	'uses'			=>	'HomeController@downloadNDA'
+// 	]);
+
+
 	Route::any('/getstatewiseColleges', [
 	'as'			=>	'getstatewiseColleges',
 	'uses'			=>	'HomeController@getstatewiseColleges'

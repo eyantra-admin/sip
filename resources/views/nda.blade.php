@@ -130,3 +130,12 @@
   </div>
 </div>
 @endsection
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145861739-15"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145861739-15');
+</script>

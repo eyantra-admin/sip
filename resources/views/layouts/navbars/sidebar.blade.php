@@ -66,7 +66,7 @@
       </li>
     @endif
 
-    @if( Auth::user()->id == 2 && Auth::user()->selected == 1)
+    @if(Auth::user()->selected == 1)
         <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('paymentpage') }}">
             <i class="material-icons">Payment</i>
@@ -79,6 +79,7 @@
               <p>{{ __('NDA') }}</p>
           </a>
         </li>
+    @endif
       
         <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('survey') }}">
@@ -92,18 +93,25 @@
               <p>{{ __('FAQ') }}</p>
           </a>
         </li> -->
-    <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
-      <a class="nav-link" href="{{ route('viewpreferences') }}">
-        <i class="material-icons">content_paste</i>
-          <p>{{ __('View Project Preferences') }}</p>
-      </a>
-    </li>
-    <li class="nav-item{{ $activePage == 'viewtimeslot' ? ' active' : '' }}">
-      <a class="nav-link" href="{{ route('viewtimeslot') }}">
-        <i class="material-icons">content_paste</i>
-          <p>{{ __('View Timeslot Bookings') }}</p>
-      </a>
-    </li>
+    @if(Auth::user()->id == 2)
+      <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('viewpreferences') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View Project Preferences') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'viewtimeslot' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('viewtimeslot') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View Timeslot Bookings') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'listnda' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('nda_all') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View NDA Submissions') }}</p>
+        </a>
+      </li>
     @endif
     </ul>
   </div>

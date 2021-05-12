@@ -441,7 +441,7 @@ class HomeController extends Controller
                       ->where('id', Auth::user()->id)
                       ->update(['nda_done' => 1]);
                     
-                    return back()->withStatus(__('NDA submitted successfully.'));
+                    return redirect()->route('home')->withStatus(__('NDA submitted successfully.'));
                 }
                 else
                 {
@@ -449,6 +449,26 @@ class HomeController extends Controller
                 }
             }
     }
+
+    public function listAllnda() 
+    {
+        $list_ndas = EysipUploads::select('name','email', 'project_alloted', 'p.projectname')
+        ->join('users as u','u.id','=','sipuploads.userid')
+        ->join('projects as p', 'p.id', '=','u.project_alloted')
+        ->get();
+        Log::info($list_ndas);
+        return view('listNDA',compact('list_ndas'));
+    }
+
+    // public function downloadNDA($id)
+    // {
+    //     $nda_data=EysipUploads::find($id);
+    //     Log::info($nda_data);
+    //     $pdf = \App::make('dompdf.wrapper');
+
+    //     $pdf = PDF::loadView('nda_template', ['nda_data'=>$nda_data]);
+    //     return view('resources.nda_template', compact('nda_data'));
+    // }
     
     
     

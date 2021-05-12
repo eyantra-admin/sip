@@ -130,6 +130,28 @@ a.portfolio-link {
 @section('content')
   <div class="content">
     <div class="container-fluid">
+       @if($errors->any())
+      <div class="alert alert-danger" role='alert'>
+      @foreach($errors->all() as $error)
+      <p>{!!$error!!}</p>
+      @endforeach
+      </div>
+      <hr/>
+      @endif
+
+      @if (session('status'))
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="alert alert-success">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <i class="material-icons">close</i>
+              </button>
+              <center><span>{{ session('status') }}</span></center>
+            </div>
+          </div>
+        </div>
+      @endif
+
       <div class="card card-nav-tabs">
         <div class="card-header card-header-warning">
           <b>Welcome to eYSIP</b>
@@ -141,9 +163,9 @@ a.portfolio-link {
             <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
             <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
            
-            <a href="/SipRegistration" class="btn btn-primary">Fill Form</a> -->
+            <a href="/SipRegistration" class="btn btn-primary">Fill Form</a> 
           </div>
-        <!-- @else
+         @else
           <div class="card-body">
             <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
               <p>To view your registration, Click the below button</p>
@@ -164,7 +186,7 @@ a.portfolio-link {
           <!-- </div>
         @endif -->
 
-        @if(Auth::user()->id == 2 && Auth::user()->selected == 1 )
+        @if(Auth::user()->selected == 1 )
         <div>
           <center>
             <h2><b>
@@ -234,13 +256,13 @@ a.portfolio-link {
           </section>
         </div>
         @else
-        <!-- <center>
+        <center>
           <h2><b>
             Sorry !!!<br>
             We regret to inform you that you haven't been selected for eYSIP.<br>
             We wish you all the best for future endeavours!
           </b></h2>
-        </center> -->
+        </center>
         @endif  
     </div>
        
@@ -257,6 +279,15 @@ a.portfolio-link {
       md.initDashboardPageCharts();
     });
   </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-145861739-15"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-145861739-15');
+        </script>
 
 
 @endpush
