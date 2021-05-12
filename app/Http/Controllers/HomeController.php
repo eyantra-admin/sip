@@ -9,6 +9,7 @@ use App\Model\StudentProjPrefer;
 use App\User;
 use App\Model\TimeslotBooking;
 use App\Model\UserPanel;
+use App\Model\EysipUploads;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
@@ -17,6 +18,8 @@ use Log;
 use DB;
 use Auth;
 use Validator;
+use Config;
+use Storage;
 
 class HomeController extends Controller
 {
@@ -361,6 +364,93 @@ class HomeController extends Controller
     {
         return view('faq');
     }
+    public static function nda()
+    {
+        return view('nda');
+    }
+
+    public function submitnda(Request $request)
+    {
+        log::info($request->all());
+        $validator = Validator::make($request->all(), [
+            'photo' => 'required|mimes:jpeg,jpg,png|required|max:10000',
+            'signature' => 'required|mimes:jpeg,jpg,png|required|max:10000',
+            'pancard' => 'required|mimes:jpeg,jpg,png|required|max:10000',
+            'conduct' => 'required',                        
+            ],
+            [
+            'photo' => 'Photograph is required!',
+            'signatures' => 'Digital signature is required',
+            'pancard' => 'Pan card is required',
+            'conduct' => 'I agree not selected!',
+            ]);
+
+            if($validator->fails())
+            {
+                return back()->withErrors($validator);
+            }
+            else
+            {   
+                $feed = new EysipUploads;
+                
+                $feed->userid = Auth::user()->id;
+                $feed->photo = $request->photo;
+                $feed->signature = $request->signature;
+                $feed->pancard = $request->pancard;
+                $feed->conduct = $request->conduct;
+
+                if($request->hasFile('photo') && $request->hasFile('pancard') 
+                    && $request->hasFile('signature'))
+                {
+                    log::info('inside');
+                    $format1 = strtolower($request->photo->getClientOriginalExtension());
+                    $format2 = strtolower($request->pancard->getClientOriginalExtension());
+                    $format3 = strtolower($request->signature->getClientOriginalExtension());
+                    
+                    $size1 = $request->file('photo')->getSize();
+                    $size2 = $request->file('pancard')->getSize();
+                    $size3 = $request->file('signature')->getSize();
+                    //Log::info($size);
+                if($size1 > 2097152 ||  $size2 > 2097152 || $size3 > 2097152)
+                {
+                    return back()->withErrors(__('Unable to upload the image. File size is more than 1 MB.'));
+                }
+                    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $random_str = substr(str_shuffle($permitted_chars), 0, 7);
+                    
+                    $userid = Auth::user()->id;
+
+                    $file1 = $request->photo;
+                    $newfilename1 = $userid.'_photo.'. $format1;
+                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file1,$newfilename1);
+
+                    $file2 = $request->signature;
+                    $newfilename2 = $userid.'_sign.'. $format2;
+                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file2,$newfilename2);
+
+                    $file3 = $request->pancard;
+                    $newfilename3 = $userid.'_pan.'. $format3;
+                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file3,$newfilename3);
+
+                    $feed->photo = $userid. '_photo.' .$format1;
+                    $feed->signature = $userid. '_sign.' .$format2;
+                    $feed->pancard = $userid. '_pan.' .$format3;
+                    $feed->save();
+
+                    $updatenda = DB::table('users')
+                      ->where('id', Auth::user()->id)
+                      ->update(['nda_done' => 1]);
+                    
+                    return back()->withStatus(__('NDA submitted successfully.'));
+                }
+                else
+                {
+                   return back()->withErrors(__('Something wrong'));
+                }
+            }
+    }
+    
+    
     
 
     

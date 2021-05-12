@@ -164,7 +164,7 @@ a.portfolio-link {
           <!-- </div>
         @endif -->
 
-       <!--  @if(Auth::user()->selected == 1)
+        @if(Auth::user()->id == 2 && Auth::user()->selected == 1 )
         <div>
           <center>
             <h2><b>
@@ -179,9 +179,9 @@ a.portfolio-link {
                 Project Description : {{$project_alloted[0]->abstract}} <br>
               </p>
           </b></h3>
-          </div> -->
+          </div>
 
-          <!-- <section id="timeline" class="timeline-outer">
+          <section id="timeline" class="timeline-outer">
             <div class="container" id="content">
               <div class="row">
                 <div class="col-lg-12">
@@ -215,7 +215,7 @@ a.portfolio-link {
                       <h3 style="color: Green"><b>LoR (Letter of Recommendation)</b></h3>
                       @endif
                       <p>If your professor has sent an email, please wait for 2-3 days for status to be updated here.</p>
-                    </li> -->
+                    </li>
                     <!-- <li class="event" data-date="Survey">
                        @if(Auth::user()->survey_done == 0)
                       <h3 style="color: Red"><b>Pre-Internship Survey</b></h3>
@@ -227,22 +227,22 @@ a.portfolio-link {
                       </p>
                     </li> -->
                     
-                  <!-- </ul>
+                  </ul>
                 </div>
               </div>
             </div>
           </section>
         </div>
         @else
-        <center>
+        <!-- <center>
           <h2><b>
             Sorry !!!<br>
             We regret to inform you that you haven't been selected for eYSIP.<br>
             We wish you all the best for future endeavours!
           </b></h2>
-        </center>
+        </center> -->
         @endif  
-    </div> -->
+    </div>
        
   </div>
 

@@ -52,7 +52,7 @@
       </li> -->
 
     @if( Auth::user()->profilesubmitted == 1)
-       <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('project.preference') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Project Preferences') }}</p>
@@ -64,9 +64,34 @@
             <p>{{ __('Interview Slot') }}</p>
         </a>
       </li>
-      
     @endif
-    @if( Auth::user()->id == 2)
+
+    @if( Auth::user()->id == 2 && Auth::user()->selected == 1)
+        <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('paymentpage') }}">
+            <i class="material-icons">Payment</i>
+              <p>{{ __('Internship Fee Payment') }}</p>
+          </a>
+        </li>
+        <li class="nav-item{{ $activePage == 'nda' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('nda') }}">
+            <i class="material-icons">content_paste</i>
+              <p>{{ __('NDA') }}</p>
+          </a>
+        </li>
+      
+        <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('survey') }}">
+            <i class="material-icons">list</i>
+              <p>{{ __('Pre-Internship Survey') }}</p>
+          </a>
+        </li>
+        <li class="nav-item{{ $activePage == 'faq' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('faq') }}">
+            <i class="material-icons">language</i>
+              <p>{{ __('FAQ') }}</p>
+          </a>
+        </li> -->
     <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
       <a class="nav-link" href="{{ route('viewpreferences') }}">
         <i class="material-icons">content_paste</i>
@@ -80,7 +105,12 @@
       </a>
     </li>
     @endif
-      <!-- <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
+    </ul>
+  </div>
+</div>
+
+
+<!-- <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('icons') }}">
           <i class="material-icons">bubble_chart</i>
           <p>{{ __('Result') }}</p>
@@ -110,6 +140,3 @@
           <p>{{ __('Upgrade to PRO') }}</p>
         </a>
       </li> -->
-    </ul>
-  </div>
-</div>

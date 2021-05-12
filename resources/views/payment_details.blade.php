@@ -10,7 +10,11 @@
             </div>
             @if($enable_button)
             <div class="card-body">
-                <h3>You are required to pay an amount of <span style="font-weight:bold;color:teal">INR {{$fee}} ONLY </span></h3>
+                <h3>
+                    The internship fee is required to be paid for the resources and mentorship e-Yantra provides during the period of eYSIP-2021. Upon the successful completion of the project allotted to you, you will be awarded with an honorarium (along with internship certificate) which will compensate you sufficiently for the internship fee as well as the work you have done during the  internship period.<br><br>
+
+
+                    You are required to pay an amount of <span style="font-weight:bold;color:teal">INR {{$fee}} ONLY </span></h3>
             
                 <form method="POST" action="/make-payment">
                     @csrf
@@ -50,7 +54,7 @@
         @endif        
     <br><br>
         <div>
-            <h3><b>Registration Fee is Non-Refundable. Registration is considered valid only after the successful fee payment.</b></h3>
+            <h3><b>Internship Fee is Non-Refundable. Registration is considered valid only after the successful fee payment.</b></h3>
         </div>
     </div>
 </div>

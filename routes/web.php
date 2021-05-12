@@ -114,8 +114,8 @@ Route::any('/upload', ['as'=>'upload','uses'=>'HomeController@Upload'])->middlew
 Route::any('/survey', ['as'=>'survey','uses'=>'HomeController@preintershipsurvey'])->middleware('auth');
 Route::any('/submitsurvey', ['as'=>'submitsurvey','uses'=>'HomeController@submitsurvey'])->middleware('auth');
 Route::any('/faq', ['as'=>'faq','uses'=>'HomeController@faq'])->middleware('auth');
-
-
+Route::any('/nda', ['as'=>'nda','uses'=>'HomeController@nda'])->middleware('auth');
+Route::any('/submitnda', ['as'=>'submitnda','uses'=>'HomeController@submitnda'])->middleware('auth');
 	Route::any('/getstatewiseColleges', [
 	'as'			=>	'getstatewiseColleges',
 	'uses'			=>	'HomeController@getstatewiseColleges'
