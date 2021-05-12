@@ -118,7 +118,7 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>$payment->remark,
-                    'course_id'=>$course_id
+         
                 ]);
             }
             if($payment->status == 'X'){
@@ -129,7 +129,7 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>'Not available',
-                    'course_id'=>$course_id
+                
 
                 ]);
             }
@@ -428,7 +428,7 @@ class PaymentController extends Controller
                 Log::info($data);
 
                 //redirect to payment page
-                return redirect()->route('paymentpage',['course_id' => $payment->c_id]);
+                return redirect()->route('paymentpage');
 
             }
             else{
