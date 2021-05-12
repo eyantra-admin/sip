@@ -43,7 +43,11 @@ class HomeController extends Controller
     public function index()
     {
         $chksubmitted = User::where('email',Auth::user()->email)->first();
+        $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
+        $proj_alloted = Projects::where('id', $proj_alloted_id)->get();
+
         return view('dashboard')
+        ->with('project_alloted', $proj_alloted)
         ->with('form_submitted', $chksubmitted->profilesubmitted);
 
         //return view('dashboard');
@@ -52,11 +56,13 @@ class HomeController extends Controller
     public function dashboard()
     {
         $id = encrypt(Auth::user()->id);
-        log::info('8888888888888888');
-        log::info($id);
         $chksubmitted = User::where('email',Auth::user()->email)->first();
+        $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
+        $proj_alloted = Projects::where('id', $proj_alloted_id)->get();
+
         return view('dashboard')
-        ->with('form_submitted', $chksubmitted->profilesubmitted)
+        ->with('form_submitted', $chksubmitted->profilesubmitted)  
+        ->with('project_alloted', $proj_alloted)
         ->with('id', $id);
         //return view('dashboard');
     }
@@ -335,6 +341,25 @@ class HomeController extends Controller
         ->orderBy('timeslot_booking.date')
         ->get();
         return view('View_timeslot')->with('timeslot', $result);
+    }
+
+
+
+    //Pre Internship Survey
+    public static function preintershipsurvey(Request $request)
+    {
+        return view('PreInternship_survey');
+    }
+
+    
+    public static function submitsurvey(Request $request)
+    {
+        $input = $request->all();
+    }
+
+    public static function faq()
+    {
+        return view('faq');
     }
     
 

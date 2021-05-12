@@ -111,6 +111,10 @@ Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certific
 
 Route::any('/upload', ['as'=>'upload','uses'=>'HomeController@Upload'])->middleware('auth');
 
+Route::any('/survey', ['as'=>'survey','uses'=>'HomeController@preintershipsurvey'])->middleware('auth');
+Route::any('/submitsurvey', ['as'=>'submitsurvey','uses'=>'HomeController@submitsurvey'])->middleware('auth');
+Route::any('/faq', ['as'=>'faq','uses'=>'HomeController@faq'])->middleware('auth');
+
 
 	Route::any('/getstatewiseColleges', [
 	'as'			=>	'getstatewiseColleges',

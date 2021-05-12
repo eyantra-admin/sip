@@ -58,7 +58,7 @@ class PaymentController extends Controller
        //  Log::info('Fee:'.$fee);
        //  // $fee=1;
        //  return $fee;
-        return 5000;
+        return 1;
 
     }
 
