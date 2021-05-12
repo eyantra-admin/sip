@@ -418,37 +418,66 @@ class PaymentController extends Controller
         $payment = Payment::where(['payer_user_id' => $data['userId']])->first();
 
         if($payment){
-            //update payment details
-            $payment->status =   $data['status'];
-            $payment->trans_id = $data['transId'];
-            $payment->ref_no =  $data['refNo'];
-            $payment->amount=$data['totalAmt'];
-            $payment->trans_date = new  DateTime($data['transDateTime']);
-            $payment->remark = $data['msg'];
-            $payment->req_id = $data['reqId'];
-            $payment->prov_id=$data['provId'];
-            $payment->save();
+
+            $before_status=  $payment->status;
+            $now_status =  $data['status'] ;  
+
+            if($before_status == 'S' && $now_status == 'F'){
+                Log::info('REPEATED IMMEDIATE RESPONSE!!! success before failure now');
+                Log::info('Another response is:');
+                Log::info($data);
+
+                //redirect to payment page
+                return redirect()->route('paymentpage',['course_id' => $payment->c_id]);
+
+            }
+            else{
+       
+                //update payment details
+                $payment->status =   $data['status'];
+                $payment->trans_id = $data['transId'];
+                $payment->ref_no =  $data['refNo'];
+                $payment->amount=$data['totalAmt'];
+                $payment->trans_date = new  DateTime($data['transDateTime']);
+                $payment->remark = $data['msg'];
+                $payment->req_id = $data['reqId'];
+                $payment->prov_id=$data['provId'];
+                $payment->save();
+                Log::info('saving data in payment');
+               
+            }
+         
+            if($before_status == 'S' &&  $now_status == 'S')
+                Log::info('REPEATED IMMEDIATE RESPONSE!!! success before and success now');
+            else if($before_status == 'F' &&  $now_status == 'F')
+                Log::info('REPEATED IMMEDIATE RESPONSE!!! failure before failure now');
+            Log::info('Another response is:');
+            Log::info($data);
 
 
-            //check if the payment was success and mark payment done  //TODO check with maam if this is ok
-            $user= User::where('id',$payment->user_id)->first();
-            if($payment->status == 'S')
+            if( $before_status== null  ||  ($before_status != 'S' && $now_status == 'S' ) )
             {
-                $user->payment_done=1;
-                $user->save();
-            }   
+                //check if the payment was success and mark payment done  
+                $user= User::where('id',$payment->user_id)->first();
+                if($payment->status == 'S')
+                {
+                    $user->payment_done=1;
+                    $user->save();
+                }   
+                    
                 
-            
-            //send email
-            Mail::to($user->email)
-            ->bcc('master@e-yantra.org')
-            ->queue(new PaymentEmail($payment,$user->name));
+                //send email
+                Mail::to($user->email)
+                ->bcc('master@e-yantra.org')
+                ->queue(new PaymentEmail($payment,$user->name));
+            }
 
             //redirect to payment page
             return redirect()->route('paymentpage');
        
         }
-        
+        Log::info('payment record not in DB for user:'.$payment->user_id);
+        return response()->json(['The record was not found in the DB.'],400);
        
     }
 
@@ -527,6 +556,7 @@ class PaymentController extends Controller
             }
             else{
                 $payment->reconciled =1;
+                $payment->remark = "Transaction Successful";
                 $payment->recon_date=$data['reconDateTime'];
                 $payment->prov_id=$data['provId'];
                 $payment->save();
@@ -669,6 +699,7 @@ class PaymentController extends Controller
                     }   
                     else{
                         $payment->reconciled =1;
+                        $payment->remark = "Transaction Successful";
                         $payment->recon_date=$data[0]->reconDateTime;
                         $payment->prov_id=$data[0]->provId;
                         $payment->save();
