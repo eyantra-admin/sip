@@ -52,7 +52,7 @@
           </b></h4>
           <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
             <center>
-              <h3><b>You are required to upload your photograph, Digital signature and Pancard.<br>
+              <h3><b>You are required to upload your Photograph, Digital signature and Pancard/Aadhar card.<br>
                   Format: JPEG / PNG / JPG<br/>
                   Size: < 1MB
               </b></h3>
@@ -69,7 +69,7 @@
                 <h4><b>Upload Digital Signature</b></h4>
                 <input type="file" name="signature" id="signature" required />
                 <br><br>
-                <h4><b>Upload Pancard</b></h4>
+                <h4><b>Upload Pancard/Aadhar Card</b></h4>
                 <input type="file" name="pancard" id="pancard" required />
                 <br><br>
                 <h4>
