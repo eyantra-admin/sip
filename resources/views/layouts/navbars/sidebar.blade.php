@@ -94,6 +94,12 @@
           </a>
         </li> -->
     @if(Auth::user()->id == 2)
+    <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('survey') }}">
+            <i class="material-icons">list</i>
+              <p>{{ __('Pre-Internship Survey') }}</p>
+          </a>
+        </li>
       <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('viewpreferences') }}">
           <i class="material-icons">content_paste</i>
@@ -112,6 +118,7 @@
             <p>{{ __('View NDA Submissions') }}</p>
         </a>
       </li>
+
     @endif
     </ul>
   </div>

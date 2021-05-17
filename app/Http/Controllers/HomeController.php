@@ -10,6 +10,7 @@ use App\User;
 use App\Model\TimeslotBooking;
 use App\Model\UserPanel;
 use App\Model\EysipUploads;
+use App\Model\PreInternshipSurvey;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
@@ -357,7 +358,42 @@ class HomeController extends Controller
     
     public static function submitsurvey(Request $request)
     {
-        $input = $request->all();
+        log::info($request->all());
+        $already_submited = PreInternshipSurvey ::where('userid', Auth::user()->id)->count();
+        if($already_submited == 0)
+        {
+            $survey = new PreInternshipSurvey;
+            $survey->topics = implode(', ', $request->topics);
+            // log::info('----------------------');
+            // log::info($List);
+            $survey->specialists = implode(', ', $request->specialists);
+            $survey->Internet = implode(', ', $request->Internet);
+            $survey->serviceprovider = implode(', ', $request->Service);
+            $survey->speed = $request->speed;
+            $survey->rate = $request->rate;
+            $survey->powercuts = $request->power;
+            $survey->makemodel = $request->model;  
+            $survey->ram = $request->ram;
+            $survey->storage = $request->storage;
+            $survey->processor = $request->processor;  
+            $survey->processorgeneration = $request->processorgeneration;
+            $survey->graphicscard = $request->graphics;
+            $survey->os = $request->os;
+            $survey->laptopbenchmark = $request->benchmark;
+            $survey->userid = Auth::user()->id;
+            $survey->save();
+
+             $updatesurvey = DB::table('users')
+                      ->where('id', Auth::user()->id)
+                      ->update(['survey_done' => 1]);
+
+            return redirect()->route('home')->withStatus(__('Pre Internship Survey submitted successfully.'));
+        }
+        else
+        {
+            return back()->withErrors(__('You have already submitted the form.'));
+        }
+
     }
 
     public static function faq()

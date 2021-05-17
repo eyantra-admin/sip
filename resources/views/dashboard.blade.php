@@ -238,7 +238,9 @@ a.portfolio-link {
                       @endif
                       <p>If your professor has sent an email, please wait for 2-3 days for status to be updated here.</p>
                     </li>
-                    <!-- <li class="event" data-date="Survey">
+
+                    @if(Auth::user()->id == 2 )
+                    <li class="event" data-date="Survey">
                        @if(Auth::user()->survey_done == 0)
                       <h3 style="color: Red"><b>Pre-Internship Survey</b></h3>
                       @else
@@ -247,7 +249,8 @@ a.portfolio-link {
                       <p>
                         Please use the Pre-Internship Survey Tab to do so.
                       </p>
-                    </li> -->
+                    </li>
+                    @endif
                     
                   </ul>
                 </div>
