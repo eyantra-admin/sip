@@ -115,7 +115,7 @@
                   You can use websites like <a href="www.speedtest.net" target="_blank">speedtest.net</a>  to check your internet speed.
                 </div>
                 <div class="col-lg-8">
-                  <input class="form-control" type="text" name="speed" id="speed" maxlength="10" placeholder="Average speed" value="{{old('speed')}}" required>
+                  <input class="form-control" type="number" name="speed" id="speed" maxlength="10" placeholder="Average speed" value="{{old('speed')}}" required>
                 </div>
             </div>
             <br>
@@ -177,7 +177,7 @@
                 <h4><b>RAM (In GB) *</b></h4>
               </div>
               <div class="col-lg-8">
-                <input class="form-control" type="text" name="ram" id="ram" maxlength="50" placeholder="RAM" value="{{old('ram')}}" required>
+                <input class="form-control" type="number" name="ram" id="ram" maxlength="50" placeholder="RAM" value="{{old('ram')}}" required>
               </div>
             </div>
             <br>
@@ -186,7 +186,7 @@
                 <h4><b>Storage (In GB) *</b></h4>
               </div>
               <div class="col-lg-8">
-                <input class="form-control" type="text" name="storage" id="storage" maxlength="50" placeholder="Storage" value="{{old('storage')}}" required>
+                <input class="form-control" type="number" name="storage" id="storage" maxlength="50" placeholder="Storage" value="{{old('storage')}}" required>
               </div>
             </div>
             <br>
@@ -270,7 +270,7 @@
                 <h4><b>Laptop Benchmark Score *</b></h4>
               </div>
               <div class="col-lg-8">
-                <input class="form-control" type="text" name="benchmark" id="ebnchmark" maxlength="50" placeholder="Laptop Benchmark Score" value="{{old('benchmark')}}" required>
+                <input class="form-control" type="number" name="benchmark" id="ebnchmark" maxlength="50" placeholder="Laptop Benchmark Score" value="{{old('benchmark')}}" required>
               </div>
             </div>
             <br><br>
