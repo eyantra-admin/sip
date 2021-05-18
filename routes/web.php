@@ -122,13 +122,7 @@ Route::get('/all-nda', [
 	'as'			=>	'nda_all',
 	'uses'			=>	'HomeController@listAllnda'
 	]);
-
-// Route::get('/download-nda/{id}', [
-// 	'middleware'	=>	'auth',
-// 	'as'			=>	'download_nda_all',
-// 	'uses'			=>	'HomeController@downloadNDA'
-// 	]);
-
+Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeController@downloadNDA'])->middleware('auth');
 
 	Route::any('/getstatewiseColleges', [
 	'as'			=>	'getstatewiseColleges',

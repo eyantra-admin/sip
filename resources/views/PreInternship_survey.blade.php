@@ -112,7 +112,7 @@
             <div class="row">
                 <div class="col-lg-4">
                   <h4><b>Average speed of network (in Mbps) *</b></h4>
-                  You can use websites like <a href="www.speedtest.net" target="_blank">speedtest.net</a>  to check your internet speed.
+                  You can use websites like <a href="https://www.speedtest.net/" target="_blank">speedtest.net</a>  to check your internet speed.
                 </div>
                 <div class="col-lg-8">
                   <input class="form-control" type="number" name="speed" id="speed" maxlength="10" placeholder="Average speed" value="{{old('speed')}}" required>
@@ -267,10 +267,13 @@
             <br>
             <div class="row">
               <div class="col-lg-4">
-                <h4><b>Laptop Benchmark Score *</b></h4>
+                <h4><b>Laptop Benchmark Score *</b></h4><br>
+                <div style="background-color: #f1cbf7; border-radius: 5px;">
+                <b><p style="margin:5px">Submit link for Geekbench score of your machine. Visit: <a href="https://www.geekbench.com/download/" target="_blank">www.geekbench.com</a> to download the software for your respective OS. After you download click on run CPU benchmark and submit the link below.</p></b>
+                </div>
               </div>
               <div class="col-lg-8">
-                <input class="form-control" type="number" name="benchmark" id="ebnchmark" maxlength="50" placeholder="Laptop Benchmark Score" value="{{old('benchmark')}}" required>
+                <input class="form-control" type="text" name="benchmark" id="ebnchmark" maxlength="50" placeholder="Laptop Benchmark Score" value="{{old('benchmark')}}" required>
               </div>
             </div>
             <br><br>

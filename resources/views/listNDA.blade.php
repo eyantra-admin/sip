@@ -14,6 +14,7 @@
                     <table class="table" id="listndatable" style="text-align: center;"> 
                     <thead class=" text-primary">
                       <th><b>Sr No.</b></th>
+                      <th><b>ID</b></th>
                       <th><b>Name</b></th>
                       <th><b>Email</b></th>
                       <th><b>project ID</b></th>
@@ -24,11 +25,12 @@
                           @foreach($list_ndas as $key=>$cur)
                           <tr>
                             <td>{{$key+1}}</td>
+                            <td>{{$cur->id}}</td>
                             <td>{{$cur->name}}</td>
                             <td>{{$cur->email}}</td>
                             <td>{{$cur->project_alloted}}</td>
                             <td>{{$cur->projectname}}</td>
-                            <td> <a class="button" href="/download-nda/{{$cur->id}}">Download</a></td>
+                            <td> <a class="button" href="/download-nda/{{$cur->id}}" target="_blank">Download</a></td>
                           </tr>
                           @endforeach
                         </tbody>

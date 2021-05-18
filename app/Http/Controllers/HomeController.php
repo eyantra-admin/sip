@@ -513,7 +513,7 @@ class HomeController extends Controller
         log::info('---------------------------');
         $nda_data=EysipUploads::find($id);
         Log::info($nda_data);
-        $pdf = App::make('dompdf');
+        $pdf = \App::make('dompdf.wrapper');
 
         $pdf = PDF::loadView('nda_template', ['nda_data'=>$nda_data]);
         return view('nda_template', compact('nda_data'));
