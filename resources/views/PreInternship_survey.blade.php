@@ -43,7 +43,7 @@
                   <input type="checkbox" name="topics[]" value="Other" onclick="ShowHideDiv1(this)">&nbsp; Other
                   <div id="dvtopics" style="display: none">
                     Other Topics
-                    <input type="text" class="form-control" id="txttopics" />
+                    <input type="text" class="form-control" id="txttopics" name="othertopic" />
                   </div>
                 </div>
 
@@ -67,7 +67,7 @@
                   <input type="checkbox" name="specialists[]" value="Other" onclick="ShowHideDiv2(this)">&nbsp; Other<br>
                   <div id="dvspecialists" style="display: none">
                     Other Non-academic Topics
-                    <input type="text" class="form-control" id="txtspecialists" />
+                    <input type="text" class="form-control" id="txtspecialists" name="otherspecialists" />
                   </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                   <input type="checkbox" name="Service[]" value="Other" onclick="ShowHideDiv3(this)">&nbsp; Other &nbsp;&nbsp;
                   <div id="dvservice" style="display: none">
                     Other Service Provider
-                    <input type="text" class="form-control" id="txtservice" />
+                    <input type="text" class="form-control" id="txtservice" name="otherservice"/>
                   </div>
                 </div>
             </div>

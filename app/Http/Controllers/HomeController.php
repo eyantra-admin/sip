@@ -21,6 +21,7 @@ use Auth;
 use Validator;
 use Config;
 use Storage;
+use PDF;
 
 class HomeController extends Controller
 {
@@ -364,8 +365,6 @@ class HomeController extends Controller
         {
             $survey = new PreInternshipSurvey;
             $survey->topics = implode(', ', $request->topics);
-            // log::info('----------------------');
-            // log::info($List);
             $survey->specialists = implode(', ', $request->specialists);
             $survey->Internet = implode(', ', $request->Internet);
             $survey->serviceprovider = implode(', ', $request->Service);
@@ -381,6 +380,19 @@ class HomeController extends Controller
             $survey->os = $request->os;
             $survey->laptopbenchmark = $request->benchmark;
             $survey->userid = Auth::user()->id;
+            if($request->txttopics != '' || !empty($request->othertopic))
+            {
+                $survey->othertopic = $request->othertopic;
+            }
+            if($request->txtspecialists != '' || !empty($request->otherspecialists))
+            {
+                $survey->otherspecialists = $request->otherspecialists;
+            }
+            if($request->txtservice != '' || !empty($request->otherservice))
+            {
+                $survey->otherservice = $request->otherservice;
+            }
+           
             $survey->save();
 
              $updatesurvey = DB::table('users')
@@ -488,7 +500,7 @@ class HomeController extends Controller
 
     public function listAllnda() 
     {
-        $list_ndas = EysipUploads::select('name','email', 'project_alloted', 'p.projectname')
+        $list_ndas = EysipUploads::select('u.id','name','email', 'project_alloted', 'p.projectname')->distinct()
         ->join('users as u','u.id','=','sipuploads.userid')
         ->join('projects as p', 'p.id', '=','u.project_alloted')
         ->get();
@@ -496,15 +508,16 @@ class HomeController extends Controller
         return view('listNDA',compact('list_ndas'));
     }
 
-    // public function downloadNDA($id)
-    // {
-    //     $nda_data=EysipUploads::find($id);
-    //     Log::info($nda_data);
-    //     $pdf = \App::make('dompdf.wrapper');
+    public function downloadNDA($id)
+    {
+        log::info('---------------------------');
+        $nda_data=EysipUploads::find($id);
+        Log::info($nda_data);
+        $pdf = App::make('dompdf');
 
-    //     $pdf = PDF::loadView('nda_template', ['nda_data'=>$nda_data]);
-    //     return view('resources.nda_template', compact('nda_data'));
-    // }
+        $pdf = PDF::loadView('nda_template', ['nda_data'=>$nda_data]);
+        return view('nda_template', compact('nda_data'));
+    }
     
     
     
