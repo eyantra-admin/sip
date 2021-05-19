@@ -30,7 +30,7 @@
                             <td>{{$cur->email}}</td>
                             <td>{{$cur->project_alloted}}</td>
                             <td>{{$cur->projectname}}</td>
-                            <td> <a class="button" href="/download-nda/{{$cur->id}}" target="_blank">Download</a></td>
+                            <td> <a class="button" href="/download-nda/{{$cur->id}}" target="_blank">View</a></td>
                           </tr>
                           @endforeach
                         </tbody>

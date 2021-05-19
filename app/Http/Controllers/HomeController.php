@@ -511,12 +511,13 @@ class HomeController extends Controller
     public function downloadNDA($id)
     {
         log::info('---------------------------');
-        $nda_data=EysipUploads::find($id);
+        $nda_data=EysipUploads::where('userid', $id)->first();
+        $user_data = User::find($id);
         Log::info($nda_data);
         $pdf = \App::make('dompdf.wrapper');
 
-        $pdf = PDF::loadView('nda_template', ['nda_data'=>$nda_data]);
-        return view('nda_template', compact('nda_data'));
+        $pdf = PDF::loadView('nda_template', ['nda_data'=>$nda_data, 'user_data'=> $user_data]);
+        return view('nda_template', compact('nda_data', 'user_data'));
     }
     
     
