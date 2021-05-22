@@ -18,7 +18,8 @@
           @endif
           <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title"><b>{{ __('Pre-Internship Survey') }}</b></h4>
+                <h4 class="card-title"><b>{{ __('Internship Survey') }}</b></h4>
+                <p>All the information is mandatory to be filled</p>
             </div>
             <div class="card-body">
               <br><br>
