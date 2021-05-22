@@ -399,7 +399,7 @@ class HomeController extends Controller
                       ->where('id', Auth::user()->id)
                       ->update(['survey_done' => 1]);
 
-            return redirect()->route('home')->withStatus(__('Pre Internship Survey submitted successfully.'));
+            return redirect()->route('home')->withStatus(__('Internship Survey submitted successfully.'));
         }
         else
         {
