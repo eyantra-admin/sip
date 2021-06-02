@@ -156,22 +156,24 @@ a.portfolio-link {
         <div class="card-header card-header-warning">
           <b>Welcome to eYSIP</b>
         </div>
-        <!-- @if($form_submitted != 1)
-          <div class="card-body"> -->
-            <!-- <h4 class="card-title"><b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
+        @if($form_submitted != 1)
+          <div class="card-body">
+            <h4 class="card-title">
+              <b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
             <br><br>
             <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
             <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
            
-            <a href="/SipRegistration" class="btn btn-primary">Fill Form</a> 
+            <a href="/SipRegistration" class="btn btn-primary" style="width: 100px;">Fill Form</a> 
           </div>
-         @else
+        @else
           <div class="card-body">
             <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
               <p>To view your registration, Click the below button</p>
             </h4>
             <a href="/ViewMyRegistration/{{Crypt::encrypt(Auth::user()->id)}}" target="_blank" class="btn btn-primary">
-              {{ Auth::user()->name }}</a> -->
+              {{ Auth::user()->name }}</a>
+        @endif
              <!-- <h4 class="card-title"><b>Profile submission done successfully.<br> It's time to see projects and add your preferences.</b> </h4><br><br>
              <h4 class="card-title"><b><p style="font-weight: 2px; color: Red">
                Please note the following points before proceeding with adding your project preferences.</p></b>
@@ -182,11 +184,10 @@ a.portfolio-link {
                <li>We will try our best to allot a project to you depending upon the preferences given by you. But do not gurantee this.</li>
                <li>It is possible that, in any case of project allotment, you may be assigned a project that is not in your preference list.</li>
              </h4>
-             </ul> -->
-          <!-- </div>
-        @endif -->
-
-        @if(Auth::user()->selected == 1 )
+             </ul>-->
+        
+          <!-- UNCOMMENT THIS WHEN INTERN IS SELECTED AFTER INTERVIEW -->
+        <!-- @if(Auth::user()->selected == 1 )
         <div>
           <center>
             <h2><b>
@@ -266,7 +267,7 @@ a.portfolio-link {
             We wish you all the best for future endeavours!
           </b></h2>
         </center>
-        @endif  
+        @endif   -->
     </div>
        
   </div>

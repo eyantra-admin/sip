@@ -52,7 +52,7 @@
       </li> -->
 
     @if( Auth::user()->profilesubmitted == 1)
-      <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
+      <!-- <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('project.preference') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Project Preferences') }}</p>
@@ -63,10 +63,10 @@
           <i class="material-icons">library_books</i>
             <p>{{ __('Interview Slot') }}</p>
         </a>
-      </li>
+      </li> -->
     @endif
 
-    @if(Auth::user()->selected == 1)
+    <!-- @if(Auth::user()->selected == 1)
         <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('paymentpage') }}">
             <i class="material-icons">Payment</i>
@@ -85,7 +85,7 @@
               <p>{{ __('Internship Survey') }}</p>
           </a>
         </li>
-    @endif
+    @endif -->
       
         <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('survey') }}">

@@ -90,18 +90,18 @@ class SipRegistration extends Controller {
 	}
 
 	public function registerload(){
-		// $colleges = CollegeDetails::select('clg_code','college_name')->orderBy('college_name')->get();
-		// $departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
-		// $skills = skills_list::orderBy('skill')->get();
-		// $chksubmitted = User::where('email',Auth::user()->email)->first();
-		// //log::info($skills);
+		$colleges = CollegeDetails::select('clg_code','college_name')->orderBy('college_name')->get();
+		$departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
+		$skills = skills_list::orderBy('skill')->get();
+		$chksubmitted = User::where('email',Auth::user()->email)->first();
+		//log::info($skills);
 
-		// return view('profile.SipRegistration')
-		// 		->with('colleges', $colleges)
-		// 		->with('departments',$departments)
-		// 		->with('skills', $skills)
-		// 		->with('form_submitted', $chksubmitted->profilesubmitted); 
-		return view ('SipRegistration_closed');
+		return view('profile.SipRegistration')
+				->with('colleges', $colleges)
+				->with('departments',$departments)
+				->with('skills', $skills)
+				->with('form_submitted', $chksubmitted->profilesubmitted); 
+		//return view ('SipRegistration_closed');
 		}
 
 	public function attachment_upload(Request $request){
