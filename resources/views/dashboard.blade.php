@@ -156,7 +156,7 @@ a.portfolio-link {
         <div class="card-header card-header-warning">
           <b>Welcome to eYSIP</b>
         </div>
-        @if($form_submitted != 1)
+        <!-- @if($form_submitted != 1)
           <div class="card-body">
             <h4 class="card-title">
               <b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
@@ -173,21 +173,11 @@ a.portfolio-link {
             </h4>
             <a href="/ViewMyRegistration/{{Crypt::encrypt(Auth::user()->id)}}" target="_blank" class="btn btn-primary">
               {{ Auth::user()->name }}</a>
-        @endif
-             <!-- <h4 class="card-title"><b>Profile submission done successfully.<br> It's time to see projects and add your preferences.</b> </h4><br><br>
-             <h4 class="card-title"><b><p style="font-weight: 2px; color: Red">
-               Please note the following points before proceeding with adding your project preferences.</p></b>
-            </h4>
-             <ul>
-              <h4 class="card-title">
-               <li>You have required to provide 3 project preferences on basis of the skill set you possess.<br> A project in Preference 1 will be the project you think is the most preferred by you.</li>
-               <li>We will try our best to allot a project to you depending upon the preferences given by you. But do not gurantee this.</li>
-               <li>It is possible that, in any case of project allotment, you may be assigned a project that is not in your preference list.</li>
-             </h4>
-             </ul>-->
+        @endif -->
+             
         
           <!-- UNCOMMENT THIS WHEN INTERN IS SELECTED AFTER INTERVIEW -->
-        <!-- @if(Auth::user()->selected == 1 )
+        @if(Auth::user()->selected == 1 )
         <div>
           <center>
             <h2><b>
@@ -267,7 +257,7 @@ a.portfolio-link {
             We wish you all the best for future endeavours!
           </b></h2>
         </center>
-        @endif   -->
+        @endif  
     </div>
        
   </div>

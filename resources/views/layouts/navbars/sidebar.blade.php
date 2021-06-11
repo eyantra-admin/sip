@@ -66,7 +66,7 @@
       </li> -->
     @endif
 
-    <!-- @if(Auth::user()->selected == 1)
+    @if(Auth::user()->selected == 1)
         <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('paymentpage') }}">
             <i class="material-icons">Payment</i>
@@ -85,7 +85,7 @@
               <p>{{ __('Internship Survey') }}</p>
           </a>
         </li>
-    @endif -->
+    @endif
       
         <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('survey') }}">
