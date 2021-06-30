@@ -136,6 +136,9 @@ Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeControll
 	// 'as'			=>	'getcollegeinfo',
 	// 'uses'			=>	'elsiRegistrationResponse@getcollegeinfo'
 	// ]);
+Route::any('/verifydetails', ['as'=>'verifydetails','uses'=>'HomeController@verifydetails'])->middleware('auth');
+Route::any('/AcceptVerify', ['as'=>'AcceptVerify','uses'=>'HomeController@AcceptVerify'])->middleware('auth');
+
 
 
 

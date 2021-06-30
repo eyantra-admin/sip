@@ -520,6 +520,36 @@ class HomeController extends Controller
         return view('nda_template', compact('nda_data', 'user_data'));
     }
     
+
+    public function verifydetails(Request $request)
+    {
+        log::info(Auth::user()->id);
+        $verify_data = User::select('users.id', 'users.name', 'users.email', 'o.phone', 'project_alloted', 
+                                        'p.projectname', 'o.year', 'o.branch', 'o.college',
+                                        'o.address','o.bank_accountno','o.name_inbank','o.bank_name','o.ifsc',
+                                        'o.bank_type','o.bank_address')
+                                ->join('online_profile_response as o','o.userid', '=', 'users.id')
+                                ->join('projects as p','p.id', '=', 'users.project_alloted')
+                                ->where('users.id', Auth::user()->id)
+                                ->where('payment_done', 1)
+                                ->get();
+             Log::info($verify_data);                   
+        return view('verifydetails')
+        ->with('verifydetails', $verify_data);
+    }
+
+    public function AcceptVerify(Request $request)
+    {
+        log::info(Auth::user()->id);
+         $booking = DB::table('users')
+                      ->where('id', Auth::user()->id)
+                      ->update(['Iconfirm' => 1]);
+                    return back()->withStatus(__('Details verified successfully.'));     
+        // return view('verifydetails')
+        // ->with('verifydetails', $verify_data);
+    }
+
+    
     
     
 
