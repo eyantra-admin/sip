@@ -26,7 +26,7 @@
 
       <div class="card card-nav-tabs">
         <div class="card-header card-header-warning">
-          <b>Welcome to eYSIP</b>
+          <b>Verify Your Details</b>
         </div>
         <div>
           <center>
@@ -39,21 +39,34 @@
             <!-- <h6><b>
               This name will be printed on the certificate that will be issued on successfull completion of internship
             </b></h6> -->
+<br>
             <h3><b>
+              <div class="card-header card-header-success">
+                <b>Basic Details (Details as they will appear on your certificate)</b>
+                </div>
+
               <p style="margin:20px;">
                <br><br>
-                Name: {{$verifydetails[0]->name}} <br>
-                Email: {{$verifydetails[0]->email}} <br>
+                Name: {{$verifydetails[0]->name}} (As it will appear on your certificate)<br>
                 Year: {{$verifydetails[0]->year}} <br>
                 Discipline: {{$verifydetails[0]->branch}} <br>
                 College Name: {{$verifydetails[0]->college}} <br>
-                Project Assigned: {{$verifydetails[0]->projectname}} <br>
-                Address: {{$verifydetails[0]->address}} <br>
+                Project Assigned: {{$verifydetails[0]->projectname}} <br><br>
+              </p>
+                <div class="card-header card-header-success" style="margin:20px;">
+                <b>Address (To be used for shipment of your certificate)</b>
+                </div>
+                <p style="margin:20px;">
+                Address Line 1: {{$verifydetails[0]->addressline1}} <br>
+                Address Line 2: {{$verifydetails[0]->addressline2}} <br>
+                City: {{$verifydetails[0]->city}}<br>
+                State: {{$verifydetails[0]->statename}}<br>
+                Pincode: {{$verifydetails[0]->pincode}}<br>
                 <br>
                 </p>
 
-                <div class="card-header card-header-warning">
-                <b>Bank Details</b>
+                <div class="card-header card-header-success">
+                <b>Bank Details (For Stipend)</b>
                 </div>
 
                 <p style="margin:20px;">
