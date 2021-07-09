@@ -125,6 +125,12 @@
             <p>{{ __('View NDA Submissions') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'listnda' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('mentorclearence') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Mentor Clearence') }}</p>
+        </a>
+      </li>
 
     @endif
     </ul>

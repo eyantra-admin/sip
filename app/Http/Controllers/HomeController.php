@@ -22,6 +22,7 @@ use Validator;
 use Config;
 use Storage;
 use PDF;
+use DataTables;
 
 class HomeController extends Controller
 {
@@ -550,11 +551,24 @@ class HomeController extends Controller
         // ->with('verifydetails', $verify_data);
     }
 
-    
-    
-    
-
-    
-    
-
+    public function mentorclearence(Request $request)
+    {
+        $stud_list = User::select('users.id', 'users.name', 'users.email', 'project_alloted', 
+                                        'p.projectname', 'users.Iconfirm','users.MentorClearence')
+                                ->join('online_profile_response as o','o.userid', '=', 'users.id')
+                                ->join('projects as p','p.id', '=', 'users.project_alloted')
+                                ->where('users.selected', 1)
+                                ->get();                   
+        return view('mentorclearence')
+        ->with('stud_list', $stud_list);
+    }
+    public function approveclearence($userid)
+    {
+        log::info($userid);
+         $approve = DB::table('users')
+                      ->where('id', $userid)
+                      ->update(['MentorClearence' => 1]);
+                    return back()->withStatus(__('Mentor Clearence done successfully.'));     
+    }
+     
 }

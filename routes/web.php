@@ -140,6 +140,9 @@ Route::any('/verifydetails', ['as'=>'verifydetails','uses'=>'HomeController@veri
 Route::any('/AcceptVerify', ['as'=>'AcceptVerify','uses'=>'HomeController@AcceptVerify'])->middleware('auth');
 
 
+Route::any('/mentorclearence', ['as'=>'mentorclearence','uses'=>'HomeController@mentorclearence'])->middleware('auth');
+Route::any('/approveclearence/{userid}', ['as'=>'approveclearence','uses'=>'HomeController@approveclearence'])->middleware('auth');
+
 
 
 
