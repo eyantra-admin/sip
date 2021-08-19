@@ -175,3 +175,13 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 	//for admin use
 	Route::get('/fetchrecon/{user_id}','PaymentController@reconciliationForUser'); //request server for ir response
 	Route::get('/fetchir/{user_id}','PaymentController@immediateResponseForUser'); //request server for recon response
+
+	/**************** certificate for students ****************/
+		Route::get('/generate/run', [
+		'as' 			=> 'GenerateCertificate',
+		'uses' 			=> 'Generate@run'
+		]);
+
+		Route::get('validate', 'ValidateController@index')->name('validate');
+		Route::post('validate', 'ValidateController@verify');
+		Route::get('validate/{id}', 'ValidateController@authenticate');
