@@ -184,6 +184,26 @@ a.portfolio-link {
               Congratulations !!!<br>
               You have been selected for e-Yantra Internship - 2021.<br></b></h2>
           </center>
+          <!-- Certificate Download -->
+          <div class="col m12 s12 text-center">
+            @if(Auth::user()->MentorClearence == 1)
+            <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
+            <b style="color: black;">Certificate Details</b>
+            <div class="divider"></div>
+              <h5>
+                Hearty Congratulations!!! <br/>
+                on successful completion of eYSIP project.<br/>
+              </h5>
+            <hr/>
+            <span >
+
+              <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
+            </span>
+            </div>
+            
+      @endif
+    </div>
+          <!-- End -->
           <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
             <h3><b>
               <p style="margin:20px;">

@@ -51,10 +51,10 @@ class HomeController extends Controller
         $chksubmitted = User::where('email',Auth::user()->email)->first();
         $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
         $proj_alloted = Projects::where('id', $proj_alloted_id)->get();
-
+        $cert_check = OnlineProfile::where('userid', Auth::user()->id)->value('cert_level');
+        Log::info($cert_check);
         return view('dashboard')
-        ->with('project_alloted', $proj_alloted)
-        ->with('form_submitted', $chksubmitted->profilesubmitted);
+        ->with(['project_alloted' => $proj_alloted, 'form_submitted' => $chksubmitted->profilesubmitted, 'cert_check' => $cert_check]);
 
         //return view('dashboard');
     }
