@@ -188,15 +188,14 @@ a.portfolio-link {
           <div class="col m12 s12 text-center">
             @if(Auth::user()->MentorClearence == 1)
             <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
-            <b style="color: black;">Certificate Details</b>
+            <h3><b>Certificate Details</b></h3>
             <div class="divider"></div>
-              <h5>
+              <h3 style="color:Red">
                 Hearty Congratulations!!! <br/>
                 on successful completion of eYSIP project.<br/>
-              </h5>
+              </h3>
             <hr/>
-            <span >
-
+            <span>
               <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
             </span>
             </div>
