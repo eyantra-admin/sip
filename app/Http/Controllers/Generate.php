@@ -33,7 +33,6 @@ class Generate extends Controller
     Log::info($certi_details);
     $cert_template= Template::where('id',1)->first();
     $cert_event = Event::where('id', 1)->first();
-    $duration = '20th May 2021 to 8th June 2021';
     
     if (!empty($certi_details)) {
         # code...
@@ -52,7 +51,7 @@ class Generate extends Controller
         'name' => $student_details->name,
         'college_name'=>$student_details->college,
         'project_name'=>$project_name->projectname,
-        'duration'=>$duration
+        'duration'=>$student_details->proj_duration
         ];
     $keyvalue=  json_encode($arr);
 
@@ -72,7 +71,7 @@ class Generate extends Controller
 
     if ($student_details->cert_level == 1) {
         # code...
-        $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','duration','project_name'));
+        $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','project_name'));
 
         $path = storage_path().'/certificate/eysip/'.$student_details->userid;
         if (!File::exists($path)) {

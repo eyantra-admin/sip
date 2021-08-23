@@ -46,7 +46,7 @@
     <img src="{{asset('img/ring.png')}}" name="image02.png" widht="259" Height="246" border="0" style="position: absolute;width: 259px;margin-left:1.6in; margin-bottom:0.5in;" />
 
     <div class= 'layout-middle' style="position:absolute; margin-top:2.4in;margin-left:.3in;">
-    	@if($duration != NULL)
+    	@if($student_details->proj_duration != NULL)
     	<span style="font-family:Optima; font-size:12pt; float: right; padding-right:1cm; padding-top:.5cm; padding-bottom:.5cm;" >
     	Date of Issue: {{$cert_template->issue_date}}
     	</span><br><br>
