@@ -93,7 +93,7 @@ hr {
 	  </ul>
 
 	  
-	  <div class="tab-content" style="background-image: url('69.jpg')">
+	 <!--  <div class="tab-content" style="background-image: url('69.jpg')">
 	    <div id="home" class="tab-pane fade in active">
 	    	 <div class="panel panel-default">
 	 			<div class="panel-heading">
@@ -546,8 +546,6 @@ hr {
 
 	 				<div class="form-group col-lg-5 form-group-lg col-lg-offset-1" id="cert_img_label">
 		 				<label>Certificate Progress screenshot</label>
-		 				<!-- <button  name="cert_img" id="cert_img" class="btn btn-info">Download</button>  --> 
-		 				<!-- <a href="/downloadCertificate/?stu_id={{$student->id}}">download PDF</a> -->
 		 				<a href="/downloadCertificate/{{$student->userid}}">download PDF</a>
 		 					 				
 		 			</div>
@@ -644,7 +642,7 @@ hr {
 	    		</div>
 	    	</div>
 	    </div>
-	  </div>
+	  </div> -->
 	</div>
 </body>
 </html>
