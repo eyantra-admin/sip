@@ -67,8 +67,9 @@ table.myFormat tr td { font-size: 13px; }
 <div class="row">
 	<h2 align="center">Students registered for SIP 2021</h2>
 	<div class="col-xs-12">
+		<h3>Portal Closed...</h3>
 
-		<table class="table table-bordered myFormat"  id="sip_students">
+		<!-- <table class="table table-bordered myFormat"  id="sip_students">
 			<thead class="thead-inverse">
 				<tr>
 					<th>Sl No</th>
@@ -116,7 +117,7 @@ table.myFormat tr td { font-size: 13px; }
 					<th>Theme</th>
 				</tr>
 			</tfoot>
-		</table>
+		</table> -->
 	</div>
 </div>
 
