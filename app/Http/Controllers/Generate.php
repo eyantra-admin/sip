@@ -71,7 +71,7 @@ class Generate extends Controller
 
     if ($student_details->cert_level == 1) {
         # code...
-        $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','project_name'));
+        $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','project_name', 'certi_details'));
 
         $path = storage_path().'/certificate/eysip/'.$student_details->userid;
         if (!File::exists($path)) {
