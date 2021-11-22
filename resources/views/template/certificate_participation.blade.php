@@ -109,7 +109,7 @@ tr:nth-child(even) {
 		</p>
 		<div style= "padding-left: 2px; padding-right: 50px">
 		{!! $certi_details->back_content !!}
-		<br>
+		<br><br><br>
 		
 		<table>
 		  <tr>
