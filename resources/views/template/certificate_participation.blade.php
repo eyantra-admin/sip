@@ -103,11 +103,11 @@ tr:nth-child(even) {
 	
    <img src="{{asset('img/sidepanel.png')}}"  name="image03.png" class="img2" vspace="5">
 
-    <div style="position:absolute; left:160px; margin-top:1.4in; padding-left: 2px; padding-right: 50px">
+    <div style="position:absolute; left:160px; margin-top:1in; padding-left: 2px; padding-right: 50px">
 		<p style="font-family:Optima; font-size:21pt;">Skill-set
 
 		</p>
-		<div style= "padding-left: 2px; padding-right: 50px">
+		<div style= "padding-left: 2px; padding-right: 50px; text-align: justify;">
 		{!! $certi_details->back_content !!}
 		<br><br><br>
 		
