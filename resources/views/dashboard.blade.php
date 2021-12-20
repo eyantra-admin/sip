@@ -212,12 +212,15 @@ a.portfolio-link {
       @endif
     </div>
           <!-- End -->
-          <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
+          <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px; text-align: justify;">
             <h3><b>
-              <p style="margin:20px;">
-                You have been assigned the following project:<br><br>
+              <p style="margin:40px;">
+                
+                  You have been assigned the following project:<br><br>
                 Project Name: {{$project_alloted[0]->projectname}} <br><br>
                 Project Description : {{$project_alloted[0]->abstract}} <br>
+               
+                
               </p>
           </b></h3>
           </div>
@@ -249,14 +252,14 @@ a.portfolio-link {
                       <p>Please use the NDA Tab to do so.
                       </p>
                     </li>
-                    <li class="event" data-date="LoR">
+                    <!-- <li class="event" data-date="LoR">
                        @if(Auth::user()->lor_done == 0)
                       <h3 style="color: Red"><b>LoR (Letter of Recommendation)</b></h3>
                       @else
                       <h3 style="color: Green"><b>LoR (Letter of Recommendation)</b></h3>
                       @endif
                       <p>If your professor has sent an email, please wait for 2-3 days for status to be updated here.</p>
-                    </li>
+                    </li> -->
 
                     
                     <li class="event" data-date="Survey">
