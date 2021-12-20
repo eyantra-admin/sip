@@ -11,7 +11,7 @@
             @if($enable_button)
             <div class="card-body">
                 <h3>
-                    The internship fee is required to be paid for the resources and mentorship e-Yantra provides during the period of eYSIP-2021. Upon the successful completion of the project allotted to you, you will be awarded with an honorarium (along with internship certificate) which will compensate you sufficiently for the internship fee as well as the work you have done during the  internship period.<br><br>
+                    The internship fee is required to be paid for the resources and mentorship e-Yantra provides during the period of eYDIP. Upon the successful completion of the project allotted to you, you will be awarded with an honorarium (along with internship certificate) which will compensate you sufficiently for the internship fee as well as the work you have done during the  internship period.<br><br>
 
 
                     You are required to pay an amount of <span style="font-weight:bold;color:teal">INR {{$fee}} ONLY </span></h3>
@@ -50,7 +50,7 @@
         @endif
 
         @if($status !='success')
-        <div><h3><b>If you have made the payment and the amount has been debited, then wait for 2-3 days for it to be reflected here.<br> If the page is not updated then send us an email at eysip@e-yantra.org</b></h3></div>
+        <div><h3><b>If you have made the payment and the amount has been debited, then wait for 2-3 days for it to be reflected here.<br> If the page is not updated then send us an email at support@e-yantra.org</b></h3></div>
         @endif        
     <br><br>
         <div>
