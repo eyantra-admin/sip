@@ -159,29 +159,32 @@ a.portfolio-link {
         @if($form_submitted != 1)
           <div class="card-body">
             <center>
-            <h2><b>
-              Congratulations !!!<br>
-              You have been selected for e-Yantra Design Internship.<br></b></h2>
-            <!-- <h2><b>
-              Congratulations !!!<br>
-              You have been selected for e-Yantra Internship - 2021.<br></b></h2> -->
-          
-            <h4 class="card-title">
-              <b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
-            <br><br>
-            <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
-            <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
-           
-            <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Proifle Form</a> 
-          </div>
+              <h2><b>
+                Congratulations !!!<br>
+                You have been selected for e-Yantra Design Internship.<br></b></h2>
+              <!-- <h2><b>
+                Congratulations !!!<br>
+                You have been selected for e-Yantra Internship - 2021.<br></b></h2> -->
+            
+              <h4 class="card-title">
+                <b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
+              <br><br>
+              <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
+              <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
+             
+              <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Proifle Form</a> 
+            </div>
           </center>
+          
         @else
-          <div class="card-body">
-            <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
-              <p>To view your registration, Click the below button</p>
-            </h4>
-            <a href="/ViewMyRegistration/{{Crypt::encrypt(Auth::user()->id)}}" target="_blank" class="btn btn-primary">
-              {{ Auth::user()->name }}</a>
+        <center>
+            <div class="card-body">
+              <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
+                <p>To view your registration, Click the below button</p>
+              </h4>
+              <a href="/ViewMyRegistration/{{Crypt::encrypt(Auth::user()->id)}}" target="_blank" class="btn btn-primary">
+                {{ Auth::user()->name }}</a>
+            </center>
         @endif
              
         

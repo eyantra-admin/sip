@@ -996,6 +996,11 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                   <input type="radio" id="hackathon" name="competition" value="hackathon" {{old('competition') == 'hackathon' ? 'checked' : '' }} onclick="hideeyrc();">
                                   <label for="mooc">Hackathon</label>
                               </div>
+                              <div class="radio">
+                                  <input type="radio" id="design" name="competition" value="design" {{old('competition') == 'design' ? 'checked' : '' }} onclick="hideeyrc();">
+                                  <label for="mooc">Design Sprint</label>
+                              </div>
+
                           </div>
                           <br>
                           <div id="showeyrc" class="form-field" style="display: none;">
