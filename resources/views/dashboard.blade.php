@@ -154,14 +154,14 @@ a.portfolio-link {
 
       <div class="card card-nav-tabs">
         <div class="card-header card-header-warning">
-          <b>Welcome to eYDIP</b>
+          <b>Welcome to e-Yantra Internship Program</b>
         </div>
         @if($form_submitted != 1)
           <div class="card-body">
             <center>
               <h2><b>
                 Congratulations !!!<br>
-                You have been selected for e-Yantra Design Internship.<br></b></h2>
+                You have been selected for e-Yantra Internship Program.<br></b></h2>
               <!-- <h2><b>
                 Congratulations !!!<br>
                 You have been selected for e-Yantra Internship - 2021.<br></b></h2> -->
@@ -215,18 +215,15 @@ a.portfolio-link {
       @endif
     </div>
           <!-- End -->
-          <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px; text-align: justify;">
+          <!-- <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px; text-align: justify;">
             <h3><b>
               <p style="margin:40px;">
-                
-                  You have been assigned the following project:<br><br>
+                You have been assigned the following project:<br><br>
                 Project Name: {{$project_alloted[0]->projectname}} <br><br>
                 Project Description : {{$project_alloted[0]->abstract}} <br>
-               
-                
               </p>
           </b></h3>
-          </div>
+          </div> -->
 
           <section id="timeline" class="timeline-outer">
             <div class="container" id="content">
