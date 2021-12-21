@@ -5,7 +5,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
   <div class="logo">
-    <a href="https://e-yantra.org" class="simple-text logo-normal">
+    <a href="http://eysip.e-yantra.org/home" class="simple-text logo-normal">
       <img style="width: 250px; margin-top: 10px" src="{{ asset('material') }}/img/logo.svg" alt="e-Yantra">
     </a>
   </div>
@@ -85,12 +85,12 @@
               <p>{{ __('Internship Survey') }}</p>
           </a>
         </li>
-        <li class="nav-item{{ $activePage == 'verifydetails' ? ' active' : '' }}">
+        <<!-- li class="nav-item{{ $activePage == 'verifydetails' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('verifydetails') }}">
           <i class="material-icons">unarchive</i>
             <p>{{ __('Verify your details') }}</p>
         </a>
-      </li>
+      </li> -->
     @endif
       
         <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">

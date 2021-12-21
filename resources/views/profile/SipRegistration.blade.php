@@ -146,7 +146,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="http://e-yantra.org" class="navbar-brand" title="e-Yantra"><img src="{!! asset('/logo.png') !!}"/></a>
+            <a href="http://eysip.e-yantra.org/home" class="navbar-brand" title="e-Yantra"><img src="{!! asset('/logo.png') !!}"/></a>
           </div>
         </div>
       </nav>
@@ -160,7 +160,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
             <div class="devider-row">
                 <div class="half-2">
                     <div class="logo-area">
-                        <h1><center><p>Summer Internship 2021</p></center></h1>
+                        <h1><center><p>e-Yantra Internship Program</p></center></h1>
                     </div>
                 </div>
                 <div class="half-2">
@@ -294,7 +294,7 @@ body{ background: #f2ccfc; font-family: 'Roboto', sans-serif;}
                                       <option hidden>Select</option>
                                       <option value="HSC" {{ old('class12board') == "HSC" ? 'selected': '' }}>HSC</option>
                                       <option value="CBSE" {{ old('class12board') == "CBSE" ? 'selected': '' }}>CBSE</option>
-                                      <option value="ICSE" {{ old('class12board') == "ICSE" ? 'selected': '' }}>ICSE</option>
+                                      <option value="ICSE" {{ old('class12board') == "ICSE" ? 'selected': '' }}>ICSE/ISC</option>
                                       <option value="IGCSE" {{ old('class12board') == "IGCSE" ? 'selected': '' }}>IGCSE</option>
                                       <option value="IB" {{ old('class12board') == "IB" ? 'selected': '' }}>IB</option>
                                       <option value="Diploma" {{ old('class12board') == "Diploma" ? 'selected': '' }}>Diploma</option>
