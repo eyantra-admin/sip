@@ -73,6 +73,9 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('project', ['as' => 'project.preference', 'uses' => 'HomeController@projectpreference']);
 	Route::put('project', ['as' => 'project.preferenceupdate', 'uses' => 'HomeController@preferenceupdate']);
 	Route::any('/projectdetail/{projectid}','HomeController@getprojectdetail');
+
+	Route::get('project', ['as' => 'project.addproject', 'uses' => 'HomeController@addproject']);
+	Route::put('project', ['as' => 'project.insertproject', 'uses' => 'HomeController@insertproject']);
 	
 	Route::any('/viewpreferences', ['as'=>'viewpreferences','uses'=>'HomeController@viewpreferences'
 	]);

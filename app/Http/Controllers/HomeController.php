@@ -571,4 +571,35 @@ class HomeController extends Controller
                     return back()->withStatus(__('Mentor Clearence done successfully.'));     
     }
      
+    //Mentor=> Add Project
+    public function addproject(Request $request)
+    {
+        $project_cnt = projects::where('userid', Auth::user()->id)->count();
+
+        return view('project.addproject')->with('project_cnt', $project_cnt);
+    }
+
+    //insert project
+    public static function insertproject(Request $request)
+    {
+        $project_cnt = projects::where('userid', Auth::user()->id)->count();
+        log::info('-----------------------');
+        log::info($project_cnt);
+        if($project_cnt <= 3)
+        {
+            $proj = new projects;
+         
+            $proj->projectname = $request->projectname;
+            $proj->abstract = $request->projectabstract;
+            $proj->technologystack = $request->technologystack;
+            $proj->userid = Auth::user()->id;
+            $proj->save();
+            return redirect()->route('home')->withStatus(__('Project added successfully.'));
+        }
+        else
+        {
+            return back()->withErrors(__('Maximum limit of mentoring the projects is already accomplished.'));
+        }
+
+    }
 }

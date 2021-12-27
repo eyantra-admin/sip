@@ -105,7 +105,13 @@
               <p>{{ __('FAQ') }}</p>
           </a>
         </li> -->
-    @if(Auth::user()->id == 2)
+    @if(Auth::user()->role == 2)
+    <li class="nav-item{{ $activePage == 'addproject' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('project.addproject') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Add Project') }}</p>
+        </a>
+      </li>
     
       <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('viewpreferences') }}">
