@@ -46,8 +46,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $test = $request->session()->all();
+        // dd($request);
+        // return $test['_keycloak_token']['access_token'];
+        // if(!User::where(['email' => $request->user()->email])->exists()){
+        //     return redirect()->route('keycloak.logout');
+        //     //return redirect()->route('register.message')->with('message',"<p class=\"bg-red-200 px-4 py-2 rounded-md text-black\">This email id is not registered with e-Yantra Robotics Competition - 2021 </p>");
+        // }
+
+
         $chksubmitted = User::where('email',Auth::user()->email)->first();
         $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
         $proj_alloted = Projects::where('id', $proj_alloted_id)->get();

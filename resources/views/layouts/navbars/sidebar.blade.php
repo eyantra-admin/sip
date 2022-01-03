@@ -52,18 +52,7 @@
       </li> -->
 
     @if( Auth::user()->profilesubmitted == 1)
-      <!-- <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('project.preference') }}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('Project Preferences') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('timeslotbooking') }}">
-          <i class="material-icons">library_books</i>
-            <p>{{ __('Interview Slot') }}</p>
-        </a>
-      </li> -->
+   
     @endif
 
     @if(Auth::user()->selected == 1)
@@ -85,12 +74,12 @@
               <p>{{ __('Internship Survey') }}</p>
           </a>
         </li>
-        <<!-- li class="nav-item{{ $activePage == 'verifydetails' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('verifydetails') }}">
-          <i class="material-icons">unarchive</i>
-            <p>{{ __('Verify your details') }}</p>
-        </a>
-      </li> -->
+        <li class="nav-item{{ $activePage == 'verifydetails' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('verifydetails') }}">
+            <i class="material-icons">unarchive</i>
+              <p>{{ __('Verify your details') }}</p>
+          </a>
+        </li>
     @endif
       
         <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
@@ -106,7 +95,7 @@
           </a>
         </li> -->
     @if(Auth::user()->role == 2)
-    <li class="nav-item{{ $activePage == 'addproject' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage == 'addproject' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('project.addproject') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Add Project') }}</p>

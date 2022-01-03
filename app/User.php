@@ -36,4 +36,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function fetchUserByCredentials($credentials){
+
+        //query the database for user data
+        $user=$this->where('email',$credentials['email'])->first();
+     
+        if($user == NULL)
+        {
+            $user=new User();
+            $user->role=-1;
+        }  
+
+        return $user;
+    }
 }

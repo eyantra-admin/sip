@@ -54,8 +54,7 @@
                 <label class="col-sm-2 col-form-label">{{ __('Project Abstract') }}</label>
                 <div class="col-sm-7">
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
-                    <textarea class="form-control" name="projectabstract" id="projectabstract" placeholder="Project Abstract" value="{{old('model')}}" rows="4" wrap="physical" required>
-                    </textarea>
+                    <textarea class="form-control" name="projectabstract" id="projectabstract" placeholder="Project Abstract" value="{{old('model')}}" rows="4" wrap="physical" required> </textarea>
                     @if ($errors->has('projectabstract'))
                       <span id="projectpref1-error" class="error text-danger" for="projectabstract">{{ $errors->first('projectabstract') }}</span>
                     @endif
