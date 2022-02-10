@@ -30,7 +30,7 @@
           </div>
 <br>
         @if($already_booked == 0)
-         <!--  <div class="card">
+          <div class="card">
             <div class="card-header card-header-primary">
               <h4 class="card-title">{{ __('Time Slot Booking') }}</h4>
               <p class="card-category">{{ __('Select your preferred timeslot for the interview.') }}</p>
@@ -88,7 +88,7 @@
               </center>
               
             </div>
-          </div> -->
+          </div>
         @endif
         </form>
       </div> 

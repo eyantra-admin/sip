@@ -36,7 +36,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Route::get('/home', 'HomeController@index')->name('home');
 // Auth::routes();
 
-Route::any('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::any('/home', 'HomeController@index')->name('home');
 //see dashboard after profile submission
 Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@dashboard'])->middleware('auth');
 
@@ -89,7 +89,9 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::any('/projectdetail/{projectid}','HomeController@getprojectdetail');
 
 	Route::get('project', ['as' => 'project.addproject', 'uses' => 'HomeController@addproject']);
-	Route::put('project', ['as' => 'project.insertproject', 'uses' => 'HomeController@insertproject']);
+	Route::post('insertproject', ['as' => 'insertproject', 'uses' => 'HomeController@insertproject']);
+	
+	Route::post('project', ['as' => 'project.savementorproject', 'uses' => 'HomeController@savementorproject']);
 	
 	Route::any('/viewpreferences', ['as'=>'viewpreferences','uses'=>'HomeController@viewpreferences'
 	]);
@@ -113,10 +115,41 @@ Route::any('/SipRegistration', [
 	'as'			=>	'SipRegistration',
 	'uses'			=>	'SipRegistration@registerload'
 	])->middleware('auth');
+Route::any('/OldSipRegistration', [
+	'as'			=>	'OldSipRegistration',
+	'uses'			=>	'SipRegistration@OldSipRegistration'
+	])->middleware('auth');
+
+Route::any('/submitSection1', [
+	'as'			=>	'submitSection1',
+	'uses'			=>	'SipRegistration@submitSection1'
+	])->middleware('auth');
+
+Route::any('/submitSection2', [
+	'as'			=>	'submitSection2',
+	'uses'			=>	'SipRegistration@submitSection2'
+	])->middleware('auth');
+Route::any('/submitSection3', [
+	'as'			=>	'submitSection3',
+	'uses'			=>	'SipRegistration@submitSection3'
+	])->middleware('auth');
+Route::any('/submitSection4', [
+	'as'			=>	'submitSection4',
+	'uses'			=>	'SipRegistration@submitSection4'
+	])->middleware('auth');
+Route::any('/submitSection5', [
+	'as'			=>	'submitSection5',
+	'uses'			=>	'SipRegistration@submitSection5'
+	])->middleware('auth');
+
+
+
 Route::any('/submitprofile', [
 	'as'			=>	'submitprofile',
 	'uses'			=>	'SipRegistration@submitprofile'
 	])->middleware('auth');
+
+
 Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
 	])->middleware('auth');
 
@@ -202,3 +235,10 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 		Route::get('validate', 'ValidateController@index')->name('validate');
 		Route::post('validate', 'ValidateController@verify');
 		Route::get('validate/{id}', 'ValidateController@authenticate');
+
+
+
+
+
+		Route::get('profiledtl', ['as' => 'profiledtl', 'uses' => 'SipRegistration@registerload']); 
+		Route::any('submit-profile', ['as' => 'SubmitProfile', 'uses' => 'ProfileControllerNew@SubmitProfile']);

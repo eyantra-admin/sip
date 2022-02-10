@@ -80,20 +80,16 @@
               <p>{{ __('Verify your details') }}</p>
           </a>
         </li>
-    @endif
 
-    <!-- <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('project.preference') }}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('Project Preferences') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
+        <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('timeslotbooking') }}">
           <i class="material-icons">library_books</i>
             <p>{{ __('Interview Slot') }}</p>
         </a>
-      </li> -->
+      </li>
+    @endif
+
+    
 
       
       
@@ -116,6 +112,7 @@
             <p>{{ __('Add Project') }}</p>
         </a>
       </li>
+      
     
       <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('viewpreferences') }}">
@@ -135,7 +132,7 @@
             <p>{{ __('View NDA Submissions') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'listnda' ? ' active' : '' }}">
+      <li class="nav-item{{ $activePage == 'mentorclearence' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('mentorclearence') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Mentor Clearence') }}</p>

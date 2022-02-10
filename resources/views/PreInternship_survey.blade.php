@@ -23,7 +23,7 @@
             </div>
             <div class="card-body">
               <br><br>
-            <!-- <div class="card-panel card-header-info">
+            <div class="card-panel card-header-info">
               <h4 class="card-title"><b>{{ __('Lecture Series') }}</b></h4>
               We'll be arranging lectures by faculty colleagues from IIT Bombay and other schools (please indicate your preferences)
             </div>
@@ -71,7 +71,7 @@
                     <input type="text" class="form-control" id="txtspecialists" name="otherspecialists" />
                   </div>
                 </div>
-            </div> -->
+            </div>
             <br><br>
             <div class="card-panel card-header-info">
               <h4 class="card-title"><b>{{ __('Internet Access') }}</b></h4>

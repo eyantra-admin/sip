@@ -19,12 +19,12 @@
             <i class="material-icons">dashboard</i> {{ __('Dashboard') }}
           </a>
         </li> -->
-        <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
+        <!-- <li class="nav-item{{ $activePage == 'register' ? ' active' : '' }}">
           <a href="{{ route('registration') }}" class="nav-link">
             <i class="material-icons">person_add</i> {{ __('Register') }}
           </a>
         </li>
-       
+        -->
         <li class="nav-item ">
           <a href="{{ route('keycloak.login') }}" class="nav-link">
             <i class="material-icons">fingerprint</i> {{ __('Login') }}
