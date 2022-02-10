@@ -6,17 +6,22 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+
+    protected $error = null;
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','role',
     ];
 
     /**
@@ -37,17 +42,65 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getAuthIdentifier()
+    {
+        return $this->email;
+    }
+     /**
+     * Get the password for the user.
+     *
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function getAuthPassword()
+    {
+        throw new \BadMethodCallException('Unexpected method [getAuthPassword] call');
+    }
+
+    /**
+     * Get the token value for the "remember me" session.
+     *
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function getRememberToken()
+    {
+        throw new \BadMethodCallException('Unexpected method [getRememberToken] call');
+    }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param string $value
+     * @codeCoverageIgnore
+     */
+    public function setRememberToken($value)
+    {
+        throw new \BadMethodCallException('Unexpected method [setRememberToken] call');
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function getRememberTokenName()
+    {
+        throw new \BadMethodCallException('Unexpected method [getRememberTokenName] call');
+    }
+
 
     public function fetchUserByCredentials($credentials){
 
         //query the database for user data
         $user=$this->where('email',$credentials['email'])->first();
-     
+      
         if($user == NULL)
         {
-            $user=new User();
-            $user->role=-1;
-        }  
+            $user=User::create(['name' => $credentials['name'], 'email' => $credentials['email'], 
+                'password' => 'null', 'role' => '1']);
+        }   
 
         return $user;
     }
