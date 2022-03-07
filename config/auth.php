@@ -36,10 +36,11 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+    'web' => [
+        'driver' => 'keycloak-web',
+        'provider' => 'users',
         ],
+
 
         'api' => [
             'driver' => 'token',
@@ -66,15 +67,10 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
+    'users' => [
+        'driver' => 'custom-user',
+        'model' => App\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

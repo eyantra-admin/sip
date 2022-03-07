@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
-use Log;
+use Illuminate\Support\Facades\Input;
+
 use App\Model\OnlineProfile;
 use App\Model\CollegeDetails;
 use App\Model\ElsiDepartments;
@@ -13,8 +14,20 @@ use App\Model\ElsiDesignations;
 use App\Model\ExperienceDtls;
 use App\Model\StudentProjDtls;
 use App\Model\skills_list;
+use App\User;
+
+use Auth;
+use Validator;
+use Session;
+use DateTime;
+use Mail;
+use Log;
+use DB;
+use Storage;
+use Redirect;
 use Request;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Crypt;
+
 
 
 class ProfileController extends Controller
@@ -26,7 +39,20 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit');
+        $colleges = CollegeDetails::select('clg_code','college_name')->orderBy('college_name')->get();
+        $departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
+        $skills = skills_list::orderBy('skill')->get();
+        $chksubmitted = User::where('email',Auth::user()->email)->first();
+        $data = OnlineProfile:: where('email', Auth::user()->email)->first();
+        $exp = ExperienceDtls::where('userid',Auth::user()->id)->get();
+        log::info($data);
+        return view('profile.edit')
+                ->with('colleges', $colleges)
+                ->with('departments',$departments)
+                ->with('skills', $skills)
+                ->with('data', $data)
+                ->with('exp', $exp)
+                ->with('form_submitted', $chksubmitted->profilesubmitted);
     }
 
     /**
@@ -39,31 +65,7 @@ class ProfileController extends Controller
         return view('profile.changepassword');
     }
 
-    public function studentprofile()
-    {
-        $colleges = CollegeDetails::select('clg_code','college_name')->orderBy('college_name')->get();
-        $departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
-        $skills = skills_list::orderBy('skill')->get();
-        $country = CollegeDetails::select('country')->orderBy('country')->distinct()->get();
-
-        $department = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
-
-        $designation = ElsiDesignations::select('id', 'name')->orderBy('name')->get();
-        //log::info($skills);
-
-        return view('profile.studentprofile')
-                ->with('colleges', $colleges)
-                ->with('department',$department)
-                ->with('skills', $skills)
-                ->with('designation',$designation)
-                ->with('country', $country);
-       
-    }
-    public function submitform()
-    {
-        log::info('submit form is here');
-    }
-
+ 
 
 
     /**
@@ -76,6 +78,28 @@ class ProfileController extends Controller
     {
         auth()->user()->update($request->all());
 
+        return back()->withStatus(__('Profile successfully updated.'));
+    }
+
+    public function updateSectionData(Request $request) // General section update
+    {
+        $profile = OnlineProfile::find(Auth::user()->id);
+        $updates = $request::all();
+        $profile->update($updates);   // save the updated data
+        return back()->withStatus(__('Profile successfully updated.'));
+    }
+
+    public function updateSection4(Request $request) //MOOC Corses update
+    {
+        log::info($request::all());
+        log::info($request->expdtl[$i]);
+        for($i=0; $i < count($request['expdtl']); ++$i) 
+        {
+            $exp_dtls = new ExperienceDtls; 
+            $update_exp = DB::table('experience_dtls')
+          ->where('userid', Auth::user()->id)
+          ->update(['exp_description' => $request['expdtl'][$i]]);
+        }                                   
         return back()->withStatus(__('Profile successfully updated.'));
     }
 

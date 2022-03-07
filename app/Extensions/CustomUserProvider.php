@@ -14,7 +14,6 @@ class CustomUserProvider implements UserProvider
   public function __construct($usermodel)
   {
     $this->model = $usermodel;
-    log::info('in cup');
   }
 
   public function retrieveByCredentials(array $credentials)
@@ -29,7 +28,6 @@ class CustomUserProvider implements UserProvider
      
         //get the user instance
         $user = $model_instance->fetchUserByCredentials(['email' => $credentials['email'], 'name' => $credentials['name']]);
-   
         return $user;
     }
 

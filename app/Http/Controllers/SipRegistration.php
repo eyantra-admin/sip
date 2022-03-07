@@ -81,29 +81,12 @@ class SipRegistration extends Controller
 		$skills = skills_list::orderBy('skill')->get();
 		$chksubmitted = User::where('email',Auth::user()->email)->first();
 
-		//return view('profile.SipRegistration')
-		$already_exists = OnlineProfile::where('userid', Auth::user()->id)->count();
-		if($already_exists == 1)
-    {
-    	//$stud_data = OnlineProfile::where('userid', Auth::user()->id)->first();
-    	//log::info($stud_data);
-			return view('StudentProfileForm')
+		return view('StudentProfileForm')
 				->with('colleges', $colleges)
 				->with('departments',$departments)
 				->with('skills', $skills)
 				->with('form_submitted', $chksubmitted->profilesubmitted);
 				//->with('stud_data', $stud_data); 
-		}
-		else
-		{
-			//$stud_data = OnlineProfile::where('userid', Auth::user()->id)->first();
-			return view('StudentProfileForm')
-				->with('colleges', $colleges)
-				->with('departments',$departments)
-				->with('skills', $skills)
-				->with('form_submitted', $chksubmitted->profilesubmitted);
-				//->with('stud_data', $stud_data); 
-		}
 		// return view ('SipRegistration_closed');
 		}
 
