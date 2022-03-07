@@ -11,6 +11,7 @@ use App\Model\TimeslotBooking;
 use App\Model\UserPanel;
 use App\Model\EysipUploads;
 use App\Model\PreInternshipSurvey;
+use App\Model\skills_list;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
@@ -46,26 +47,30 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
-        $test = $request->session()->all();
-        // dd($request);
-        // return $test['_keycloak_token']['access_token'];
-        // if(!User::where(['email' => $request->user()->email])->exists()){
-        //     return redirect()->route('keycloak.logout');
-        //     //return redirect()->route('register.message')->with('message',"<p class=\"bg-red-200 px-4 py-2 rounded-md text-black\">This email id is not registered with e-Yantra Robotics Competition - 2021 </p>");
-        // }
-
-
-        $chksubmitted = User::where('email',Auth::user()->email)->first();
-        $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
-        $proj_alloted = Projects::where('id', $proj_alloted_id)->get();
-        $cert_check = OnlineProfile::where('userid', Auth::user()->id)->value('cert_level');
-        Log::info($cert_check);
-        return view('dashboard')
-        ->with(['project_alloted' => $proj_alloted, 'form_submitted' => $chksubmitted->profilesubmitted, 'cert_check' => $cert_check]);
-
-        //return view('dashboard');
+        log::info('------11111------');
+        log::info(Auth::user());
+        if(Auth::user() == null)
+            return redirect()->route('keycloak.login');
+        else
+        {
+            if(Auth::user()->active == 0)
+                return redirect()->route('error')->withErrors(__('Your account is deactive.'));
+            else
+                $chksubmitted = User::where('email',Auth::user()->email)->first();
+                $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
+                //$proj_alloted = Projects::where('id', $proj_alloted_id)->get();
+                $cert_check = OnlineProfile::where('userid', Auth::user()->id)->value('cert_level');
+                Log::info($cert_check);
+                return view('dashboard')
+                ->with(['form_submitted' => $chksubmitted->profilesubmitted, 'cert_check' => $cert_check]);
+                    return view('dashboard'); //'project_alloted' => $proj_alloted, 
+        }
+    }
+    public function error()
+    {
+        return view('error');
     }
 
     public function dashboard()
@@ -85,8 +90,6 @@ class HomeController extends Controller
     public static function getCountrywiseStates(Request $request)
     {
         $country = $request->country;
-        log::info('-----------');
-        log::info($country);
         $state=ElsiState::where('country',$country)->pluck('state');    
     
         return json_encode($state);
@@ -583,32 +586,50 @@ class HomeController extends Controller
     //Mentor=> Add Project
     public function addproject(Request $request)
     {
-        $project_cnt = projects::where('userid', Auth::user()->id)->count();
-
-        return view('project.addproject')->with('project_cnt', $project_cnt);
+        //$project_cnt = projects::where('mentor1userid', Auth::user()->id)->count();
+        $projects = Projects::select('id','projectname')->orderBy('projectname')->get();
+        $mentors = User::select('id','name as mentorname')->where('role', 2)->orderBy('name')->get();
+        $skills = skills_list::orderBy('skill')->get();
+        return view('project.addproject')->with('projects', $projects)
+        ->with('mentors', $mentors)->with('skills', $skills);
     }
 
     //insert project
-    public static function insertproject(Request $request)
+    public function insertproject(Request $request)
     {
-        $project_cnt = projects::where('userid', Auth::user()->id)->count();
-        log::info('-----------------------');
-        log::info($project_cnt);
-        if($project_cnt <= 3)
-        {
-            $proj = new projects;
-         
-            $proj->projectname = $request->projectname;
-            $proj->abstract = $request->projectabstract;
-            $proj->technologystack = $request->technologystack;
-            $proj->userid = Auth::user()->id;
-            $proj->save();
-            return redirect()->route('home')->withStatus(__('Project added successfully.'));
-        }
-        else
-        {
-            return back()->withErrors(__('Maximum limit of mentoring the projects is already accomplished.'));
-        }
+        log::info($request->all());
+        $proj = new projects;
+        $proj->projectname = $request->projectname;
+        $proj->abstract = $request->projectabstract;
+        //$proj->technologystack = $request->technologystack;
+        $proj->technologystack = implode(', ', $request->technologystack);
+        $proj->save();
+        return back()->withStatus(__('Project added successfully.'));
+    }
 
+    //mentor allocation to project
+    public static function savementorproject(Request $request)
+    {
+        $proj = new projects;
+        $mentor_project = DB::table('projects')->where('id', $request->project)
+                            ->update(['mentor1userid' => $request->mentor1,
+                                      'mentor2userid' => $request->mentor2, 
+                                      'mentor3userid' => $request->mentor3]);
+        return back()->withStatus(__('Mentor Project allocation done successfully.'));
+
+    }
+
+
+    //View student profiles for mentor login
+    public static function View_studentprofiles(Request $request)
+    {
+        $result = OnlineProfile::select('online_profile_response.name','online_profile_response.email',
+            'online_profile_response.phone','online_profile_response.userid', 'up.panelid')
+        ->join('users as u', 'u.id', '=', 'online_profile_response.userid')
+        ->join('user_panel as up', 'up.userid', '=', 'u.id')
+        ->where('u.profilesubmitted', 1)
+        ->orderBy('up.panelid')
+        ->get();
+        return view('View_studentprofiles')->with('profile_list', $result);
     }
 }

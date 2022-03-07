@@ -39,6 +39,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::any('/home', 'HomeController@index')->name('home');
 //see dashboard after profile submission
 Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@dashboard'])->middleware('auth');
+Route::any('/error', 'HomeController@error')->name('error');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {
@@ -76,15 +77,21 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
+	Route::put('profile', ['as' => 'profile.updateSection1', 'uses' => 'ProfileController@updateSectionData']);
+	Route::put('profileupdate', ['as' => 'profileupdate', 'uses' => 'ProfileController@updateSectionData']);
+	Route::put('updateexp', ['as' => 'updateexp', 'uses' => 'ProfileController@updateSection4']);
+	Route::put('updatecomp', ['as' => 'updatecomp', 'uses' => 'ProfileController@updateSectionData']);
+
+
+
+
+
+
 	// Change Password
 	Route::get('changepassword', ['as' => 'changepassword', 'uses' => 'ProfileController@changepassword']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
-	Route::put('submitform', ['as' => 'submitform', 'uses' => 'ProfileController@submitform']);
-	Route::any('/studentprofile', ['as'=>'studentprofile','uses'=>'ProfileController@studentprofile'
-	]);
-
-	Route::get('project', ['as' => 'project.preference', 'uses' => 'HomeController@projectpreference']);
+	Route::get('projectpreference', ['as' => 'projectpreference', 'uses' => 'HomeController@projectpreference']);
 	Route::put('project', ['as' => 'project.preferenceupdate', 'uses' => 'HomeController@preferenceupdate']);
 	Route::any('/projectdetail/{projectid}','HomeController@getprojectdetail');
 
@@ -102,6 +109,9 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::get('timeslotbooking', ['as' => 'timeslotbooking', 'uses' => 'HomeController@timeslotbooking']);
 	Route::any('gettimeslot', ['as' => 'gettimeslot', 'uses' => 'HomeController@gettimeslot']);
 	Route::put('booktimeslot', ['as' => 'booktimeslot', 'uses' => 'HomeController@booktimeslot']);
+
+
+	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
 	
 });
 
@@ -141,6 +151,12 @@ Route::any('/submitSection5', [
 	'as'			=>	'submitSection5',
 	'uses'			=>	'SipRegistration@submitSection5'
 	])->middleware('auth');
+Route::any('/submitSection6', [
+	'as'			=>	'submitSection6',
+	'uses'			=>	'SipRegistration@submitSection6'
+	])->middleware('auth');
+
+
 
 
 
@@ -153,11 +169,11 @@ Route::any('/submitprofile', [
 Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
 	])->middleware('auth');
 
-Route::any('/SipView', ['as'=>	'SipView','uses'=>	'SipRegistration@sip_view']);
-Route::any('/SipStudent/{user}', 'SipRegistration@sip_student');
-Route::any('/ViewMyRegistration/{user}', 'SipRegistration@ViewMyRegistration');
-
-Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate');
+Route::any('/SipView', ['as'=>	'SipView','uses'=>	'SipRegistration@sip_view'])->middleware('auth');
+Route::any('/SipStudent/{user}', 'SipRegistration@sip_student')->middleware('auth');
+Route::any('/ViewMyRegistration/{user}', 'SipRegistration@ViewMyRegistration')->middleware('auth');
+Route::any('/back', 'SipRegistration@back')->middleware('auth');
+Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate')->middleware('auth');
 
 Route::any('/upload', ['as'=>'upload','uses'=>'HomeController@Upload'])->middleware('auth');
 
@@ -242,3 +258,7 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 
 		Route::get('profiledtl', ['as' => 'profiledtl', 'uses' => 'SipRegistration@registerload']); 
 		Route::any('submit-profile', ['as' => 'SubmitProfile', 'uses' => 'ProfileControllerNew@SubmitProfile']);
+
+		Route::any('/View_profiles', ['as'=>'View_profiles','uses'=>'HomeController@View_studentprofiles'
+	]);
+

@@ -44,19 +44,28 @@
                 <div class="col-sm-7">
                   <input class="form-control" type="text" name="projectname" id="projectname" placeholder="Project Name" value="{{old('model')}}" required>
                 </div>
-              </div>
+              </div><br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project Abstract') }}</label>
                 <div class="col-sm-7">
                   <textarea class="form-control" name="projectabstract" id="projectabstract" required 
                         placeholder="Add Project Abstract" value="{{old('projectabstract')}}" rows="4" wrap="physical"></textarea>
                 </div>
-              </div>
+              </div><br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Technology Stack') }}</label>
+              </div>
+              <div class="row">
+                
+                @foreach($skills as $skill)
                 <div class="col-sm-7">
-                  <input class="form-control" type="text" name="technologystack" id="technologystack" placeholder="Technology Stack" value="{{old('model')}}" required>
+                 
+                  <input type="checkbox" name="technologystack[]" value="{{$skill->skill}}"> <label>{{$skill->skill}}</label>
+
                 </div>
+                @endforeach
+                
+
               </div>
               <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
@@ -148,3 +157,200 @@
     </div>
   </div>
 @endsection
+
+<style type="text/css">
+  * {
+  box-sizing: border-box;
+}
+
+.dropdown {
+  position: relative;
+  margin-bottom: 20px;
+
+  .dropdown-list {
+    padding: 25px 20px;
+    background: #fff;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    border: 1px solid rgba(black, .2);
+    max-height: 223px;
+    overflow-y: auto;
+    background: #fff;
+    display: none;
+    z-index: 10;
+  }
+  
+  .checkbox {
+    opacity: 0;
+    transition: opacity .2s;
+  }
+  
+  .dropdown-label {
+    display: block;
+    height: 44px;
+    font-size: 16px;
+    line-height: 42px;
+    background: #fff;
+    border: 1px solid rgba(black, .2);
+    padding: 0 40px 0 20px;
+    cursor: pointer;
+    position: relative;
+    
+    &:before {
+      content: '▼';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform .25s;
+      transform-origin: center center;
+    }
+  }
+  &.open {
+    .dropdown-list {
+      display: block;
+    }
+    .checkbox {
+      transition: 2s opacity 2s;
+      opacity: 1;
+    }
+    .dropdown-label:before {
+      transform: translateY(-50%) rotate(-180deg);
+    }
+  }
+}
+
+.checkbox {
+  margin-bottom: 20px;
+  &:last-child {  
+    margin-bottom: 0;
+  }
+  
+  .checkbox-custom {
+    display: none;
+  }
+
+  .checkbox-custom-label {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .checkbox-custom + .checkbox-custom-label:before {
+    content: '';
+    background: transparent;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    text-align: center;
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(black, .3);
+    border-radius: 2px;
+    margin-top: -2px;
+  }
+
+  .checkbox-custom:checked + .checkbox-custom-label:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    height: 4px;
+    padding: 2px;
+    transform: rotate(45deg);
+    text-align: center;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+  }
+  .checkbox-custom-label {
+    line-height: 16px;
+    font-size: 16px;
+    margin-right: 0;
+    margin-left: 0;
+    color: black;
+  }
+}
+</style>
+
+@push('js')
+<script type="text/javascript">
+  
+function checkboxDropdown(el) {
+  var $el = $(el)
+
+  function updateStatus(label, result) {
+    if(!result.length) {
+      label.html('Select Options');
+    }
+  };
+  
+  $el.each(function(i, element) {
+    var $list = $(this).find('.dropdown-list'),
+      $label = $(this).find('.dropdown-label'),
+      $checkAll = $(this).find('.check-all'),
+      $inputs = $(this).find('.check'),
+      defaultChecked = $(this).find('input[type=checkbox]:checked'),
+      result = [];
+    
+    updateStatus($label, result);
+    if(defaultChecked.length) {
+      defaultChecked.each(function () {
+        result.push($(this).next().text());
+        $label.html(result.join(", "));
+      });
+    }
+    
+    $label.on('click', ()=> {
+      $(this).toggleClass('open');
+    });
+
+    $checkAll.on('change', function() {
+      var checked = $(this).is(':checked');
+      var checkedText = $(this).next().text();
+      result = [];
+      if(checked) {
+        result.push(checkedText);
+        $label.html(result);
+        $inputs.prop('checked', false);
+      }else{
+        $label.html(result);
+      }
+        updateStatus($label, result);
+    });
+
+    $inputs.on('change', function() {
+      var checked = $(this).is(':checked');
+      var checkedText = $(this).next().text();
+      if($checkAll.is(':checked')) {
+        result = [];
+      }
+      if(checked) {
+        result.push(checkedText);
+        $label.html(result.join(", "));
+        $checkAll.prop('checked', false);
+      }else{
+        let index = result.indexOf(checkedText);
+        if (index >= 0) {
+          result.splice(index, 1);
+        }
+        $label.html(result.join(", "));
+      }
+      updateStatus($label, result);
+    });
+
+    $(document).on('click touchstart', e => {
+      if(!$(e.target).closest($(this)).length) {
+        $(this).removeClass('open');
+      }
+    });
+  });
+};
+
+checkboxDropdown('.dropdown');
+
+
+</script>
+@endpush

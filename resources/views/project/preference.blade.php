@@ -90,6 +90,7 @@
       </div>
 
       <!-- ------Preference table------- -->
+    @if(Auth::user()->role == 1)
       @if($proj_prefer == 0)
       <div class="col-md-12" style="margin-top: 100px">
         <form method="post" action="{{ route('project.preferenceupdate') }}" autocomplete="off" class="form-horizontal">
@@ -196,6 +197,7 @@
         </form>
       </div> 
       @endif
+    @endif
     </div>
   </div>
 @endsection

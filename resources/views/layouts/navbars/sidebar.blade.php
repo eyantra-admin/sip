@@ -18,14 +18,20 @@
         </a>
       </li>
 
-      <li class="nav-item{{ $activePage == 'changepassword' ? ' active' : '' }}">
+      <!-- <li class="nav-item{{ $activePage == 'changepassword' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('changepassword') }}">
            <span>
                 <i class="material-icons">face</i>
             </span>
           <span class="sidebar-normal">{{ __('Change Password') }} </span>
         </a>
-      </li>
+      </li> -->
+      <!-- <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('projectpreference') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Project Preference') }}</p>
+        </a>
+      </li> -->
       <!-- <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="true">
           <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>
@@ -87,6 +93,13 @@
             <p>{{ __('Interview Slot') }}</p>
         </a>
       </li>
+     
+        <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('projectpreference') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Project Preference') }}</p>
+        </a>
+      </li>
     @endif
 
     
@@ -136,6 +149,12 @@
         <a class="nav-link" href="{{ route('mentorclearence') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Mentor Clearence') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'InterviewResult' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('Evaluation') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Student Interview') }}</p>
         </a>
       </li>
 

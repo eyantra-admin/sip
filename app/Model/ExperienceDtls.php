@@ -11,4 +11,5 @@ class ExperienceDtls extends Eloquent {
 	 */
 	protected $table = 'experience_dtls';
 	protected $connection = 'mysql';
+	protected $guarded = []; 
 }

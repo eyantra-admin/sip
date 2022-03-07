@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'survey', 'titlePage' => __('Pre-Internship Survey')])
+@extends('layouts.app', ['activePage' => 'StudentProfileForm', 'titlePage' => __('Student Profile Form')])
 
 @section('content') 
   <div class="content">
@@ -44,6 +44,7 @@
                   <li class="tab waves-effect waves-light btn"><a href="#test3">Mooc Courses</a></li>
                   <li class="tab waves-effect waves-light btn"><a href="#test4">Experience Details</a></li>
                   <li class="tab waves-effect waves-light btn"><a  href="#test5">e-Yantra Affiliations</a></li>
+                  <li class="tab waves-effect waves-light btn"><a  href="#test6">Confirmation</a></li>
                 </ul>
               
 
@@ -94,6 +95,8 @@
                                 <option hidden value="">Select your college</option>
                                 @foreach($colleges as $college)
                                 <option value="{{$college->clg_code}}" {{old('college') == $college->clg_code ? 'selected' : ''  }}>{{$college->college_name}}</option>
+
+                                
                                 @endforeach
                             </select>
                             @if ($errors->has('college'))
@@ -170,7 +173,7 @@
                         <label class="col-sm-3 col-form-label">{{ __('Github Link') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('github') ? ' has-danger' : '' }}">
-                            <input class="form-control" name="github" id="github" placeholder="Github link" value="{{old('github')}}" rows="4" wrap="physical" required>
+                            <input class="form-control" name="github" id="github" placeholder="Github link" value="{{old('github')}}"github rows="4" wrap="physical" required>
                             @if ($errors->has('github'))
                               <span id="github-error" class="error text-danger" for="github">{{ $errors->first('github') }}</span>
                             @endif
@@ -237,11 +240,11 @@
                           <div class="row">
                             <label class="col-sm-3 col-form-label">{{ __('Project Duration') }}</label>
                               <div class="col">
-                                <input type="text" class="form-control" placeholder="Project Duration(In months)" name="projDuration[]" id="projDuration" value="{{old('projDuration')}}" required>
+                                <input type="number" class="form-control" placeholder="Project Duration(In months)" name="projDuration[]" id="projDuration" value="{{old('projDuration')}}" required>
                               </div>
                             <label class="col-sm-3 col-form-label">{{ __('No of Team Members') }}</label>
                               <div class="col">
-                                <input type="text" class="form-control" name="projMembers[]" id="projMembers" placeholder="No of Team Members" value="{{old('projMembers')}}" required>
+                                <input type="number" class="form-control" name="projMembers[]" id="projMembers" placeholder="No of Team Members" value="{{old('projMembers')}}" required>
                               </div>
                           </div>
                           <div class="row">
@@ -458,6 +461,8 @@
                               <option value="1" {{old('hardware') == 1 ? 'selected' : '' }}>With Me</option>
                               <option value="2" {{old('hardware') == 2 ? 'selected' : '' }}>With other team</option>
                               <option value="3" {{old('hardware') == 3 ? 'selected' : '' }}>Submitted to College</option>
+                              <option value="4" {{old('hardware') == 4 ? 'selected' : '' }}>No Theme Kit</option>
+                              
                             </select>
                           </div>
                         </div>
@@ -474,6 +479,20 @@
                       
                       <div class="card-footer ml-auto mr-auto">
                         <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
+                      </div>
+                    </form>
+                  </div>
+                  <div id="test6" class="col s12">
+                    <form method="post" action="{{ route('submitSection6') }}" autocomplete="off" 
+                      class="form-horizontal">
+                      @csrf
+                      <div class="row">
+                        <label class="col-sm-9 col-form-label">
+                          <input name="confirm" value="1" type="checkbox" required />
+                        {{ __('I hereby confirm that the information provided by me is true and authentic to the best of my knowledge.') }}</label>
+                      </div>
+                      <div class="card-footer ml-auto mr-auto">
+                        <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Submit Profile') }}</button>
                       </div>
                     </form>
                   </div>
@@ -526,10 +545,8 @@
     var copyContent = $("#copy-this-div").clone();
     $('.parent-div').append(copyContent);
     click++;
-    alert(click);
     if(click>=3)
     {
-      alert('greater');
       document.getElementById("add_project").disabled = true;
     }
   });

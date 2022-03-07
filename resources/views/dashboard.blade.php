@@ -161,7 +161,7 @@ a.portfolio-link {
             <center>
               <h2><b>
                 Congratulations !!!<br>
-                You have been selected for e-Yantra Internship Program.<br></b></h2>
+                You have been shorlisted for e-Yantra Internship Program.<br></b></h2>
               <!-- <h2><b>
                 Congratulations !!!<br>
                 You have been selected for e-Yantra Internship - 2021.<br></b></h2> -->
@@ -172,7 +172,7 @@ a.portfolio-link {
               <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
              
-              <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Proifle Form</a> 
+              <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> 
             </div>
           </center>
           
@@ -180,7 +180,7 @@ a.portfolio-link {
         <center>
             <div class="card-body">
               <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
-                <p>To view your registration, Click the below button</p>
+                <p>To view your registration, click the below button</p>
               </h4>
               <a href="/ViewMyRegistration/{{Crypt::encrypt(Auth::user()->id)}}" target="_blank" class="btn btn-primary">
                 {{ Auth::user()->name }}</a>
@@ -192,9 +192,9 @@ a.portfolio-link {
         @if(Auth::user()->selected == 1 )
         <div>
           <center>
-            <!-- <h2><b>
+            <h2><b>
               Congratulations !!!<br>
-              You have been selected for e-Yantra Internship - 2021.<br></b></h2> -->
+              You have been selected for e-Yantra Internship - 2022.<br></b></h2>
           </center>
           <!-- Certificate Download -->
           <div class="col m12 s12 text-center">
@@ -215,15 +215,8 @@ a.portfolio-link {
       @endif
     </div>
           <!-- End -->
-          <!-- <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px; text-align: justify;">
-            <h3><b>
-              <p style="margin:40px;">
-                You have been assigned the following project:<br><br>
-                Project Name: {{$project_alloted[0]->projectname}} <br><br>
-                Project Description : {{$project_alloted[0]->abstract}} <br>
-              </p>
-          </b></h3>
-          </div> -->
+          <!-- Uncomment the div when projects are alloted -->
+          
 
           <section id="timeline" class="timeline-outer">
             <div class="container" id="content">

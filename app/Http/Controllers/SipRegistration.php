@@ -51,11 +51,12 @@ class SipRegistration extends Controller
 	}
 	public function ViewMyRegistration($userid)
 	{
-		
 		$student = OnlineProfile::where('userid',Crypt::decrypt($userid))->first();
-		log::info('aaaaaaaaaaaaaaaaaaaaaaaaaa');
-		log::info($student);
-		$project = StudentProjDtls::where('userid',Crypt::decrypt($userid))->first();
+		
+		$project = StudentProjDtls::where('userid',Crypt::decrypt($userid))->get();
+		log::info('=========================');
+		log::info(Crypt::decrypt($userid));
+		log::info($project);
 		$exp = ExperienceDtls::where('userid',Crypt::decrypt($userid))->get();
 		// $file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
 		return view('profile.View_MyRegistration')->with('student',$student)->with('project',$project)->with('exp',$exp);
@@ -81,11 +82,28 @@ class SipRegistration extends Controller
 		$chksubmitted = User::where('email',Auth::user()->email)->first();
 
 		//return view('profile.SipRegistration')
-		return view('StudentProfileForm')
+		$already_exists = OnlineProfile::where('userid', Auth::user()->id)->count();
+		if($already_exists == 1)
+    {
+    	//$stud_data = OnlineProfile::where('userid', Auth::user()->id)->first();
+    	//log::info($stud_data);
+			return view('StudentProfileForm')
 				->with('colleges', $colleges)
 				->with('departments',$departments)
 				->with('skills', $skills)
-				->with('form_submitted', $chksubmitted->profilesubmitted); 
+				->with('form_submitted', $chksubmitted->profilesubmitted);
+				//->with('stud_data', $stud_data); 
+		}
+		else
+		{
+			//$stud_data = OnlineProfile::where('userid', Auth::user()->id)->first();
+			return view('StudentProfileForm')
+				->with('colleges', $colleges)
+				->with('departments',$departments)
+				->with('skills', $skills)
+				->with('form_submitted', $chksubmitted->profilesubmitted);
+				//->with('stud_data', $stud_data); 
+		}
 		// return view ('SipRegistration_closed');
 		}
 
@@ -133,146 +151,158 @@ class SipRegistration extends Controller
 	{
 		log::info($request->all());
 		$input = $request->all();
-    DB::transaction(function() use($request)
+		$validator = Validator::make($request->all(), [
+      'phone' => 'required|numeric|digits_between:10,12',
+			'phone.digits' => 'Phone number should be of 10 to 12 digits.',
+			'college' => 'required',
+			'department' => 'required',
+			'year' => 'required',
+			'class12' => 'required|numeric|between:0,99.99',
+			'gpa' => 'required|numeric|between:0,99.99',
+			'github' => 'required'                   
+    ],
+    [
+    	'phone.digits' => 'Phone number should be of 10 to 12 digits',
+			'phone.required' => 'Phone number is required',
+			'college.required' => 'College is required',
+			'department.required' => 'Department is required',
+			'year.required' => 'Current year at college required',
+			'class12.required' => 'Class 12 percentage required',
+			'gpa.required' => 'Current GPA required',
+			'github.required' => 'Github account required'
+    ]);
+
+    if($validator->fails())
     {
-			$validator = Validator::make($request->all(), [
-        'phone' => 'required|numeric|digits_between:10,12',
-				'phone.digits' => 'Phone number should be of 10 to 12 digits.',
-				'college' => 'required',
-				'department' => 'required',
-				'year' => 'required',
-				'class12' => 'required|numeric|between:0,99.99',
-				'gpa' => 'required|numeric|between:0,99.99',
-				'github' => 'required'                   
-      ],
-      [
-      	'phone.digits' => 'Phone number should be of 10 to 12 digits',
-				'phone.required' => 'Phone number is required',
-				'college.required' => 'College is required',
-				'department.required' => 'Department is required',
-				'year.required' => 'Current year at college required',
-				'class12.required' => 'Class 12 percentage required',
-				'gpa.required' => 'Current GPA required',
-				'github.required' => 'Github account required'
-      ]);
+    	log::info('VALIDATOR FAIL');
+      return Redirect::back()->withErrors($validator);
+    }
+		else
+		{		
+			$userid = User::where('email', Auth::user()->email)->value('id');
+			switch($request->year) 
+			{
+					case "1": $year = "first year"; break;
+					case "2": $year = "second year"; break;
+					case "3": $year = "third year"; break;
+					case "4": $year = "fourth year"; break;
+				}
+			switch($request->class12board) 
+			{
+				case "1": $board = "HSC"; break;
+				case "2": $board = "CBSE"; break;
+				case "3": $board = "ICSE"; break;
+				case "4": $board = "IGCSE"; break;
+				case "5": $board = "IB"; break;
+				case "6": $board = "Diploma"; break;
+			}
+			
+			$already_exists = OnlineProfile::where('userid', $userid)->count();
+			$col_name= CollegeDetails::select('college_name')->where('clg_code',$request->college)->first();
+			$branch = ElsiDepartments::select('name')->where('id',$request->department)->first();
 
-      if($validator->fails())
+			$profile = new OnlineProfile;
+			if($already_exists == 1)
       {
-      	log::info('VALIDATOR FAIL');
-        return Redirect::back()->withErrors($validator);
+        $basicdtls = DB::table('online_profile_response')
+                ->where('userid', $userid)
+                ->update(['gpa' => $request->gpa, 
+                          'year' => $request->year, 
+                          'branch' => $branch['name'], 
+                          'clg_code' => $request->college,
+                          'college' => $col_name['college_name'],  
+                          'collType' => $request->collType,
+                          'class12' => $request->class12, 
+                          'class12board' => $request->class12board,
+                          'github' => $request->github, 
+                          'linkedin' => $request->linkedin,
+                          'instagram' => $request->insta, 
+                          'facebook' => $request->fb,
+                          'tab1count' => 1
+                          ]);
+        return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
       }
-			else
-			{		
-				$userid = User::where('email', Auth::user()->email)->value('id');
-				switch($request->year) 
-				{
-						case "1": $year = "first year"; break;
-						case "2": $year = "second year"; break;
-						case "3": $year = "third year"; break;
-						case "4": $year = "fourth year"; break;
-					}
-				switch($request->class12board) 
-				{
-					case "1": $board = "HSC"; break;
-					case "2": $board = "CBSE"; break;
-					case "3": $board = "ICSE"; break;
-					case "4": $board = "IGCSE"; break;
-					case "5": $board = "IB"; break;
-					case "6": $board = "Diploma"; break;
-				}
+      else
+      {
+    		$profile->userid = $userid;
+				$profile->name = $request->fullname;
+				$profile->email = $request->email;
+				$profile->phone = $request->phone;
+				$profile->year = $request->year;
+				$profile->college = $col_name['college_name'];
+				$profile->collType = $request->collType;
+				$profile->clg_code = $request->college;
 				
-				$already_exists = OnlineProfile::where('userid', $userid)->count();
-				$col_name= CollegeDetails::select('college_name')->where('clg_code',$request->college)->first();
-				$branch = ElsiDepartments::select('name')->where('id',$request->department)->first();
+				$profile->branch = $branch['name'];
+				$profile->class12 = $request->class12;
+				$profile->class12board = $request->class12board;
+				$profile->gpa = $request->gpa;
+				$profile->github = $request->github;
+				$profile->linkedin = $request->linkedin;
+				$profile->instagram = $request->insta;
+				$profile->facebook = $request->fb;
+				$profile->tab1count = 1;
+				$profile->save();
 
-				$profile = new OnlineProfile;
-				if($already_exists == 1)
-        {
-          $basicdtls = DB::table('online_profile_response')
-                  ->where('userid', $userid)
-                  ->update(['gpa' => $request->gpa, 
-                            'year' => $request->year, 
-                            'branch' => $branch['name'], 
-                            'clg_code' => $request->college, 
-                            'collType' => $request->collType,
-                            'class12' => $request->class12, 
-                            'class12board' => $request->class12board,
-                            'github' => $request->github, 
-                            'linkedin' => $request->linkedin,
-                            'instagram' => $request->insta, 
-                            'facebook' => $request->fb,
-                            'tabcount' => 1
-                            ]);
-                  return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
-        }
-        else
-        {
-        		$profile->userid = $userid;
-						$profile->name = $request->fullname;
-						$profile->email = $request->email;
-						$profile->phone = $request->phone;
-						$profile->year = $request->year;
-						$profile->college = $col_name['college_name'];
-						$profile->collType = $request->collType;
-						$profile->clg_code = $request->college;
-						
-						$profile->branch = $branch['name'];
-						$profile->class12 = $request->class12;
-						$profile->class12board = $request->class12board;
-						$profile->gpa = $request->gpa;
-						$profile->github = $request->github;
-						$profile->linkedin = $request->linkedin;
-						$profile->instagram = $request->insta;
-						$profile->facebook = $request->fb;
-						$profile->tab1count = 1;
-						$profile->save();
-
-						return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
-						//return redirect()->route('profiledtl')->with('message', 'Details added successfully!!!');
-				}
-	    }
-		});
+				return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
+			}
+			return redirect()->route('SipRegistration')->withStatus(__('Details added successfully.'));
+    }
 	}
 //-----------------------------END OF SECTION 1------------------------------------------------
 	PUBLIC FUNCTION submitSection2(Request $request) // PROJECT DTLS
 	{
 		log::info($request->all());
-		
-		$userid = User::where('email', Auth::user()->email)->value('id');
-		$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
-		if($tab1cnt == 1)
-		{
-			$update_tabcount = DB::table('online_profile_response')->where('userid', $userid)
-                  			->update(['tab2count' => 1]);
-    	return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
-		}
-		else
-		{
-			return back()->withErrors(__('Please submit the details from tab 1 in order to submit project details.'));
-		}	
+		// $validator = Validator::make($request->all(), [
+  //     'projDuration' => 'required|numeric', 
+  //     'projMembers' => 'required|numeric',
+			
+  //   ],
+  //   [
+  //   	'projDuration.digits' => 'Project duration is a numeric field.',
+		// 	'projMembers.digits' => 'Project members is a numeric field.',    
+  //   ]);
 
-		$proj = new StudentProjDtls;
-		for ($i=0; $i < count($request['projectTitle']); ++$i) 
-		{
-			$proj = new StudentProjDtls;
-			log::info('-----');
-			log::info($request['projectTitle'][$i]);
-	    $proj->projectTitle = $request['projectTitle'][$i];
-	    $proj->projDesc= $request['projDesc'][$i];
-	    $proj->projDuration= $request['projDuration'][$i];
-	    $proj->projMembers = $request['projMembers'][$i];
-	    $proj->projectRole= $request['projectRole'][$i];
-	    $proj->projGithub= $request['projGithub'][$i];
-	    $proj->projPubl = $request['projPubl'][$i];
-	    $proj->skills1= $request['skills1'][$i];
-	    $proj->rating1= $request['rating1'][$i];
-	    $proj->skills2= $request['skills2'][$i];
-	    $proj->rating2= $request['rating2'][$i];
-	    $proj->skills3= $request['skills3'][$i];
-	    $proj->rating3= $request['rating3'][$i];
-	    $proj->userid= Auth::user()->id;	
-	    $proj->save();  
-		}		
+  //   if($validator->fails())
+  //   {
+  //   	log::info('VALIDATOR FAIL');
+  //     return Redirect::back()->withErrors($validator);
+  //   }
+	
+			$userid = User::where('email', Auth::user()->email)->value('id');
+			$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
+			if($tab1cnt == 1)
+			{
+	      $proj = new StudentProjDtls;
+				for ($i=0; $i < count($request['projectTitle']); ++$i) 
+				{
+					$proj = new StudentProjDtls;
+					log::info('-----');
+					log::info($request['projectTitle'][$i]);
+			    $proj->projectTitle = $request['projectTitle'][$i];
+			    $proj->projDesc= $request['projDesc'][$i];
+			    $proj->projDuration= $request['projDuration'][$i];
+			    $proj->projMembers = $request['projMembers'][$i];
+			    $proj->projectRole= $request['projectRole'][$i];
+			    $proj->projGithub= $request['projGithub'][$i];
+			    $proj->projPubl = $request['projPubl'][$i];
+			    $proj->skills1= $request['skills1'][$i];
+			    $proj->rating1= $request['rating1'][$i];
+			    $proj->skills2= $request['skills2'][$i];
+			    $proj->rating2= $request['rating2'][$i];
+			    $proj->skills3= $request['skills3'][$i];
+			    $proj->rating3= $request['rating3'][$i];
+			    $proj->userid= Auth::user()->id;	
+			    $proj->save();  
+				}
+				$update_tabcount = DB::table('online_profile_response')->where('userid', $userid)
+	                  			->update(['tab2count' => 1]);
+	    	return redirect()->route('SipRegistration')->withStatus(__('Details added successfully.'));
+			}
+			else
+			{
+				return back()->withErrors(__('Please submit the details from tab 1 in order to submit project details.'));
+			}				
 	}
 //-----------------------------END OF SECTION 2------------------------------------------------
 	PUBLIC FUNCTION submitSection3(Request $request)// MOOC COURSES
@@ -292,11 +322,8 @@ class SipRegistration extends Controller
 
       if($validator->fails())
       {
-      	log::info('VALIDATOR FAIL');
         return back()->withErrors($validator);
       }
-		DB::transaction(function() use($request)
-		{
 			$userid =  Auth::user()->id;
 			$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
 	    $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
@@ -312,12 +339,8 @@ class SipRegistration extends Controller
 				if((!empty ($request->moocCourseName)) || (!empty($request->moocPlatform)) ||	
       	(!empty($request->moocIncomplete)))
 	      {
-	      	
-					// $already_exists = OnlineProfile::where('userid', $userid)->count();
 					$profile = new OnlineProfile;
-					// if($already_exists == 1)
-	    //     {
-	          $basicdtls = DB::table('online_profile_response')
+	        $basicdtls = DB::table('online_profile_response')
 	                  ->where('userid', $userid)
 	                  ->update([
 	                  	'mooc_course' => $request->mooc_course, 
@@ -325,109 +348,117 @@ class SipRegistration extends Controller
 	                    'number_of_courses_incomplete' => $request->moocIncomplete,
 	                    'tab3count' => 1
 	                    ]);
-	          return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
-	        // }
-	        // else
-	        // {
-	        	
-	        // } 
+	        return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
 				}
 			}
-		});
 	}
 	//-----------------------------END OF SECTION 3------------------------------------------------
 	PUBLIC FUNCTION submitSection4(Request $request)//EXP DTL
 	{
-		log::info($request->all());
-		DB::transaction(function() use($request)
+		log::info('----In section 4-----');
+		$userid =  Auth::user()->id;
+		$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
+    $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
+    log::info($tab1cnt);
+    log::info($tab2cnt);
+		if($tab1cnt == 1 || $tab2cnt == 1)
 		{
-				$userid =  Auth::user()->id;
-				$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
-	      $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
-	      log::info($tab1cnt);
-	      log::info($tab2cnt);
-				if($tab1cnt == 1 || $tab2cnt == 1)
-				{
-					$expvalue=$request->expdtl[0];
-					$exp=$request->expdtl;
-					if(!empty($expvalue))
+			$expvalue=$request->expdtl[0];
+			$exp=$request->expdtl;
+			if(!empty($expvalue))
+			{
+				foreach($exp as $exp)
+				{	
+					if(!empty($exp))
 					{
-						foreach($exp as $exp)
-						{	
-							if(!empty($exp))
-							{
-								log::info('**********************');
-								$exp_dtls = new ExperienceDtls;				
-								$exp_dtls->exp_description = $exp;
-								$exp_dtls->userid = Auth::user()->id;	
-								if(!$exp_dtls->save())
-								{
-									throw new Exception('Unable to save your data.');
-								}
-							}									
-						}				
-					}
-					//---------------------------------------------------------------------------------------
-					$update_tabcount = DB::table('online_profile_response')
-		                  ->where('userid', $userid)
-		                  ->update(['tab4count' => 1]);
-					return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
-				}
-				else
-				{
-					 return back()->withErrors(__('Please submit the details from Tab 1, Tab 2 & Tab 3 in order to submit experience details.'));
-				}		
-
-			
-		});
+						log::info('**********************');
+						$exp_dtls = new ExperienceDtls;				
+						$exp_dtls->exp_description = $exp;
+						$exp_dtls->userid = Auth::user()->id;	
+						if(!$exp_dtls->save())
+						{
+							throw new Exception('Unable to save your data.');
+						}
+					}									
+				}				
+			}
+			//---------------------------------------------------------------------------------------
+			$update_tabcount = DB::table('online_profile_response')
+                  ->where('userid', $userid)
+                  ->update(['tab4count' => 1]);
+			return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
+		}
+		else
+		{
+			return back()->withErrors(__('Please submit the details from Tab 1, Tab 2 & Tab 3 in order to submit experience details.'));
+		}
 	}
 	//-----------------------------END OF SECTION 4------------------------------------------------
 	public function submitSection5(Request $request) // EYANTRA affiliation
 	{
 		log::info($request->all());
-		DB::transaction(function() use($request)
-		{
-      $rules = [
-								'competition'=>'required',
-								'theme' => $request->competition=="eyrc"?'required':'',
-								'hardware' =>  $request->competition=="eyrc"?'required':''
-							];
-			$messages = [
-									'competition.required' => 'Mention your affiliation with e-Yantra'
-									];
-			$validate=Validator::make($request->all(),$rules,$messages);
-			if($validate->fails())
-			{
-				log::info('-------Validator FAIL--------');
-				return back()->withErrors(__('Mention your affiliation with e-Yantra'));
-			}
-			else
-			{	
-				$userid =  Auth::user()->id;	
-				$already_exists = OnlineProfile::where('userid', $userid)->count();
-				// $tabcnt = OnlineProfile::where('userid', $userid)->value('tabcount');
-				checkfunction();
-				$profile = new OnlineProfile;
-				if($already_exists == 1)
-        {
-          $basicdtls = DB::table('online_profile_response')
-                  ->where('userid', $userid)
-                  ->update([
-                  	'eyrc_eyic_participating' => $request->competition, 
-                    'eyrc_theme' => $request->theme, 
-                    'where_is_your_hardware' => $request->hardware, 
-                    'otherhw' => $request->otherhw,
-                    'tab4count' => $tabcnt + 1
-                    ]);
-          return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
-        }
-        else
-        {
 
-					return back()->withErrors(__('Please submit the profile on tab 1.'));
-				}
-	    }
-		});
+    $rules = [
+							'competition'=>'required',
+							'theme' => $request->competition=="eyrc"?'required':'',
+							'hardware' =>  $request->competition=="eyrc"?'required':''
+						];
+		$messages = ['competition.required' => 'Mention your affiliation with e-Yantra'];
+		$validate=Validator::make($request->all(),$rules,$messages);
+		if($validate->fails())
+		{
+			log::info('-------Validator FAIL--------');
+			return back()->withErrors(__('Mention your affiliation with e-Yantra'));
+		}
+		else
+		{	
+			$userid =  Auth::user()->id;	
+			$already_exists = OnlineProfile::where('userid', $userid)->count();
+			// $tabcnt = OnlineProfile::where('userid', $userid)->value('tabcount');
+			//checkfunction();
+			$profile = new OnlineProfile;
+			if($already_exists == 1)
+      {
+        $basicdtls = DB::table('online_profile_response')
+                ->where('userid', $userid)
+                ->update([
+                	'eyrc_eyic_participating' => $request->competition, 
+                  'eyrc_theme' => $request->theme, 
+                  'where_is_your_hardware' => $request->hardware, 
+                  'otherhw' => $request->otherhw,
+                  'tab5count' =>  1
+                  ]);
+        return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
+      }
+      else
+      {
+
+				return back()->withErrors(__('Please submit the profile on tab 1.'));
+			}
+    }
+	}
+
+	//-----------------------------END OF SECTION 5------------------------------------------------
+	public function submitSection6(Request $request) // EYANTRA affiliation
+	{
+		$userid =  Auth::user()->id;	
+		$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
+    $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
+    $tab4cnt = OnlineProfile::where('userid', $userid)->value('tab4count');
+    $tab5cnt = OnlineProfile::where('userid', $userid)->value('tab5count');
+
+		if($tab1cnt == 1 && $tab2cnt == 1 && $tab4cnt == 1 && $tab5cnt == 1)
+		{
+			$profile = new OnlineProfile;
+      $confirm = DB::table('users')
+                ->where('id', $userid)
+                ->update(['profilesubmitted' => 1 ]);
+      return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
+    }
+    else
+    {
+			return back()->withErrors(__('Please submit the information asked in all mandatory tabs to complete your profile submission.'));
+		}
 	}
 
 	public static function submitprofile(Request $request){
@@ -896,6 +927,18 @@ class SipRegistration extends Controller
 
 		//return redirect()->route('/dashboard')->with(['status'=>"Successfully submitted!!"]);	
 		return Redirect::route('dashboard');
+		}
+	}
+
+	public function back()
+	{
+		if(Auth::user()->role == 2) //mentor
+		{
+			return redirect()->route('Evaluation');
+		}
+		else
+		{
+			return redirect()->route('dashboard');
 		}
 	}
 
