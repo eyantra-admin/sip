@@ -181,125 +181,128 @@
                     </form>
                   </div>
                   <div id="test2" class="col s12">
-                    <form method="post" action="{{ route('submitSection2') }}" autocomplete="off" 
+                    <form method="post" action="{{ route('updateproj') }}" autocomplete="off" 
                       class="form-horizontal">
                       @csrf
-                      <div class="row parent-div">
-                        <div class="col-md-12" id="copy-this-div">
-                          <div class="row">
-                            <label class="col-sm-3 col-form-label">{{ __('Project Title') }}</label>
-                            <div class="col-sm-9">
-                              <input class="form-control" type="text" name="projectTitle[]" id="projectTitle" placeholder="Project Title" value="{{ old('projectTitle')}}" required>
+                      {{ method_field('PUT') }}
+                      @foreach($project as $project)
+                        <div class="row parent-div">
+                          <div class="col-md-12" id="copy-this-div">
+                            <div class="row">
+                              <label class="col-sm-3 col-form-label">{{ __('Project Title') }}</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" type="text" name="projectTitle[]" id="projectTitle" placeholder="Project Title" value="{{ $project->projectTitle}}" required>
+                              </div>
                             </div>
-                          </div>
-                          <div class="row">
-                            <label class="col-sm-3 col-form-label">{{ __('Project Description') }}</label>
-                            <div class="col-sm-9">
-                              <input class="form-control" name="projDesc[]" id="projDesc" placeholder="Project Desciption" value="{{ old('projDesc') }}" rows="4" wrap="physical" required>
+                            <div class="row">
+                              <label class="col-sm-3 col-form-label">{{ __('Project Description') }}</label>
+                              <div class="col-sm-9">
+                                <input class="form-control" name="projDesc[]" id="projDesc" placeholder="Project Desciption" value="{{ $project->projDesc }}" rows="4" wrap="physical" required>
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="row">
-                            <label class="col-sm-3 col-form-label">{{ __('Project Duration') }}</label>
-                              <div class="col">
-                                <input type="number" class="form-control" placeholder="Project Duration(In months)" name="projDuration[]" id="projDuration" value="{{old('projDuration')}}" required>
-                              </div>
-                            <label class="col-sm-3 col-form-label">{{ __('No of Team Members') }}</label>
-                              <div class="col">
-                                <input type="number" class="form-control" name="projMembers[]" id="projMembers" placeholder="No of Team Members" value="{{old('projMembers')}}" required>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <label class="col-sm-3 col-form-label">Your role in the project</label>
-                              <div class="col-sm-9">
-                                <textarea id= "projectRole" class="form-control" name="projectRole[]" maxlength="250" placeholder="Short Description of your role upto 250 characters" rows="2">{{old('projectRole') }}</textarea>
-                              </div>
-                          </div>
-                          <div class="row">
-                              <label class="col-sm-3 col-form-label">Github reporsitory of the project (if available)</label>
-                              <div class="col-sm-9">
-                                <input type="text" id= "projGithub" class="form-control" name="projGithub[]" value="{{old('projGithub')}}">
-                              </div>
-                          </div>
-                          <div class="row">
-                              <label class="col-sm-3 col-form-label">Publications (if any)</label>
-                              <div class="col-sm-9">
-                                <textarea id="projPubl" name="projPubl[]" class="form-control" rows="4" cols="50" placeholder="Publications Link can also be added here, max upto 200 characters">{{old('projPubl') }}</textarea>
-                              </div>
-                          </div>  
-                          <div class="row">
-                              <label class="col-sm-3 col-form-label">{{ __('Skills Acquired') }}</label>
+                            <div class="row">
+                              <label class="col-sm-3 col-form-label">{{ __('Project Duration') }}</label>
                                 <div class="col">
-                                  <select class="form-control" id="skills1" name="skills1[]" >
-                                    <option hidden value="null">Select Skills</option>
-                                      @foreach($skills as $skill)
-                                      <option value="{{$skill->id}}"  {{old('skills1') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
-                                      @endforeach
-                                  </select>
+                                  <input type="number" class="form-control" name="projDuration[]" id="projDuration" value="{{ $project->projDuration}}" required>
                                 </div>
-                              <label class="col-sm-3 col-form-label">{{ __('Rating for skill1') }}</label>
+                              <label class="col-sm-3 col-form-label">{{ __('No of Team Members') }}</label>
                                 <div class="col">
-                                  <select class="form-control" name="rating1[]" id= "rating1" >
-                                    <option hidden>Select</option>
-                                    <option value="Rookie" {{old('rating1') == 'Rookie' ? 'selected' : '' }}>Rookie</option>
-                                    <option value="Novice" {{old('rating1') == 'Novice' ? 'selected' : '' }}>Novice</option>
-                                    <option value="Master" {{old('rating1') == 'Master' ? 'selected' : '' }}>Master</option>
-                                    <option value="Pro" {{old('rating1') == 'Pro' ? 'selected' : '' }}>Pro</option>
-                                  </select>
+                                  <input type="number" class="form-control" name="projMembers[]" id="projMembers" placeholder="No of Team Members" value="{{ $project->projMembers }}" required>
                                 </div>
-                          </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">Your role in the project</label>
+                                <div class="col-sm-9">
+                                  <textarea id= "projectRole" class="form-control" name="projectRole[]" maxlength="250" placeholder="Short Description of your role upto 250 characters" rows="2">{{ $project->projectRole }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">Github reporsitory of the project (if available)</label>
+                                <div class="col-sm-9">
+                                  <input type="text" id= "projGithub" class="form-control" name="projGithub[]" value="{{ $project->projGithub}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">Publications (if any)</label>
+                                <div class="col-sm-9">
+                                  <textarea id="projPubl" name="projPubl[]" class="form-control" rows="4" cols="50">{{ $project->projPubl }}</textarea>
+                                </div>
+                            </div>  
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">{{ __('Skills Acquired') }}</label>
+                                  <div class="col">
+                                    <select class="form-control" id="skills1" name="skills1[]" >
+                                      <option hidden value="null">Select Skills</option>
+                                        @foreach($skills as $skill)
+                                        <option value="{{$skill->id}}"  {{ $project->skills1 == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
+                                        @endforeach
+                                    </select>
+                                  </div>
+                                <label class="col-sm-3 col-form-label">{{ __('Rating for skill1') }}</label>
+                                  <div class="col">
+                                    <select class="form-control" name="rating1[]" id= "rating1" >
+                                      <option hidden>Select</option>
+                                      <option value="Rookie" {{$project->rating1 == 'Rookie' ? 'selected' : '' }}>Rookie</option>
+                                      <option value="Novice" {{ $project->rating1 == 'Novice' ? 'selected' : '' }}>Novice</option>
+                                      <option value="Master" {{ $project->rating1 == 'Master' ? 'selected' : '' }}>Master</option>
+                                      <option value="Pro" {{ $project->rating1 == 'Pro' ? 'selected' : '' }}>Pro</option>
+                                    </select>
+                                  </div>
+                            </div>
 
-                          <div class="row">
-                              <label class="col-sm-3 col-form-label">{{ __('Skills Acquired') }}</label>
-                                <div class="col">
-                                  <select class="form-control" id="skills2" name="skills2[]" >
-                                    <option hidden value="null">Select Skills</option>
-                                      @foreach($skills as $skill)
-                                      <option value="{{$skill->id}}"  {{old('skills2') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
-                                      @endforeach
-                                  </select>
-                                </div>
-                              <label class="col-sm-3 col-form-label">{{ __('Rating for skill2') }}</label>
-                                <div class="col">
-                                  <select class="form-control" name="rating2[]" id= "rating2" >
-                                    <option hidden>Select</option>
-                                    <option value="Rookie" {{old('rating2') == 'Rookie' ? 'selected' : '' }}>Rookie</option>
-                                    <option value="Novice" {{old('rating2') == 'Novice' ? 'selected' : '' }}>Novice</option>
-                                    <option value="Master" {{old('rating2') == 'Master' ? 'selected' : '' }}>Master</option>
-                                    <option value="Pro" {{old('rating2') == 'Pro' ? 'selected' : '' }}>Pro</option>
-                                  </select>
-                                </div>
-                          </div>
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">{{ __('Skills Acquired') }}</label>
+                                  <div class="col">
+                                    <select class="form-control" id="skills2" name="skills2[]" >
+                                      <option hidden value="null">Select Skills</option>
+                                        @foreach($skills as $skill)
+                                        <option value="{{$skill->id}}"  {{ $project->skills2 == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
+                                        @endforeach
+                                    </select>
+                                  </div>
+                                <label class="col-sm-3 col-form-label">{{ __('Rating for skill2') }}</label>
+                                  <div class="col">
+                                    <select class="form-control" name="rating2[]" id= "rating2" >
+                                      <option hidden>Select</option>
+                                      <option value="Rookie" {{ $project->rating2 == 'Rookie' ? 'selected' : '' }}>Rookie</option>
+                                      <option value="Novice" {{ $project->rating2 == 'Novice' ? 'selected' : '' }}>Novice</option>
+                                      <option value="Master" {{ $project->rating2 == 'Master' ? 'selected' : '' }}>Master</option>
+                                      <option value="Pro" {{ $project->rating2 == 'Pro' ? 'selected' : '' }}>Pro</option>
+                                    </select>
+                                  </div>
+                            </div>
 
-                          <div class="row">
-                              <label class="col-sm-3 col-form-label">{{ __('Skills Acquired') }}</label>
-                                <div class="col">
-                                  <select class="form-control" id="skills3" name="skills3[]" >
-                                    <option hidden value="null">Select Skills</option>
-                                      @foreach($skills as $skill)
-                                      <option value="{{$skill->id}}"  {{old('skills3') == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
-                                      @endforeach
-                                  </select>
-                                </div>
-                              <label class="col-sm-3 col-form-label">{{ __('Rating for skill3') }}</label>
-                                <div class="col">
-                                  <select class="form-control" name="rating3[]" id= "rating3" >
-                                    <option hidden>Select</option>
-                                    <option value="Rookie" {{old('rating3') == 'Rookie' ? 'selected' : '' }}>Rookie</option>
-                                    <option value="Novice" {{old('rating3') == 'Novice' ? 'selected' : '' }}>Novice</option>
-                                    <option value="Master" {{old('rating3') == 'Master' ? 'selected' : '' }}>Master</option>
-                                    <option value="Pro" {{old('rating3') == 'Pro' ? 'selected' : '' }}>Pro</option>
-                                  </select>
-                                </div>
-                          </div>
+                            <div class="row">
+                                <label class="col-sm-3 col-form-label">{{ __('Skills Acquired') }}</label>
+                                  <div class="col">
+                                    <select class="form-control" id="skills3" name="skills3[]" >
+                                      <option hidden value="null">Select Skills</option>
+                                        @foreach($skills as $skill)
+                                        <option value="{{$skill->id}}"  {{ $project->skills3 == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
+                                        @endforeach
+                                    </select>
+                                  </div>
+                                <label class="col-sm-3 col-form-label">{{ __('Rating for skill3') }}</label>
+                                  <div class="col">
+                                    <select class="form-control" name="rating3[]" id= "rating3" >
+                                      <option hidden>Select</option>
+                                      <option value="Rookie" {{ $project->rating3 == 'Rookie' ? 'selected' : '' }}>Rookie</option>
+                                      <option value="Novice" {{ $project->rating3 == 'Novice' ? 'selected' : '' }}>Novice</option>
+                                      <option value="Master" {{ $project->rating3 == 'Master' ? 'selected' : '' }}>Master</option>
+                                      <option value="Pro" {{ $project->rating3 == 'Pro' ? 'selected' : '' }}>Pro</option>
+                                    </select>
+                                  </div>
+                            </div>
 
-                          <hr style="background-color: Red">
-                          <br>
+                            <hr style="background-color: Red">
+                            <br>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-md-12">
+                      @endforeach
+                      <!-- <div class="col-md-12">
                         <button type="button" id="add_project" class="btn btn-success add-btn">Add More Projects</button>
-                      </div>
+                      </div> -->
 
                       <div class="card-footer ml-auto mr-auto">
                         <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>

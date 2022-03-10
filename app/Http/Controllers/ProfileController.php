@@ -25,7 +25,7 @@ use Log;
 use DB;
 use Storage;
 use Redirect;
-use Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 
@@ -45,6 +45,7 @@ class ProfileController extends Controller
         $chksubmitted = User::where('email',Auth::user()->email)->first();
         $data = OnlineProfile:: where('email', Auth::user()->email)->first();
         $exp = ExperienceDtls::where('userid',Auth::user()->id)->get();
+        $project = StudentProjDtls::where('userid',Auth::user()->id)->get();
         log::info($data);
         return view('profile.edit')
                 ->with('colleges', $colleges)
@@ -52,6 +53,7 @@ class ProfileController extends Controller
                 ->with('skills', $skills)
                 ->with('data', $data)
                 ->with('exp', $exp)
+                ->with('project', $project)
                 ->with('form_submitted', $chksubmitted->profilesubmitted);
     }
 
@@ -84,24 +86,78 @@ class ProfileController extends Controller
     public function updateSectionData(Request $request) // General section update
     {
         $profile = OnlineProfile::find(Auth::user()->id);
-        $updates = $request::all();
+        $updates = $request->all();
         $profile->update($updates);   // save the updated data
         return back()->withStatus(__('Profile successfully updated.'));
     }
 
     public function updateSection4(Request $request) //MOOC Corses update
     {
-        log::info($request::all());
-        log::info($request->expdtl[$i]);
+        log::info($request->all());
+        $exp_dtls = new ExperienceDtls; 
+
+        // ExperienceDtls::where('userid', Auth::user()->id)->delete();
+        // $expvalue=$request->expdtl[0];
+        // $exp=$request->expdtl;
+        // if(!empty($expvalue))
+        // {
+        //     foreach($exp as $exp)
+        //     {   
+        //         if(!empty($exp))
+        //         {
+        //             log::info('**********************');
+        //             $exp_dtls = new ExperienceDtls;             
+        //             $exp_dtls->exp_description = $exp;
+        //             $exp_dtls->userid = Auth::user()->id;   
+        //             if(!$exp_dtls->save())
+        //             {
+        //                 throw new Exception('Unable to save your data.');
+        //             }
+        //         }                                   
+        //     }               
+        // }
+        $rowid = ExperienceDtls::where('userid', Auth::user()->id)->pluck('id');
+        log::info($rowid);
         for($i=0; $i < count($request['expdtl']); ++$i) 
         {
-            $exp_dtls = new ExperienceDtls; 
             $update_exp = DB::table('experience_dtls')
-          ->where('userid', Auth::user()->id)
+          ->where('id', $rowid[$i])
           ->update(['exp_description' => $request['expdtl'][$i]]);
         }                                   
         return back()->withStatus(__('Profile successfully updated.'));
     }
+
+    public function updateproj(Request $request) //Projects update
+    {
+        log::info($request->all());
+        for($i=0; $i < count($request['projectTitle']); ++$i) 
+        {
+            log::info('------------------------');
+            $rowid = StudentProjDtls::where('userid', Auth::user()->id)->pluck('id');
+            log::info($rowid);
+            $update_proj = DB::table('student_project_dtls')
+            ->where('id', $rowid[$i])
+            ->update([
+                'projectTitle' => $request['projectTitle'][$i],
+                'projDesc'=> $request['projDesc'][$i],
+                'projDuration'=> $request['projDuration'][$i],
+                'projMembers' => $request['projMembers'][$i],
+                'projectRole'=> $request['projectRole'][$i],
+                'projGithub'=> $request['projGithub'][$i],
+                'projPubl' => $request['projPubl'][$i],
+                'skills1'=> $request['skills1'][$i],
+                'rating1'=> $request['rating1'][$i],
+                'skills2'=> $request['skills2'][$i],
+                'rating2'=> $request['rating2'][$i],
+                'skills3'=> $request['skills3'][$i],
+                'rating3'=> $request['rating3'][$i]
+            ]);  
+        }
+        return back()->withStatus(__('Profile successfully updated.'));
+
+    }
+
+    
 
     /**
      * Change the password

@@ -52,14 +52,11 @@ class SipRegistration extends Controller
 	public function ViewMyRegistration($userid)
 	{
 		$student = OnlineProfile::where('userid',Crypt::decrypt($userid))->first();
-		
+		$skills = skills_list::orderBy('skill')->get();
 		$project = StudentProjDtls::where('userid',Crypt::decrypt($userid))->get();
-		log::info('=========================');
-		log::info(Crypt::decrypt($userid));
-		log::info($project);
 		$exp = ExperienceDtls::where('userid',Crypt::decrypt($userid))->get();
 		// $file = Storage::disk('local')->exists('/sip_mooc_upload/','Stu_'.$userid.'_MOOC.pdf');
-		return view('profile.View_MyRegistration')->with('student',$student)->with('project',$project)->with('exp',$exp);
+		return view('profile.View_MyRegistration')->with('student',$student)->with('project',$project)->with('skills',$skills)->with('exp',$exp);
 		//->with('file',$file);
 	}
 		
@@ -80,11 +77,13 @@ class SipRegistration extends Controller
 		$departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
 		$skills = skills_list::orderBy('skill')->get();
 		$chksubmitted = User::where('email',Auth::user()->email)->first();
+		$data_exsits = OnlineProfile::where('email',Auth::user()->email)->first();
 
 		return view('StudentProfileForm')
 				->with('colleges', $colleges)
 				->with('departments',$departments)
 				->with('skills', $skills)
+				->with('data_exsits', $data_exsits)
 				->with('form_submitted', $chksubmitted->profilesubmitted);
 				//->with('stud_data', $stud_data); 
 		// return view ('SipRegistration_closed');
@@ -203,7 +202,7 @@ class SipRegistration extends Controller
                           'facebook' => $request->fb,
                           'tab1count' => 1
                           ]);
-        return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
+        return redirect()->route('SipRegistration')->withStatus(__('Academic details updated successfully.'));
       }
       else
       {
@@ -227,9 +226,9 @@ class SipRegistration extends Controller
 				$profile->tab1count = 1;
 				$profile->save();
 
-				return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
+				return redirect()->route('SipRegistration')->withStatus(__('Academic details submitted successfully.'));
 			}
-			return redirect()->route('SipRegistration')->withStatus(__('Details added successfully.'));
+			return redirect()->route('SipRegistration')->withStatus(__('Academic details added successfully.'));
     }
 	}
 //-----------------------------END OF SECTION 1------------------------------------------------
@@ -280,7 +279,7 @@ class SipRegistration extends Controller
 				}
 				$update_tabcount = DB::table('online_profile_response')->where('userid', $userid)
 	                  			->update(['tab2count' => 1]);
-	    	return redirect()->route('SipRegistration')->withStatus(__('Details added successfully.'));
+	    	return redirect()->route('SipRegistration')->withStatus(__('Projects added successfully.'));
 			}
 			else
 			{
@@ -331,7 +330,7 @@ class SipRegistration extends Controller
 	                    'number_of_courses_incomplete' => $request->moocIncomplete,
 	                    'tab3count' => 1
 	                    ]);
-	        return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
+	        return redirect()->route('SipRegistration')->withStatus(__('Mooc Courses added successfully.'));
 				}
 			}
 	}
@@ -369,7 +368,7 @@ class SipRegistration extends Controller
 			$update_tabcount = DB::table('online_profile_response')
                   ->where('userid', $userid)
                   ->update(['tab4count' => 1]);
-			return redirect()->route('SipRegistration')->withStatus(__('Details updated successfully.'));
+			return redirect()->route('SipRegistration')->withStatus(__('Experiences added successfully.'));
 		}
 		else
 		{
@@ -411,7 +410,7 @@ class SipRegistration extends Controller
                   'otherhw' => $request->otherhw,
                   'tab5count' =>  1
                   ]);
-        return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
+        return redirect()->route('SipRegistration')->withStatus(__('e-Yantra affiliations added successfully.'));
       }
       else
       {

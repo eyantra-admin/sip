@@ -602,6 +602,7 @@ class HomeController extends Controller
         $proj->projectname = $request->projectname;
         $proj->abstract = $request->projectabstract;
         //$proj->technologystack = $request->technologystack;
+        $proj->interns_required = $request->interns;
         $proj->technologystack = implode(', ', $request->technologystack);
         $proj->save();
         return back()->withStatus(__('Project added successfully.'));

@@ -34,17 +34,39 @@
             <div class="card-header card-header-primary">
                 <h4 class="card-title"><b>{{ __('e-Yantra Internship Program') }}</b></h4>
                 <p>Fill your complete profile for further assesment </p>
+                <p><b>The data on the tabs 1, 2, 4, 5 are mandatory to be filled. Please Go to "Final Confirmation" Tab when all the data is submitted successfully and Click on "I Confirm" Checkbox. Only then, your profile will be considered as complete and submitted.</b></p>
             </div>
 
             <div class="row">
               <div class="row">
                 <ul class="tabs">
-                  <li class="tab waves-effect waves-light btn"><a class="active" href="#test1">Academic Details</a></li>
-                  <li class="tab waves-effect waves-light btn"><a href="#test2">Project Info</a></li>
-                  <li class="tab waves-effect waves-light btn"><a href="#test3">Mooc Courses</a></li>
-                  <li class="tab waves-effect waves-light btn"><a href="#test4">Experience Details</a></li>
-                  <li class="tab waves-effect waves-light btn"><a  href="#test5">e-Yantra Affiliations</a></li>
-                  <li class="tab waves-effect waves-light btn"><a  href="#test6">Confirmation</a></li>
+                  @if($data_exsits->tab1count == 0)
+                    <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Red">Academic Details<br> <b>(1)*</b></a></li>
+                  @else
+                    <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Green">Academic Details<br> <b>(1)*</b></a></li>
+                  @endif
+                  @if($data_exsits->tab2count == 0)
+                    <li class="tab waves-effect waves-light btn"><a href="#test2" style="color: Red">Project Info<br><b>(2)*</b></a></li>
+                  @else
+                    <li class="tab waves-effect waves-light btn"><a class="active" href="#test2" style="color: Green">Project Info<br> <b>(2)*</b></a></li>
+                  @endif
+                  @if($data_exsits->tab3count == 0)
+                    <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Red">Mooc Courses<br><b>(3)</b></a></li>
+                  @else
+                    <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Green">Mooc Courses<br><b>(3)</b></a></li>
+                  @endif
+                  @if($data_exsits->tab4count == 0)
+                    <li class="tab waves-effect waves-light btn"><a href="#test4" style="color: Red">Experience Details<br><b>(4)*</b></a></li>
+                  @else
+                    <li class="tab waves-effect waves-light btn"><a href="#test4" style="color: Green">Experience Details<br><b>(4)*</b></a></li>
+                  @endif
+
+                  @if($data_exsits->tab5count == 0)
+                    <li class="tab waves-effect waves-light btn"><a  href="#test5" style="color: Red">e-Yantra Affiliations<br><b>(5)*</b></a></li>
+                  @else
+                    <li class="tab waves-effect waves-light btn"><a  href="#test5" style="color: Green">e-Yantra Affiliations<br><b>(5)*</b></a></li>
+                  @endif
+                  <li class="tab waves-effect waves-light btn"><a  href="#test6"><b>Final <br>Confirmation</b></a></li>
                 </ul>
               
 
@@ -195,7 +217,7 @@
                         <label class="col-sm-3 col-form-label">{{ __('Instagram') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('insta') ? ' has-danger' : '' }}">
-                            <input class="form-control" name="insta" id="insta" placeholder="Instagram Id" value="{{old('insta')}}" rows="4" wrap="physical" required>
+                            <input class="form-control" name="insta" id="insta" placeholder="Instagram Id" value="{{old('insta')}}" rows="4" wrap="physical">
                             @if ($errors->has('insta'))
                               <span id="insta-error" class="error text-danger" for="insta">{{ $errors->first('insta') }}</span>
                             @endif
@@ -205,7 +227,7 @@
                         <label class="col-sm-3 col-form-label">{{ __('Facebook') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('fb') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="fb" id="fb" placeholder="Facebook Id" value="{{old('fb')}}" required>
+                            <input class="form-control" type="text" name="fb" id="fb" placeholder="Facebook Id" value="{{old('fb')}}">
                             @if ($errors->has('fb'))
                               <span id="fb-error" class="error text-danger" for="fb">{{ $errors->first('fb') }}</span>
                             @endif
@@ -250,7 +272,7 @@
                           <div class="row">
                               <label class="col-sm-3 col-form-label">Your role in the project</label>
                               <div class="col-sm-9">
-                                <textarea id= "projectRole" class="form-control" name="projectRole[]" maxlength="250" placeholder="Short Description of your role upto 250 characters" rows="2">{{old('projectRole') }}</textarea>
+                                <textarea id= "projectRole" class="form-control" name="projectRole[]" maxlength="250" placeholder="Short Description of your role upto 250 characters" rows="2" required>{{old('projectRole') }}</textarea>
                               </div>
                           </div>
                           <div class="row">

@@ -53,6 +53,13 @@
                 </div>
               </div><br>
               <div class="row">
+                <label class="col-sm-2 col-form-label">{{ __('No of Interns Required') }}</label>
+                <div class="col-sm-7">
+                  <input type="number" class="form-control" name="interns" id="interns" 
+                        placeholder="No of Interns Required" value="{{old('interns')}}" required>
+                </div>
+              </div><br>
+              <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Technology Stack') }}</label>
               </div>
               <div class="row">

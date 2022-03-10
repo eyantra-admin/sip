@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::put('profile', ['as' => 'profile.updateSection1', 'uses' => 'ProfileController@updateSectionData']);
 	Route::put('profileupdate', ['as' => 'profileupdate', 'uses' => 'ProfileController@updateSectionData']);
 	Route::put('updateexp', ['as' => 'updateexp', 'uses' => 'ProfileController@updateSection4']);
+	Route::put('updateproj', ['as' => 'updateproj', 'uses' => 'ProfileController@updateproj']);
 	Route::put('updatecomp', ['as' => 'updatecomp', 'uses' => 'ProfileController@updateSectionData']);
 
 

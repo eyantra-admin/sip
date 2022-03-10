@@ -230,7 +230,13 @@ hr {
 	 				</div>
 	 				<div class="form-group col-lg-5 form-group-lg">
 						<label>Skill 1</label>
-	 					<input type="text" class="form-control" disabled value= "{{$project->skills1}}">
+	 					<!-- <input type="text" class="form-control" disabled value= "{{$project->skills1}}"> -->
+	 					<select class="form-control" id="skills1" name="skills1[]" disabled>
+              <option hidden value="null">Select Skills</option>
+                @foreach($skills as $skill)
+                <option value="{{$skill->id}}"  {{ $project->skills1 == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
+                @endforeach
+            </select>
 		 			</div>
 	 				<div class="form-group col-lg-5 form-group-lg">
 						<label>Rating 1</label>
@@ -238,7 +244,13 @@ hr {
 		 			</div>
 					<div class="form-group col-lg-5 form-group-lg">
 						<label>Skill 2</label>
-	 					<input type="text" class="form-control" disabled value= "{{$project->skills2}}">
+	 					<!-- <input type="text" class="form-control" disabled value= "{{$project->skills2}}"> -->
+	 					<select class="form-control" id="skills2" name="skills2[]" disabled>
+              <option hidden value="null">Select Skills</option>
+                @foreach($skills as $skill)
+                <option value="{{$skill->id}}"  {{ $project->skills2 == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
+                @endforeach
+            </select>
 		 			</div>
 	 				<div class="form-group col-lg-5 form-group-lg">
 						<label>Rating 2</label>
@@ -246,7 +258,12 @@ hr {
 		 			</div>
 		 			<div class="form-group col-lg-5 form-group-lg">
 						<label>Skill 3</label>
-	 					<input type="text" class="form-control" disabled value= "{{$project->skills3}}">
+	 					<select class="form-control" id="skills3" name="skills3[]" disabled>
+              <option hidden value="null">Select Skills</option>
+                @foreach($skills as $skill)
+                <option value="{{$skill->id}}"  {{ $project->skills3 == $skill->id ? 'selected' : ''  }}>{{$skill->skill}}</option>
+                @endforeach
+            </select>
 		 			</div>
 	 				<div class="form-group col-lg-5 form-group-lg">
 						<label>Rating 3</label>
