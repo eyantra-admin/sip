@@ -116,9 +116,7 @@
                                     value="{{old('college')}}" required>
                                 <option hidden value="">Select your college</option>
                                 @foreach($colleges as $college)
-                                <option value="{{$college->clg_code}}" {{old('college') == $college->clg_code ? 'selected' : ''  }}>{{$college->college_name}}</option>
-
-                                
+                                <option value="{{$college->clg_code}}">{{ $college->college_name }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('college'))

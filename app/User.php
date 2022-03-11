@@ -99,7 +99,7 @@ class User extends Authenticatable
         if($user == NULL)
         {
             $user=User::create(['name' => $credentials['name'], 'email' => $credentials['email'], 
-                'password' => 'null', 'role' => '1']);
+                'password' => 'null', 'role' => '1', 'active' => '1']);
         }   
 
         return $user;
