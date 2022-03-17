@@ -78,7 +78,8 @@ class SipRegistration extends Controller
 		$skills = skills_list::orderBy('skill')->get();
 		$chksubmitted = User::where('email',Auth::user()->email)->first();
 		$data_exsits = OnlineProfile::where('email',Auth::user()->email)->first();
-
+		log::info('=================');
+		log::info($data_exsits);
 		return view('StudentProfileForm')
 				->with('colleges', $colleges)
 				->with('departments',$departments)

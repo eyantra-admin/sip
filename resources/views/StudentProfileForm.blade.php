@@ -40,33 +40,44 @@
             <div class="row">
               <div class="row">
                 <ul class="tabs">
-                  @if($data_exsits->tab1count == 0)
+                @if($data_exsits== null)
                     <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Red">Academic Details<br> <b>(1)*</b></a></li>
-                  @else
-                    <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Green">Academic Details<br> <b>(1)*</b></a></li>
-                  @endif
-                  @if($data_exsits->tab2count == 0)
                     <li class="tab waves-effect waves-light btn"><a href="#test2" style="color: Red">Project Info<br><b>(2)*</b></a></li>
-                  @else
-                    <li class="tab waves-effect waves-light btn"><a class="active" href="#test2" style="color: Green">Project Info<br> <b>(2)*</b></a></li>
-                  @endif
-                  @if($data_exsits->tab3count == 0)
                     <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Red">Mooc Courses<br><b>(3)</b></a></li>
-                  @else
-                    <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Green">Mooc Courses<br><b>(3)</b></a></li>
-                  @endif
-                  @if($data_exsits->tab4count == 0)
                     <li class="tab waves-effect waves-light btn"><a href="#test4" style="color: Red">Experience Details<br><b>(4)*</b></a></li>
-                  @else
-                    <li class="tab waves-effect waves-light btn"><a href="#test4" style="color: Green">Experience Details<br><b>(4)*</b></a></li>
-                  @endif
-
-                  @if($data_exsits->tab5count == 0)
                     <li class="tab waves-effect waves-light btn"><a  href="#test5" style="color: Red">e-Yantra Affiliations<br><b>(5)*</b></a></li>
-                  @else
-                    <li class="tab waves-effect waves-light btn"><a  href="#test5" style="color: Green">e-Yantra Affiliations<br><b>(5)*</b></a></li>
+                    <li class="tab waves-effect waves-light btn"><a  href="#test6"><b>Final <br>Confirmation</b></a></li>
+
+                @else
+
+                    @if($data_exsits->tab1count == 0)
+                      <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Red">Academic Details<br> <b>(1)*</b></a></li>
+                    @else
+                      <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Green">Academic Details<br> <b>(1)*</b></a></li>
+                    @endif
+                    @if($data_exsits->tab2count == 0)
+                      <li class="tab waves-effect waves-light btn"><a href="#test2" style="color: Red">Project Info<br><b>(2)*</b></a></li>
+                    @else
+                      <li class="tab waves-effect waves-light btn"><a class="active" href="#test2" style="color: Green">Project Info<br> <b>(2)*</b></a></li>
+                    @endif
+                    @if($data_exsits->tab3count == 0)
+                      <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Red">Mooc Courses<br><b>(3)</b></a></li>
+                    @else
+                      <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Green">Mooc Courses<br><b>(3)</b></a></li>
+                    @endif
+                    @if($data_exsits->tab4count == 0)
+                      <li class="tab waves-effect waves-light btn"><a href="#test4" style="color: Red">Experience Details<br><b>(4)*</b></a></li>
+                    @else
+                      <li class="tab waves-effect waves-light btn"><a href="#test4" style="color: Green">Experience Details<br><b>(4)*</b></a></li>
+                    @endif
+
+                    @if($data_exsits->tab5count == 0)
+                      <li class="tab waves-effect waves-light btn"><a  href="#test5" style="color: Red">e-Yantra Affiliations<br><b>(5)*</b></a></li>
+                    @else
+                      <li class="tab waves-effect waves-light btn"><a  href="#test5" style="color: Green">e-Yantra Affiliations<br><b>(5)*</b></a></li>
+                    @endif
+                    <li class="tab waves-effect waves-light btn"><a  href="#test6"><b>Final <br>Confirmation</b></a></li>
                   @endif
-                  <li class="tab waves-effect waves-light btn"><a  href="#test6"><b>Final <br>Confirmation</b></a></li>
                 </ul>
               
 
