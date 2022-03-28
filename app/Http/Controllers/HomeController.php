@@ -115,7 +115,7 @@ class HomeController extends Controller
 
     public static function projectpreference(Request $request)
     {
-        $projects = Projects::select('id','projectname')->orderBy('projectname')->get();
+        $projects = Projects::select('id','projectname')->where('active', 1)->orderBy('projectname')->get();
         $proj_prefer = StudentProjPrefer ::where('userid', Auth::user()->id)->count();
         if($proj_prefer == 0)
         {
@@ -590,7 +590,7 @@ class HomeController extends Controller
     public function addproject(Request $request)
     {
         //$project_cnt = projects::where('mentor1userid', Auth::user()->id)->count();
-        $projects = Projects::select('id','projectname')->orderBy('projectname')->get();
+        $projects = Projects::select('id','projectname')->where('active', 1)->orderBy('projectname')->get();
         $mentors = User::select('id','name as mentorname')->where('role', 2)->orderBy('name')->get();
         $skills = skills_list::orderBy('skill')->get();
         return view('project.addproject')->with('projects', $projects)
@@ -607,6 +607,7 @@ class HomeController extends Controller
         //$proj->technologystack = $request->technologystack;
         $proj->interns_required = $request->interns;
         $proj->technologystack = implode(', ', $request->technologystack);
+        $proj->active = 1;
         $proj->save();
         return back()->withStatus(__('Project added successfully.'));
     }
@@ -637,4 +638,31 @@ class HomeController extends Controller
                 ->get();
                 return view('View_studentprofiles')->with('profile_list', $result);
     }
+
+    //Allocate project to interns page
+    public static function Allocate_Project(Request $request)
+    {
+        $students = User::select('id','name', 'project_alloted')->where('role', 1)->where('active', 1)->orderby('name')->get();
+        $projects = Projects::select('id','projectname')
+                    ->where('active', 1)
+                    ->orderBy('projectname')->get();
+        $alloted_proj = User::join('projects as p', 'p.id', '=', 'users.project_alloted')
+                        ->value('projectname');
+
+        log::info($alloted_proj);
+        return view('Allocate_Project')->with('students', $students)->with('projects', $projects)->with('alloted_proj', $alloted_proj);
+    }
+
+    //Submit Allocate project to interns page
+    public static function AllocateProject_Submit($userid, $project)
+    {
+        log::info($userid);
+        log::info($project);
+        $approve = DB::table('users')
+                      ->where('id', $userid)
+                      ->update(['project_alloted' => $project]);
+                    return back()->withStatus(__('Project allocation done successfully.'));
+   }
+
+    
 }

@@ -144,18 +144,8 @@
             <p>{{ __('View Timeslot Bookings') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'listnda' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('nda_all') }}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('View NDA Submissions') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'mentorclearence' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('mentorclearence') }}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('Mentor Clearence') }}</p>
-        </a>
-      </li>
+      
+      
       <li class="nav-item{{ $activePage == 'InterviewResult' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('Evaluation') }}">
           <i class="material-icons">content_paste</i>
@@ -171,6 +161,25 @@
         <a class="nav-link" href="{{ route('View_profiles') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('View All Interns Data') }}</p>
+        </a>
+      </li>
+
+      <li class="nav-item{{ $activePage == 'Allocate_Project' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('Allocate_Project') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Student - Project Allocation') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'listnda' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('nda_all') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View NDA Submissions') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'mentorclearence' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('mentorclearence') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Mentor Clearence') }}</p>
         </a>
       </li>
     @endif

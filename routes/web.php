@@ -266,3 +266,10 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 		Route::any('/View_profiles', ['as'=>'View_profiles','uses'=>'HomeController@View_studentprofiles'
 	])->middleware('auth');
 
+		Route::any('/Allocate_Project', ['as'=>'Allocate_Project','uses'=>'HomeController@Allocate_Project'
+	])->middleware('auth');
+		Route::any('/AllocateProject_Submit/{userid}/{projectid}', ['as'=>'AllocateProject_Submit','uses'=>'HomeController@AllocateProject_Submit'
+	])->middleware('auth');
+		
+		
+
