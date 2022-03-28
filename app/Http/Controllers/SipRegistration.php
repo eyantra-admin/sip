@@ -37,7 +37,8 @@ class SipRegistration extends Controller
 							->distinct('online_profile_response.id')
 							->get();
 		return view('SipRegistration_view')->with('students',$students);
-	}	
+	}
+
 
 	public function sip_student($userid)
 	{
@@ -919,7 +920,11 @@ class SipRegistration extends Controller
 		{
 			return redirect()->route('Evaluation');
 		}
-		else
+		elseif(Auth::user()->role == 3) //admin
+		{
+			return redirect()->route('View_profiles');
+		}
+		else                      //student
 		{
 			return redirect()->route('dashboard');
 		}

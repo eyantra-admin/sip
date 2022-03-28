@@ -6,6 +6,7 @@ use App\Model\CollegeDetails;
 use App\Model\ElsiState;
 use App\Model\Projects;
 use App\Model\StudentProjPrefer;
+use App\Model\StudentEvaluation;
 use App\User;
 use App\Model\TimeslotBooking;
 use App\Model\UserPanel;
@@ -23,6 +24,7 @@ use Config;
 use Storage;
 use PDF;
 use DataTables;
+
 
 class InterviewController extends Controller
 {
@@ -44,21 +46,20 @@ class InterviewController extends Controller
     public function Evaluation()
     {
         $todayDate = date("Y-m-d");
-        log::info($todayDate);
+
         //get auth(logged in user) panel id
         $panel_no = UserPanel::where('userid', Auth::user()->id)->value('panelid');
-        log::info($panel_no);
-        //get all student user id's who booked TS for today wrt to panel no.
-        $ts_booked_student = TimeslotBooking::where('panel', $panel_no)
-                            ->where('date',$todayDate)
+        //get all student user id's who booked TS  wrt to panel no.
+        $ts_booked_student = TimeslotBooking::select('timeslot_booking.userid', 'timeslot_booking.date', 
+                                                'timeslot_booking.availableslots', 'timeslot_booking.panel')
+                            ->join('users','users.id','=','timeslot_booking.userid')
+                            ->where('users.active', 1)
+                            //->where('date',$todayDate)
                             ->where('userid', '!=', null)
+                            ->where('panel', $panel_no)
                             ->get();
-        $userid_panel= TimeslotBooking::where('panel', $panel_no)
-                            ->where('date',$todayDate)
-                            ->where('userid', '!=', null)->orderBy('userid')
-                            ->select('userid')->get();
-
-        $user_data = OnlineProfile::select('online_profile_response.id','online_profile_response.userid','name','email','phone', 'eyrc_theme','college','branch','year','st.userid', 'st.availableslots')
+        
+        $user_data = OnlineProfile::select('online_profile_response.id','online_profile_response.userid','name','email','phone', 'eyrc_theme','college','branch','year','st.userid', 'st.availableslots', 'st.date')
                             ->join('timeslot_booking as st','st.userid','=','online_profile_response.userid')
                             ->where('date',$todayDate)
                             ->where('st.userid', '!=', null)
@@ -66,15 +67,32 @@ class InterviewController extends Controller
                             ->orderBy('st.userid')
                             ->distinct('online_profile_response.id')
                             ->get();
-        log::info($ts_booked_student); 
-        log::info($userid_panel); 
-        log::info('----------------------'); 
-        log::info($user_data); 
                
         return view('InterviewResult')->with('ts_booked_student', $ts_booked_student)
                                         ->with('panel_no', $panel_no)
-                                        ->with('userid_panel', $userid_panel)
                                         ->with('user_data', $user_data);
     }
+
+    public function EvaluationResult()
+    {
+        $students = User::select('id','name')->where('role', 1)->orderby('name')->get();
+        $projects = Projects::select('id','projectname')->orderBy('projectname')->get();
+        
+        return view ('Evaluation')->with('projects', $projects)->with('students', $students);
+    }
+    public function EvaluationSubmit(Request $request)
+    {
+        log::info($request->all());
+       $stud = StudentEvaluation::updateOrCreate(
+            ['userid' =>  $request->studentname],
+            ['projectpref1' => $request->projectpref1, 
+            'projectpref2' => $request->projectpref2, 
+            'projectpref3' => $request->projectpref3,  
+            'decision' => $request->decision,
+            'technicalstrength' => $request->technicalstrength,
+            'remark' => $request->remark]
+        );
+       return back()->withStatus(__('Student evaluation done successfully.'));
+   }
    
 }

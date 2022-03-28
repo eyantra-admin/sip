@@ -1,11 +1,11 @@
-@extends('layouts.app', ['activePage' => 'viewstudentprofiles', 'titlePage' => __('viewstudentprofiles')])
+@extends('layouts.app', ['activePage' => 'View_profiles', 'titlePage' => __('View_profiles')])
 
 @section('content')
 <div class="content">
   <div class="container-fluid">
     <div class = "row">
       <div class="col-md-12" style="margin-left: 20px">
-        <button onclick="exportTableToCSV('TimeslotBookings.csv')" class="btn btn-primary"> Export to CSV File</button>  
+        <button onclick="exportTableToCSV('SIPStudentList.csv')" class="btn btn-primary"> Export to CSV File</button>  
       </div>
 
 
@@ -21,7 +21,7 @@
                   <thead class=" text-primary">
                     <th><b>Sr No.</b></th>
                     <th><b>User Id</b></th>
-                    <th><b>Panel No</b></th>
+                    <!-- <th><b>Panel No</b></th> -->
                     <th><b>Student Name</b></th>
                     <th><b>Email Id</b></th>
                   </thead>
@@ -31,8 +31,9 @@
                       <tr>
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->userid}}</b></td>
-                        <td><b>{{$cur->panelid}}</b></td>
-                        <td><b><a href="/SipStudent/{{Crypt::encrypt($cur->userid)}}" target="_blank">{{ $cur->name}}</a></b></td>
+                        <!-- <td><b>{{$cur->panelid}}</b></td> -->
+                        <td><b><a href="/ViewMyRegistration/{{Crypt::encrypt($cur->userid)}}" target="_blank" class="col-sm-4 col-form-label"><b>{{ $cur->name}}</b></a></b></td>
+
                         <td><b>{{$cur->email}}</b></td>
                       </tr>
                       @endforeach

@@ -11,12 +11,14 @@
   </div>
   <div class="sidebar-wrapper">
     <ul class="nav">
+      @if(Auth::user()->role == 1)
       <li class="nav-item{{ $activePage == 'dashboard' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('home') }}">
           <i class="material-icons">dashboard</i>
             <p>{{ __('Dashboard') }}</p>
         </a>
       </li>
+      @endif
 
       <!-- <li class="nav-item{{ $activePage == 'changepassword' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('changepassword') }}">
@@ -118,6 +120,9 @@
               <p>{{ __('FAQ') }}</p>
           </a>
         </li> -->
+
+
+    <!--   ***********MENTOR INTERFACE******** -->
     @if(Auth::user()->role == 2)
       <li class="nav-item{{ $activePage == 'addproject' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('project.addproject') }}">
@@ -159,6 +164,17 @@
       </li>
 
     @endif
+
+    <!--   ***********ADMIN INTERFACE******** -->
+    @if(Auth::user()->role == 3)
+      <li class="nav-item{{ $activePage == 'View_profiles' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('View_profiles') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View All Interns Data') }}</p>
+        </a>
+      </li>
+    @endif
+
     </ul>
   </div>
 </div>

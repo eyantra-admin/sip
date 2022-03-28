@@ -42,10 +42,15 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
+                      <label class="col-form-label"><b>{{ __('Interview Date:') }}   {{ $stud->date }}</b></label>
+                    </div>
+                    <div class="row">
                       <label class="col-form-label"><b>{{ __('Time slot Booked:') }}   {{ $stud->availableslots }}</b></label>
                     </div>
                     <div class="row">
-                      <a href="/ViewMyRegistration/{{Crypt::encrypt($stud->userid)}}" target="_blank" class="col-sm-4 col-form-label">{{ __('See Details') }}</a>
+                      <a href="/ViewMyRegistration/{{Crypt::encrypt($stud->userid)}}" target="_blank" class="col-sm-4 col-form-label"><b>{{ __('See Details') }}</b></a>
+
+                      <a href="/EvaluationResult" target="_blank" class="col-sm-4 col-form-label"><b>{{ __('Evaluate') }}</b></a>
                     </div>
                   </div>
                 </div>

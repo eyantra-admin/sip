@@ -113,6 +113,9 @@ Route::group(['middleware' => 'auth'], function ()
 
 
 	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
+	Route::get('EvaluationResult', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
+	Route::put('EvaluationSubmit', ['as' => 'EvaluationSubmit', 'uses' => 'InterviewController@EvaluationSubmit']);
+	// Route::get('UserEvaluation/{user}', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
 	
 });
 
@@ -261,5 +264,5 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 		Route::any('submit-profile', ['as' => 'SubmitProfile', 'uses' => 'ProfileControllerNew@SubmitProfile']);
 
 		Route::any('/View_profiles', ['as'=>'View_profiles','uses'=>'HomeController@View_studentprofiles'
-	]);
+	])->middleware('auth');
 

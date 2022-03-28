@@ -34,7 +34,8 @@
             <div class="card-header card-header-primary">
                 <h4 class="card-title"><b>{{ __('e-Yantra Internship Program') }}</b></h4>
                 <p>Fill your complete profile for further assesment </p>
-                <p><b>The data on the tabs 1, 2, 4, 5 are mandatory to be filled. Please Go to "Final Confirmation" Tab when all the data is submitted successfully and Click on "I Confirm" Checkbox. Only then, your profile will be considered as complete and submitted.</b></p>
+                <p><b>The data on the tabs 1, 2, 4, 5 are mandatory to be filled. <br>
+                Please Go to <b style="color:black;">"Final Confirmation"</b>  Tab when all the data is submitted successfully and Click on "I Confirm" Checkbox. Only then, your profile will be considered as complete and submitted.</b></p>
             </div>
 
             <div class="row">
