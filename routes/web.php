@@ -64,6 +64,11 @@ Route::group(['middleware' => ['isAdmin','keycloak-web']], function ()
 	]);
 	Route::any('/View_projects', ['as'=>'View_projects','uses'=>'HomeController@Project_list'
 	]);
+	Route::get('/all-nda', ['as' => 'nda_all', 'uses' =>	'HomeController@listAllnda']);
+	Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeController@downloadNDA']);
+
+	Route::any('/mentorclearence', ['as'=>'mentorclearence','uses'=>'HomeController@mentorclearence']);
+	Route::any('/approveclearence/{userid}', ['as'=>'approveclearence','uses'=>'HomeController@approveclearence']);
 
 });
 
@@ -83,11 +88,9 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
 	Route::get('EvaluationResult', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
 	Route::put('EvaluationSubmit', ['as' => 'EvaluationSubmit', 'uses' => 'InterviewController@EvaluationSubmit']);
-	Route::get('/all-nda', ['as' => 'nda_all', 'uses' =>	'HomeController@listAllnda']);
-	Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeController@downloadNDA']);
+	
 
-	Route::any('/mentorclearence', ['as'=>'mentorclearence','uses'=>'HomeController@mentorclearence']);
-	Route::any('/approveclearence/{userid}', ['as'=>'approveclearence','uses'=>'HomeController@approveclearence']);
+	
 	
 });
 //MENTOR COMPLETE----------------------------------------------------------------------------
