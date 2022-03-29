@@ -574,8 +574,9 @@
 
   $('body').on("click", '.add-btn', function() 
   {
-    var copyContent = $("#copy-this-div").clone();
-    $('.parent-div').append(copyContent);
+    var $copyContent = $("#copy-this-div").clone();
+    $copyContent.find('input').val('');
+    $('.parent-div').append($copyContent);
     click++;
     if(click>=3)
     {

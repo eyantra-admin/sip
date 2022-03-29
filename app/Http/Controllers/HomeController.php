@@ -664,5 +664,13 @@ class HomeController extends Controller
                     return back()->withStatus(__('Project allocation done successfully.'));
    }
 
-    
+
+
+    public static function Project_list()
+    {
+        $projects = Projects::select('id','projectname')
+                    ->where('active', 1)
+                    ->orderBy('projectname')->get();
+        return view('View_projects')->with('projects', $projects);
+   }
 }
