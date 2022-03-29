@@ -88,38 +88,19 @@
               <p>{{ __('Verify your details') }}</p>
           </a>
         </li>
-
         <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('timeslotbooking') }}">
-          <i class="material-icons">library_books</i>
-            <p>{{ __('Interview Slot') }}</p>
-        </a>
-      </li>
-     
-        <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('projectpreference') }}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('Project Preference') }}</p>
-        </a>
-      </li>
-    @endif
-
-    
-
-      
-      
-        <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
-          <a class="nav-link" href="{{ route('survey') }}">
-            <i class="material-icons">list</i>
-              <p>{{ __('Pre-Internship Survey') }}</p>
+          <a class="nav-link" href="{{ route('timeslotbooking') }}">
+            <i class="material-icons">library_books</i>
+              <p>{{ __('Interview Slot') }}</p>
           </a>
         </li>
-        <li class="nav-item{{ $activePage == 'faq' ? ' active' : '' }}">
-          <a class="nav-link" href="{{ route('faq') }}">
-            <i class="material-icons">language</i>
-              <p>{{ __('FAQ') }}</p>
+        <li class="nav-item{{ $activePage == 'preference' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('projectpreference') }}">
+            <i class="material-icons">content_paste</i>
+              <p>{{ __('Project Preference') }}</p>
           </a>
-        </li> -->
+        </li>
+    @endif
 
 
     <!--   ***********MENTOR INTERFACE******** -->
@@ -182,43 +163,14 @@
             <p>{{ __('Mentor Clearence') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'View_projects' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('View_projects') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View All Projects') }}</p>
+        </a>
+      </li>
     @endif
 
     </ul>
   </div>
 </div>
-
-
-<!-- <li class="nav-item{{ $activePage == 'icons' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('icons') }}">
-          <i class="material-icons">bubble_chart</i>
-          <p>{{ __('Result') }}</p>
-        </a>
-      </li> -->
-      <!--<li class="nav-item{{ $activePage == 'map' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('map') }}">
-          <i class="material-icons">location_ons</i>
-            <p>{{ __('Maps') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'notifications' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('notifications') }}">
-          <i class="material-icons">notifications</i>
-          <p>{{ __('Notifications') }}</p>
-        </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'language' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('language') }}">
-          <i class="material-icons">language</i>
-          <p>{{ __('RTL Support') }}</p>
-        </a>
-      </li>
-      <li class="nav-item active-pro{{ $activePage == 'upgrade' ? ' active' : '' }} bg-danger">
-        <a class="nav-link text-white" href="{{ route('upgrade') }}">
-          <i class="material-icons">unarchive</i>
-          <p>{{ __('Upgrade to PRO') }}</p>
-        </a>
-      </li> -->
-
-
-      

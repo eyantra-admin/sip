@@ -41,61 +41,36 @@ Route::any('/home', 'HomeController@index')->name('home');
 Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@dashboard'])->middleware('auth');
 Route::any('/error', 'HomeController@error')->name('error');
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::get('table-list', function () {
-		return view('pages.table_list');
-	})->name('table');
-
-	Route::get('typography', function () {
-		return view('pages.typography');
-	})->name('typography');
-
-	Route::get('icons', function () {
-		return view('pages.icons');
-	})->name('icons');
-
-	Route::get('map', function () {
-		return view('pages.map');
-	})->name('map');
-
-	Route::get('notifications', function () {
-		return view('pages.notifications');
-	})->name('notifications');
-
-	Route::get('rtl-support', function () {
-		return view('pages.language');
-	})->name('language');
-
-	Route::get('upgrade', function () {
-		return view('pages.upgrade');
-	})->name('upgrade');
-});
 
 Route::group(['middleware' => 'auth'], function () 
 {
 	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-
-	Route::put('profile', ['as' => 'profile.updateSection1', 'uses' => 'ProfileController@updateSectionData']);
-	Route::put('profileupdate', ['as' => 'profileupdate', 'uses' => 'ProfileController@updateSectionData']);
-	Route::put('updateexp', ['as' => 'updateexp', 'uses' => 'ProfileController@updateSection4']);
-	Route::put('updateproj', ['as' => 'updateproj', 'uses' => 'ProfileController@updateproj']);
-	Route::put('updatecomp', ['as' => 'updatecomp', 'uses' => 'ProfileController@updateSectionData']);
-
-
-
-
-
 
 	// Change Password
 	Route::get('changepassword', ['as' => 'changepassword', 'uses' => 'ProfileController@changepassword']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+});
 
-	Route::get('projectpreference', ['as' => 'projectpreference', 'uses' => 'HomeController@projectpreference']);
-	Route::put('project', ['as' => 'project.preferenceupdate', 'uses' => 'HomeController@preferenceupdate']);
-	Route::any('/projectdetail/{projectid}','HomeController@getprojectdetail');
 
+
+//ADMIN---------------------------------------------------------------------------------------
+Route::group(['middleware' => ['isAdmin','keycloak-web']], function () 
+{
+	Route::any('/View_profiles', ['as'=>'View_profiles','uses'=>'HomeController@View_studentprofiles'
+	]);
+	Route::any('/Allocate_Project', ['as'=>'Allocate_Project','uses'=>'HomeController@Allocate_Project'
+	]);
+	Route::any('/AllocateProject_Submit/{userid}/{projectid}', ['as'=>'AllocateProject_Submit','uses'=>'HomeController@AllocateProject_Submit'
+	]);
+	Route::any('/View_projects', ['as'=>'View_projects','uses'=>'HomeController@Project_list'
+	]);
+
+});
+
+
+//MENTOR---------------------------------------------------------------------------------------
+Route::group(['middleware' => ['isMentor','keycloak-web']], function () 
+{
 	Route::get('project', ['as' => 'project.addproject', 'uses' => 'HomeController@addproject']);
 	Route::post('insertproject', ['as' => 'insertproject', 'uses' => 'HomeController@insertproject']);
 	
@@ -105,113 +80,71 @@ Route::group(['middleware' => 'auth'], function ()
 	]);
 	Route::any('/viewtimeslot', ['as'=>'viewtimeslot','uses'=>'HomeController@viewtimeslot'
 	]);
+	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
+	Route::get('EvaluationResult', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
+	Route::put('EvaluationSubmit', ['as' => 'EvaluationSubmit', 'uses' => 'InterviewController@EvaluationSubmit']);
+	Route::get('/all-nda', ['as' => 'nda_all', 'uses' =>	'HomeController@listAllnda']);
+	Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeController@downloadNDA']);
+
+	Route::any('/mentorclearence', ['as'=>'mentorclearence','uses'=>'HomeController@mentorclearence']);
+	Route::any('/approveclearence/{userid}', ['as'=>'approveclearence','uses'=>'HomeController@approveclearence']);
 	
+});
+//MENTOR COMPLETE----------------------------------------------------------------------------
+
+//STUDENT---------------------------------------------------------------------------------------
+Route::group(['middleware' => ['isStudent','keycloak-web']], function () 
+{
+
+	Route::any('/SipRegistration', ['as'=>	'SipRegistration','uses'=>	'SipRegistration@registerload']);
+
+	Route::any('/submitSection1', ['as'	=>	'submitSection1','uses'	=>	'SipRegistration@submitSection1']);
+	Route::any('/submitSection2', ['as'	=>	'submitSection2','uses'	=>	'SipRegistration@submitSection2']);
+	Route::any('/submitSection3', ['as'=>	'submitSection3','uses'	=>	'SipRegistration@submitSection3']);
+	Route::any('/submitSection4', ['as'	=>'submitSection4','uses'	=>	'SipRegistration@submitSection4']);
+	Route::any('/submitSection5', ['as'=>	'submitSection5','uses'	=>	'SipRegistration@submitSection5']);
+	Route::any('/submitSection6', ['as'=>	'submitSection6','uses'	=>	'SipRegistration@submitSection6']);
+
+	Route::any('/submitprofile', ['as'=>	'submitprofile','uses'	=>	'SipRegistration@submitprofile']);
+
+	Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
+		]);
+
+	Route::any('/SipStudent/{user}', 'SipRegistration@sip_student')->middleware('auth');
+
+	Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate')->middleware('auth');
+
+	Route::any('/upload', ['as'=>'upload','uses'=>'HomeController@Upload'])->middleware('auth');
+
+	Route::any('/survey', ['as'=>'survey','uses'=>'HomeController@preintershipsurvey'])->middleware('auth');
+	Route::any('/submitsurvey', ['as'=>'submitsurvey','uses'=>'HomeController@submitsurvey'])->middleware('auth');
+
+	Route::any('/nda', ['as'=>'nda','uses'=>'HomeController@nda'])->middleware('auth');
+	Route::any('/submitnda', ['as'=>'submitnda','uses'=>'HomeController@submitnda'])->middleware('auth');
+
+	Route::any('/verifydetails', ['as'=>'verifydetails','uses'=>'HomeController@verifydetails']);
+	Route::any('/AcceptVerify', ['as'=>'AcceptVerify','uses'=>'HomeController@AcceptVerify']);
+
+	Route::get('projectpreference', ['as' => 'projectpreference', 'uses' => 'HomeController@projectpreference']);
+	Route::put('project', ['as' => 'project.preferenceupdate', 'uses' => 'HomeController@preferenceupdate']);
+	Route::any('/projectdetail/{projectid}','HomeController@getprojectdetail');
 
 	Route::get('timeslotbooking', ['as' => 'timeslotbooking', 'uses' => 'HomeController@timeslotbooking']);
 	Route::any('gettimeslot', ['as' => 'gettimeslot', 'uses' => 'HomeController@gettimeslot']);
 	Route::put('booktimeslot', ['as' => 'booktimeslot', 'uses' => 'HomeController@booktimeslot']);
 
+	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 
-	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
-	Route::get('EvaluationResult', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
-	Route::put('EvaluationSubmit', ['as' => 'EvaluationSubmit', 'uses' => 'InterviewController@EvaluationSubmit']);
-	// Route::get('UserEvaluation/{user}', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
-	
+	Route::put('profile', ['as' => 'profile.updateSection1', 'uses' => 'ProfileController@updateSectionData']);
+	Route::put('profileupdate', ['as' => 'profileupdate', 'uses' => 'ProfileController@updateSectionData']);
+	Route::put('updateexp', ['as' => 'updateexp', 'uses' => 'ProfileController@updateSection4']);
+	Route::put('updateproj', ['as' => 'updateproj', 'uses' => 'ProfileController@updateproj']);
+	Route::put('updatecomp', ['as' => 'updatecomp', 'uses' => 'ProfileController@updateSectionData']);
 });
 
-Route::get('wizard', function () {
-    return view('multistepform');
-});
 
 
-
-Route::any('/SipRegistration', [
-	'as'			=>	'SipRegistration',
-	'uses'			=>	'SipRegistration@registerload'
-	])->middleware('auth');
-Route::any('/OldSipRegistration', [
-	'as'			=>	'OldSipRegistration',
-	'uses'			=>	'SipRegistration@OldSipRegistration'
-	])->middleware('auth');
-
-Route::any('/submitSection1', [
-	'as'			=>	'submitSection1',
-	'uses'			=>	'SipRegistration@submitSection1'
-	])->middleware('auth');
-
-Route::any('/submitSection2', [
-	'as'			=>	'submitSection2',
-	'uses'			=>	'SipRegistration@submitSection2'
-	])->middleware('auth');
-Route::any('/submitSection3', [
-	'as'			=>	'submitSection3',
-	'uses'			=>	'SipRegistration@submitSection3'
-	])->middleware('auth');
-Route::any('/submitSection4', [
-	'as'			=>	'submitSection4',
-	'uses'			=>	'SipRegistration@submitSection4'
-	])->middleware('auth');
-Route::any('/submitSection5', [
-	'as'			=>	'submitSection5',
-	'uses'			=>	'SipRegistration@submitSection5'
-	])->middleware('auth');
-Route::any('/submitSection6', [
-	'as'			=>	'submitSection6',
-	'uses'			=>	'SipRegistration@submitSection6'
-	])->middleware('auth');
-
-
-
-
-
-Route::any('/submitprofile', [
-	'as'			=>	'submitprofile',
-	'uses'			=>	'SipRegistration@submitprofile'
-	])->middleware('auth');
-
-
-Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
-	])->middleware('auth');
-
-Route::any('/SipView', ['as'=>	'SipView','uses'=>	'SipRegistration@sip_view'])->middleware('auth');
-Route::any('/SipStudent/{user}', 'SipRegistration@sip_student')->middleware('auth');
-Route::any('/ViewMyRegistration/{user}', 'SipRegistration@ViewMyRegistration')->middleware('auth');
-Route::any('/back', 'SipRegistration@back')->middleware('auth');
-Route::any('/downloadCertificate/{studentid}','SipRegistration@download_certificate')->middleware('auth');
-
-Route::any('/upload', ['as'=>'upload','uses'=>'HomeController@Upload'])->middleware('auth');
-
-Route::any('/survey', ['as'=>'survey','uses'=>'HomeController@preintershipsurvey'])->middleware('auth');
-Route::any('/submitsurvey', ['as'=>'submitsurvey','uses'=>'HomeController@submitsurvey'])->middleware('auth');
-Route::any('/faq', ['as'=>'faq','uses'=>'HomeController@faq'])->middleware('auth');
-Route::any('/nda', ['as'=>'nda','uses'=>'HomeController@nda'])->middleware('auth');
-Route::any('/submitnda', ['as'=>'submitnda','uses'=>'HomeController@submitnda'])->middleware('auth');
-
-Route::get('/all-nda', [
-	'middleware'	=>	'auth',
-	'as'			=>	'nda_all',
-	'uses'			=>	'HomeController@listAllnda'
-	]);
-Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeController@downloadNDA'])->middleware('auth');
-
-	Route::any('/getstatewiseColleges', [
-	'as'			=>	'getstatewiseColleges',
-	'uses'			=>	'HomeController@getstatewiseColleges'
-	]);
-	Route::any('/getCountrywiseStates', [
-	'as'			=>	'getCountrywiseStates',
-	'uses'			=>	'HomeController@getCountrywiseStates'
-	]);
-	// Route::any('/getcollegeinfo', [
-	// 'as'			=>	'getcollegeinfo',
-	// 'uses'			=>	'elsiRegistrationResponse@getcollegeinfo'
-	// ]);
-Route::any('/verifydetails', ['as'=>'verifydetails','uses'=>'HomeController@verifydetails'])->middleware('auth');
-Route::any('/AcceptVerify', ['as'=>'AcceptVerify','uses'=>'HomeController@AcceptVerify'])->middleware('auth');
-
-
-Route::any('/mentorclearence', ['as'=>'mentorclearence','uses'=>'HomeController@mentorclearence'])->middleware('auth');
-Route::any('/approveclearence/{userid}', ['as'=>'approveclearence','uses'=>'HomeController@approveclearence'])->middleware('auth');
 
 
 
@@ -247,32 +180,23 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 	Route::get('/fetchir/{user_id}','PaymentController@immediateResponseForUser'); //request server for recon response
 
 	/**************** certificate for students ****************/
-		Route::get('/generate/run', [
+	Route::get('/generate/run', [
 		'as' 			=> 'GenerateCertificate',
 		'uses' 			=> 'Generate@run'
 		]);
 
-		Route::get('validate', 'ValidateController@index')->name('validate');
-		Route::post('validate', 'ValidateController@verify');
-		Route::get('validate/{id}', 'ValidateController@authenticate');
+	Route::get('validate', 'ValidateController@index')->name('validate');
+	Route::post('validate', 'ValidateController@verify');
+	Route::get('validate/{id}', 'ValidateController@authenticate');
 
 
+Route::any('/ViewMyRegistration/{user}', 'SipRegistration@ViewMyRegistration')->middleware('auth');
+Route::any('/back', 'SipRegistration@back')->middleware('auth');
+Route::any('/getstatewiseColleges', ['as'	=>	'getstatewiseColleges','uses'	=>	'HomeController@getstatewiseColleges']);
+Route::any('/getCountrywiseStates', ['as'	=>	'getCountrywiseStates','uses'	=>	'HomeController@getCountrywiseStates']);
 
-
-
-		Route::get('profiledtl', ['as' => 'profiledtl', 'uses' => 'SipRegistration@registerload']); 
-		Route::any('submit-profile', ['as' => 'SubmitProfile', 'uses' => 'ProfileControllerNew@SubmitProfile']);
-
-		Route::any('/View_profiles', ['as'=>'View_profiles','uses'=>'HomeController@View_studentprofiles'
-	])->middleware('auth');
-
-		Route::any('/Allocate_Project', ['as'=>'Allocate_Project','uses'=>'HomeController@Allocate_Project'
-	])->middleware('auth');
-		Route::any('/AllocateProject_Submit/{userid}/{projectid}', ['as'=>'AllocateProject_Submit','uses'=>'HomeController@AllocateProject_Submit'
-	])->middleware('auth');
-
-		Route::any('/View_projects', ['as'=>'View_projects','uses'=>'HomeController@Project_list'
-	])->middleware('auth');
+Route::get('profiledtl', ['as' => 'profiledtl', 'uses' => 'SipRegistration@registerload']); 
+	
 
 		
 		
