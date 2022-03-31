@@ -61,7 +61,7 @@ class InterviewController extends Controller
         
         $user_data = OnlineProfile::select('online_profile_response.id','online_profile_response.userid','name','email','phone', 'eyrc_theme','college','branch','year','st.userid', 'st.availableslots', 'st.date')
                             ->join('timeslot_booking as st','st.userid','=','online_profile_response.userid')
-                            ->where('date',$todayDate)
+                            // ->where('date',$todayDate)
                             ->where('st.userid', '!=', null)
                             ->where('st.panel', $panel_no)
                             ->orderBy('st.userid')
