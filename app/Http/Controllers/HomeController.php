@@ -348,6 +348,8 @@ class HomeController extends Controller
         ->join('projects as p3','p3.id', '=', 'studentprojprefer.projectprefer3')
         ->join('projects as p4','p4.id', '=', 'studentprojprefer.projectprefer4')
         ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
+        ->join('users as u', 'u.id', '=', 'studentprojprefer.userid')
+        ->where('u.active', 1)
         ->orderBy('studentprojprefer.userid')
         ->get();
         log::info($result);
@@ -359,6 +361,7 @@ class HomeController extends Controller
         $result = TimeslotBooking::select('timeslot_booking.panel','timeslot_booking.userid',
             'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots')
         ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
+        ->where('u.active', 1)
         ->orderBy('timeslot_booking.date')
         ->get();
         return view('View_timeslot')->with('timeslot', $result);
