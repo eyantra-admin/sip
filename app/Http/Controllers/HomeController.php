@@ -634,6 +634,7 @@ class HomeController extends Controller
                 //->join('user_panel as up', 'up.userid', '=', 'u.id')
                 ->where('u.profilesubmitted', 1)
                 ->where('u.active', 1)
+                ->where('u.role', 1)
                 ->orderBy('online_profile_response.name')
                 ->get();
                 return view('View_studentprofiles')->with('profile_list', $result);
