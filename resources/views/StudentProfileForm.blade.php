@@ -57,9 +57,9 @@
                       <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Green">Academic Details<br> <b>(1)*</b></a></li>
                     @endif
                     @if($data_exsits->tab2count == 0)
-                      <a href="#test2" style="color: Red"><li class="tab waves-effect waves-light btn">Project Info<br><b>(2)*</b></li></a>
+                      <li class="tab waves-effect waves-light btn"><a href="#test2" style="color: Red">Project Info<br><b>(2)*</b></a></li>
                     @else
-                      <a class="active" href="#test2" style="color: Green"><li class="tab waves-effect waves-light btn">Project Info<br> <b>(2)*</b></li></a>
+                      <li class="tab waves-effect waves-light btn"><a class="active" href="#test2" style="color: Green">Project Info<br> <b>(2)*</b></a></li>
                     @endif
                     @if($data_exsits->tab3count == 0)
                       <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Red">Mooc Courses<br><b>(3)</b></a></li>
