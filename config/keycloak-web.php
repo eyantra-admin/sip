@@ -72,5 +72,5 @@ return [
     *
     * @link http://docs.guzzlephp.org/en/stable/request-options.html
     */
-   'guzzle_options' => ['verify' => false],
+   'guzzle_options' => ['verify'=>false],
 ];

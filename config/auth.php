@@ -67,10 +67,12 @@ return [
     */
 
     'providers' => [
-    'users' => [
-        'driver' => 'custom-user',
-        'model' => App\User::class,
+        'users' => [
+            'driver' => 'custom-user',
+            'model' => App\User::class,
         ],
+    
+        // ...
     ],
 
     /*

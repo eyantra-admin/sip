@@ -328,6 +328,7 @@
                       <div class="row">
                         <label class="col-sm-3 col-form-label">{{ __('Platform') }}</label>
                         <div class="col-sm-9">
+                          @php echo $data->platform @endphp
                           <input type="checkbox" name="platform[]" value="Coursera" {{ $data->platform == "Coursera" ? 'checked': '' }}>Coursera &nbsp; Coursera  &nbsp; &nbsp; 
                           <input type="checkbox" name="platform[]" value="edX"> &nbsp; edX &nbsp; &nbsp; 
                           <input type="checkbox" name="platform[]" value="e-Yantra MOOC">&nbsp; e-Yantra MOOC &nbsp; &nbsp; 

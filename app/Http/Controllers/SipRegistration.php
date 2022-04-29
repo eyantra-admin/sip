@@ -293,14 +293,10 @@ class SipRegistration extends Controller
 	{
 		log::info($request->all());
 		$validator = Validator::make($request->all(), [
-        'moocCourseName' => 'required|alpha',
-				'moocPlatform' => 'required',
-				'moocIncomplete' => 'required|numeric|digits_between:1,10'                 
+				
+				'moocIncomplete' => 'numeric|digits_between:0,10'                 
       ],
       [
-      	'moocCourseName.required' => 'Mooc course name is required',
-				'moocPlatform.required' => 'Mooc platform is required',
-				'moocIncomplete.required' => 'Mooc Incomplete is required',
 				'moocIncomplete.digits' => 'Mooc Incomplete should only contain digits'
       ]);
 
@@ -322,13 +318,13 @@ class SipRegistration extends Controller
 			{
 				if((!empty ($request->moocCourseName)) || (!empty($request->moocPlatform)) ||	
       	(!empty($request->moocIncomplete)))
-	      {
+	      {			log::info("inside if of mooc course");
 					$profile = new OnlineProfile;
 	        $basicdtls = DB::table('online_profile_response')
 	                  ->where('userid', $userid)
 	                  ->update([
-	                  	'mooc_course' => $request->mooc_course, 
-	                    'platform' => implode(', ', $request->moocPlatform), 
+	                  	'mooc_course' => $request->moocCourseName, 
+	                    'platform' => implode('', $request->moocPlatform), 
 	                    'number_of_courses_incomplete' => $request->moocIncomplete,
 	                    'tab3count' => 1
 	                    ]);

@@ -49,7 +49,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        log::info('------11111------');
+        log::info('Inside Home');
         log::info(Auth::user());
         if(Auth::user()->role == 3)
             return redirect()->route('View_profiles');
