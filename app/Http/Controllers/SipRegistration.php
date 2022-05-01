@@ -192,6 +192,7 @@ class SipRegistration extends Controller
                 ->where('userid', $userid)
                 ->update(['gpa' => $request->gpa, 
                           'year' => $request->year, 
+						  'phone' => $request->phone, 
                           'branch' => $branch['name'], 
                           'clg_code' => $request->college,
                           'college' => $col_name['college_name'],  
