@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|----------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
@@ -141,9 +141,10 @@ Route::group(['middleware' => ['isStudent','keycloak-web']], function ()
 
 	Route::put('profile', ['as' => 'profile.updateSection1', 'uses' => 'ProfileController@updateSectionData']);
 	Route::put('profileupdate', ['as' => 'profileupdate', 'uses' => 'ProfileController@updateSectionData']);
+	Route::put('moocCourses', ['as' => 'moocCourses', 'uses' => 'ProfileController@updateMoocCourses']);
 	Route::put('updateexp', ['as' => 'updateexp', 'uses' => 'ProfileController@updateSection4']);
 	Route::put('updateproj', ['as' => 'updateproj', 'uses' => 'ProfileController@updateproj']);
-	Route::put('updatecomp', ['as' => 'updatecomp', 'uses' => 'ProfileController@updateSectionData']);
+	Route::put('updateAffiliation', ['as' => 'updateAffiliation', 'uses' => 'ProfileController@updateAffiliation']);
 });
 
 
