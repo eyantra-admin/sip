@@ -14,6 +14,7 @@ use App\Model\ElsiDesignations;
 use App\Model\ExperienceDtls;
 use App\Model\StudentProjDtls;
 use App\Model\skills_list;
+// use App\Model\users;
 use App\User;
 
 use Auth;
@@ -46,6 +47,7 @@ class ProfileController extends Controller
         $data = OnlineProfile:: where('email', Auth::user()->email)->first();
         $exp = ExperienceDtls::where('userid',Auth::user()->id)->get();
         $project = StudentProjDtls::where('userid',Auth::user()->id)->get();
+        // $finalConfirmed = users
         log::info($data);
         return view('profile.edit')
                 ->with('colleges', $colleges)
@@ -85,9 +87,56 @@ class ProfileController extends Controller
 
     public function updateSectionData(Request $request) // General section update
     {
-        $profile = OnlineProfile::find(Auth::user()->id);
         $updates = $request->all();
-        $profile->update($updates);   // save the updated data
+
+        $update_sec1 = DB::table('online_profile_response')
+            ->where('email', $request['email'])
+            ->update([
+                'phone' => $request['phone'],
+                'year'=> $request['year'],
+                'branch' => $request['branch'],
+                'gpa'=> $request['gpa'],
+                'class12'=> $request['class12'],
+                'class12board' => $request['class12board'],
+                'github'=> $request['github'],
+                'linkedin'=> $request['linkedin'],
+                'instagram'=> $request['instagram'],
+                'facebook'=> $request['facebook']
+            ]);  
+
+        return back()->withStatus(__('Profile successfully updated.'));
+    }
+
+    public function updateMoocCourses(Request $request){
+        $updates = $request->all();
+        $mail = Auth::user()->email;
+        $update_mooc = DB::table('online_profile_response')
+            ->where('email', $mail)
+            ->update([
+                'mooc_course' => $request['mooc_course'],
+                'platform'  => implode(',', $request->platform),
+                'number_of_courses_incomplete' => $request['number_of_courses_incomplete']
+            ]);  
+
+
+        return back()->withStatus(__('Profile successfully updated.'));
+    }
+
+    public function updateAffiliation(Request $request){
+        $updates = $request->all();
+        log::info("called");
+        log::info($updates);
+        $mail = Auth::user()->email;
+        $update_mooc = DB::table('online_profile_response')
+            ->where('email', $mail)
+            ->update([
+                'eyrc_eyic_participating' => $request['eyrc_eyic_participating'],
+                'eyrc_theme' => $request['eyrc_theme'],
+                'where_is_your_hardware' => $request['where_is_your_hardware'],
+                'otherhw' => $request['otherhw']
+            ]);  
+
+
         return back()->withStatus(__('Profile successfully updated.'));
     }
 

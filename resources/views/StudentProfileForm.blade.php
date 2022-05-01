@@ -13,9 +13,7 @@
           <hr/>
           @endif
 
-          <!-- @if($errors->any())
-          <h4>{{$errors->first()}}</h4>
-          @endif -->
+        
 
          @if (session('status'))
           <div class="row">
@@ -88,7 +86,7 @@
                       class="form-horizontal">
                       @csrf
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Name') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Name') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('fullname') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Name" value="{{ old('fullname', auth()->user()->name) }}" required>
@@ -99,7 +97,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Email Id') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Email Id') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('email') ? ' has-danger' : '' }}">
                             <input class="form-control" name="email" id="email" placeholder="Email Id Email Id" value="{{ old('fullname', auth()->user()->email) }}" rows="4" wrap="physical" required>
@@ -109,7 +107,7 @@
                           </div>
                         </div>
 
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Contact No') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Contact No') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="phone" id="phone" placeholder="Contact No" value="{{old('phone')}}" required>
@@ -121,14 +119,14 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('College') }}</label>
-                        <div class="col-sm-9">
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('College') }}</label>
+                        <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('college') ? ' has-danger' : '' }}">
                             <select class="form-control" id="college" name="college" 
                                     value="{{old('college')}}" required>
                                 <option hidden value="">Select your college</option>
                                 @foreach($colleges as $college)
-                                <option value="{{$college->clg_code}}">{{ $college->college_name }}</option>
+                                <option  value="{{$college->clg_code}}">{{ $college->college_name }}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('college'))
@@ -138,7 +136,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Year') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Year') }}</label>
                         <div class="col-sm-3">
                           <select id="year" class="form-control" name="year" required>
                             <option hidden value="">Select year</option>
@@ -149,7 +147,7 @@
                           </select>
                         </div>
                       
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Department') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Department') }}</label>
                         <div class="col-sm-3">
                           <select class="form-control" id="department" name="department" value="{{old('department')}}" required>
                             <option hidden value="">Select department</option>
@@ -161,7 +159,7 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Present GPA/ Percentage') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Present GPA/ Percentage') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('gpa') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="gpa" id="gpa" placeholder="gpa" value="{{old('gpa')}}" required>
@@ -171,7 +169,7 @@
                           </div>
                         </div>
 
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 or diploma Percentage') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 or diploma Percentage') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('class12') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="class12" id="class12" placeholder="class12" value="{{old('class12')}}" required>
@@ -182,7 +180,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 Board') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 Board') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('class12board') ? ' has-danger' : '' }}">
                           <select id="class12board" class="form-control" name="class12board" value="{{old('class12board')}}" required>
@@ -202,7 +200,7 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Github Link') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Github Link') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('github') ? ' has-danger' : '' }}">
                             <input type = "url" class="form-control" name="github" id="github" placeholder="Github link" value="{{old('github')}}"github rows="4" wrap="physical" required>
@@ -212,7 +210,7 @@
                           </div>
                         </div>
 
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Linked In') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Linked In') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('linkedin') ? ' has-danger' : '' }}">
                             <input type = "url" class="form-control" type="text" name="linkedin" id="linkedin" placeholder="LinkedIn ID" value="{{old('linkedin')}}" required>
@@ -224,7 +222,7 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Instagram') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Instagram') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('insta') ? ' has-danger' : '' }}">
                             <input class="form-control" name="insta" id="insta" placeholder="Instagram ID" value="{{old('insta')}}" rows="4" wrap="physical">
@@ -234,7 +232,7 @@
                           </div>
                         </div>
 
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Facebook') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Facebook') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('fb') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="fb" id="fb" placeholder="Facebook ID" value="{{old('fb')}}">
@@ -258,42 +256,44 @@
                         <div class="col-md-12" id="copy-this-div">
                           <div class="row">
                             <label class="col-sm-3 col-form-label"style = "color:black;font-weight: bold">{{ __('Project Title') }}</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-6">
                               <input class="form-control" type="text" name="projectTitle[]" id="projectTitle" placeholder="Project Title" value="{{ old('projectTitle')}}" required>
                             </div>
                           </div>
                           <div class="row">
                             <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Description') }}</label>
-                            <div class="col-sm-9">
+                            <div class="col-sm-6">
                               <input class="form-control" name="projDesc[]" id="projDesc" placeholder="Project Desciption" value="{{ old('projDesc') }}" rows="4" wrap="physical" required>
                             </div>
                           </div>
 
                           <div class="row">
                             <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Duration') }}</label>
-                              <div class="col">
+                              <div class="col-sm-6">
                                 <input type="number" class="form-control" placeholder="Project Duration(In months)" name="projDuration[]" id="projDuration" value="{{old('projDuration')}}" required>
                               </div>
+                          </div>  
+                          <div class="row">  
                             <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('No of Team Members') }}</label>
-                              <div class="col">
+                              <div class="col-sm-6">
                                 <input type="number" class="form-control" name="projMembers[]" id="projMembers" placeholder="No of Team Members" value="{{old('projMembers')}}" required>
                               </div>
                           </div>
                           <div class="row">
                               <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">Your role in the project</label>
-                              <div class="col-sm-9">
+                              <div class="col-sm-6">
                                 <textarea id= "projectRole" class="form-control" name="projectRole[]" maxlength="250" placeholder="Short Description of your role upto 250 characters" rows="2" required>{{old('projectRole') }}</textarea>
                               </div>
                           </div>
                           <div class="row">
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">Github reporsitory of the project (if available)</label>
-                              <div class="col-sm-9">
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">Github repo of the project (if any)</label>
+                              <div class="col-sm-6">
                                 <input type="text" id= "projGithub" class="form-control" name="projGithub[]" value="{{old('projGithub')}}">
                               </div>
                           </div>
                           <div class="row">
                               <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">Publications (if any)</label>
-                              <div class="col-sm-9">
+                              <div class="col-sm-6">
                                 <textarea id="projPubl" name="projPubl[]" class="form-control" rows="4" cols="50" placeholder="Publications Link can also be added here, max upto 200 characters">{{old('projPubl') }}</textarea>
                               </div>
                           </div>  
@@ -380,8 +380,8 @@
                     <form method="post" action="{{ route('submitSection3') }}" autocomplete="off" 
                       class="form-horizontal">
                       @csrf
-                      <h5 style = "font-weight: bold">MOOC Coursework (If any)</h5>
-                      <label style = "color:black">If number of courses undertaken is more than 1, please mention them using comma seperation.</label>
+                      <h5 style = "font-weight: bold; padding-left:3%;">MOOC Coursework (If any)</h5>
+                      <label style = "color:red; padding-left:2%;">If number of courses undertaken is more than 1, please mention them using comma seperation.</label>
 
                       <div class="row">
                         <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Mooc Course Name') }}</label>
@@ -393,7 +393,7 @@
                       </div><br>
                       <div class="row">
                         <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Platform') }}</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                           <input type="checkbox" name="moocPlatform[]" value="Coursera" > &nbsp; Coursera  &nbsp; &nbsp; 
                           <input type="checkbox" name="moocPlatform[]" value="edX"> &nbsp; edX &nbsp; &nbsp; 
                           <input type="checkbox" name="moocPlatform[]" value="e-Yantra MOOC">&nbsp; e-Yantra MOOC &nbsp; &nbsp; 
@@ -409,7 +409,7 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Number of courses started but not completed') }}</label>
+                        <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('No. of incompleted courses') }}</label>
                         <div class="col-sm-6">
                           <input class="form-control" type="text" name="moocIncomplete" id="moocIncomplete" placeholder="Mooc course started but not complete" value="{{ old('moocIncomplete') }}">
                         </div>
@@ -424,12 +424,12 @@
                         class="form-horizontal">
                         @csrf
                       <div id="expdtls">
-                          <h6>Experience Details (Adding atleast 1 experience is mandatory)</h6>
-                          <label class="col-sm-9 col-form-label">{{ __('Add Experience Description- (600 characters) (Co-Curricular/Extra-Curricular activities)') }}</label>
+                          <h5 style = "font-weight: bold; padding-left:3%;">Experience Details (Adding atleast 1 experience is mandatory)</h5>
+                          <!-- <label class="col-sm-9 col-form-label">{{ __('Add Experience Description- (600 characters) (Co-Curricular/Extra-Curricular activities)') }}</label> -->
                           <div class="col-lg-12" id="expdtls"> 
                             <table class="table" id="dynamic_field">  
                               <tr>  
-                                <td><textarea name="expdtl[]" placeholder="Enter your experience details" class="form-control name_list" rows="5" cols="50" id="expdtl" maxlength="600" required>{{ old('name.0') }}</textarea></td>  
+                                <td><textarea name="expdtl[]" placeholder="Add Experience Description- (600 characters) (Co-Curricular/Extra-Curricular activities)" class="form-control name_list" rows="5" cols="50" id="expdtl" maxlength="600" required>{{ old('name.0') }}</textarea></td>  
                                 <td align="center">
                                 <label id="number" name="number"></label>
                                 <button type="button" name="add" id="add" class="btn btn-success" value="1" onclick="addmore()">Add More</button></td>  
@@ -449,7 +449,7 @@
                       @csrf
                       <div class="row">
                         <label class="col-sm-6 col-form-label" style = "color:black;font-weight: bold">{{ __('Please mention your affiliation with e-Yantra') }}</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6" style="margin-left:3%">
                           <div>                                   
                             <input type="radio" id="eyrc" name="competition" value="eyrc" {{old('competition') == 'eyrc' ? 'checked' : '' }} onclick="showeyrc();" required>
                             <label for="eyrc">eYRC</label>
@@ -475,8 +475,9 @@
 
                       <div class="col-lg-12">
                         <div id="showeyrc" style="display: none;">
+                        <div calss="row">
                           <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('eYRC Theme') }}</label>
-                          <div class="col-lg-3">
+                          <div class="col-lg-2">
                             <select name="theme" id="theme" class="form-control">
                               <option hidden>Select theme</option>
                               <option value="Agribot" {{old('theme') == 1 ? 'selected' : '' }}>Agribot (AB)</option>
@@ -488,7 +489,7 @@
                             </select>
                           </div>
                           <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Where is your Theme Kit?') }}</label>
-                          <div class="col-lg-3">
+                          <div class="col-lg-2">
                             <select name="hardware" id= "hardware" class="form-control">
                               <option hidden>Select</option>
                               <option value="1" {{old('hardware') == 1 ? 'selected' : '' }}>With Me</option>
@@ -498,6 +499,7 @@
                               
                             </select>
                           </div>
+                          </div>
                         </div>
                       </div>
 
@@ -505,7 +507,7 @@
                         <label class="col-sm-6 col-form-label" style = "color:black;font-weight: bold">{{ __('List of hardware that you have(other than theme kit) for immediate use in eYSIP. (ex. Microcontrollers, Sensors, Actuators, etc)') }}</label>
                         <div class="col-sm-6">
                           <div class="input-field {{ $errors->has('otherhw') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="otherhw" id="otherhw" placeholder="List of hardwares" value="{{ old('otherhw') }}">
+                            <input class="form-control" style="margin-left:3%" type="text" name="otherhw" id="otherhw" placeholder="List of hardwares" value="{{ old('otherhw') }}">
                           </div>
                         </div>
                       </div>
@@ -522,7 +524,8 @@
                       <div class="row">
                         <label class="col-sm-9 col-form-label">
                           <input name="confirm" value="1" type="checkbox" required />
-                        {{ __('I hereby confirm that the information provided by me is true and authentic to the best of my knowledge.') }}</label>
+                          <label style="color:red">I hereby confirm that the information provided by me is true and authentic to the best of my knowledge.</label>
+                        </label>
                       </div>
                       <div class="card-footer ml-auto mr-auto">
                         <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Submit Profile') }}</button>
@@ -562,7 +565,7 @@
   {
     k++;  
     incrementValue();
-      $('#dynamic_field').append('<tr id="row'+k+'" class="dynamic-added"><td><textarea name="expdtl[]" placeholder="Enter your experience" rows="5" cols="115"></textarea></td><td align="center"><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">Remove</button></td></tr>');  
+      $('#dynamic_field').append('<tr id="row'+k+'" class="dynamic-added"><td><textarea name="expdtl[]" placeholder="Add Experience Description- (600 characters) (Co-Curricular/Extra-Curricular activities)" rows="5" cols="115"></textarea></td><td align="center"><button type="button" name="remove" id="'+k+'" class="btn btn-danger btn_remove">Remove</button></td></tr>');  
   }
 
   function incrementValue()

@@ -324,7 +324,7 @@ class SipRegistration extends Controller
 	                  ->where('userid', $userid)
 	                  ->update([
 	                  	'mooc_course' => $request->moocCourseName, 
-	                    'platform' => implode('', $request->moocPlatform), 
+	                    'platform' => implode(',', $request->moocPlatform), 
 	                    'number_of_courses_incomplete' => $request->moocIncomplete,
 	                    'tab3count' => 1
 	                    ]);

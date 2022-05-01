@@ -40,27 +40,27 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Project Name') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Name') }}</label>
                 <div class="col-sm-7">
                   <input class="form-control" type="text" name="projectname" id="projectname" placeholder="Project Name" value="{{old('model')}}" required>
                 </div>
               </div><br>
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Project Abstract') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Abstract') }}</label>
                 <div class="col-sm-7">
                   <textarea class="form-control" name="projectabstract" id="projectabstract" required 
                         placeholder="Add Project Abstract" value="{{old('projectabstract')}}" rows="4" wrap="physical"></textarea>
                 </div>
               </div><br>
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('No of Interns Required') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('No of Interns Required') }}</label>
                 <div class="col-sm-7">
                   <input type="number" class="form-control" name="interns" id="interns" 
                         placeholder="No of Interns Required" value="{{old('interns')}}" required>
                 </div>
               </div><br>
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Technology Stack') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Technology Stack') }}</label>
               </div>
               <div class="row">
                 
@@ -90,7 +90,7 @@
             </div>
             <div class="card-body">
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Project Name') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Name') }}</label>
                 <div class="col-sm-7">
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                     <select class="col s12 form-control" name="project" id="project" required>
@@ -106,7 +106,7 @@
                 </div>
               </div>
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Mentor 1') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Mentor 1') }}</label>
                 <div class="col-sm-7">
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                     <select class="col s12 form-control" name="mentor1" id="mentor1" required>
@@ -122,7 +122,7 @@
                 </div>
               </div>
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Mentor 2') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Mentor 2') }}</label>
                 <div class="col-sm-7">
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                     <select class="col s12 form-control" name="mentor2" id="mentor2">
@@ -138,7 +138,7 @@
                 </div>
               </div>
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Mentor 3') }}</label>
+                <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Mentor 3') }}</label>
                 <div class="col-sm-7">
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                     <select class="col s12 form-control" name="mentor3" id="mentor3">
