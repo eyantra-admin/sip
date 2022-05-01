@@ -7,7 +7,7 @@
  * Product Page: https://www.creative-tim.com/product/material-dashboard
  * Copyright 2018 Creative Tim (http://www.creative-tim.com)
 
- =========================================================
+ =======================================================
 
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
@@ -232,6 +232,7 @@ th {
 label {
   display: inline-block;
   margin-bottom: .5rem;
+  margin-left: .8rem;
 }
 
 button {
@@ -652,7 +653,7 @@ button,
 select,
 optgroup,
 textarea {
-  margin: 0;
+  margin: 2px;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -2202,6 +2203,8 @@ select.form-control:focus::-ms-value {
   margin-bottom: 0;
   font-size: inherit;
   line-height: 1.5;
+  padding-left: 3%;
+  font-size: 110%;
 }
 
 .col-form-label-lg {
@@ -2209,6 +2212,7 @@ select.form-control:focus::-ms-value {
   padding-bottom: calc(0.5625rem + 1px);
   font-size: 1.25rem;
   line-height: 1.5;
+  margin-left: 5%;
 }
 
 .col-form-label-sm {
@@ -2216,6 +2220,7 @@ select.form-control:focus::-ms-value {
   padding-bottom: calc(0.25rem + 1px);
   font-size: 0.875rem;
   line-height: 1.5;
+  margin-left: 5%;
 }
 
 .form-control-plaintext {
@@ -12600,7 +12605,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
 }
 
 .bmd-form-group label {
-  color: #AAAAAA;
+  color:#000;
 }
 
 .bmd-form-group .radio label,
@@ -12676,7 +12681,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
 }
 
 .bmd-form-group.bmd-form-group-sm label {
-  color: #AAAAAA;
+  color: #000;
 }
 
 .bmd-form-group.bmd-form-group-sm .radio label,
@@ -12752,7 +12757,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
 }
 
 .bmd-form-group.bmd-form-group-lg label {
-  color: #AAAAAA;
+  color: #000;
 }
 
 .bmd-form-group.bmd-form-group-lg .radio label,
@@ -12828,7 +12833,7 @@ input::placeholder {
 }
 
 label {
-  color: #AAAAAA;
+  color: #000;
 }
 
 .radio label,
@@ -16327,13 +16332,12 @@ a .material-icons {
   vertical-align: middle;
 }
 
-.form-check,
-label {
+/* .form-check, label {
   font-size: 14px;
   line-height: 1.42857;
-  color: #AAAAAA;
+  color:#000 !important;
   font-weight: 400;
-}
+} */
 
 /*           Animations              */
 
@@ -18858,4 +18862,4 @@ Copyright (c) 2015 Daniel Eden
 }
 
 
-/*# sourceMappingURL=dashboard-free.css.map */
+/*# sourceMappingURL=dashboard-free.css.map */}
