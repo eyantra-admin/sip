@@ -630,7 +630,7 @@ class HomeController extends Controller
 
     //View student profiles for mentor login
     public static function View_studentprofiles(Request $request)
-    {   $start_date = date('2022-05-02'); 
+    {   $start_date = date('2022-05-01 00:00:00'); 
         $result = OnlineProfile::select('online_profile_response.name','online_profile_response.email',
                 'online_profile_response.phone','online_profile_response.userid')
                 ->join('users as u', 'u.id', '=', 'online_profile_response.userid')
