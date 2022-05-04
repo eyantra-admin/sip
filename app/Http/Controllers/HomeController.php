@@ -673,7 +673,7 @@ class HomeController extends Controller
 
     public static function Project_list()
     {
-        $projects = Projects::select('id','projectname')
+        $projects = Projects::select('id','projectname', 'abstract', 'technologystack', 'interns_required', 'mentor1userid', 'mentor2userid', 'mentor3userid')
                     ->where('active', 1)
                     ->orderBy('projectname')->get();
         return view('View_projects')->with('projects', $projects);
