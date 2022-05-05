@@ -675,10 +675,12 @@ class HomeController extends Controller
 
     public static function Project_list()
     {   $start_date = date('2022-05-01 00:00:00');
-        $projects = Projects::select('id','projectname')
+        $projects = Projects::select('id','projectname','abstract','technologystack','interns_required','mentor1userid','mentor2userid','mentor3userid')
                     ->where('active', 1)
                     ->where('created_at', '>=', $start_date)
                     ->orderBy('projectname')->get();
         return view('View_projects')->with('projects', $projects);
+
+        
    }
 }
