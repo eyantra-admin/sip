@@ -22,6 +22,12 @@
                     <th><b>Sr No.</b></th>
                     <th><b>Project Id</b></th>
                     <th><b>Project Name</b></th>
+                    <th><b>Project Abstract</b></th>
+                    <th><b>Technology Stack</b></th>
+                    <th><b>Interns Required</b></th>
+                    <th><b>Mentor 1</b></th>
+                    <th><b>Mentor 2</b></th>
+                    <th><b>Mentor 3</b></th>
                   </thead>
                 
                   <tbody>
@@ -30,6 +36,12 @@
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->id}}</b></td>
                         <td><b>{{$cur->projectname}}</b></td>
+                        <td><b>{{$cur->abstract}}</b></td>
+                        <td><b>{{$cur->technologystack}}</b></td>
+                        <td><b>{{$cur->interns_required}}</b></td>
+                        <td><b>{{$cur->mentor1userid}}</b></td>
+                        <td><b>{{$cur->mentor2userid}}</b></td>
+                        <td><b>{{$cur->mentor3userid}}</b></td>
                       </tr>
                       @endforeach
                   </tbody>
