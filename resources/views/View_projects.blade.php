@@ -39,9 +39,9 @@
                         <td><b>{{$cur->abstract}}</b></td>
                         <td><b>{{$cur->technologystack}}</b></td>
                         <td><b>{{$cur->interns_required}}</b></td>
-                        <td><b>{{$cur->mentor1userid}}</b></td>
-                        <td><b>{{$cur->mentor2userid}}</b></td>
-                        <td><b>{{$cur->mentor3userid}}</b></td>
+                        <td><b>{{DB::table('users')->where('id',$cur->mentor1userid)->value('name')}}</b></td>
+                        <td><b>{{DB::table('users')->where('id',$cur->mentor2userid)->value('name')}}</b></td>
+                        <td><b>{{DB::table('users')->where('id',$cur->mentor3userid)->value('name')}}</b></td>
                       </tr>
                       @endforeach
                   </tbody>
