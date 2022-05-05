@@ -70,7 +70,7 @@
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('college') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="college" id="college"  value="{{$data->college}}" required readonly>
-                            <!-- <select class="form-control" id="college" name="college"  readonly
+                            <!-- <select class="form-control" id="colleges" name="college"  readonly
                                     value="{{old('college')}}" required>
                                 <option hidden value="">Select your college</option>
                                 @foreach($colleges as $college)
@@ -190,8 +190,11 @@
                       class="form-horizontal">
                       @csrf
                       {{ method_field('PUT') }}
+                      <div id="div_remove">
+                      <!-- <input type="hidden" id="hide" name="checkDel" value="no"> -->
                       @foreach($project as $project)
-                        <div class="row parent-div">
+                       
+                        <div  class="row parent-div">
                           <div class="col-md-12" id="copy-this-div">
                             <div class="row">
                               <label class="col-sm-3 col-form-label">{{ __('Project Title') }}</label>
@@ -301,12 +304,16 @@
                                     </select>
                                   </div>
                             </div>
-
                             <hr style="background-color: Red">
                             <br>
                           </div>
                         </div>
+                      
                       @endforeach
+                      <!-- <button type="button" id="delete_projects" class="btn btn-danger add-btn" onclick="removeDiv()">Delete All</button> -->
+
+                    </div>
+
                       <!-- <div class="col-md-12">
                         <button type="button" id="add_project" class="btn btn-success add-btn">Add More Projects</button>
                       </div> -->
@@ -571,5 +578,20 @@
     var dvtopics = document.getElementById("dvtopics");
     dvtopics.style.display = chkPassport.checked ? "block" : "none";
   }
+
+  // function removeDiv() 
+  // {
+    
+  //   var div_remove = document.getElementById("div_remove");
+  //   div_remove.style.display = "none";
+  //   var hide = document.getElementById("hide").getAttribute('value');
+  //   console.log(hide);
+  //   document.getElementById("hide").setAttribute("checkDel", "yes");
+    
+  //   // hide= "1";
+  //    var hide = document.getElementById("hide").getAttribute('value');
+  //   console.log(hide);
+
+  // }
 </script>
 @endpush
