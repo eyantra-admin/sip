@@ -518,10 +518,11 @@ class HomeController extends Controller
     }
 
     public function listAllnda() 
-    {
+    {   $start_date = date('2022-05-01 00:00:00');
         $list_ndas = EysipUploads::select('u.id','name','email', 'project_alloted', 'p.projectname')->distinct()
         ->join('users as u','u.id','=','sipuploads.userid')
         ->join('projects as p', 'p.id', '=','u.project_alloted')
+        ->where('u.created_at', '>=', $start_date)
         ->get();
         Log::info($list_ndas);
         return view('listNDA',compact('list_ndas'));
@@ -570,11 +571,12 @@ class HomeController extends Controller
     }
 
     public function mentorclearence(Request $request)
-    {
+    {   $start_date = date('2022-05-01 00:00:00');
         $stud_list = User::select('users.id', 'users.name', 'users.email', 'project_alloted', 
                                         'p.projectname', 'users.Iconfirm','users.MentorClearence')
                                 ->join('online_profile_response as o','o.userid', '=', 'users.id')
                                 ->join('projects as p','p.id', '=', 'users.project_alloted')
+                                ->where('o.created_at', '>=', $start_date)
                                 ->where('users.selected', 1)
                                 ->get();                   
         return view('mentorclearence')
@@ -630,7 +632,7 @@ class HomeController extends Controller
 
     //View student profiles for mentor login
     public static function View_studentprofiles(Request $request)
-    {   $start_date = date('2022-05-02'); 
+    {   $start_date = date('2022-05-01 00:00:00'); 
         $result = OnlineProfile::select('online_profile_response.name','online_profile_response.email',
                 'online_profile_response.phone','online_profile_response.userid')
                 ->join('users as u', 'u.id', '=', 'online_profile_response.userid')
@@ -646,8 +648,8 @@ class HomeController extends Controller
 
     //Allocate project to interns page
     public static function Allocate_Project(Request $request)
-    {
-        $students = User::select('id','name', 'project_alloted')->where('role', 1)->where('active', 1)->orderby('name')->get();
+    {   $start_date = date('2022-05-01 00:00:00');
+        $students = User::select('id','name', 'project_alloted')->where('role', 1)->where('active', 1)->where('profilesubmitted', 1) ->where('created_at', '>=', $start_date)->orderby('name')->get();
         $projects = Projects::select('id','projectname')
                     ->where('active', 1)
                     ->orderBy('projectname')->get();
@@ -672,9 +674,10 @@ class HomeController extends Controller
 
 
     public static function Project_list()
-    {
+    {   $start_date = date('2022-05-01 00:00:00');
         $projects = Projects::select('id','projectname')
                     ->where('active', 1)
+                    ->where('created_at', '>=', $start_date)
                     ->orderBy('projectname')->get();
         return view('View_projects')->with('projects', $projects);
    }
