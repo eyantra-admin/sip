@@ -16,9 +16,9 @@
           <div class="tim-typo">
             <h3><b>Project Abstract</b></h3>
             <blockquote class="blockquote">
-              <small>
+              <pre>
                 {!!$projectdtl->abstract!!}
-              </small>
+              </pre>
             </blockquote>
           </div>
 
