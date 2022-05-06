@@ -173,7 +173,7 @@ a.portfolio-link {
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
              
               <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> 
-              <!-- <span style="color:red;font-size:30px;"><b>Profile filling is closed!</b></span> -->
+              <span style="color:red;font-size:30px;"><b>NOTE: Profile filling is enabled till May 6th, 2022 11:59 PM</b></span>
             </div>
           </center>
           
