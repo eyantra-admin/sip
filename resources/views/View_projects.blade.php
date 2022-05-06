@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table" id="timeslot_table" style="text-align: center;"> 
+                <table class="table table-striped table-bordered" id="timeslot_table"> 
                   <thead class=" text-primary">
                     <th><b>Sr No.</b></th>
                     <th><b>Project Id</b></th>
@@ -33,10 +33,10 @@
                   <tbody>
                       @foreach($projects as $key=>$cur)
                       <tr>
-                        <td><b>{{$key+1}}</b></td>
+                        <td class="p-8"><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->id}}</b></td>
                         <td><b>{{$cur->projectname}}</b></td>
-                        <td><b>{{$cur->abstract}}</b></td>
+                        <td style="padding: 10px;"><b>{!! $cur->abstract !!}</b></td>
                         <td><b>{{$cur->technologystack}}</b></td>
                         <td><b>{{$cur->interns_required}}</b></td>
                         <td><b>{{DB::table('users')->where('id',$cur->mentor1userid)->value('name')}}</b></td>
