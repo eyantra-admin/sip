@@ -240,6 +240,7 @@ class HomeController extends Controller
         $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
         $dates = TimeslotBooking::select('date')->distinct()
                                 ->where('panel', $panel)
+                                ->where('availableflag',1)
                                 ->orderBy('date')->get(); //get panel dates
         $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
         if($already_booked == 0)
