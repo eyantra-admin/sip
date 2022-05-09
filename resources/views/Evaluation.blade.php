@@ -124,7 +124,7 @@
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Remark') }}</label>
                 <div class="col-sm-7">
-                    <textarea id= "remark" class="form-control" name="remark" maxlength="2000" placeholder="Short remark for your evaluation upto 300 characters" rows="4" required></textarea>
+                    <textarea id= "remark" class="form-control" name="remark" maxlength="2000" placeholder="Short remark for your evaluation " rows="4" required></textarea>
                 </div>
               </div>
               
