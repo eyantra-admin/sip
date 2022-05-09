@@ -1,7 +1,7 @@
 @extends('layouts.app', ['activePage' => 'preference', 'titlePage' => __('Project Preference')])
 
 @section('content') 
-  <div class="content">
+  <!-- <div class="content">
     <div class="container-fluid">
       <div class="card">
         <div class="card-header card-header-primary">
@@ -12,7 +12,7 @@
             2) Internship Projects are allocated based on a number of factors such as skill level of candidates, number of vacancies in any particular project etc.
           </b></h4>
         </div>
-      </div>
+      </div> -->
 
       @if($errors->any())
       <div class="alert alert-danger" role='alert'>
@@ -112,9 +112,11 @@
                 <div class="col-sm-4">
                     <select class="form-control"  name="technicalstrength" id="technicalstrength" required>
                       <option hidden value="0">Select Technical Strength</option>
-                        <option value="Excellent" style="text-align:center;">Excellent</option>
-                        <option value="Average" style="text-align:center;">Average</option>
+                        <option value="Outstanding" style="text-align:center;">Outstanding</option>
+                        <option value="Average" style="text-align:center;">Excedds Expectations</option>
+                        <option value="Excedds Expectations" style="text-align:center;">Acceptable</option>
                         <option value="Poor" style="text-align:center;">Poor</option>
+                        <option value="Dreadful" style="text-align:center;">Dreadful</option>
                     </select>
                 </div>
               </div>
