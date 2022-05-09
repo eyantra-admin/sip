@@ -113,8 +113,8 @@
                     <select class="form-control"  name="technicalstrength" id="technicalstrength" required>
                       <option hidden value="0">Select Technical Strength</option>
                         <option value="Outstanding" style="text-align:center;">Outstanding</option>
-                        <option value="Average" style="text-align:center;">Excedds Expectations</option>
-                        <option value="Excedds Expectations" style="text-align:center;">Acceptable</option>
+                        <option value="Excedds Expectations" style="text-align:center;">Excedds Expectations</option>
+                        <option value="Acceptable" style="text-align:center;">Acceptable</option>
                         <option value="Poor" style="text-align:center;">Poor</option>
                         <option value="Dreadful" style="text-align:center;">Dreadful</option>
                     </select>
