@@ -68,6 +68,7 @@ class InterviewController extends Controller
                             ->where('users.active', 1)
                             // ->where('users.created_at', '>=', $start_date)
                             ->orderBy('st.date','desc')
+                            ->orderBy('st.availableslots','asc')
                             ->distinct('online_profile_response.id')
                             ->get();
                
