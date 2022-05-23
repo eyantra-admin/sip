@@ -28,7 +28,7 @@
       <div class="card">
         <div class="card-header card-header-primary">
             <h4 class="card-title">{{ __('eYSIP - Non Disclosure Agreement ') }}</h4>
-            (to be signed by intern, participating in the e-Yantra Summer Internship Program [eYSIP])
+            (to be signed by the intern, participating in the e-Yantra Summer Internship Program [eYSIP])
         </div>
         <div class="card-body">
           <h4><b>
