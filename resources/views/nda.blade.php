@@ -46,6 +46,7 @@
              <li>Understand that I am not allowed to claim employment with e-Yantra or IIT Bombay on online social media platforms such as Facebook, LinkedIn etc without prior approval from e-Yantra. I am, however, allowed to claim association with e-Yantra as an e-YIP Intern between the time frame of June 2022 - July 2022.</li>
              <li>Understand that eYSIP is a full-time commitment and I need to put in at least 40 hours of work per week. I also understand that I am not allowed to participate in any other internship/job while being an active eYSIP intern.</li>
              <li>Understand that I am not eligible for a ‘Letter of Recommendation’ from any of the e-Yantra team members</li>
+             <li>Understand that all data, forms, feedbacks etc. I partake during the internship can be used for research and educational purpose by e-Yantra, IIT Bombay.</li>
              <li>Understand that copyright of work products that arise out of my/our work for the project will be held by and shall vest in e-Yantra, IIT Bombay.</li>
              <li>Any publication arising from the work under eYSIP shall be duly acknowledged in a form and manner to the satisfaction of e-Yantra team, IIT Bombay and only submitted for publication after taking due written permission.</li>
            </ol>
