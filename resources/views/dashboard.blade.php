@@ -154,17 +154,17 @@ a.portfolio-link {
 
       <div class="card card-nav-tabs">
         <div class="card-header card-header-warning">
-          <b>Welcome to e-Yantra Internship Program</b>
+          <b>Welcome to e-Yantra Summer Internship Program</b>
         </div>
         @if($form_submitted != 1)
           <div class="card-body">
             <center>
               <h2><b>
                 Congratulations !!!<br>
-                You have been shorlisted for e-Yantra Internship Program.<br></b></h2>
+                You have been shorlisted for e-Yantra Summer Internship Program.<br></b></h2>
               <!-- <h2><b>
                 Congratulations !!!<br>
-                You have been selected for e-Yantra Internship - 2021.<br></b></h2> -->
+                You have been selected for e-Yantra Summer Internship - 2021.<br></b></h2> -->
             
               <h4 class="card-title">
                 <b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
@@ -195,7 +195,7 @@ a.portfolio-link {
           <center>
             <h2><b>
               Congratulations !!!<br>
-              You have been selected for e-Yantra Internship - 2022.<br></b></h2>
+              You have been selected for e-Yantra Summer Internship - 2022.<br></b></h2>
           </center>
           <!-- Certificate Download -->
           <div class="col m12 s12 text-center">

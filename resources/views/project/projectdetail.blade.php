@@ -13,13 +13,12 @@
           <div class="tim-typo">
           </div>
 
-          <div class="tim-typo">
+          <div style="padding: 20px;">
             <h3><b>Project Abstract</b></h3>
-            <blockquote class="blockquote">
-              <pre>
-                {!!$projectdtl->abstract!!}
+           
+              <pre style="font-family: Roboto; font-size: 14px; white-space: pre-wrap;">{!!$projectdtl->abstract!!}
               </pre>
-            </blockquote>
+         
           </div>
 
           <!-- <div class="tim-typo">

@@ -30,7 +30,7 @@
 
           <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title"><b>{{ __('e-Yantra Internship Program') }}</b></h4>
+                <h4 class="card-title"><b>{{ __('e-Yantra Summer Internship Program') }}</b></h4>
                 <p>Fill your complete profile for further assessment </p>
                 <p><b>The data on the tabs 1, 2, 4 and 5 is mandatory to be filled. <br>
                 Please go to the <b style="color:black;">"Final Confirmation"</b>  tab when all the data is submitted successfully and Click on "I Confirm" Checkbox. Only then, your profile will be considered as complete and submitted.</b></p>
