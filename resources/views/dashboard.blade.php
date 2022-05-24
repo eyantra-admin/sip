@@ -196,6 +196,7 @@ a.portfolio-link {
             <h2><b>
               Congratulations !!!<br>
               You have been selected for e-Yantra Summer Internship - 2022.<br></b></h2>
+              <h3 style="color:Red"> <b>Project Name:  {{$project_alloted[0]->projectname}} </b>
           </center>
           <!-- Certificate Download -->
           <div class="col m12 s12 text-center">
@@ -219,8 +220,8 @@ a.portfolio-link {
           <!-- Uncomment the div when projects are alloted -->
           
 
-          <section id="timeline" class="timeline-outer">
-            <div class="container" id="content">
+          <section id="timeline" class="timeline-outer" style="padding:10px">
+            <div class="container" id="content" >
               <div class="row">
                 <div class="col-lg-12">
                   <h3><b>In order to accept the internship offer, please complete the following steps:</b>

@@ -63,12 +63,12 @@ class HomeController extends Controller
             else
                 $chksubmitted = User::where('email',Auth::user()->email)->first();
                 $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
-                //$proj_alloted = Projects::where('id', $proj_alloted_id)->get();
+                $proj_alloted = Projects::where('id', $proj_alloted_id)->get();
                 $cert_check = OnlineProfile::where('userid', Auth::user()->id)->value('cert_level');
                 Log::info($cert_check);
                 return view('dashboard')
-                ->with(['form_submitted' => $chksubmitted->profilesubmitted, 'cert_check' => $cert_check]);
-                    return view('dashboard'); //'project_alloted' => $proj_alloted, 
+                ->with(['form_submitted' => $chksubmitted->profilesubmitted, 'cert_check' => $cert_check, 'project_alloted' => $proj_alloted]);
+                    // return view('dashboard');, 
         }
     }
     public function error()
@@ -81,13 +81,14 @@ class HomeController extends Controller
         $id = encrypt(Auth::user()->id);
         $chksubmitted = User::where('email',Auth::user()->email)->first();
         $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
-        $proj_alloted = Projects::where('id', $proj_alloted_id)->get();
-
+        $proj_alloted = Projects::where('id', $proj_alloted_id)->first();
+        log::info($proj_alloted);
         return view('dashboard')
         ->with('form_submitted', $chksubmitted->profilesubmitted)  
         ->with('project_alloted', $proj_alloted)
         ->with('id', $id);
         //return view('dashboard');
+    
     }
     
     public static function getCountrywiseStates(Request $request)
@@ -570,6 +571,36 @@ class HomeController extends Controller
         // return view('verifydetails')
         // ->with('verifydetails', $verify_data);
     }
+
+    public function saveBankdetails(Request $request)
+    {
+        log::info(Auth::user()->id);
+        log::info($request->all());
+
+        $check_id = Auth::user()->id;
+        $intern = OnlineProfile::where('online_profile_response.userid','=',$check_id)
+                ->first();
+        $intern->addressline1 = $request->addressline1;
+        $intern->addressline2 = $request->addressline2;
+        $intern->city = $request->city;
+        $intern->statename = $request->statename;
+        $intern->pincode = $request->pincode;
+        $intern->bank_accountno = $request->bank_accountno;
+        $intern->name_inbank = $request->name_inbank;
+        $intern->bank_type = $request->bank_type;
+        $intern->ifsc = $request->ifsc;
+        $intern->bank_name = $request->bank_name;
+        $intern->bank_address = $request->bank_address;
+        $intern->save();
+        return back()->withStatus(__('Information saved successfully.'));
+    }
+
+    public function Bankdetails()
+    {
+        return view('bank_details');
+
+    }
+
 
     public function mentorclearence(Request $request)
     {   $start_date = date('2022-05-01 00:00:00');

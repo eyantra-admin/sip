@@ -104,7 +104,7 @@ Route::group(['middleware' => ['isStudent','keycloak-web']], function ()
 	Route::any('/submitSection1', ['as'	=>	'submitSection1','uses'	=>	'SipRegistration@submitSection1']);
 	Route::any('/submitSection2', ['as'	=>	'submitSection2','uses'	=>	'SipRegistration@submitSection2']);
 	Route::any('/submitSection3', ['as'=>	'submitSection3','uses'	=>	'SipRegistration@submitSection3']);
-	Route::any('/submitSection4', ['as'	=>'submitSection4','uses'	=>	'SipRegistration@submitSection4']);
+	Route::any('/submitSection4', ['as'	=>  'submitSection4','uses'	=>	'SipRegistration@submitSection4']);
 	Route::any('/submitSection5', ['as'=>	'submitSection5','uses'	=>	'SipRegistration@submitSection5']);
 	Route::any('/submitSection6', ['as'=>	'submitSection6','uses'	=>	'SipRegistration@submitSection6']);
 
@@ -121,6 +121,9 @@ Route::group(['middleware' => ['isStudent','keycloak-web']], function ()
 
 	Route::any('/survey', ['as'=>'survey','uses'=>'HomeController@preintershipsurvey'])->middleware('auth');
 	Route::any('/submitsurvey', ['as'=>'submitsurvey','uses'=>'HomeController@submitsurvey'])->middleware('auth');
+	Route::any('/bank_details',['as'=>'bank_details','uses'=>'HomeController@Bankdetails']) ->middleware('auth');
+	Route::post('/savebank_details',['as'=>'savebank_details','uses'=>'HomeController@saveBankdetails']) ->middleware('auth');
+
 
 	Route::any('/nda', ['as'=>'nda','uses'=>'HomeController@nda'])->middleware('auth');
 	Route::any('/submitnda', ['as'=>'submitnda','uses'=>'HomeController@submitnda'])->middleware('auth');

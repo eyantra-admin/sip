@@ -166,7 +166,6 @@
             <div class="row">
               <div class="col-lg-4">
                 <h4><b>Laptop Specifications(Make and Model) *</b></h4>
-                Given that this is a remote internship, it is essential that you have a laptop.
               </div>
               <div class="col-lg-8">
                 <input class="form-control" type="text" name="model" id="model" maxlength="50" placeholder="Laptop Specifications" value="{{old('model')}}" required>
@@ -248,7 +247,6 @@
             <div class="row">
               <div class="col-lg-4">
                 <h4><b>OS and Version *</b></h4>
-                You can select multiple options (in case of multiple boot)
               </div>
               <div class="col-lg-8">
                   <div class="input-field {{ $errors->has('os') ? ' has-danger' : '' }}">

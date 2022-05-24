@@ -122,6 +122,9 @@
              <li>Understand that copyright of work products that arise out of my/our work for the project will be held by and shall vest in e-Yantra, IIT Bombay.</li>
              <li>Understand that all data, forms, feedbacks, etc. I partake during the competition can be used for research and educational purposes by e-Yantra, IIT Bombay.</li>
              <li>Any publication arising from the work under eYSIP shall be duly acknowledged in a form and manner to the satisfaction of e-Yantra team, IIT Bombay and only submitted for publication after taking due written permission.</li>
+             <li>Accept that if project assigned to me is in-person, I must be available in Mumbai to work in e-Yantra Lab at IITB campus for the duration of the internship.</li>
+             <li>Understand that I must make arrangements for my own boarding and lodging in case an in-person project is assigned to me.</li>
+             <li>Will not hold e-Yantra IITB responsible in case of any mishaps, injury or loss of property during the period of internship.</li>
            </ol>
 
       </div>
