@@ -261,7 +261,7 @@ class PaymentController extends Controller
                 $payment->payer_user_id = $data->id;
                 $payment->amount = $fee;
                 $payment->currency= 'INR';
-                $payment->purpose='eysip2021';
+                $payment->purpose='eysip2022';
                 $payment->save();
             }//if ends
     
@@ -278,7 +278,7 @@ class PaymentController extends Controller
                         'userId' => $payment->payer_user_id,
                         'amountDue' => (float)$payment->amount,  
                         // 'amountDue' => 1,
-                        'purpose' => 'eysip2021',
+                        'purpose' => 'eysip2022',
                         'currency' => 'INR',
                     ]
                 ])->getBody();
