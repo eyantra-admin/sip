@@ -61,20 +61,22 @@
                           
                           <td>
                           @if($cur->project_alloted == 0)
-                            <select class="form-control" name="project" id="project" required>
+                            <!-- <select class="form-control" name="project" id="project" required>
                               <option hidden value="0">Select project to be allotted</option>
                               @foreach($projects as $project)
                                 <option value="{{ $project->id }}">{{ $project->projectname }}</option>
                               @endforeach
-                            </select>
+                            </select> -->
+                            Project not alloted
                           @else
-                            {{ $alloted_proj }}
+                            {{ $cur->projectname }}
                           @endif 
                         </td>
                         <td>
                           @if($cur->project_alloted == 0)
-                           <a class="btn btn-success" onclick="return confirm('Are you sure?')"
-                          href="/AllocateProject_Submit/{{$cur->id}}/{{$project->id}}"><span>Allocate</span></a>
+                           <!-- <a class="btn btn-success" onclick="return confirm('Are you sure?')"
+                          href="/AllocateProject_Submit/{{$cur->id}}/{{$project->id}}"><span>Allocate</span></a> -->
+                          Contact Web team
                           @else
                             Project Allotted
                           @endif 

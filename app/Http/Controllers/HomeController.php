@@ -681,12 +681,14 @@ class HomeController extends Controller
     //Allocate project to interns page
     public static function Allocate_Project(Request $request)
     {   $start_date = date('2022-05-01 00:00:00');
-        $students = User::select('id','name', 'project_alloted')->where('role', 1)->where('active', 1)->where('profilesubmitted', 1) ->where('created_at', '>=', $start_date)->orderby('name')->get();
+        $students = User::select('users.id','users.name', 'users.project_alloted','projectname')->where('users.role', 1)->where('users.active', 1)->where('profilesubmitted', 1) ->where('users.created_at', '>=', $start_date) ->leftjoin('projects as p', 'p.id', '=', 'users.project_alloted')->orderby('name')->get();
         $projects = Projects::select('id','projectname')
                     ->where('active', 1)
                     ->orderBy('projectname')->get();
         $alloted_proj = User::join('projects as p', 'p.id', '=', 'users.project_alloted')
-                        ->value('projectname');
+                        ->select('users.id','p.projectname')
+                        ->get();
+        log::info("inside allocate project");
 
         log::info($alloted_proj);
         return view('Allocate_Project')->with('students', $students)->with('projects', $projects)->with('alloted_proj', $alloted_proj);
