@@ -172,8 +172,8 @@ a.portfolio-link {
               <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
              
-              <!-- <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> <br><br> -->
-              <span style="color:red;font-size:20px;"><b>NOTE: Profile filling is closed.</b></span>
+              <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> <br><br>
+              <!-- <span style="color:red;font-size:20px;"><b>NOTE: Profile filling is closed.</b></span> -->
             </div>
           </center>
           
