@@ -385,8 +385,8 @@ class HomeController extends Controller
         if($already_submited == 0)
         {
             $survey = new PreInternshipSurvey;
-            //$survey->topics = implode(', ', $request->topics);
-            //$survey->specialists = implode(', ', $request->specialists);
+            $survey->topics = implode(', ', $request->topics);
+            $survey->specialists = implode(', ', $request->specialists);
             $survey->Internet = implode(', ', $request->Internet);
             $survey->serviceprovider = implode(', ', $request->Service);
             $survey->speed = $request->speed;
