@@ -95,7 +95,7 @@
               <p>{{ __('Internship Survey') }}</p>
           </a>
         </li>
-        <!-- <li class="nav-item{{ $activePage == 'bank_details' ? ' active' : '' }}">
+        <li class="nav-item{{ $activePage == 'bank_details' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('bank_details') }}">
             <i class="material-icons">content_paste</i>
               <p>{{ __('Fill Bank Details') }}</p>
@@ -106,7 +106,7 @@
             <i class="material-icons">unarchive</i>
               <p>{{ __('Verify your details') }}</p>
           </a>
-        </li> -->
+        </li>
        
         
         <!-- <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
