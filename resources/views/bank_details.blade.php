@@ -31,14 +31,17 @@
       @endif
           <div class="card">
             <div class="card-header card-header-primary">
-                <h4 class="card-title"><b>{{ __('Bank Details Form') }}</b></h4>
-                <p>All the information is mandatory to be filled</p>
+                <h4 class="card-title"><b>{{ __('Personal Details Form') }}</b></h4>
+                <p>All the information is mandatory to be filled.</p>
             </div>
             <div class="card-body">
                   <div id="test1" class="col s12">
                     <form method="post" action="{{ route('bank_details') }}" autocomplete="off" 
                       class="form-horizontal">
                       @csrf
+                      <div class="row">
+                        <h3> Communication Address </h3>
+                      </div>
                       <div class="row">
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Address Line1') }}</label>
                         <div class="col-sm-3">
@@ -59,12 +62,12 @@
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('city') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('City') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('city') ? ' has-danger' : '' }}">
                             <input class="form-control" name="city" id="city" placeholder="city" value="{{ old('city')}}" rows="4" wrap="physical" required>
-                            @if ($errors->has('email'))
-                              <span id="city-error" class="error text-danger" for="email">{{ $errors->first('email') }}</span>
+                            @if ($errors->has('city'))
+                              <span id="city-error" class="error text-danger" for="email">{{ $errors->first('city') }}</span>
                             @endif
                           </div>
                         </div>
@@ -88,6 +91,9 @@
                             @endif
                           </div>
                         </div>
+                      </div>
+                      <div class="row">
+                        <h3> Bank Details </h3>
                       </div>
                       <div class="row">
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Account Holder Name') }}</label>

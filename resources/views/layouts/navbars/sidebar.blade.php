@@ -98,7 +98,7 @@
         <li class="nav-item{{ $activePage == 'bank_details' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('bank_details') }}">
             <i class="material-icons">content_paste</i>
-              <p>{{ __('Fill Bank Details') }}</p>
+              <p>{{ __('Fill Personal Details') }}</p>
           </a>
         </li>
         <li class="nav-item{{ $activePage == 'verifydetails' ? ' active' : '' }}">
