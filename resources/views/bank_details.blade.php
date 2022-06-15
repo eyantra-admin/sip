@@ -4,7 +4,7 @@
   <div class="content">
     <div class="container-fluid">
       <div class="col-md-12">
-        <form method="post" id="sectionForm" action="{{ route('savebank_details') }}" autocomplete="off" class="form-horizontal">
+        <form method="post" id="sectionForm" action="{{ route('savebank_details') }}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
           @csrf
          
 
@@ -158,8 +158,21 @@
                           </div>
                        </div>
                     </div>  
+                    <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
+                      <center>
+                        <h3><b>You are required to upload a cancelled cheque or photograph of first page of the passbook of above mentioned bank.<br>
+                            Format: JPEG / PNG / JPG<br/>
+                            Size: < 1MB
+                        </b></h3>
+                      </center>
+                      <br>                           
+                          <h4 style="padding-left: 20px"><b>Upload Document</b></h4>
+                          <input style="padding-left: 20px" type="file" name="bank_doc" id="bank_doc" required />
+                        <br/><br/>
+                    </div>
                        <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
+              </form>
               </div>
 </div>
 @endsection

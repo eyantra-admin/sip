@@ -11,5 +11,5 @@ class EysipUploads extends Eloquent {
 	 */
 	protected $table = 'sipuploads';
 	protected $connection = 'mysql';
-	protected $fillable = ['userid','photo','signature','pancard'];
+	protected $fillable = ['userid','photo','signature','pancard','bank_doc'];
 }

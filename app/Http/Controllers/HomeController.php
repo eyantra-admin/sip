@@ -576,6 +576,45 @@ class HomeController extends Controller
     {
         log::info(Auth::user()->id);
         log::info($request->all());
+        $validator = Validator::make($request->all() , [
+            'bank_doc' => 'required|mimes:jpeg,jpg,png|required|max:10000',
+            ],
+            [
+            'bank_doc' => 'Document is required',
+            ]);
+            if($validator->fails())
+            {
+                return back()->withErrors($validator);
+            }
+            else
+            {
+                $feed1 = EysipUploads::where("userid" , Auth::user()->id)->first();
+                // $feed1->userid = Auth::user()->id;
+                // $feed1->bank_doc = $request->bank_doc;
+
+                if($request->hasFile('bank_doc')){
+                    log::info('inside save bank_doc');
+                    $format = strtolower($request->bank_doc->getClientOriginalExtension());
+                    $size = $request->file('bank_doc')->getSize();
+
+                    if($size > 2097152)
+                    {
+                        return back()->withErrors(__('Unable to upload the image. File size is more than 1 MB.'));
+                    }
+
+                    $permitted_chars1 = '0123456789abcdefghijklmnopqrstuvwxyz';
+                    $random_str1 = substr(str_shuffle($permitted_chars1), 0, 7);
+                    
+                    $userid = Auth::user()->id;
+
+                    $file = $request->bank_doc;
+                    $newfilename = $userid.'_bank_doc.'. $format;
+                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file,$newfilename);
+
+                    $feed1->bank_doc = $userid.'_bank_doc.'.$format;
+                    $feed1->save();
+                }
+            }
 
         $check_id = Auth::user()->id;
         $intern = OnlineProfile::where('online_profile_response.userid','=',$check_id)
