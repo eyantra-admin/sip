@@ -77,11 +77,18 @@
                 Account Type: {{$verifydetails[0]->bank_type}} <br>
                 Bank Address: {{$verifydetails[0]->bank_address}} <br>
             </b></h3>
+            @if ($verifydetails[0]->Iconfirm != 1)
             <hr>
             <center><h3><b>I confirm all the details mentioned above are correct.</b></h3>
             
                <a href="/AcceptVerify" class="btn btn-primary">I Confirm</a> 
             </center>
+            @endif
+            @if ($verifydetails[0]->Iconfirm == 1)
+            <hr>
+            <center><h3 style="color:green"><b>Successfully Verified !!</b></h3></center>
+            @endif
+
           </div>
         </div>
         <p style="margin:20px;">

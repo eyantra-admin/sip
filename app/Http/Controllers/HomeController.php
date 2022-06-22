@@ -546,7 +546,7 @@ class HomeController extends Controller
     public function verifydetails(Request $request)
     {
         log::info(Auth::user()->id);
-        $verify_data = User::select('users.id', 'users.name', 'users.email', 'o.phone', 'project_alloted', 
+        $verify_data = User::select('users.id', 'users.name', 'users.email','users.Iconfirm', 'o.phone', 'project_alloted', 
                                         'p.projectname', 'o.year', 'o.branch', 'o.college',
                                         'o.addressline1','o.addressline2','o.city','o.statename', 'o.pincode',
                                         'o.bank_accountno','o.name_inbank','o.bank_name','o.ifsc',
