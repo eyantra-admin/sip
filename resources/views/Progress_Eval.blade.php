@@ -91,7 +91,7 @@
                     <select class="form-control"  name="technicalstrength" id="technicalstrength" required>
                       <option hidden value="0">Select Technical Strength</option>
                         <option value="Outstanding" style="text-align:center;">Outstanding</option>
-                        <option value="Excedds Expectations" style="text-align:center;">Excedds Expectations</option>
+                        <option value="Exceeds Expectations" style="text-align:center;">Exceeds Expectations</option>
                         <option value="Acceptable" style="text-align:center;">Acceptable</option>
                         <option value="Poor" style="text-align:center;">Poor</option>
                         <option value="Dreadful" style="text-align:center;">Dreadful</option>
@@ -105,7 +105,7 @@
                     <select class="form-control"  name="efforts" id="efforts" required>
                       <option hidden value="0">Select efforts applied</option>
                         <option value="Outstanding" style="text-align:center;">Outstanding</option>
-                        <option value="Excedds Expectations" style="text-align:center;">Excedds Expectations</option>
+                        <option value="Exceeds Expectations" style="text-align:center;">Exceeds Expectations</option>
                         <option value="Acceptable" style="text-align:center;">Acceptable</option>
                         <option value="Poor" style="text-align:center;">Poor</option>
                         <option value="Dreadful" style="text-align:center;">Dreadful</option>
@@ -119,7 +119,7 @@
                     <select class="form-control"  name="output" id="output" required>
                       <option hidden value="0">Select output so far</option>
                         <option value="Outstanding" style="text-align:center;">Outstanding</option>
-                        <option value="Excedds Expectations" style="text-align:center;">Excedds Expectations</option>
+                        <option value="Exceeds Expectations" style="text-align:center;">Exceeds Expectations</option>
                         <option value="Acceptable" style="text-align:center;">Acceptable</option>
                         <option value="Poor" style="text-align:center;">Poor</option>
                         <option value="Dreadful" style="text-align:center;">Dreadful</option>
@@ -134,7 +134,7 @@
                       <option hidden value="0">Select Academic Load</option>
                         <option value="No" style="text-align:center;">No</option>
                         <option value="Hardly any lectures" style="text-align:center;">Hardly any lectures</option>
-                        <option value="Managable no. of lectures" style="text-align:center;">Managable no. of lectures</option>
+                        <option value="Manageable no. of lectures" style="text-align:center;">Manageable no. of lectures</option>
                         <option value="Too many lectures but managing" style="text-align:center;">Too many lectures but managing</option>
                         <option value="Too many lectures and may backout" style="text-align:center;">Too many lectures and may backout</option>
                     </select>
