@@ -52,8 +52,8 @@ class Progress_Eval extends Controller
     public function ProgressEvaluationSubmit(Request $request)
     {
        $inter = ProgressEval::updateOrCreate(
-            ['userid' =>  $request('internname')],
-            ['projectid' => $request('projectpref1'),  
+            ['userid' =>  $request->internname],
+            ['projectid' => $request->projectpref1,  
             'skill_match' => $request->skillset,
             'strength' => $request->technicalstrength,
             'efforts' => $request->efforts,
@@ -63,8 +63,7 @@ class Progress_Eval extends Controller
             'communication' => $request->communication,
             'remarks' => $request->remark]
         );
-       $inter->save();
-        /*log::info($request->all());*/
+        log::info($request->all());
 
        return back()->withStatus(__('Student evaluation done successfully.'));
    }

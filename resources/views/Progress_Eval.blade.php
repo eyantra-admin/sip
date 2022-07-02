@@ -37,7 +37,7 @@
       @endif
 
       <div class="col-md-12" style="margin-top: 100px">
-        <form method="post" action="{{ route('EvaluationSubmit') }}" autocomplete="off" class="form-horizontal">
+        <form method="post" action="{{ route('Progress_EvalSubmit') }}" autocomplete="off" class="form-horizontal">
           @csrf
           @method('put')
 
