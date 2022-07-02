@@ -155,6 +155,13 @@
         </a>
       </li>
 
+      <li class="nav-item{{ $activePage == 'Progress_Eval' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('Progress_Eval') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Intern Progress Evaluation') }}</p>
+        </a>
+      </li>
+
     @endif
 
     <!--   ***********ADMIN INTERFACE******** -->

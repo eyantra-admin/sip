@@ -156,7 +156,7 @@ a.portfolio-link {
         <div class="card-header card-header-warning">
           <b>Welcome to e-Yantra Summer Internship Program</b>
         </div>
-        @if($form_submitted != 1)
+        @if($form_submitted != 1 and Auth::user()->role == 1)
           <div class="card-body">
             <center>
               <h2><b>
@@ -176,8 +176,8 @@ a.portfolio-link {
               <!-- <span style="color:red;font-size:20px;"><b>NOTE: Profile filling is closed.</b></span> -->
             </div>
           </center>
-          
-        @else
+        @endif 
+        @if($form_submitted == 1 and Auth::user()->role == 1)
         <center>
             <div class="card-body">
               <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
@@ -187,10 +187,17 @@ a.portfolio-link {
                 {{ Auth::user()->name }}</a>
             </center>
         @endif
-             
+        
+        @if(Auth::user()->role == 2)
+        <center>
+            <div class="card-body">
+              <h2 class="card-title" style = "color: Green"><b> !! Welcome to the Mentor Portal !!</b> <br><br>
+              </h2>
+            </center>
+        @endif
         
           <!-- UNCOMMENT THIS WHEN INTERN IS SELECTED AFTER INTERVIEW -->
-        @if(Auth::user()->selected == 1 )
+        @if(Auth::user()->selected == 1 and Auth::user()->role == 1 )
         <div>
           <center>
             <h2><b>
