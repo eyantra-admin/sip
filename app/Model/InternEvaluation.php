@@ -1,15 +1,13 @@
-<?php namespace App\Model;
+<?php
 
-use Eloquent;
+namespace App\Model;
 
-class ProgressEval extends Eloquent {
+use Illuminate\Database\Eloquent\Model;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'intern_eval';
+class InternEvaluation extends Model
+{
+    //
+    protected $table = 'intern_eval';
 	protected $connection = 'mysql';
 	protected $fillable =['userid', 'projectid', 'skill_match', 'strength', 'efforts', 'output', 'academic_load', 'extention', 'communication', 'remarks'];
 	protected $guarded = []; 

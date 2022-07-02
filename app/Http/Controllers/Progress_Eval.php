@@ -7,7 +7,7 @@ use App\Model\ElsiState;
 use App\Model\Projects;
 use App\Model\StudentProjPrefer;
 use App\Model\StudentEvaluation;
-use App\Model\ProgressEval;
+use App\Model\InternEvaluation;
 use App\User;
 use App\Model\TimeslotBooking;
 use App\Model\UserPanel;
@@ -51,7 +51,7 @@ class Progress_Eval extends Controller
     }
     public function ProgressEvaluationSubmit(Request $request)
     {
-       $inter = ProgressEval::updateOrCreate(
+       $inter = InternEvaluation::updateOrCreate(
             ['userid' =>  $request->internname],
             ['projectid' => $request->projectpref1,  
             'skill_match' => $request->skillset,
