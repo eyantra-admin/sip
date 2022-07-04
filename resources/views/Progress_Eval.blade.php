@@ -142,7 +142,7 @@
               </div>
 
               <div class="row">
-                <label class="col-sm-2 col-form-label">{{ __('Extention required for the project') }}</label>
+                <label class="col-sm-2 col-form-label">{{ __('Extension required for the project') }}</label>
                 <div class="col-sm-4">
                     <select class="form-control" name="extention" id="extention" required>
                       <option hidden value="0">Select your decision</option>
@@ -158,8 +158,10 @@
                 <div class="col-sm-4">
                     <select class="form-control" name="communication" id="communication" required>
                       <option hidden value="0">Select your decision</option>
-                        <option value="N/A" style="text-align:center;">N/A</option>
                         <option value="Strongly Disagree" style="text-align:center;">Strongly Disagree</option>
+                        <option value="Disagree" style="text-align:center;">Disagree</option>
+                        <option value="Neutral" style="text-align:center;">Neutral</option>
+                        <option value="Agree" style="text-align:center;">Aagree</option>
                         <option value="Strongly Agree" style="text-align:center;">Strongly Agree</option>
                     </select>
                 </div>
