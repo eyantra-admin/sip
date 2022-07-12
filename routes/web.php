@@ -91,7 +91,11 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	Route::get('Progress_Eval', ['as' => 'Progress_Eval', 'uses' => 'Progress_Eval@ProgressEvaluationResult']);
 	// Route::get('EvaluationResult', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
 	Route::put('Progress_EvalSubmit', ['as' => 'Progress_EvalSubmit', 'uses' => 'Progress_Eval@ProgressEvaluationSubmit']);
+	Route::get('final_eval', ['as' => 'final_eval', 'uses' => 'final_evalController@FinalEvaluationResult']);
+	Route::put('final_evalSubmit', ['as' => 'final_evalSubmit', 'uses' => 'final_evalController@FinalEvaluationSubmit']);
 
+
+	
 
 	
 
@@ -213,4 +217,3 @@ Route::get('profiledtl', ['as' => 'profiledtl', 'uses' => 'SipRegistration@regis
 		
 		
 		
-

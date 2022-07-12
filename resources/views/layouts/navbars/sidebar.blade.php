@@ -162,6 +162,13 @@
         </a>
       </li>
 
+      <li class="nav-item{{ $activePage == 'final_eval' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('final_eval') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Final Progress Evaluation') }}</p>
+        </a>
+      </li>
+
     @endif
 
     <!--   ***********ADMIN INTERFACE******** -->
