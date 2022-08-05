@@ -56,7 +56,21 @@ class final_evalController extends Controller
 
        $inter = InternEvaluation::where('intern_eval.userid','=',$check_internid)
                 ->first();
-                log::info($inter->userid);
+
+        if(!empty($inter)){
+            $inter->tech_skill = $request->tech_skill;
+        $inter->quality = $request->quality;
+        $inter->attitude = $request->attitude;
+        $inter->punctuality = $request->punctuality;
+        $inter->team_work = $request->team_work;
+        $inter->documentation = $request->documentation;
+        $inter->presentation = $request->presentation;
+        $inter->content = $request->content;
+        $inter->save();
+        }
+        else {
+        $inter = New InternEvaluation();
+        $inter->userid = $check_internid;
         $inter->tech_skill = $request->tech_skill;
         $inter->quality = $request->quality;
         $inter->attitude = $request->attitude;
@@ -66,7 +80,7 @@ class final_evalController extends Controller
         $inter->presentation = $request->presentation;
         $inter->content = $request->content;
         $inter->save();
-        log::info($request->all());
+        }
 
        return back()->withStatus(__('Student evaluation done successfully.'));
    }
