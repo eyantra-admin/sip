@@ -60,7 +60,7 @@ class final_evalController extends Controller
         $inter->tech_skill = $request->tech_skill;
         $inter->quality = $request->quality;
         $inter->attitude = $request->attitude;
-        $inter->puctuality = $request->puctuality;
+        $inter->punctuality = $request->punctuality;
         $inter->team_work = $request->team_work;
         $inter->documentation = $request->documentation;
         $inter->presentation = $request->presentation;
