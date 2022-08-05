@@ -65,6 +65,7 @@ class final_evalController extends Controller
         $inter->documentation = $request->documentation;
         $inter->presentation = $request->presentation;
         $inter->content = $request->content;
+        $inter->save();
         log::info($request->all());
 
        return back()->withStatus(__('Student evaluation done successfully.'));
