@@ -374,8 +374,7 @@ class HomeController extends Controller
         $result = InternEvaluation::select('intern_eval.tech_skill','intern_eval.quality','intern_eval.attitude', 'intern_eval.punctuality','intern_eval.team_work','intern_eval.documentation','intern_eval.presentation','intern_eval.content',
             'u.name','u.email', 'p.projectname')
         ->join('users as u', 'u.id', '=', 'intern_eval.userid')
-        ->join('projects as p', 'p.id', '=', 'intern_eval.projectid')
-        ->where('u.active', 1)
+        ->leftjoin('projects as p', 'p.id', '=', 'intern_eval.projectid')
         ->whereNotNull('intern_eval.tech_skill')
         ->get();
         return view('InternEvalFinal')->with('timeslot', $result);
