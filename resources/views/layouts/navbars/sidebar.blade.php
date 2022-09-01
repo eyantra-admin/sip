@@ -169,6 +169,13 @@
         </a>
       </li>
 
+      <li class="nav-item{{ $activePage == 'internevaltable' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('internevaltable') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Final Evaluation Content') }}</p>
+        </a>
+      </li>
+
     @endif
 
     <!--   ***********ADMIN INTERFACE******** -->

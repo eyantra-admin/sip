@@ -12,7 +12,7 @@ use App\Model\UserPanel;
 use App\Model\EysipUploads;
 use App\Model\PreInternshipSurvey;
 use App\Model\skills_list;
-
+use App\Model\InternEvaluation;
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Crypt;
@@ -369,7 +369,17 @@ class HomeController extends Controller
         return view('View_timeslot')->with('timeslot', $result);
     }
 
-
+    public static function internevaltable(Request $request)
+    {
+        $result = InternEvaluation::select('intern_eval.tech_skill','intern_eval.quality','intern_eval.attitude', 'intern_eval.punctuality','intern_eval.team_work','intern_eval.documentation','intern_eval.presentation','intern_eval.content',
+            'u.name','u.email', 'p.projectname')
+        ->join('users as u', 'u.id', '=', 'intern_eval.userid')
+        ->join('projects as p', 'p.id', '=', 'intern_eval.projectid')
+        ->where('u.active', 1)
+        ->whereNotNull('intern_eval.tech_skill')
+        ->get();
+        return view('InternEvalFinal')->with('timeslot', $result);
+    }
 
     //Pre Internship Survey
     public static function preintershipsurvey(Request $request)
