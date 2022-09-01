@@ -52,13 +52,14 @@ class final_evalController extends Controller
     public function FinalEvaluationSubmit(Request $request)
     {
        $check_internid = $request->internname;
-       log::info($check_internid);
+       log::info($request);
 
        $inter = InternEvaluation::where('intern_eval.userid','=',$check_internid)
                 ->first();
 
         if(!empty($inter)){
-            $inter->tech_skill = $request->tech_skill;
+        $inter->projectid = $request->projectpref1;
+        $inter->tech_skill = $request->tech_skill;
         $inter->quality = $request->quality;
         $inter->attitude = $request->attitude;
         $inter->punctuality = $request->punctuality;
@@ -71,6 +72,7 @@ class final_evalController extends Controller
         else {
         $inter = New InternEvaluation();
         $inter->userid = $check_internid;
+        $inter->projectid = $request->projectpref1;
         $inter->tech_skill = $request->tech_skill;
         $inter->quality = $request->quality;
         $inter->attitude = $request->attitude;
