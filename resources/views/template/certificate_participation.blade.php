@@ -111,6 +111,55 @@ tr:nth-child(even) {
 		{!! $certi_details->back_content !!}
 		<br><br><br>
 		
+		<table>
+		  <tr>
+		    <th>Criteria</th>
+		    <th style="text-align: center;">Rating</th>
+		  </tr>
+		  <tr>
+		    <td>Intern's understanding of technical concepts<br> pertaining to Project</td>
+		    <td style="text-align: center;">{!! $certi_details->rating1 !!} </td>
+		</tr>
+		<tr>
+		    <td>Quality of Solution Provided</td>
+		    <td style="text-align: center;">{!! $certi_details->rating2 !!} </td>
+		</tr>
+		<tr>
+		    <td>Attitude</td>
+		    <td style="text-align: center;">{!! $certi_details->rating3 !!} </td>
+		</tr>
+		<tr>
+		    <td>Punctuality</td>
+		    <td style="text-align: center;">{!! $certi_details->rating4 !!} </td>
+		</tr>
+		<tr>
+		    <td>Capacity to work in Team</td>
+		    <td style="text-align: center;">{!! $certi_details->rating5 !!} </td>
+		</tr>
+		<tr>
+		    <td>Documentation Skills</td>
+		    <td style="text-align: center;">{!! $certi_details->rating6 !!} </td>
+		</tr>
+		<tr>
+		    <td>Presentation Skills</td>
+		    <td style="text-align: center;">{!! $certi_details->rating7 !!} </td>
+		</tr>
+		<tr>
+		    <td><b>Overall</b></td>
+		    <td style="text-align: center;"><b>{!! $certi_details->rating8 !!}</b> </td>
+		</tr>
+		  
+		  <!-- <tr>
+		    <td>{!! $certi_details->rating1 !!} </td>
+		    <td>{!! $certi_details->rating2 !!} </td>
+		    <td>{!! $certi_details->rating3 !!} </td>
+		    <td>{!! $certi_details->rating4 !!} </td>
+		    <td>{!! $certi_details->rating5 !!} </td>
+		    <td>{!! $certi_details->rating6 !!} </td>
+		    <td>{!! $certi_details->rating7 !!} </td>
+		    <td>{!! $certi_details->rating8 !!} </td>
+		  </tr> -->
+		</table>
 		</div>
 	</div>
 
