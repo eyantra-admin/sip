@@ -31,8 +31,8 @@ class Generate extends Controller
     
     $certi_details = Certificate::where('userid', $student_details->userid)->first();
     Log::info($certi_details);
-    $cert_template= Template::where('id',2)->first();
-    $cert_event = Event::where('id', 2)->first();
+    $cert_template= Template::where('id',3)->first();
+    $cert_event = Event::where('id', 3)->first();
     
     if (!empty($certi_details)) {
         # code...
