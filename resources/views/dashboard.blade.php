@@ -162,9 +162,6 @@ a.portfolio-link {
               <h2><b>
                 Congratulations !!!<br>
                 You have been shorlisted for e-Yantra Summer Internship Program.<br></b></h2>
-              <!-- <h2><b>
-                Congratulations !!!<br>
-                You have been selected for e-Yantra Summer Internship - 2021.<br></b></h2> -->
             
               <h4 class="card-title">
                 <b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
@@ -173,9 +170,9 @@ a.portfolio-link {
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
              
               <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> <br><br>
-              <!-- <span style="color:red;font-size:20px;"><b>NOTE: Profile filling is closed.</b></span> -->
+              </center>
             </div>
-          </center>
+          
         @endif 
         @if($form_submitted == 1 and Auth::user()->role == 1)
         <center>
@@ -199,12 +196,12 @@ a.portfolio-link {
           <!-- UNCOMMENT THIS WHEN INTERN IS SELECTED AFTER INTERVIEW -->
         @if(Auth::user()->selected == 1 and Auth::user()->role == 1 )
         <div>
-          <center>
+          <!-- <center>
             <h2><b>
               Congratulations !!!<br>
               You have been selected for e-Yantra Summer Internship - 2022.<br></b></h2>
               <h3 style="color:Red"> <b>Project Name:  {{$project_alloted[0]->projectname}} </b>
-          </center>
+          </center> -->
           <!-- Certificate Download -->
           <div class="col m12 s12 text-center">
             @if(Auth::user()->MentorClearence == 1)
@@ -213,7 +210,7 @@ a.portfolio-link {
             <div class="divider"></div>
               <h3 style="color:Red">
                 Hearty Congratulations!!! <br/>
-                on successful completion of eYSIP project.<br/>
+                on successful completion of eYSIP 2022 project.<br/>
               </h3>
             <hr/>
             <span>
