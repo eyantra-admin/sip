@@ -217,7 +217,7 @@ a.portfolio-link {
               </h3>
             <hr/>
             <span>
-              <!-- <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a> -->
+              <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
             </span>
             </div>
             
