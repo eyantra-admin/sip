@@ -25,9 +25,8 @@ class Generate extends Controller
     public function run() //used for purpose of testing 
     {
 
-    $student_details=OnlineProfile::where('userid',$studs->userid)->first();
-    $user_project = User::where('id',$studs->userid)->first();
-    $project_name = Projects::where('id',$user_project->project_alloted)->first();
+    $student_details=OnlineProfile::where('userid',auth()->user()->id)->first();
+    $project_name = Projects::where('id',auth()->user()->project_alloted)->first();
     $pdf = \App::make('dompdf.wrapper');
     
     $certi_details = Certificate::where('userid', $student_details->userid)->first();
