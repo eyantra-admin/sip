@@ -107,7 +107,7 @@ tr:nth-child(even) {
 		<p style="font-family:Optima; font-size:21pt;">Intern Evaluation
 
 		</p>
-		<div style= "padding-left: 2px; padding-right: 50px; text-align: justify;">
+		<div style= "padding-left: 2px; padding-right: 50px;">
 		{!! $certi_details->back_content !!}
 		<br><br><br>
 		
