@@ -26,7 +26,6 @@ class Generate extends Controller
     {
 
     $students = OnlineProfile::where('cert_level', 1)->whereIn('userid',[341,342,322,389,296,334,375,345,396,347,424,325,339,410,313,384,309,301,354,374,298,286,415,357,416,350,353,305,431,338,381,391,289,291,421,369,315,356,290,321,333,69,283,358,335,429,371,344,306,425,326,392,328,330,346,361,314,413,385,398,404,285,399,295,294,302,303,287,403,332,377,368,340,300,359,364,323,355,387,412,299,423,308])->get();
-    $count = 0;
 
     foreach ($students as $studs) {
     $student_details=OnlineProfile::where('userid',$studs->userid)->first();
@@ -78,7 +77,7 @@ class Generate extends Controller
         # code...
         $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','project_name', 'certi_details'));
 
-        $path = storage_path().'/certificate/eysip/'.$student_details->userid;
+        $path = storage_path().'/certificate/eysip2022/certi_'.$student_details->userid;
         if (!File::exists($path)) {
             # code...
             File::makeDirectory($path, 0777, true, true);
@@ -90,10 +89,12 @@ class Generate extends Controller
     }
     
         
-        return $pdf->stream('certificate.pdf');
-        
+/*        return $pdf->stream('certificate.pdf');
+*/        
+        }
         
     }
+
 
 
 
