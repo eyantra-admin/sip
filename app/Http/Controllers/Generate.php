@@ -29,7 +29,7 @@ class Generate extends Controller
     $project_name = Projects::where('id',auth()->user()->project_alloted)->first();
     $pdf = \App::make('dompdf.wrapper');
     
-    $certi_details = Certificate::where('userid', $student_details->userid)->first();
+    $certi_details = Certificate::where('userid', auth()->user()->id)->first();
     Log::info($certi_details);
     $cert_template= Template::where('id',3)->first();
     $cert_event = Event::where('id', 3)->first();
