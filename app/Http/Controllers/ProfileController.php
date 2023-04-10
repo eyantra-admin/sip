@@ -41,10 +41,11 @@ class ProfileController extends Controller
     public function edit()
     {
         $colleges = CollegeDetails::select('clg_code','college_name')->orderBy('college_name')->get();
+        //dd($colleges);
         $departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
         $skills = skills_list::orderBy('skill')->get();
         $chksubmitted = User::where('email',Auth::user()->email)->first();
-        $data = OnlineProfile:: where('email', Auth::user()->email)->first();
+        $data = OnlineProfile:: where(['email' => Auth::user()->email, 'userid' => Auth::user()->id])->first();
         $exp = ExperienceDtls::where('userid',Auth::user()->id)->get();
         $project = StudentProjDtls::where('userid',Auth::user()->id)->get();
         // $finalConfirmed = users

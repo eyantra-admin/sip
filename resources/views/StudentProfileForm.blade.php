@@ -39,7 +39,7 @@
             <div class="row">
               <div class="row">
                 <ul class="tabs">
-                @if($data_exsits== null)
+                @if($data_exsits == null)
                     <li class="tab waves-effect waves-light btn"><a class="active" href="#test1" style="color: Red">Academic Details<br> <b>(1)*</b></a></li>
                     <li class="tab waves-effect waves-light btn"><a href="#test2" style="color: Red">Project Info<br><b>(2)*</b></a></li>
                     <li class="tab waves-effect waves-light btn"><a href="#test3" style="color: Red">Mooc Courses<br><b>(3)</b></a></li>
@@ -106,11 +106,11 @@
                             @endif
                           </div>
                         </div>
-
+                        
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Contact No') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="phone" id="phone" placeholder="Contact No" value="{{old('phone')}}" required>
+                            <input class="form-control" type="text" name="phone" id="phone" placeholder="Contact No" value="{{old('phone', $data_exsits->phone)}}" required>
                             @if ($errors->has('phone'))
                               <span id="phone-error" class="error text-danger" for="phone">{{ $errors->first('phone') }}</span>
                             @endif
@@ -124,9 +124,15 @@
                           <div class="input-field {{ $errors->has('college') ? ' has-danger' : '' }}">
                             <select class="form-control" id="college" name="college" 
                                     value="{{old('college')}}" required>
-                                <option hidden value="">Select your college</option>
+                                  <option hidden value="">Select your college</option>
                                 @foreach($colleges as $college)
-                                <option  value="{{$college->clg_code}}">{{ $college->college_name }}</option>
+                                  @if( old('college', $data_exsits->clg_code) == $college->clg_code )
+                                    <option  value="{{$college->clg_code}}" selected="true">
+                                        {{$college->college_name}}
+                                    </option>
+                                  @else
+                                    <option  value="{{$college->clg_code}}">{{ $college->college_name }}</option>
+                                  @endif                                
                                 @endforeach
                             </select>
                             @if ($errors->has('college'))
@@ -140,10 +146,18 @@
                         <div class="col-sm-3">
                           <select id="year" class="form-control" name="year" required>
                             <option hidden value="">Select year</option>
-                            <option value="1" {{old('year') == 1 ? 'selected': '' }}>First year</option>
-                            <option value="2" {{old('year') == 2 ? 'selected': '' }}>Second year</option>
-                            <option value="3" {{old('year') == 3 ? 'selected': '' }}>Third year</option>
-                            <option value="4" {{old('year') == 4 ? 'selected': '' }}>Fourth year</option>
+                            <option value="1" {{old('year', $data_exsits->year) == 1 ? 'selected': '' }}>
+                              First year
+                            </option>
+                            <option value="2" {{old('year',$data_exsits->year) == 2 ? 'selected': '' }}>
+                              Second year
+                            </option>
+                            <option value="3" {{old('year',$data_exsits->year) == 3 ? 'selected': '' }}>
+                              Third year
+                            </option>
+                            <option value="4" {{old('year',$data_exsits->year) == 4 ? 'selected': '' }}>
+                              Fourth year
+                            </option>
                           </select>
                         </div>
                       
@@ -152,7 +166,7 @@
                           <select class="form-control" id="department" name="department" value="{{old('department')}}" required>
                             <option hidden value="">Select department</option>
                                 @foreach($departments as $department)
-                                <option value="{{$department->id}}" {{old('department') == $department->id ? 'selected' : ''  }}>{{$department->name}}</option>
+                                <option value="{{$department->id}}" {{old('department', $data_exsits->branch) == $department->name ? 'selected' : ''  }}>{{$department->name}}</option>
                                 @endforeach
                           </select>
                         </div>
@@ -162,7 +176,7 @@
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Present GPA/ Percentage') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('gpa') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="gpa" id="gpa" placeholder="gpa" value="{{old('gpa')}}" required>
+                            <input class="form-control" type="text" name="gpa" id="gpa" placeholder="gpa" value="{{old('gpa', $data_exsits->gpa)}}" required>
                             @if ($errors->has('gpa'))
                               <span id="gpa-error" class="error text-danger" for="gpa">{{ $errors->first('gpa') }}</span>
                             @endif
@@ -172,7 +186,7 @@
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 or diploma Percentage') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('class12') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="class12" id="class12" placeholder="class12" value="{{old('class12')}}" required>
+                            <input class="form-control" type="text" name="class12" id="class12" placeholder="class12" value="{{old('class12', $data_exsits->class12)}}" required>
                             @if ($errors->has('class12'))
                               <span id="class12-error" class="error text-danger" for="class12">{{ $errors->first('class12') }}</span>
                             @endif
@@ -185,12 +199,12 @@
                           <div class="input-field {{ $errors->has('class12board') ? ' has-danger' : '' }}">
                           <select id="class12board" class="form-control" name="class12board" value="{{old('class12board')}}" required>
                                   <option hidden value="">Select</option>
-                                  <option value="HSC" {{ old('class12board') == "HSC" ? 'selected': '' }}>HSC</option>
-                                  <option value="CBSE" {{ old('class12board') == "CBSE" ? 'selected': '' }}>CBSE</option>
-                                  <option value="ICSE" {{ old('class12board') == "ICSE" ? 'selected': '' }}>ICSE/ISC</option>
-                                  <option value="IGCSE" {{ old('class12board') == "IGCSE" ? 'selected': '' }}>IGCSE</option>
-                                  <option value="IB" {{ old('class12board') == "IB" ? 'selected': '' }}>IB</option>
-                                  <option value="Diploma" {{ old('class12board') == "Diploma" ? 'selected': '' }}>Diploma</option>
+                                  <option value="HSC" {{ old('class12board', $data_exsits->class12board ) == "HSC" ? 'selected': '' }}>HSC</option>
+                                  <option value="CBSE" {{ old('class12board', $data_exsits->class12board) == "CBSE" ? 'selected': '' }}>CBSE</option>
+                                  <option value="ICSE" {{ old('class12board', $data_exsits->class12board) == "ICSE" ? 'selected': '' }}>ICSE/ISC</option>
+                                  <option value="IGCSE" {{ old('class12board', $data_exsits->class12board) == "IGCSE" ? 'selected': '' }}>IGCSE</option>
+                                  <option value="IB" {{ old('class12board', $data_exsits->class12board) == "IB" ? 'selected': '' }}>IB</option>
+                                  <option value="Diploma" {{ old('class12board', $data_exsits->class12board) == "Diploma" ? 'selected': '' }}>Diploma</option>
                               </select>
                             @if ($errors->has('class12board'))
                               <span id="class12board-error" class="error text-danger" for="class12board">{{ $errors->first('class12board') }}</span>
@@ -203,7 +217,7 @@
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Github Link') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('github') ? ' has-danger' : '' }}">
-                            <input type = "url" class="form-control" name="github" id="github" placeholder="Github link" value="{{old('github')}}"github rows="4" wrap="physical" required>
+                            <input type = "url" class="form-control" name="github" id="github" placeholder="Github link" value="{{old('github', $data_exsits->github)}}"github rows="4" wrap="physical" required>
                             @if ($errors->has('github'))
                               <span id="github-error" class="error text-danger" for="github">{{ $errors->first('github') }}</span>
                             @endif
@@ -213,7 +227,7 @@
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Linked In') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('linkedin') ? ' has-danger' : '' }}">
-                            <input type = "url" class="form-control" type="text" name="linkedin" id="linkedin" placeholder="LinkedIn ID" value="{{old('linkedin')}}" required>
+                            <input type = "url" class="form-control" type="text" name="linkedin" id="linkedin" placeholder="LinkedIn ID" value="{{old('linkedin', $data_exsits->linkedin)}}" required>
                             @if ($errors->has('linkedin'))
                               <span id="linkedin-error" class="error text-danger" for="linkedin">{{ $errors->first('linkedin') }}</span>
                             @endif
@@ -225,7 +239,7 @@
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Instagram') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('insta') ? ' has-danger' : '' }}">
-                            <input class="form-control" name="insta" id="insta" placeholder="Instagram ID" value="{{old('insta')}}" rows="4" wrap="physical">
+                            <input class="form-control" name="insta" id="insta" placeholder="Instagram ID" value="{{old('insta', $data_exsits->instagram)}}" rows="4" wrap="physical">
                             @if ($errors->has('insta'))
                               <span id="insta-error" class="error text-danger" for="insta">{{ $errors->first('insta') }}</span>
                             @endif
@@ -235,7 +249,7 @@
                         <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Facebook') }}</label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('fb') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="fb" id="fb" placeholder="Facebook ID" value="{{old('fb')}}">
+                            <input class="form-control" type="text" name="fb" id="fb" placeholder="Facebook ID" value="{{old('fb', $data_exsits->facebook)}}">
                             @if ($errors->has('fb'))
                               <span id="fb-error" class="error text-danger" for="fb">{{ $errors->first('fb') }}</span>
                             @endif
@@ -387,22 +401,22 @@
                         <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Mooc Course Name') }}</label>
                         <div class="col-sm-6">
                           <div class="input-field">
-                            <input class="form-control" type="text" name="moocCourseName" id="moocCourseName" placeholder="Mooc Course Name" value="{{ old('moocCourseName') }}">
+                            <input class="form-control" type="text" name="moocCourseName" id="moocCourseName" placeholder="Mooc Course Name" value="{{ old('moocCourseName', $data_exsits->mooc_course) }}">
                           </div>
                         </div>
                       </div><br>
                       <div class="row">
                         <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Platform') }}</label>
                         <div class="col-sm-8">
-                          <input type="checkbox" name="moocPlatform[]" value="Coursera" > &nbsp; Coursera  &nbsp; &nbsp; 
-                          <input type="checkbox" name="moocPlatform[]" value="edX"> &nbsp; edX &nbsp; &nbsp; 
-                          <input type="checkbox" name="moocPlatform[]" value="e-Yantra MOOC">&nbsp; e-Yantra MOOC &nbsp; &nbsp; 
-                          <input type="checkbox" name="moocPlatform[]" value="NPTEL">&nbsp; NPTEL &nbsp; &nbsp; 
-                          <input type="checkbox" name="moocPlatform[]" value="Swayam">&nbsp; Swayam &nbsp;  &nbsp; 
-                          <input type="checkbox" name="moocPlatform[]" value="Diksha">&nbsp; Diksha &nbsp; &nbsp; 
-                          <input type="checkbox" name="moocPlatform[]" value="Udemy">&nbsp; Udemy &nbsp; &nbsp; 
-                          <input type="checkbox" name="moocPlatform[]" value="Other" onclick="ShowHideDiv1(this)">&nbsp; Other &nbsp; &nbsp; 
-                          <div id="dvtopics" style="display: none">Other Topics
+                          <input type="checkbox" name="moocPlatform[]" value="Coursera" {{(is_array( old('moocPlatform')) && in_array('Coursera', old('moocPlatform'))) || in_array('Coursera', explode(',' , $data_exsits->platform)) ? 'checked' : '' }}> &nbsp; Coursera  &nbsp; &nbsp;
+                          <input type="checkbox" name="moocPlatform[]" value="edX" {{(is_array( old('moocPlatform')) && in_array('edX', old('moocPlatform'))) || in_array('edX', explode(',' , $data_exsits->platform)) ? 'checked' : '' }}> &nbsp; edX &nbsp; &nbsp; 
+                          <input type="checkbox" name="moocPlatform[]" value="e-Yantra MOOC" {{(is_array( old('moocPlatform')) && in_array('e-Yantra MOOC', old('moocPlatform'))) || in_array('e-Yantra MOOC', explode(',' , $data_exsits->platform)) ? 'checked' : '' }}>&nbsp; e-Yantra MOOC &nbsp; &nbsp; 
+                          <input type="checkbox" name="moocPlatform[]" value="NPTEL" {{(is_array( old('moocPlatform')) && in_array('NPTEL', old('moocPlatform'))) || in_array('NPTEL', explode(',' , $data_exsits->platform)) ? 'checked' : '' }}>&nbsp; NPTEL &nbsp; &nbsp; 
+                          <input type="checkbox" name="moocPlatform[]" value="Swayam" {{(is_array( old('moocPlatform')) && in_array('Swayam', old('moocPlatform'))) || in_array('Swayam', explode(',' , $data_exsits->platform)) ? 'checked' : '' }}>&nbsp; Swayam &nbsp;  &nbsp; 
+                          <input type="checkbox" name="moocPlatform[]" value="Diksha" {{(is_array( old('moocPlatform')) && in_array('Diksha', old('moocPlatform'))) || in_array('Diksha', explode(',' , $data_exsits->platform)) ? 'checked' : '' }}>&nbsp; Diksha &nbsp; &nbsp; 
+                          <input type="checkbox" name="moocPlatform[]" value="Udemy" {{(is_array( old('moocPlatform')) && in_array('Udemy', old('moocPlatform'))) || in_array('Udemy', explode(',' , $data_exsits->platform)) ? 'checked' : '' }}>&nbsp; Udemy &nbsp; &nbsp; 
+                          <input type="checkbox" name="moocPlatform[]" value="Other" {{(is_array( old('moocPlatform')) && in_array('Other', old('moocPlatform'))) || in_array('Other', explode(',' , $data_exsits->platform)) ? 'checked' : '' }} onclick="ShowHideDiv1(this)">&nbsp; Other &nbsp; &nbsp; 
+                          <div id="dvtopics" style="display:none">Other Topics
                             <input type="text" class="form-control" id="txttopics" name="othertopic" />
                           </div>
                         </div>
@@ -411,7 +425,7 @@
                       <div class="row">
                         <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('No. of incompleted courses') }}</label>
                         <div class="col-sm-6">
-                          <input class="form-control" type="text" name="moocIncomplete" id="moocIncomplete" placeholder="Mooc course started but not complete" value="{{ old('moocIncomplete') }}">
+                          <input class="form-control" type="text" name="moocIncomplete" id="moocIncomplete" placeholder="Mooc course started but not complete" value="{{ old('moocIncomplete', $data_exsits->   number_of_courses_incomplete) }}">
                         </div>
                       </div>
                       <div class="card-footer ml-auto mr-auto">

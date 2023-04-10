@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
+use DB;
 
 
 class User extends Authenticatable
@@ -22,7 +24,7 @@ class User extends Authenticatable
     protected $error = null;
 
     protected $fillable = [
-        'name', 'email', 'password','role',
+        'name', 'email', 'password','role', 'active',
     ];
 
     /**
@@ -94,13 +96,29 @@ class User extends Authenticatable
 
     public function fetchUserByCredentials($credentials){
 
-        //query the database for user data
+        //query the database for user data        
         $user=$this->where('email',$credentials['email'])->first();
-      
-        if($user == NULL)
-        {
-            $user=User::create(['name' => $credentials['name'], 'email' => $credentials['email'], 
-                'password' => 'null', 'role' => '1', 'active' => '1']);
+        
+        if($user == NULL){
+            if(DB::table('shortlisted_student')->where(['email' => $credentials['email']])->exists()){
+                $user=User::updateOrCreate([
+                    'email' => $credentials['email']
+                ],[
+                    'name' => $credentials['name'], 
+                    'password' => 'null', 
+                    'role' => '1', 
+                    'active' => '1'
+                ]);
+            } else {
+                $user=User::updateOrCreate([
+                    'email' => $credentials['email']
+                ],[ 
+                    'name' => $credentials['name'],                     
+                    'password' => 'null', 
+                    'role' => '0', 
+                    'active' => '0'
+                ]);     
+            }    
         }   
 
         return $user;

@@ -112,7 +112,7 @@ function GetTimeSlots(date,panel)
   {
       $.ajax({
         type    : 'POST',
-        url     : '/gettimeslot',
+        url     : '{{route("gettimeslot")}}',
         data    : { _token: _token, date: date, panel: panel},
         dataType: 'json',
       }).done(function (data) {

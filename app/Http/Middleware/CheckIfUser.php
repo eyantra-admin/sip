@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 
-class CheckIfStudent
+class CheckIfUser
 {
     /**
      * Handle an incoming request.
@@ -18,12 +18,10 @@ class CheckIfStudent
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = User::where(['email' => $request->user()->email])->first(['role']);
-        if($user->role === 1) {
-            return $next($request);
+        if(!User::where(['email' => $request->user()->email])->exists()){
+            return redirect()->route('keycloak.logout');            
         }
-        else {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
+
+        return $next($request);
     }
 }

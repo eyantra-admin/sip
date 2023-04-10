@@ -169,7 +169,7 @@ a.portfolio-link {
               <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
              
-              <a href="/SipRegistration" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> <br><br>
+              <a href="{!!route('SipRegistration')!!}" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> <br><br>
               </center>
             </div>
           
@@ -180,7 +180,7 @@ a.portfolio-link {
               <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
                 <p>To view your registration, click the below button</p>
               </h4>
-              <a href="/ViewMyRegistration/{{Crypt::encrypt(Auth::user()->id)}}" target="_blank" class="btn btn-primary">
+              <a href="{!! route('ViewMyRegistration', Crypt::encrypt(Auth::user()->id))!!}" target="_blank" class="btn btn-primary">
                 {{ Auth::user()->name }}</a>
             </center>
         @endif

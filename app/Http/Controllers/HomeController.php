@@ -47,8 +47,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
-    {
+    public function index(){
         log::info('Inside Home');
         log::info(Auth::user());
         if(Auth::user()->role == 3)
@@ -58,9 +57,9 @@ class HomeController extends Controller
             return redirect()->route('keycloak.login');
         else
         {
-            if(Auth::user()->active == 0)
+            if(Auth::user()->active == 0){
                 return redirect()->route('error')->withErrors(__('Your account is deactive.'));
-            else
+            }else{
                 $chksubmitted = User::where('email',Auth::user()->email)->first();
                 $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
                 $proj_alloted = Projects::where('id', $proj_alloted_id)->get();
@@ -69,8 +68,10 @@ class HomeController extends Controller
                 return view('dashboard')
                 ->with(['form_submitted' => $chksubmitted->profilesubmitted, 'cert_check' => $cert_check, 'project_alloted' => $proj_alloted]);
                     // return view('dashboard');, 
+            }    
         }
     }
+    
     public function error()
     {
         return view('error');
@@ -243,7 +244,7 @@ class HomeController extends Controller
                                 ->where('panel', $panel)
                                 ->where('availableflag',1)
                                 ->orderBy('date')->get(); //get panel dates
-        $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
+        $already_booked = TimeslotBooking::where('userid', Auth::user()->id)->count();
         if($already_booked == 0)
             {
                 return view ('timeslotbooking')
@@ -269,7 +270,7 @@ class HomeController extends Controller
     public static function gettimeslot(Request $request)
     {
         log::info($request->date);
-         log::info('------------PANEL-----------------');
+        log::info('------------PANEL-----------------');
         log::info($request->panel);
         $dates = TimeslotBooking::select('date')->distinct()
                                 ->orderBy('date')->get();

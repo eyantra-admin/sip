@@ -6,8 +6,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use DB;
-use Log;
 
 trait RegistersUsers
 {
@@ -32,26 +30,18 @@ trait RegistersUsers
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-        log::info($request->email);
-        if (DB::table('dummy_emailid')->where('emailid', $request->email)->exists()) 
-        {
-            event(new Registered($user = $this->create($request->all())));
 
-            $this->guard()->login($user);
+        event(new Registered($user = $this->create($request->all())));
 
-            if ($response = $this->registered($request, $user)) {
-                return $response;
-            }
+        $this->guard()->login($user);
 
-            return $request->wantsJson()
-                        ? new JsonResponse([], 201)
-                        : redirect($this->redirectPath());
-        }
-        else{
-            return back()->withErrors('This email id is not registered with us, kindly use email id that was used by you in the competitions.');
+        if ($response = $this->registered($request, $user)) {
+            return $response;
         }
 
-        
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
     }
 
     /**

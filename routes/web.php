@@ -160,13 +160,6 @@ Route::group(['middleware' => ['isStudent','keycloak-web']], function ()
 	Route::put('updateAffiliation', ['as' => 'updateAffiliation', 'uses' => 'ProfileController@updateAffiliation']);
 });
 
-
-
-
-
-
-
-
 	//get log info
 Route::prefix('admin')->group(function () {
 Route::get('downloadLogFile', 'LogController@downloadLogFile');
@@ -207,7 +200,7 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 	Route::get('validate/{id}', 'ValidateController@authenticate');
 
 
-Route::any('/ViewMyRegistration/{user}', 'SipRegistration@ViewMyRegistration')->middleware('auth');
+Route::any('/ViewMyRegistration/{user}', ['as' => 'ViewMyRegistration', 'uses' => 'SipRegistration@ViewMyRegistration'])->middleware('auth');
 Route::any('/back', 'SipRegistration@back')->middleware('auth');
 Route::any('/getstatewiseColleges', ['as'	=>	'getstatewiseColleges','uses'	=>	'HomeController@getstatewiseColleges']);
 Route::any('/getCountrywiseStates', ['as'	=>	'getCountrywiseStates','uses'	=>	'HomeController@getCountrywiseStates']);
