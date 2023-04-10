@@ -18,7 +18,7 @@ class CheckIfStudent
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = User::where(['email' => $request->user()->email])->first(['role']);
+        $user = User::where(['email' => $request->user()->email])->first(['role','active']);
         if($user->role === 1 && $user->active === 1) {
             return $next($request);
         }
