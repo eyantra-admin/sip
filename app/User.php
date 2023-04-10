@@ -24,7 +24,7 @@ class User extends Authenticatable
     protected $error = null;
 
     protected $fillable = [
-        'name', 'email', 'password','role', 'active',
+        'name', 'email', 'password','role', 'active', 'year'
     ];
 
     /**
@@ -97,7 +97,7 @@ class User extends Authenticatable
     public function fetchUserByCredentials($credentials){
 
         //query the database for user data        
-        $user=$this->where('email',$credentials['email'])->first();
+        $user=$this->where('email', $credentials['email'])->first();
         
         if($user == NULL){
             if(DB::table('shortlisted_student')->where(['email' => $credentials['email']])->exists()){
@@ -107,7 +107,8 @@ class User extends Authenticatable
                     'name' => $credentials['name'], 
                     'password' => 'null', 
                     'role' => '1', 
-                    'active' => '1'
+                    'active' => '1',
+                    'year' => '2023',
                 ]);
             } else {
                 $user=User::updateOrCreate([
@@ -116,7 +117,8 @@ class User extends Authenticatable
                     'name' => $credentials['name'],                     
                     'password' => 'null', 
                     'role' => '0', 
-                    'active' => '0'
+                    'active' => '0',
+                    'year' => '2023',
                 ]);     
             }    
         }   
