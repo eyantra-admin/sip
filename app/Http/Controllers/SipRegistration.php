@@ -78,7 +78,8 @@ class SipRegistration extends Controller
 		$departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();
 		$skills = skills_list::orderBy('skill')->get();
 		$chksubmitted = User::where('email',Auth::user()->email)->first();
-		$data_exsits = OnlineProfile::where(['email' => Auth::user()->email, 'userid' => Auth::user()->id])->first();
+		$data_exsits = OnlineProfile::firstOrCreate(['email' => Auth::user()->email, 'userid' => Auth::user()->id]);
+		//dd($data_exsits);
 		return view('StudentProfileForm')
 				->with('colleges', $colleges)
 				->with('departments',$departments)

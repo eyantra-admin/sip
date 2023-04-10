@@ -12,4 +12,6 @@ class OnlineProfile extends Eloquent {
 	protected $table = 'online_profile_response';
 	protected $connection = 'mysql';
 	protected $guarded = []; 
+
+	protected $fillable = ['userid', 'email'];
 }
