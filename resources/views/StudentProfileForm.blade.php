@@ -494,12 +494,13 @@
                           <div class="col-lg-2">
                             <select name="theme" id="theme" class="form-control">
                               <option hidden>Select theme</option>
-                              <option value="Agribot" {{old('theme') == 1 ? 'selected' : '' }}>Agribot (AB)</option>
-                              <option value="Berryminator" {{old('theme') == 1 ? 'selected' : '' }}>Berryminator (BM)</option>
-                              <option value="Dairy Bike" {{old('theme') == 1 ? 'selected' : '' }}>Dairy Bike (DB)</option>
-                              <option value="Functional Weeder" {{old('theme') == 1 ? 'selected' : '' }}>Functional Weeder (FW)</option>
-                              <option value="Soil Mointoring" {{old('theme') == 1 ? 'selected' : '' }}>Soil Mointoring (SM)</option>
-                              <option value="Strawberry Stacker" {{old('theme') == 1 ? 'selected' : '' }}>Strawberry Stacker (SS)</option>
+                              <option value="FB" {{old('theme') == 1 ? 'selected' : '' }}>Functional RoadBot (FB)</option>
+                              <option value="KB" {{old('theme') == 1 ? 'selected' : '' }}>Krishi Bot (KB)</option>
+                              <option value="PB" {{old('theme') == 1 ? 'selected' : '' }}>Pharma Bot (PB)</option>
+                              <option value="SB" {{old('theme') == 1 ? 'selected' : '' }}>Swatchhta Bot (SB)</option>
+                              <option value="DB" {{old('theme') == 1 ? 'selected' : '' }}>Delivery Bike (DB)</option>
+                              <option value="SD" {{old('theme') == 1 ? 'selected' : '' }}>Sentinel Drone (SD)</option>
+                              <option value="HB" {{old('theme') == 1 ? 'selected' : '' }}>HolA Bot (HB)</option>
                             </select>
                           </div>
                           <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Where is your Theme Kit?') }}</label>
@@ -508,7 +509,7 @@
                               <option hidden>Select</option>
                               <option value="1" {{old('hardware') == 1 ? 'selected' : '' }}>With Me</option>
                               <option value="2" {{old('hardware') == 2 ? 'selected' : '' }}>With other team</option>
-                              <option value="3" {{old('hardware') == 3 ? 'selected' : '' }}>Submitted to College</option>
+                              <option value="3" {{old('hardware') == 3 ? 'selected' : '' }}>Submitted to e-Yantra</option>
                               <option value="4" {{old('hardware') == 4 ? 'selected' : '' }}>No Theme Kit</option>
                               
                             </select>

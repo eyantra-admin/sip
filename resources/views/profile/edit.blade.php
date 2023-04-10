@@ -438,12 +438,13 @@
                           <div class="col-lg-2">
                             <select name="eyrc_theme" id="eyrc_theme" class="form-control" <?php if($form_submitted == 1) echo "readonly";?>>
                               <option hidden>Select theme</option>
-                              <option value="Agribot" {{ $data->eyrc_theme == 'Agribot' ? 'selected' : '' }}>Agribot (AB)</option>
-                              <option value="Berryminator" {{$data->eyrc_theme == 'Berryminator' ? 'selected' : '' }}>Berryminator(BM)</option>
-                              <option value="Dairy Bike" {{$data->eyrc_theme == 'Dairy Bike' ? 'selected' : '' }}>Dairy Bike (DB)</option>
-                              <option value="Functional Weeder" {{$data->eyrc_theme == 'Functional Weeder' ? 'selected' : '' }}>Functional Weeder (FW)</option>
-                              <option value="Soil Mointoring" {{$data->eyrc_theme == 'Soil Mointoring' ? 'selected' : '' }}>Soil Mointoring (SM)</option>
-                              <option value="Strawberry Stacker" {{$data->eyrc_theme == 'Strawberry Stacker' ? 'selected' : '' }}>Strawberry Stacker (SS)</option>
+                              <option value="FB" {{ $data->eyrc_theme == 'FB' ? 'selected' : '' }}>Functional RoadBot (FB)</option>
+                              <option value="KB" {{$data->eyrc_theme == 'KB' ? 'selected' : '' }}>Krishi Bot (KB)</option>
+                              <option value="PB" {{$data->eyrc_theme == 'PB' ? 'selected' : '' }}>Pharma Bot (PB)</option>
+                              <option value="SB" {{$data->eyrc_theme == 'SB' ? 'selected' : '' }}>Swatchhta Bot (SB)</option>
+                              <option value="DB" {{$data->eyrc_theme == 'DB' ? 'selected' : '' }}>Delivery Bike (DB)</option>
+                              <option value="SD" {{$data->eyrc_theme == 'SD' ? 'selected' : '' }}>Sentinel Drone (SD)</option>
+                              <option value="HB" {{$data->eyrc_theme == 'HB' ? 'selected' : '' }}>HolA Bot (HB)</option>
                             </select>
                           </div>
                           <label class="col-sm-3 col-form-label"><b>{{ __('Where is your Theme Kit?') }}</b></label>
@@ -452,7 +453,7 @@
                               <option hidden>Select</option>
                               <option value="1" {{ $data->where_is_your_hardware == 1 ? 'selected' : '' }}>With Me</option>
                               <option value="2" {{$data->where_is_your_hardware  == 2 ? 'selected' : '' }}>With other team</option>
-                              <option value="3" {{$data->where_is_your_hardware  == 3 ? 'selected' : '' }}>Submitted to College</option>
+                              <option value="3" {{$data->where_is_your_hardware  == 3 ? 'selected' : '' }}>Submitted to e-Yantra</option>
                               <option value="4" {{$data->where_is_your_hardware  == 4 ? 'selected' : '' }}>No Theme Kit</option>
                               
                             </select>
