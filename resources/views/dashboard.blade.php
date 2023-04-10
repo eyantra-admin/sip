@@ -181,7 +181,7 @@ a.portfolio-link {
                 <p>To view your registration, click the below button</p>
               </h4>
               <!-- <a href="{!! route('ViewMyRegistration', Crypt::encrypt(Auth::user()->id))!!}" target="_blank" class="btn btn-primary"> -->
-              <a href="{!! route('profile.edit')!!}" target="_blank" class="btn btn-primary">
+              <a href="{!! route('profile.edit')!!}" class="btn btn-primary">
                 {{ Auth::user()->name }}</a>
             </center>
         @endif
