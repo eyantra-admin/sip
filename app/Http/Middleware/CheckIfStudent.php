@@ -23,7 +23,8 @@ class CheckIfStudent
             return $next($request);
         }
         else {
-            return response()->json(['error' => 'Unauthorized'], 403);
+            //return response()->json(['error' => 'Unauthorized'], 403);
+            return redirect()->route('keycloak.logout');
         }
     }
 }
