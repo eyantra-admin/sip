@@ -66,7 +66,7 @@ class SipRegistration extends Controller
 	{
 		$student = OnlineProfile::where('userid',$userid)->first();
 		$filename = 'Stu_'.$userid.'_MOOC.pdf';
-		log::info($filename);
+		//log::info($filename);
 
 		$file=Storage::disk('local')->download('sip_mooc_upload/Stu_'.$userid.'_MOOC.pdf');
                     return $file;
@@ -110,12 +110,12 @@ class SipRegistration extends Controller
 		$file = $request->file('image');
 		$file = $request->image;
 		$fullname = $request->fullname;
-		log::info($fullname);
+		//log::info($fullname);
 		$extension = $request->image->extension();
 
 		$userid= Auth::user()->id;
 		$newfilename = 'Stu_'.$userid.'_MOOC.'.$extension;
-		log::info($newfilename);
+		//log::info($newfilename);
 		$path = Storage::disk('local')->putFileAs('sip_mooc_upload',$file,$newfilename);
 
 		return json_encode('image uploaded successfully');
@@ -132,10 +132,11 @@ class SipRegistration extends Controller
 	//Section wise submit form
 	public function submitSection1(Request $request) // GENERAL INFO
 	{
-		log::info($request->all());
+		//log::info($request->all());
 		$input = $request->all();
 		$validator = Validator::make($request->all(), [
-      'phone' => 'required|numeric|digits_between:10,12',
+      		'fullname' => 'required|min:5|regex:/(^[A-Za-z ]+$)+/',
+      		'phone' => 'required|numeric|digits_between:10,12',
 			'phone.digits' => 'Phone number should be of 10 to 12 digits.',
 			'college' => 'required',
 			'department' => 'required',
@@ -145,7 +146,7 @@ class SipRegistration extends Controller
 			'github' => 'required'                   
     ],
     [
-    	'phone.digits' => 'Phone number should be of 10 to 12 digits',
+    		'phone.digits' => 'Phone number should be of 10 to 12 digits',
 			'phone.required' => 'Phone number is required',
 			'college.required' => 'College is required',
 			'department.required' => 'Department is required',
@@ -157,8 +158,8 @@ class SipRegistration extends Controller
 
     if($validator->fails())
     {
-    	log::info('VALIDATOR FAIL');
-      return Redirect::back()->withErrors($validator);
+    	//log::info('VALIDATOR FAIL');
+      	return Redirect::back()->withErrors($validator);
     }
 		else
 		{		
@@ -189,7 +190,9 @@ class SipRegistration extends Controller
       {
         $basicdtls = DB::table('online_profile_response')
                 ->where('userid', $userid)
-                ->update(['gpa' => $request->gpa, 
+                ->update([
+                		  'name' => $request->fullname,	
+                		  'gpa' => $request->gpa, 
                           'year' => $request->year, 
 						  'phone' => $request->phone, 
                           'branch' => $branch['name'], 
@@ -234,25 +237,24 @@ class SipRegistration extends Controller
     }
 	}
 //-----------------------------END OF SECTION 1------------------------------------------------
-	PUBLIC FUNCTION submitSection2(Request $request) // PROJECT DTLS
+	PUBLIC function submitSection2(Request $request) // PROJECT DTLS
 	{
-		log::info($request->all());
-		// $validator = Validator::make($request->all(), [
-  //     'projDuration' => 'required|numeric', 
-  //     'projMembers' => 'required|numeric',
-			
-  //   ],
-  //   [
-  //   	'projDuration.digits' => 'Project duration is a numeric field.',
-		// 	'projMembers.digits' => 'Project members is a numeric field.',    
-  //   ]);
+		//log::info($request->all());
+		/*$validator = Validator::make($request->all(), [
+	      'projectTitle.*' => 'required|min:5|regex:/(^[A-Za-z ]+$)+/',
+				
+	    ],
+	    [
+	    	'projDuration.digits' => 'Project duration is a numeric field.',
+				'projMembers.digits' => 'Project members is a numeric field.',    
+	    ]);
 
-  //   if($validator->fails())
-  //   {
-  //   	log::info('VALIDATOR FAIL');
-  //     return Redirect::back()->withErrors($validator);
-  //   }
-	
+	    if($validator->fails())
+	    {
+	    	log::info('VALIDATOR FAIL');
+	      return Redirect::back()->withErrors($validator);
+	    }*/
+
 			$userid = User::where('email', Auth::user()->email)->value('id');
 			$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
 			if($tab1cnt == 1)
@@ -261,8 +263,8 @@ class SipRegistration extends Controller
 				for ($i=0; $i < count($request['projectTitle']); ++$i) 
 				{
 					$proj = new StudentProjDtls;
-					log::info('-----');
-					log::info($request['projectTitle'][$i]);
+					//log::info('-----');
+					//log::info($request['projectTitle'][$i]);
 			    $proj->projectTitle = $request['projectTitle'][$i];
 			    $proj->projDesc= $request['projDesc'][$i];
 			    $proj->projDuration= $request['projDuration'][$i];
@@ -291,7 +293,7 @@ class SipRegistration extends Controller
 //-----------------------------END OF SECTION 2------------------------------------------------
 	PUBLIC FUNCTION submitSection3(Request $request)// MOOC COURSES
 	{
-		log::info($request->all());
+		//log::info($request->all());
 		$validator = Validator::make($request->all(), [
 				
 				'moocIncomplete' => 'numeric|digits_between:0,10'                 
@@ -307,8 +309,8 @@ class SipRegistration extends Controller
 			$userid =  Auth::user()->id;
 			$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
 	    $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
-	    log::info($tab1cnt);
-	    log::info($tab2cnt);
+	    //log::info($tab1cnt);
+	    //log::info($tab2cnt);
 			if($tab1cnt != 1 && $tab2cnt != 1)
 			{
 				log::info('TAB NOT');
@@ -335,12 +337,12 @@ class SipRegistration extends Controller
 	//-----------------------------END OF SECTION 3------------------------------------------------
 	PUBLIC FUNCTION submitSection4(Request $request)//EXP DTL
 	{
-		log::info('----In section 4-----');
+		//log::info('----In section 4-----');
 		$userid =  Auth::user()->id;
 		$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
     $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
-    log::info($tab1cnt);
-    log::info($tab2cnt);
+    //log::info($tab1cnt);
+    //log::info($tab2cnt);
 		if($tab1cnt == 1 || $tab2cnt == 1)
 		{
 			$expvalue=$request->expdtl[0];
@@ -351,7 +353,7 @@ class SipRegistration extends Controller
 				{	
 					if(!empty($exp))
 					{
-						log::info('**********************');
+						//log::info('**********************');
 						$exp_dtls = new ExperienceDtls;				
 						$exp_dtls->exp_description = $exp;
 						$exp_dtls->userid = Auth::user()->id;	
@@ -376,7 +378,7 @@ class SipRegistration extends Controller
 	//-----------------------------END OF SECTION 4------------------------------------------------
 	public function submitSection5(Request $request) // EYANTRA affiliation
 	{
-		log::info($request->all());
+		//log::info($request->all());
 
     $rules = [
 							'competition'=>'required',
@@ -387,7 +389,7 @@ class SipRegistration extends Controller
 		$validate=Validator::make($request->all(),$rules,$messages);
 		if($validate->fails())
 		{
-			log::info('-------Validator FAIL--------');
+			//log::info('-------Validator FAIL--------');
 			return back()->withErrors(__('Mention your affiliation with e-Yantra'));
 		}
 		else
@@ -443,11 +445,11 @@ class SipRegistration extends Controller
 
 	public static function submitprofile(Request $request){
 		$input = $request->all();
-		log::info($request->all());
+		//log::info($request->all());
 		$competition=$request->get('competition');
 
 		$userid= Auth::user()->id;
-		log::info($userid);
+		//log::info($userid);
 
 		$rules=[
 		// 'fullname'	=> 'required',
@@ -584,7 +586,7 @@ class SipRegistration extends Controller
 
 		DB::transaction(function() use ($request)
 		{
-				log::info('---------------');
+				//log::info('---------------');
 				$col_name= CollegeDetails::select('college_name')->where('clg_code',$request->college)->first();
 				$branch = ElsiDepartments::select('name')->where('id',$request->department)->first();
 
@@ -698,8 +700,8 @@ class SipRegistration extends Controller
 						$proj->project2_rating1 = $request->rating1_2;
 					if(!empty($request->skills2_2))
 					{
-						log::info('========================');
-						log::info($request->skills2_2);
+						//log::info('========================');
+						//log::info($request->skills2_2);
 						$s = skills_list::select('skill')->where('id', $request->skills2_2)->first();
 						if($s != null)
 						{
@@ -860,7 +862,7 @@ class SipRegistration extends Controller
 				//Section 4 answers
 				$expvalue=$request->expdtl[0];
 				$exp=$request->expdtl;
-				log::info($expvalue);
+				//log::info($expvalue);
 				if(!empty($expvalue))
 				{
 					foreach($exp as $exp)

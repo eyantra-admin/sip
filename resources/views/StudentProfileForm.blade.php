@@ -82,32 +82,33 @@
 
                 <div class="card-body">
                   <div id="test1" class="col s12">
+                    <p class="ml-4 px-4" style="color:red;">All fields are mandatory</p>
                     <form method="post" action="{{ route('submitSection1') }}" autocomplete="off" 
                       class="form-horizontal">
                       @csrf
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Name') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Name') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('fullname') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="fullname" id="fullname" placeholder="Name" value="{{ old('fullname', auth()->user()->name) }}" required>
-                            @if ($errors->has('name'))
+                            @if ($errors->has('fullname'))
                               <span id="fullname-error" class="error text-danger" for="fullname">{{ $errors->first('fullname') }}</span>
                             @endif
                           </div>
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Email Id') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Email Id') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('email') ? ' has-danger' : '' }}">
-                            <input class="form-control" name="email" id="email" placeholder="Email Id Email Id" value="{{ old('fullname', auth()->user()->email) }}" rows="4" wrap="physical" required>
+                            <input class="form-control" name="email" id="email" placeholder="Email Id Email Id" value="{{ old('fullname', auth()->user()->email) }}" rows="4" wrap="physical" required readonly="true">
                             @if ($errors->has('email'))
                               <span id="email-error" class="error text-danger" for="email">{{ $errors->first('email') }}</span>
                             @endif
                           </div>
                         </div>
                         
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Contact No') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Contact No') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="phone" id="phone" placeholder="Contact No" value="{{old('phone', $data_exsits->phone)}}" required>
@@ -119,7 +120,7 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('College') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('College') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('college') ? ' has-danger' : '' }}">
                             <select class="form-control" id="college" name="college" 
@@ -142,7 +143,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Year') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Year') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <select id="year" class="form-control" name="year" required>
                             <option hidden value="">Select year</option>
@@ -161,7 +162,7 @@
                           </select>
                         </div>
                       
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Department') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Department') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <select class="form-control" id="department" name="department" value="{{old('department')}}" required>
                             <option hidden value="">Select department</option>
@@ -173,7 +174,7 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Present GPA/ Percentage') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Present GPA/ Percentage') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('gpa') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="gpa" id="gpa" placeholder="gpa" value="{{old('gpa', $data_exsits->gpa)}}" required>
@@ -183,7 +184,7 @@
                           </div>
                         </div>
 
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 or diploma Percentage') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 or diploma Percentage') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('class12') ? ' has-danger' : '' }}">
                             <input class="form-control" type="text" name="class12" id="class12" placeholder="class12" value="{{old('class12', $data_exsits->class12)}}" required>
@@ -194,7 +195,7 @@
                         </div>
                       </div>
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 Board') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Class 12 Board') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('class12board') ? ' has-danger' : '' }}">
                           <select id="class12board" class="form-control" name="class12board" value="{{old('class12board')}}" required>
@@ -214,7 +215,7 @@
                       </div>
 
                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Github Link') }}</label>
+                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Github Link') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('github') ? ' has-danger' : '' }}">
                             <input type = "url" class="form-control" name="github" id="github" placeholder="Github link" value="{{old('github', $data_exsits->github)}}"github rows="4" wrap="physical" required>
@@ -269,32 +270,32 @@
                       <div class="row parent-div">
                         <div class="col-md-12" id="copy-this-div">
                           <div class="row">
-                            <label class="col-sm-3 col-form-label"style = "color:black;font-weight: bold">{{ __('Project Title') }}</label>
+                            <label class="col-sm-3 col-form-label"style = "color:black;font-weight: bold">{{ __('Project Title') }}<span style="color:red;">*</span></label>
                             <div class="col-sm-6">
                               <input class="form-control" type="text" name="projectTitle[]" id="projectTitle" placeholder="Project Title" value="{{ old('projectTitle')}}" required>
                             </div>
                           </div>
                           <div class="row">
-                            <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Description') }}</label>
+                            <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Description') }}<span style="color:red;">*</span></label>
                             <div class="col-sm-6">
                               <input class="form-control" name="projDesc[]" id="projDesc" placeholder="Project Desciption" value="{{ old('projDesc') }}" rows="4" wrap="physical" required>
                             </div>
                           </div>
 
                           <div class="row">
-                            <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Duration') }}</label>
+                            <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Project Duration') }}<span style="color:red;">*</span></label>
                               <div class="col-sm-6">
                                 <input type="number" class="form-control" placeholder="Project Duration(In months)" name="projDuration[]" id="projDuration" value="{{old('projDuration')}}" required>
                               </div>
                           </div>  
                           <div class="row">  
-                            <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('No of Team Members') }}</label>
+                            <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('No of Team Members') }}<span style="color:red;">*</span></label>
                               <div class="col-sm-6">
                                 <input type="number" class="form-control" name="projMembers[]" id="projMembers" placeholder="No of Team Members" value="{{old('projMembers')}}" required>
                               </div>
                           </div>
                           <div class="row">
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">Your role in the project</label>
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">Your role in the project<span style="color:red;">*</span></label>
                               <div class="col-sm-6">
                                 <textarea id= "projectRole" class="form-control" name="projectRole[]" maxlength="250" placeholder="Short Description of your role upto 250 characters" rows="2" required>{{old('projectRole') }}</textarea>
                               </div>
@@ -312,7 +313,7 @@
                               </div>
                           </div>  
                           <div class="row">
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Skills Acquired') }}</label>
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Skills Acquired') }}<span style="color:red;">*</span></label>
                                 <div class="col">
                                   <select class="form-control" id="skills1" name="skills1[]" >
                                     <option hidden value="null">Select Skills</option>
@@ -321,7 +322,7 @@
                                       @endforeach
                                   </select>
                                 </div>
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Rating for skill1') }}</label>
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Rating for skill1') }}<span style="color:red;">*</span></label>
                                 <div class="col">
                                   <select class="form-control" name="rating1[]" id= "rating1" >
                                     <option hidden>Select</option>
@@ -334,7 +335,7 @@
                           </div>
 
                           <div class="row">
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Skills Acquired') }}</label>
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Skills Acquired') }}<span style="color:red;">*</span></label>
                                 <div class="col">
                                   <select class="form-control" id="skills2" name="skills2[]" >
                                     <option hidden value="null">Select Skills</option>
@@ -343,7 +344,7 @@
                                       @endforeach
                                   </select>
                                 </div>
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Rating for skill2') }}</label>
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Rating for skill2') }}<span style="color:red;">*</span></label>
                                 <div class="col">
                                   <select class="form-control" name="rating2[]" id= "rating2" >
                                     <option hidden>Select</option>
@@ -356,7 +357,7 @@
                           </div>
 
                           <div class="row">
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Skills Acquired') }}</label>
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Skills Acquired') }}<span style="color:red;">*</span></label>
                                 <div class="col">
                                   <select class="form-control" id="skills3" name="skills3[]" >
                                     <option hidden value="null">Select Skills</option>
@@ -365,7 +366,7 @@
                                       @endforeach
                                   </select>
                                 </div>
-                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Rating for skill3') }}</label>
+                              <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Rating for skill3') }}<span style="color:red;">*</span></label>
                                 <div class="col">
                                   <select class="form-control" name="rating3[]" id= "rating3" >
                                     <option hidden>Select</option>
