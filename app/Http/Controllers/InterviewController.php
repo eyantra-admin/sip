@@ -59,14 +59,14 @@ class InterviewController extends Controller
                             ->where('panel', $panel_no)
                             ->get();
         
-        $user_data = OnlineProfile::select('online_profile_response.id','online_profile_response.userid','online_profile_response.name','online_profile_response.email','online_profile_response.phone', 'eyrc_theme','college','branch','year','st.userid', 'st.availableslots', 'st.date')
+        $user_data = OnlineProfile::select('online_profile_response.id','online_profile_response.userid','online_profile_response.name','online_profile_response.email','online_profile_response.phone', 'eyrc_theme','college','branch','online_profile_response.year','st.userid', 'st.availableslots', 'st.date')
                             ->join('timeslot_booking as st','st.userid','=','online_profile_response.userid')
                             ->join('users','users.id','=','st.userid')
                             // ->where('date',$todayDate)
                             ->where('st.userid', '!=', null)
                             ->where('st.panel', $panel_no)
                             ->where('users.active', 1)
-                            // ->where('users.created_at', '>=', $start_date)
+                            ->where('users.year', 2023)
                             ->orderBy('st.date','desc')
                             ->orderBy('st.availableslots','asc')
                             ->distinct('online_profile_response.id')
@@ -78,9 +78,9 @@ class InterviewController extends Controller
     }
 
     public function EvaluationResult()
-    {   $start_date = date('2022-05-01 00:00:00');
-        $students = User::select('id','name')->where('role', 1)->where('created_at', '>=', $start_date)->where('active', 1)->orderby('name')->get();
-        $projects = Projects::select('id','projectname')->where('active',1)->orderBy('projectname')->get();
+    {   //$start_date = date('2022-05-01 00:00:00');
+        $students = User::select('id','name')->where('role', 1)->where('year', 2023)->where('active', 1)->orderby('name')->get();
+        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         
         return view ('Evaluation')->with('projects', $projects)->with('students', $students);
     }

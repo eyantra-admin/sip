@@ -34,7 +34,7 @@
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->panel}}</b></td>
                         <td><b>{{$cur->userid}}</b></td>
-                        <td><b><a href="/ViewMyRegistration/{{Crypt::encrypt($cur->userid)}}" target="_blank">{{ $cur->name}}</a></b></td>
+                        <td><b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank">{{ $cur->name}}</a></b></td>
                         <td><b>{{$cur->email}}</b></td>
                         <td><b>{{$cur->date}}</b></td>
                         <td><b>{{$cur->availableslots}}</b></td>

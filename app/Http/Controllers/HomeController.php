@@ -48,8 +48,8 @@ class HomeController extends Controller
      * @return \Illuminate\View\View
      */
     public function index(){
-        log::info('Inside Home');
-        log::info(Auth::user());
+        //log::info('Inside Home');
+        //log::info(Auth::user());
         if(Auth::user()->role == 3)
             return redirect()->route('View_profiles');
 
@@ -83,7 +83,7 @@ class HomeController extends Controller
         $chksubmitted = User::where('email',Auth::user()->email)->first();
         $proj_alloted_id = User::where('id',Auth::user()->id)->pluck('project_alloted');
         $proj_alloted = Projects::where('id', $proj_alloted_id)->first();
-        log::info($proj_alloted);
+        //log::info($proj_alloted);
         return view('dashboard')
         ->with('form_submitted', $chksubmitted->profilesubmitted)  
         ->with('project_alloted', $proj_alloted)
@@ -128,7 +128,7 @@ class HomeController extends Controller
         else
         {
             $selected_projects = StudentProjPrefer ::where('userid', Auth::user()->id)->first();
-            log::info($selected_projects);
+            //log::info($selected_projects);
             $project1 = Projects::where('id' ,$selected_projects->projectprefer1)->value('projectname');
             $project2 = Projects::where('id' ,$selected_projects->projectprefer2)->value('projectname');
             $project3= Projects::where('id' ,$selected_projects->projectprefer3)->value('projectname');
@@ -227,10 +227,10 @@ class HomeController extends Controller
 
     public static function getprojectdetail($projectid)
     {
-        log::info($projectid);
+        //log::info($projectid);
         $getproject_dtl = Projects::where('id',Crypt::decrypt($projectid))->first();
         //$getproject_dtl = Projects::where('id', $projectid)->first();
-        log::info($getproject_dtl);
+        //log::info($getproject_dtl);
         return view('project.projectdetail')
         ->with('projectdtl', $getproject_dtl);
 
@@ -269,9 +269,9 @@ class HomeController extends Controller
 
     public static function gettimeslot(Request $request)
     {
-        log::info($request->date);
-        log::info('------------PANEL-----------------');
-        log::info($request->panel);
+        //log::info($request->date);
+        //log::info('------------PANEL-----------------');
+        //log::info($request->panel);
         $dates = TimeslotBooking::select('date')->distinct()
                                 ->orderBy('date')->get();
         $availableslot = TimeslotBooking::
@@ -279,14 +279,14 @@ class HomeController extends Controller
                         ->where('availableflag',1)
                         ->where('panel', $request->panel) 
                         ->pluck('availableslots');
-        log::info('------------');
+        //log::info('------------');
         log::info($availableslot);
         return json_encode($availableslot);
     }
 
     public static function booktimeslot(Request $request)
     {
-        log::info('into time slot booking');
+        //log::info('into time slot booking');
         $rules=[
         'date' => 'required',
         'timeslot' => 'required',];
@@ -309,10 +309,10 @@ class HomeController extends Controller
             }
             else
             {
-                log::info($request->date);
-                log::info($request->timeslot);
+                //log::info($request->date);
+                //log::info($request->timeslot);
                 $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
-                log::info($panel);
+                //log::info($panel);
                 //update student id and flag in table where date ,slot and panel is matched
                 $already_booked = TimeslotBooking ::where('userid', Auth::user()->id)->count();
                 if($already_booked == 0)
@@ -353,6 +353,7 @@ class HomeController extends Controller
         ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
         ->join('users as u', 'u.id', '=', 'studentprojprefer.userid')
         ->where('u.active', 1)
+        ->where('u.year', 2023)
         ->orderBy('studentprojprefer.userid')
         ->get();
         log::info($result);
@@ -365,6 +366,7 @@ class HomeController extends Controller
             'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots')
         ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
         ->where('u.active', 1)
+        ->where('u.year', 2023)
         ->orderBy('timeslot_booking.date')
         ->get();
         return view('View_timeslot')->with('timeslot', $result);
@@ -376,6 +378,7 @@ class HomeController extends Controller
             'u.name','u.email', 'p.projectname')
         ->join('users as u', 'u.id', '=', 'intern_eval.userid')
         ->leftjoin('projects as p', 'p.id', '=', 'intern_eval.projectid')
+        ->where('u.year', 2023)
         ->whereNotNull('intern_eval.tech_skill')
         ->get();
         return view('InternEvalFinal')->with('timeslot', $result);
@@ -390,7 +393,7 @@ class HomeController extends Controller
     
     public static function submitsurvey(Request $request)
     {
-        log::info($request->all());
+        //log::info($request->all());
         $already_submited = PreInternshipSurvey ::where('userid', Auth::user()->id)->count();
         if($already_submited == 0)
         {
@@ -450,7 +453,7 @@ class HomeController extends Controller
 
     public function submitnda(Request $request)
     {
-        log::info($request->all());
+        //log::info($request->all());
         $validator = Validator::make($request->all(), [
             'photo' => 'required|mimes:jpeg,jpg,png|required|max:10000',
             'signature' => 'required|mimes:jpeg,jpg,png|required|max:10000',
@@ -534,7 +537,7 @@ class HomeController extends Controller
         $list_ndas = EysipUploads::select('u.id','name','email', 'project_alloted', 'p.projectname')->distinct()
         ->join('users as u','u.id','=','sipuploads.userid')
         ->join('projects as p', 'p.id', '=','u.project_alloted')
-        ->where('u.created_at', '>=', $start_date)
+        ->where('u.year', 2023)
         ->get();
         Log::info($list_ndas);
         return view('listNDA',compact('list_ndas'));
@@ -555,7 +558,7 @@ class HomeController extends Controller
 
     public function verifydetails(Request $request)
     {
-        log::info(Auth::user()->id);
+        //log::info(Auth::user()->id);
         $verify_data = User::select('users.id', 'users.name', 'users.email','users.Iconfirm', 'o.phone', 'project_alloted', 
                                         'p.projectname', 'o.year', 'o.branch', 'o.college',
                                         'o.addressline1','o.addressline2','o.city','o.statename', 'o.pincode',
@@ -573,7 +576,7 @@ class HomeController extends Controller
 
     public function AcceptVerify(Request $request)
     {
-        log::info(Auth::user()->id);
+        //log::info(Auth::user()->id);
          $booking = DB::table('users')
                       ->where('id', Auth::user()->id)
                       ->update(['Iconfirm' => 1]);
@@ -603,7 +606,7 @@ class HomeController extends Controller
                 // $feed1->bank_doc = $request->bank_doc;
 
                 if($request->hasFile('bank_doc')){
-                    log::info('inside save bank_doc');
+                    //log::info('inside save bank_doc');
                     $format = strtolower($request->bank_doc->getClientOriginalExtension());
                     $size = $request->file('bank_doc')->getSize();
 
@@ -657,7 +660,8 @@ class HomeController extends Controller
                                         'p.projectname', 'users.Iconfirm','users.MentorClearence')
                                 ->join('online_profile_response as o','o.userid', '=', 'users.id')
                                 ->join('projects as p','p.id', '=', 'users.project_alloted')
-                                ->where('o.created_at', '>=', $start_date)
+                                ->where('users.year', 2023)
+                                //->where('o.created_at', '>=', $start_date)
                                 ->where('users.selected', 1)
                                 ->get();                   
         return view('mentorclearence')
@@ -665,7 +669,7 @@ class HomeController extends Controller
     }
     public function approveclearence($userid)
     {
-        log::info($userid);
+        //log::info($userid);
          $approve = DB::table('users')
                       ->where('id', $userid)
                       ->update(['MentorClearence' => 1]);
@@ -676,7 +680,7 @@ class HomeController extends Controller
     public function addproject(Request $request)
     {
         //$project_cnt = projects::where('mentor1userid', Auth::user()->id)->count();
-        $projects = Projects::select('id','projectname')->where('active', 1)->orderBy('projectname')->get();
+        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         $mentors = User::select('id','name as mentorname')->where('role', 2)->orderBy('name')->get();
         $skills = skills_list::orderBy('skill')->get();
         return view('project.addproject')->with('projects', $projects)
@@ -686,7 +690,7 @@ class HomeController extends Controller
     //insert project
     public function insertproject(Request $request)
     {
-        log::info($request->all());
+        //log::info($request->all());
         $proj = new projects;
         $proj->projectname = $request->projectname;
         $proj->abstract = $request->projectabstract;
@@ -694,6 +698,7 @@ class HomeController extends Controller
         $proj->interns_required = $request->interns;
         $proj->technologystack = implode(', ', $request->technologystack);
         $proj->active = 1;
+        $proj->year = 2023;
         $proj->save();
         return back()->withStatus(__('Project added successfully.'));
     }
@@ -713,7 +718,7 @@ class HomeController extends Controller
 
     //View student profiles for mentor login
     public static function View_studentprofiles(Request $request)
-    {   $start_date = date('2022-05-01 00:00:00'); 
+    {   
         $result = OnlineProfile::select('online_profile_response.name','online_profile_response.email',
                 'online_profile_response.phone','online_profile_response.userid')
                 ->join('users as u', 'u.id', '=', 'online_profile_response.userid')
@@ -721,7 +726,7 @@ class HomeController extends Controller
                 ->where('u.profilesubmitted', 1)
                 ->where('u.active', 1)
                 ->where('u.role', 1)
-                ->where('online_profile_response.created_at', '>=', $start_date)
+                ->where('u.year', 2023)
                 ->orderBy('online_profile_response.name')
                 ->get();
                 return view('View_studentprofiles')->with('profile_list', $result);
@@ -730,7 +735,7 @@ class HomeController extends Controller
     //Allocate project to interns page
     public static function Allocate_Project(Request $request)
     {   $start_date = date('2022-05-01 00:00:00');
-        $students = User::select('users.id','users.name', 'users.project_alloted','projectname')->where('users.role', 1)->where('users.active', 1)->where('profilesubmitted', 1) ->where('users.created_at', '>=', $start_date) ->leftjoin('projects as p', 'p.id', '=', 'users.project_alloted')->orderby('name')->get();
+        $students = User::select('users.id','users.name', 'users.project_alloted','projectname')->where('users.role', 1)->where('users.active', 1)->where('profilesubmitted', 1) ->where('users.year', 2023) ->leftjoin('projects as p', 'p.id', '=', 'users.project_alloted')->orderby('name')->get();
         $projects = Projects::select('id','projectname')
                     ->where('active', 1)
                     ->orderBy('projectname')->get();
@@ -760,7 +765,7 @@ class HomeController extends Controller
     {   $start_date = date('2022-05-01 00:00:00');
         $projects = Projects::select('id','projectname','abstract','technologystack','interns_required','mentor1userid','mentor2userid','mentor3userid')
                     ->where('active', 1)
-                    ->where('created_at', '>=', $start_date)
+                    ->where('year', 2023)
                     ->orderBy('projectname')->get();
         return view('View_projects')->with('projects', $projects);
 

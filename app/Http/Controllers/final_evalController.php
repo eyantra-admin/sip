@@ -45,8 +45,8 @@ class final_evalController extends Controller
     }
     public function FinalEvaluationResult()
     {   $start_date = date('2022-05-01 00:00:00');
-        $interns = User::select('id','name')->where('role', 1)->where('created_at', '>=', $start_date)->where('active', 1) ->where('selected',1)->orderby('name')->get();
-        $projects = Projects::select('id','projectname')->where('active',1)->orderBy('projectname')->get();
+        $interns = User::select('id','name')->where('role', 1)->where('year', 2023)->where('active', 1)->where('selected',1)->orderby('name')->get();
+        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         return view ('final_eval')->with('projects', $projects)->with('interns', $interns);
     }
     public function FinalEvaluationSubmit(Request $request)
