@@ -200,7 +200,7 @@
                           <div class="input-field {{ $errors->has('class12board') ? ' has-danger' : '' }}">
                           <select id="class12board" class="form-control" name="class12board" value="{{old('class12board')}}" required>
                                   <option hidden value="">Select</option>
-                                  <option value="HSC" {{ old('class12board', $data_exsits->class12board ) == "HSC" ? 'selected': '' }}>HSC</option>
+                                  <option value="HSC" {{ old('class12board', $data_exsits->class12board ) == "HSC" ? 'selected': '' }}>HSC (State Board)</option>
                                   <option value="CBSE" {{ old('class12board', $data_exsits->class12board) == "CBSE" ? 'selected': '' }}>CBSE</option>
                                   <option value="ICSE" {{ old('class12board', $data_exsits->class12board) == "ICSE" ? 'selected': '' }}>ICSE/ISC</option>
                                   <option value="IGCSE" {{ old('class12board', $data_exsits->class12board) == "IGCSE" ? 'selected': '' }}>IGCSE</option>
