@@ -723,7 +723,7 @@ class HomeController extends Controller
                 'online_profile_response.phone','online_profile_response.userid')
                 ->join('users as u', 'u.id', '=', 'online_profile_response.userid')
                 //->join('user_panel as up', 'up.userid', '=', 'u.id')
-                ->where('u.profilesubmitted', 1)
+                //->where('u.profilesubmitted', 1)
                 ->where('u.active', 1)
                 ->where('u.role', 1)
                 ->where('u.year', 2023)
