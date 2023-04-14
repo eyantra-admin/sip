@@ -49,7 +49,7 @@ class ProfileController extends Controller
         $exp = ExperienceDtls::where('userid',Auth::user()->id)->get();
         $project = StudentProjDtls::where('userid',Auth::user()->id)->get();
         // $finalConfirmed = users
-        log::info($data);
+        //log::info($data);
         return view('profile.edit')
                 ->with('colleges', $colleges)
                 ->with('departments',$departments)
@@ -125,8 +125,8 @@ class ProfileController extends Controller
 
     public function updateAffiliation(Request $request){
         $updates = $request->all();
-        log::info("called");
-        log::info($updates);
+        //log::info("called");
+        //log::info($updates);
         $mail = Auth::user()->email;
         $update_mooc = DB::table('online_profile_response')
             ->where('email', $mail)
@@ -143,7 +143,7 @@ class ProfileController extends Controller
 
     public function updateSection4(Request $request) //MOOC Corses update
     {
-        log::info($request->all());
+        //log::info($request->all());
         $exp_dtls = new ExperienceDtls; 
 
         // ExperienceDtls::where('userid', Auth::user()->id)->delete();
@@ -167,7 +167,7 @@ class ProfileController extends Controller
         //     }               
         // }
         $rowid = ExperienceDtls::where('userid', Auth::user()->id)->pluck('id');
-        log::info($rowid);
+        //log::info($rowid);
         for($i=0; $i < count($request['expdtl']); ++$i) 
         {
             $update_exp = DB::table('experience_dtls')
@@ -179,12 +179,12 @@ class ProfileController extends Controller
 
     public function updateproj(Request $request) //Projects update
     {
-        log::info($request->all());
+        //log::info($request->all());
         for($i=0; $i < count($request['projectTitle']); ++$i) 
         {
-            log::info('------------------------');
+            //log::info('------------------------');
             $rowid = StudentProjDtls::where('userid', Auth::user()->id)->pluck('id');
-            log::info($rowid);
+            //log::info($rowid);
             $update_proj = DB::table('student_project_dtls')
             ->where('id', $rowid[$i])
             ->update([
