@@ -161,10 +161,10 @@ a.portfolio-link {
             <center>
               <h2><b>
                 Congratulations !!!<br>
-                You have been shorlisted for e-Yantra Summer Internship Program.<br></b></h2>
+                You have been shortlisted for e-Yantra Summer Internship Program.<br></b></h2>
             
               <h4 class="card-title">
-                <b>You are required to submit your complete profile(along with projects you worked on) in order to get assigned to a project.</b> </h4>
+                <b>You are required to submit your complete profile(along with projects you worked on).</b> </h4>
               <br><br>
               <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
