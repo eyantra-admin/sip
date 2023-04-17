@@ -170,6 +170,8 @@ a.portfolio-link {
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
              
               <a href="{!!route('SipRegistration')!!}" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> <br><br>
+
+              <p>Please check your filled profile details <a href="{!! route('ViewMyRegistration', Crypt::encrypt(Auth::user()->id))!!}" target="_blank" class="">here.</a></p>
               </center>
             </div>
           
