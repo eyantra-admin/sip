@@ -117,7 +117,7 @@ class HomeController extends Controller
 
     public static function projectpreference(Request $request)
     {
-        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023)->orderBy('projectname')->get();
+        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         $proj_prefer = StudentProjPrefer ::where('userid', Auth::user()->id)->count();
         if($proj_prefer == 0)
         {
