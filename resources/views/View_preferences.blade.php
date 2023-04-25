@@ -34,11 +34,31 @@
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->userid}}</b></td>
                          <td><b><a href="/ViewMyRegistration/{{Crypt::encrypt($cur->userid)}}" target="_blank">{{ $cur->name}}</a></b></td>
-                        <td><b>{{$cur->P1name}}</b></td>
-                        <td><b>{{$cur->P2name}}</b></td>
-                        <td><b>{{$cur->P3name}}</b></td>
-                        <td><b>{{$cur->P4name}}</b></td>
-                        <td><b>{{$cur->P5name}}</b></td>
+                        <td><b>
+                          <a href="mentorprojectdetail/{{Crypt::encrypt($cur->projectprefer1)}}" target="_blank">
+                            {{$cur->P1name}}
+                          </a>
+                        </b></td>
+                        <td><b>
+                          <a href="mentorprojectdetail/{{Crypt::encrypt($cur->projectprefer2)}}" target="_blank">
+                            {{$cur->P2name}}
+                          </a>  
+                        </b></td>
+                        <td><b>
+                          <a href="mentorprojectdetail/{{Crypt::encrypt($cur->projectprefer3)}}" target="_blank">
+                            {{$cur->P3name}}
+                          </a>  
+                        </b></td>
+                        <td><b>
+                          <a href="mentorprojectdetail/{{Crypt::encrypt($cur->projectprefer4)}}" target="_blank">
+                            {{$cur->P4name}}
+                          </a>  
+                        </b></td>
+                        <td><b>
+                          <a href="mentorprojectdetail/{{Crypt::encrypt($cur->projectprefer5)}}" target="_blank">
+                            {{$cur->P5name}}
+                          </a>
+                        </b></td>    
                         <!-- <td><a href="projectdetail/{{Crypt::encrypt($cur->id)}}" target="_blank">View Detail</a></td> -->
                       </tr>
                       @endforeach
