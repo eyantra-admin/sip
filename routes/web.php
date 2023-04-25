@@ -94,14 +94,7 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	Route::get('final_eval', ['as' => 'final_eval', 'uses' => 'final_evalController@FinalEvaluationResult']);
 	Route::put('final_evalSubmit', ['as' => 'final_evalSubmit', 'uses' => 'final_evalController@FinalEvaluationSubmit']);
 	Route::any('/InternEvalTable', ['as'=>'internevaltable','uses'=>'HomeController@internevaltable'
-	]);
-
-	
-
-	
-
-	
-	
+	]);	
 });
 //MENTOR COMPLETE----------------------------------------------------------------------------
 

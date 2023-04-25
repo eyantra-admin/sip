@@ -362,11 +362,13 @@ class HomeController extends Controller
 
     public static function viewtimeslot(Request $request)
     {
+        $panel_no = UserPanel::where('userid', Auth::user()->id)->value('panelid');
         $result = TimeslotBooking::select('timeslot_booking.panel','timeslot_booking.userid',
             'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots')
         ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
         ->where('u.active', 1)
         ->where('u.year', 2023)
+        ->where('panel', $panel_no)
         ->orderBy('timeslot_booking.date')
         ->get();
         return view('View_timeslot')->with('timeslot', $result);
