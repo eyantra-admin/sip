@@ -358,8 +358,8 @@ class HomeController extends Controller
         ->where('u.active', 1)
         ->where('u.role', 1)
         ->where('u.year', 2023)
-        ->where('panel.userid', $panel)
-        ->orderBy('studentprojprefer.userid')
+        ->where('panel.panelid', $panel)
+        ->orderBy('u.name','asc')
         ->get();
         //log::info($result);
         return view('View_preferences')->with('preference', $result);
