@@ -95,6 +95,9 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	Route::put('final_evalSubmit', ['as' => 'final_evalSubmit', 'uses' => 'final_evalController@FinalEvaluationSubmit']);
 	Route::any('/InternEvalTable', ['as'=>'internevaltable','uses'=>'HomeController@internevaltable'
 	]);	
+
+	//get project details
+	Route::any('/mentorprojectdetail/{projectid}','HomeController@getprojectdetail');
 });
 //MENTOR COMPLETE----------------------------------------------------------------------------
 
@@ -153,7 +156,7 @@ Route::group(['middleware' => ['isStudent','keycloak-web']], function ()
 	Route::put('updateAffiliation', ['as' => 'updateAffiliation', 'uses' => 'ProfileController@updateAffiliation']);
 });
 
-	//get log info
+//get log info
 Route::prefix('admin')->group(function () {
 Route::get('downloadLogFile', 'LogController@downloadLogFile');
 Route::get('viewLogFile', 'LogController@viewLogFile');
