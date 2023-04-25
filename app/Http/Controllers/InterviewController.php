@@ -68,7 +68,7 @@ class InterviewController extends Controller
                             ->where('users.active', 1)
                             ->where('users.year', 2023)
                             ->orderBy('st.date','asc')
-                            ->orderBy('st.id','asc')
+                            ->orderBy('st.availableslots','asc')
                             ->distinct('online_profile_response.id')
                             ->get();
                
