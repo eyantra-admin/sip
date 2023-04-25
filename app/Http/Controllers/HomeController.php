@@ -369,7 +369,8 @@ class HomeController extends Controller
         ->where('u.active', 1)
         ->where('u.year', 2023)
         ->where('panel', $panel_no)
-        ->orderBy('timeslot_booking.date')
+        ->orderBy('timeslot_booking.date', ASC)
+        ->orderBy('timeslot_booking.id', ASC)
         ->get();
         return view('View_timeslot')->with('timeslot', $result);
     }
