@@ -147,12 +147,12 @@
       </li>
       
       
-      <li class="nav-item{{ $activePage == 'InterviewResult' ? ' active' : '' }}">
+      <!-- <li class="nav-item{{ $activePage == 'InterviewResult' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('Evaluation') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('Student Interview') }}</p>
         </a>
-      </li>
+      </li> -->
 
       <li class="nav-item{{ $activePage == 'Progress_Eval' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('Progress_Eval') }}">

@@ -339,24 +339,25 @@ class HomeController extends Controller
 
     public static function viewpreferences(Request $request)
     {
-        $result = StudentProjPrefer::select('studentprojprefer.userid','o.name',
+        $result = StudentProjPrefer::select('studentprojprefer.userid','u.name',
          'studentprojprefer.projectprefer1','p1.projectname as P1name',
          'studentprojprefer.projectprefer2','p2.projectname as P2name', 
          'studentprojprefer.projectprefer3','p3.projectname as P3name',
          'studentprojprefer.projectprefer4','p4.projectname as P4name',
          'studentprojprefer.projectprefer5','p5.projectname as P5name')
-        ->join('online_profile_response as o', 'o.userid', '=', 'studentprojprefer.userid')
+        //->join('online_profile_response as o', 'o.userid', '=', 'studentprojprefer.userid')
+        ->rightjoin('users as u', 'u.id', '=', 'studentprojprefer.userid')
         ->join('projects as p1','p1.id', '=', 'studentprojprefer.projectprefer1')
         ->join('projects as p2','p2.id', '=', 'studentprojprefer.projectprefer2')
         ->join('projects as p3','p3.id', '=', 'studentprojprefer.projectprefer3')
         ->join('projects as p4','p4.id', '=', 'studentprojprefer.projectprefer4')
-        ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
-        ->join('users as u', 'u.id', '=', 'studentprojprefer.userid')
+        ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')        
         ->where('u.active', 1)
+        ->where('u.role', 1)
         ->where('u.year', 2023)
         ->orderBy('studentprojprefer.userid')
         ->get();
-        log::info($result);
+        //log::info($result);
         return view('View_preferences')->with('preference', $result);
     }
 
