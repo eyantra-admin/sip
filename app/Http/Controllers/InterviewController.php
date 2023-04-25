@@ -77,9 +77,14 @@ class InterviewController extends Controller
                                         ->with('user_data', $user_data);
     }
 
-    public function EvaluationResult()
+    public function EvaluationResult($userId)
     {   //$start_date = date('2022-05-01 00:00:00');
-        $students = User::select('id','name')->where('role', 1)->where('year', 2023)->where('active', 1)->orderby('name')->get();
+        if($userId){
+            $students = User::select('id','name')->where('id', $userId)->get();
+        } else {
+            $students = User::select('id','name')->where('role', 1)->where('year', 2023)
+            ->where('active', 1)->orderby('name')->get();
+        }        
         $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         
         return view ('Evaluation')->with('projects', $projects)->with('students', $students);

@@ -48,9 +48,8 @@
                       <label class="col-form-label"><b>{{ __('Time slot Booked:') }}   {{ $stud->availableslots }}</b></label>
                     </div>
                     <div class="row">
-                      <a href="/ViewMyRegistration/{{Crypt::encrypt($stud->userid)}}" target="_blank" class="col-sm-4 col-form-label"><b>{{ __('See Details') }}</b></a>
-
-                      <a href="/EvaluationResult" target="_blank" class="col-sm-4 col-form-label"><b>{{ __('Evaluate') }}</b></a>
+                      <a href="/ViewMyRegistration/{{Crypt::encrypt($stud->userid)}}" target="_blank" class="col-sm-4 col-form-label"><b>{{ __('See Details') }}</b></a>                      
+                      <a href="{!!route('EvaluationResult', $stud->userid)!!}" target="_blank" class="col-sm-4 col-form-label"><b>{{ __('Evaluate') }}</b></a>
                     </div>
                   </div>
                 </div>

@@ -86,7 +86,7 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	Route::any('/viewtimeslot', ['as'=>'viewtimeslot','uses'=>'HomeController@viewtimeslot'
 	]);
 	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
-	Route::get('EvaluationResult', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
+	Route::get('EvaluationResult/{userId}', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
 	Route::put('EvaluationSubmit', ['as' => 'EvaluationSubmit', 'uses' => 'InterviewController@EvaluationSubmit']);
 	Route::get('Progress_Eval', ['as' => 'Progress_Eval', 'uses' => 'Progress_Eval@ProgressEvaluationResult']);
 	// Route::get('EvaluationResult', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
