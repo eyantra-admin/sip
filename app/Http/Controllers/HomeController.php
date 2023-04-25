@@ -339,6 +339,8 @@ class HomeController extends Controller
 
     public static function viewpreferences(Request $request)
     {
+        $panel = UserPanel::where('userid', Auth::user()->id)->value('panelid');//select allocated panel
+
         $result = StudentProjPrefer::select('studentprojprefer.userid','u.name',
          'studentprojprefer.projectprefer1','p1.projectname as P1name',
          'studentprojprefer.projectprefer2','p2.projectname as P2name', 
@@ -351,10 +353,12 @@ class HomeController extends Controller
         ->leftjoin('projects as p2','p2.id', '=', 'studentprojprefer.projectprefer2')
         ->leftjoin('projects as p3','p3.id', '=', 'studentprojprefer.projectprefer3')
         ->leftjoin('projects as p4','p4.id', '=', 'studentprojprefer.projectprefer4')
-        ->leftjoin('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')        
+        ->leftjoin('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
+        ->leftjoin('user_panel as panel', 'u.id', '=', 'panel.userid')        
         ->where('u.active', 1)
         ->where('u.role', 1)
         ->where('u.year', 2023)
+        ->where('panel.userid', $panel)
         ->orderBy('studentprojprefer.userid')
         ->get();
         //log::info($result);
