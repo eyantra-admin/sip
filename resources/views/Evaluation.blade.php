@@ -172,7 +172,7 @@
                   <ul style="list-style-type: decimal;">
                       <li>{{$panel_eval->p1_name}}</li>
                       <li>{{$panel_eval->p2_name}}</li>
-                      <li>{{$panel_eval->p2_name}}</li>
+                      <li>{{$panel_eval->p3_name}}</li>
                   </ul>
                   <ul style="list-style-type: circle;">
                       <li><b>Decision:</b> {{$panel_eval->decision}}</li>
