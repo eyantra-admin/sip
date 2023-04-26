@@ -52,7 +52,7 @@
                 <label class="col-sm-2 col-form-label">{{ __('Student Name') }}</label>
                 <div class="col-sm-7">
                   <select class="form-control" name="studentname" id="studentname" required>
-                    <option hidden value="0">Select Student Name</option>
+                    <option hidden value="">Select Student Name</option>
                       @foreach($students as $student)
                         <option value="{{ $student->id }}">{{ $student->name }}</option>
                       @endforeach
@@ -101,7 +101,7 @@
                 <div class="col-sm-7">
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                     <select class="form-control" name="projectpref1" id="projectpref1" required>
-                      <option hidden value="0">Select your first project preference</option>
+                      <option hidden value="">Select your first project preference</option>
                       @foreach($projects as $project)
                         <option value="{{$project->id}}" {{old('projectpref1') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
@@ -113,7 +113,7 @@
                 <label class="col-sm-2 col-form-label">{{ __('Project 2') }}</label>
                 <div class="col-sm-7">
                     <select class="form-control" name="projectpref2" id="projectpref2" required>
-                      <option hidden value="0">Select your second project preference</option>
+                      <option hidden value="">Select your second project preference</option>
                       @foreach($projects as $project)
                         <option value="{{$project->id}}" {{old('projectpref2') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
@@ -124,7 +124,7 @@
                 <label class="col-sm-2 col-form-label">{{ __('Project 3') }}</label>
                 <div class="col-sm-7">
                     <select class="form-control" name="projectpref3" id="projectpref3">
-                      <option hidden value="0">Select your third project preference</option>
+                      <option hidden value="">Select your third project preference</option>
                       @foreach($projects as $project)
                         <option value="{{$project->id}}" {{old('projectpref3') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach

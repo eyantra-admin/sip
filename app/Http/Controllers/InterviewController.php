@@ -24,6 +24,7 @@ use Config;
 use Storage;
 use PDF;
 use DataTables;
+use Redirect;
 
 
 class InterviewController extends Controller
@@ -128,17 +129,39 @@ class InterviewController extends Controller
     }
     public function EvaluationSubmit(Request $request)
     {
-        log::info($request->all());
-       $stud = StudentEvaluation::updateOrCreate(
-            ['userid' =>  $request->studentname],
-            ['projectpref1' => $request->projectpref1, 
-            'projectpref2' => $request->projectpref2, 
-            'projectpref3' => $request->projectpref3,  
-            'decision' => $request->decision,
-            'technicalstrength' => $request->technicalstrength,
-            'remark' => $request->remark]
-        );
-       return back()->withStatus(__('Student evaluation done successfully.'));
+        
+        $validator = Validator::make($request->all(), [
+            'studentname' => 'required',
+            'projectpref1' => 'required',
+            'projectpref2' => 'required',
+            'projectpref3' => 'required',                 
+        ],[
+            'studentname.required' => 'Please Select Student name',
+            'projectpref1.required' =>  'Please select Project 1',
+            'projectpref2.required' =>  'Please select Project 2',
+            'projectpref3.required' =>  'Please select Project 3',
+        ]);
+
+        if($validator->fails())
+        {
+            return Redirect::back()->withErrors($validator);
+        } else {
+
+            //log::info($request->all());
+            $stud = StudentEvaluation::updateOrCreate([
+                'userid' =>  $request->studentname
+            ],[
+                'projectpref1' => $request->projectpref1, 
+                'projectpref2' => $request->projectpref2, 
+                'projectpref3' => $request->projectpref3,  
+                'decision' => $request->decision,
+                'technicalstrength' => $request->technicalstrength,
+                'remark' => $request->remark
+            ]);
+
+            return back()->withStatus(__('Student evaluation done successfully.'));
+
+        }        
    }
    
 }
