@@ -82,6 +82,7 @@ class InterviewController extends Controller
         if($userId){
             $students = User::select('id','name')->where('id', $userId)->get();
 
+            //student project preferences
             if(StudentProjPrefer::where('userid', $userId)->exists()) {                
                 $preferences = StudentProjPrefer::select(
                         'p1.id as p1_id','p1.projectname as p1_name',
@@ -100,6 +101,21 @@ class InterviewController extends Controller
             } else {
                 $preferences = null;
             }   
+
+            //evaluation by panel
+            if(StudentEvaluation::where('userid', $userId)->exists()){
+                $panel_eval = StudentEvaluation::select(
+                        'p1.id as p1_id','p1.projectname as p1_name',
+                        'p2.id as p2_id','p2.projectname as p2_name',
+                        'p3.id as p3_id','p3.projectname as p3_name','decision','technicalstrength','remark'
+                    )->join('projects as p1','p1.id', '=', 'student_evaluation.projectpref1')
+                    ->join('projects as p2','p2.id', '=', 'student_evaluation.projectpref2')
+                    ->join('projects as p3','p3.id', '=', 'student_evaluation.projectpref3')
+                    ->where('student_evaluation.userid', '=', $userId)
+                    ->first();
+            } else {
+                $panel_eval = null;
+            }
         } else {
             $students = User::select('id','name')->where('role', 1)->where('year', 2023)
             ->where('active', 1)->orderby('name')->get();
@@ -108,7 +124,7 @@ class InterviewController extends Controller
         }        
         $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         
-        return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('preferences', $preferences);
+        return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('preferences', $preferences)->with('panel_eval', $panel_eval);
     }
     public function EvaluationSubmit(Request $request)
     {

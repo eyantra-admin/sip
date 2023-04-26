@@ -162,6 +162,27 @@
                 </div>
               </div>
               
+              @if($panel_eval != null)
+              <div class="row my-4 teal lighten-2">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-7">
+                  <p>Panel Decision:</p>
+                  <p>(If you want to edit/update, Please fill it again and save)</p>
+                  Project Preferences decided by Panel:
+                  <ul style="list-style-type: decimal;">
+                      <li>{{$panel_eval->p1_name}}</li>
+                      <li>{{$panel_eval->p2_name}}</li>
+                      <li>{{$panel_eval->p2_name}}</li>
+                  </ul>
+                  <ul style="list-style-type: circle;">
+                      <li><b>Decision:</b> {{$panel_eval->decision}}</li>
+                      <li><b>Technical Strenth:</b> {{$panel_eval->technicalstrength}}</li>                     
+                  </ul>
+                  <p>{{$panel_eval->remark}}</p>
+                </div>                    
+              </div>
+              @endif
+
               <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
               </div>
