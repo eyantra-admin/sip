@@ -64,32 +64,34 @@
                   <div class="row my-4">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-7">
-                        <p>Students Project Preferences:</p>
-                        <ul style="list-style-type: decimal;">
-                            <li>
-                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p1_id)}}" target="_blank"> {{$preferences->p1_name}}
-                              </a>
-                            </li>
-                            <li>
-                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p2_id)}}" target="_blank">
-                              {{$preferences->p2_name}}
-                              </a>
-                            </li>
-                            <li>
-                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p3_id)}}" target="_blank">
-                              {{$preferences->p3_name}}
-                              </a>
-                            </li>
-                            <li>
-                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p4_id)}}" target="_blank">
-                              {{$preferences->p4_name}}
-                              </a>
-                            </li>
-                            <li>
-                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p5_id)}}" target="_blank">
-                              {{$preferences->p5_name}}</a>
-                            </li>
-                        </ul>
+                        <div class="p-2" style="background-color:#ffcdd2;">
+                          <p>Students Project Preferences:</p>
+                          <ul style="list-style-type: decimal;">
+                              <li>
+                                <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p1_id)}}" target="_blank"> {{$preferences->p1_name}}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p2_id)}}" target="_blank">
+                                {{$preferences->p2_name}}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p3_id)}}" target="_blank">
+                                {{$preferences->p3_name}}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p4_id)}}" target="_blank">
+                                {{$preferences->p4_name}}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p5_id)}}" target="_blank">
+                                {{$preferences->p5_name}}</a>
+                              </li>
+                          </ul>
+                        </div>  
                     </div>                    
                   </div>
               @endif
@@ -163,10 +165,10 @@
               </div>
               
               @if($panel_eval != null)
-              <div class="row my-4 teal lighten-2">
+              <div class="row my-4">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-7">
-                  <p>Panel Decision:</p>
+                <div class="col-sm-7 p-2" style="background-color:#ffcdd2;">
+                  <p><b>Panel Decision:</b></p>
                   <p>(If you want to edit/update, Please fill it again and save)</p>
                   Project Preferences decided by Panel:
                   <ul style="list-style-type: decimal;">
