@@ -81,13 +81,34 @@ class InterviewController extends Controller
     {   //$start_date = date('2022-05-01 00:00:00');
         if($userId){
             $students = User::select('id','name')->where('id', $userId)->get();
+
+            if(StudentProjPrefer::where('userid', $userId)->exists()) {                
+                $preferences = StudentProjPrefer::select(
+                        'p1.id as p1_id','p1.projectname as p1_name',
+                        'p2.id as p2_id','p2.projectname as p2_name',
+                        'p3.id as p3_id','p3.projectname as p3_name',
+                        'p4.id as p4_id','p4.projectname as p4_name',
+                        'p5.id as p5_id','p5.projectname as p5_name'
+                    )->join('projects as p1','p1.id', '=', 'studentprojprefer.projectprefer1')
+                    ->join('projects as p2','p2.id', '=', 'studentprojprefer.projectprefer2')
+                    ->join('projects as p3','p3.id', '=', 'studentprojprefer.projectprefer3')
+                    ->join('projects as p4','p4.id', '=', 'studentprojprefer.projectprefer4')
+                    ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
+                    ->where('studentprojprefer.userid', '=', $userId)
+                    ->first();
+                // exists
+            } else {
+                $preferences = null;
+            }   
         } else {
             $students = User::select('id','name')->where('role', 1)->where('year', 2023)
             ->where('active', 1)->orderby('name')->get();
+
+            $preferences = null;
         }        
         $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         
-        return view ('Evaluation')->with('projects', $projects)->with('students', $students);
+        return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('preferences', $preferences);
     }
     public function EvaluationSubmit(Request $request)
     {

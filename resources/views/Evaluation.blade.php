@@ -35,7 +35,7 @@
           </div>
         </div>
       @endif
-
+     
       <div class="col-md-12" style="margin-top: 100px">
         <form method="post" action="{{ route('EvaluationSubmit') }}" autocomplete="off" class="form-horizontal">
           @csrf
@@ -59,6 +59,40 @@
                   </select>
                 </div>
               </div>
+
+              @if($preferences != null)
+                  <div class="row my-4">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-7">
+                        <p>Students Project Preferences:</p>
+                        <ul style="list-style-type: decimal;">
+                            <li>
+                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p1_id)}}" target="_blank"> {{$preferences->p1_name}}
+                              </a>
+                            </li>
+                            <li>
+                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p2_id)}}" target="_blank">
+                              {{$preferences->p2_name}}
+                              </a>
+                            </li>
+                            <li>
+                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p3_id)}}" target="_blank">
+                              {{$preferences->p3_name}}
+                              </a>
+                            </li>
+                            <li>
+                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p4_id)}}" target="_blank">
+                              {{$preferences->p4_name}}
+                              </a>
+                            </li>
+                            <li>
+                              <a href="../mentorprojectdetail/{{Crypt::encrypt($preferences->p5_id)}}" target="_blank">
+                              {{$preferences->p5_name}}</a>
+                            </li>
+                        </ul>
+                    </div>                    
+                  </div>
+              @endif
 
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 1') }}</label>
