@@ -779,4 +779,19 @@ class HomeController extends Controller
 
         
    }
+
+   public function getProjectPrefernceByPanel(Request $request){
+        $data = DB::table('projects')            
+            ->select(DB::raw('
+                projects.id, projects.projectname, projects.interns_required,
+                (select count(*) from student_evaluation where projects.id = student_evaluation.projectpref1) as p1_count,
+                (select count(*) from student_evaluation where projects.id = student_evaluation.projectpref2) as p2_count,
+                (select count(*) from student_evaluation where projects.id = student_evaluation.projectpref3) as p3_count
+            '))
+            ->where('active',1)
+            ->where('year', 2023)            
+            ->get();
+
+        return view('projectPreferenceByPanel')->with('projects', $data);
+   }
 }

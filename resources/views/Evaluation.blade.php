@@ -96,6 +96,13 @@
                   </div>
               @endif
 
+              <div class="row my-4">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-7 alert alert-warning" role="alert">
+                        <p>Before filling project preferences, Please check <a class="text-info" href="{!!route('prjPreferenceByPanel')!!}" target="_blank">project list, required interns and number of interns assigned by panel</a> for the projects.</p>
+                    </div>                    
+                  </div>
+
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 1') }}</label>
                 <div class="col-sm-7">
