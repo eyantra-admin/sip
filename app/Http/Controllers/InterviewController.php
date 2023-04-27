@@ -146,7 +146,13 @@ class InterviewController extends Controller
         {
             return Redirect::back()->withErrors($validator);
         } else {
+            $mentorPanel = UserPanel::where('userid', Auth::user()->id)->value('panelid');
+            $studentPanel = UserPanel::where('userid', $request->studentname)->value('panelid');
 
+            if($mentorPanel != $studentPanel){
+                return back()->withErrors(__('This is not assigned to your Panel. Not allowed.'));
+            }
+            
             //log::info($request->all());
             $stud = StudentEvaluation::updateOrCreate([
                 'userid' =>  $request->studentname
