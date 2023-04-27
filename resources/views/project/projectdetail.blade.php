@@ -56,6 +56,7 @@
                     <ul>
                         @foreach ($p1_list as $student)
                           <li>
+                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">Profile</a> |
                             <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
                             @if($student->decision === 'Yes')
                               <span class="badge bg-success">{{$student->decision}}</span>
@@ -78,6 +79,7 @@
                     <ul>
                         @foreach ($p2_list as $student)
                           <li>
+                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">Profile</a> |
                             <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
                             @if($student->decision === 'Yes')
                               <span class="badge bg-success">{{$student->decision}}</span>
@@ -100,6 +102,7 @@
                     <ul>
                         @foreach ($p3_list as $student)
                           <li>
+                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">Profile</a> |
                             <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
                             @if($student->decision === 'Yes')
                               <span class="badge bg-success">{{$student->decision}}</span>
