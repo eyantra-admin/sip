@@ -47,6 +47,43 @@
           
           </div>
         </div>
+
+        @if(Auth::user()->role == 2 || Auth::user()->role == 3)
+          <div class="row">
+              @if($p1_list != null && count($p1_list) >= 1)
+                 <div class="col-xs-6 col-md-4 card p-2">
+                    <p>Panel's Preference 1 Students</p>
+                    <ul>
+                        @foreach ($p1_list as $student)
+                          <li><a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a></li>
+                        @endforeach  
+                    </ul>
+                 </div>
+              @endif 
+
+              @if($p2_list != null && count($p2_list) >= 1)
+                 <div class="col-xs-6 col-md-4 card p-2">
+                    <p>Panel's Preference 2 Students</p>
+                    <ul>
+                        @foreach ($p2_list as $student)
+                          <li><a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a></li>
+                        @endforeach  
+                    </ul>
+                 </div>
+              @endif
+
+              @if($p3_list != null && count($p3_list) >= 1)
+                 <div class="col-xs-6 col-md-4 card p-2">
+                    <p>Panel's Preference 3 Students</p>
+                    <ul>
+                        @foreach ($p3_list as $student)
+                          <li><a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a></li>                  
+                        @endforeach  
+                    </ul>
+                 </div>
+              @endif
+          </div>    
+        @endif  
     </div>
   </div>
 

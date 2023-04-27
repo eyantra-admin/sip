@@ -229,10 +229,34 @@ class HomeController extends Controller
     {
         //log::info($projectid);
         $getproject_dtl = Projects::where('id',Crypt::decrypt($projectid))->first();
-        //$getproject_dtl = Projects::where('id', $projectid)->first();
-        //log::info($getproject_dtl);
+        
+        if(Auth::user()->role == 2 || Auth::user()->role == 3){
+            $p1_student_list = DB::table('users')
+                ->join('student_evaluation', 'users.id', '=', 'student_evaluation.userid')
+                ->where('projectpref1', Crypt::decrypt($projectid))
+                ->select('users.id','name')
+                ->get();
+
+            $p2_student_list = DB::table('users')
+                ->join('student_evaluation', 'users.id', '=', 'student_evaluation.userid')
+                ->where('projectpref2', Crypt::decrypt($projectid))
+                ->select('users.id','name')
+                ->get();
+
+            $p3_student_list = DB::table('users')
+                ->join('student_evaluation', 'users.id', '=', 'student_evaluation.userid')
+                ->where('projectpref3', Crypt::decrypt($projectid))
+                ->select('users.id','name')
+                ->get();        
+        } else {
+            $p1_student_list = null;
+            $p2_student_list = null;
+            $p3_student_list = null;
+        }
+        
         return view('project.projectdetail')
-        ->with('projectdtl', $getproject_dtl);
+            ->with('projectdtl', $getproject_dtl)
+            ->with(['p1_list' => $p1_student_list, 'p2_list' => $p2_student_list, 'p3_list' => $p3_student_list]);
 
     }
 
