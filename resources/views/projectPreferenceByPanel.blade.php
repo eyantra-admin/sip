@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'View_projects', 'titlePage' => __('Project Preference By Panel')])
+@extends('layouts.app', ['activePage' => 'prjPreferenceByPanel', 'titlePage' => __('Project Preference By Panel')])
 
 @section('content')
 <div class="content">

@@ -133,10 +133,16 @@
       </li>
       
     
-      <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
+      <!-- <li class="nav-item{{ $activePage == 'viewpreferences' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('viewpreferences') }}">
           <i class="material-icons">content_paste</i>
             <p>{{ __('View Project Preferences') }}</p>
+        </a>
+      </li> -->
+      <li class="nav-item{{ $activePage == 'prjPreferenceByPanel' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('prjPreferenceByPanel') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View Projects') }}</p>
         </a>
       </li>
       <li class="nav-item{{ $activePage == 'viewtimeslot' ? ' active' : '' }}">
