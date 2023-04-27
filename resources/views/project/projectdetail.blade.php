@@ -55,7 +55,18 @@
                     <p>Panel's Preference 1 Students</p>
                     <ul>
                         @foreach ($p1_list as $student)
-                          <li><a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a></li>
+                          <li>
+                            <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
+                            @if($student->decision === 'Yes')
+                              <span class="badge bg-success">{{$student->decision}}</span>
+                            @endif  
+                            @if($student->decision === 'No')
+                              <span class="badge bg-danger">{{$student->decision}}</span>
+                            @endif
+                            @if($student->decision === 'May Be')
+                              <span class="badge bg-info">{{$student->decision}}</span>
+                            @endif
+                          </li>
                         @endforeach  
                     </ul>
                  </div>
@@ -66,7 +77,18 @@
                     <p>Panel's Preference 2 Students</p>
                     <ul>
                         @foreach ($p2_list as $student)
-                          <li><a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a></li>
+                          <li>
+                            <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
+                            @if($student->decision === 'Yes')
+                              <span class="badge bg-success">{{$student->decision}}</span>
+                            @endif  
+                            @if($student->decision === 'No')
+                              <span class="badge bg-danger">{{$student->decision}}</span>
+                            @endif
+                            @if($student->decision === 'May Be')
+                              <span class="badge bg-info">{{$student->decision}}</span>
+                            @endif
+                          </li>
                         @endforeach  
                     </ul>
                  </div>
@@ -77,7 +99,18 @@
                     <p>Panel's Preference 3 Students</p>
                     <ul>
                         @foreach ($p3_list as $student)
-                          <li><a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a></li>                  
+                          <li>
+                            <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
+                            @if($student->decision === 'Yes')
+                              <span class="badge bg-success">{{$student->decision}}</span>
+                            @endif  
+                            @if($student->decision === 'No')
+                              <span class="badge bg-danger">{{$student->decision}}</span>
+                            @endif
+                            @if($student->decision === 'May Be')
+                              <span class="badge bg-info">{{$student->decision}}</span>
+                            @endif
+                          </li>                  
                         @endforeach  
                     </ul>
                  </div>

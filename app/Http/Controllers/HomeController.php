@@ -234,19 +234,19 @@ class HomeController extends Controller
             $p1_student_list = DB::table('users')
                 ->join('student_evaluation', 'users.id', '=', 'student_evaluation.userid')
                 ->where('projectpref1', Crypt::decrypt($projectid))
-                ->select('users.id','name')
+                ->select('users.id','name','decision')
                 ->get();
 
             $p2_student_list = DB::table('users')
                 ->join('student_evaluation', 'users.id', '=', 'student_evaluation.userid')
                 ->where('projectpref2', Crypt::decrypt($projectid))
-                ->select('users.id','name')
+                ->select('users.id','name','decision')
                 ->get();
 
             $p3_student_list = DB::table('users')
                 ->join('student_evaluation', 'users.id', '=', 'student_evaluation.userid')
                 ->where('projectpref3', Crypt::decrypt($projectid))
-                ->select('users.id','name')
+                ->select('users.id','name','decision')
                 ->get();        
         } else {
             $p1_student_list = null;
