@@ -49,7 +49,7 @@
         </div>
 
         @if(Auth::user()->role == 2 || Auth::user()->role == 3)
-          <div class="row">
+          <div class="row gx-2">
               @if($p1_list != null && count($p1_list) >= 1)
                  <div class="col-xs-6 col-md-4 card p-2">
                     <p>Panel's Preference 1 Students</p>
