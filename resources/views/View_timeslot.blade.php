@@ -23,10 +23,11 @@
                   <th><b>Panel No</b></th>
                   <!-- <th><b>User Id</b></th> -->
                   <th><b>Intern Name</b></th>
-                  <th><b>Email Id</b></th>
+                  <!-- <th><b>Email Id</b></th> -->
                   <th><b>Interview Date</b></th>
                   <th><b>Time Slot Booked</b></th>
                   <th><b>Evaluate</b></th>
+                  <th><b>Panel Decision</b></th>
                 </thead>
                 
                     <tbody>
@@ -36,10 +37,24 @@
                         <td><b>{{$cur->panel}}</b></td>
                         <!-- <td><b>{{$cur->userid}}</b></td> -->
                         <td>{{$cur->userid}} | <b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank">{{ $cur->name}}</a></b></td>
-                        <td><b>{{$cur->email}}</b></td>
+                        <!-- <td><b>{{$cur->email}}</b></td> -->
                         <td><b>{{$cur->date}}</b></td>
                         <td><b>{{$cur->availableslots}}</b></td>
                         <td><b><a href="{!!route('EvaluationResult', $cur->userid)!!}" target="_blank">Evaluate</a></b></td>
+                        <td>
+                            @if($cur->decision === 'Yes')
+                              <span class="badge bg-success">{{$cur->decision}}</span>
+                            @endif  
+                            @if($cur->decision === 'No')
+                              <span class="badge bg-error">{{$cur->decision}}</span>
+                            @endif
+                            @if($cur->decision === 'May Be')
+                              <span class="badge bg-info">{{$cur->decision}}</span>
+                            @endif
+                            @if($cur->decision === null)
+                              <span class="badge bg-warning">Yet to evaluate</span>
+                            @endif
+                        </td>
                       </tr>
                       @endforeach
                     </tbody>

@@ -393,8 +393,9 @@ class HomeController extends Controller
     {
         $panel_no = UserPanel::where('userid', Auth::user()->id)->value('panelid');
         $result = TimeslotBooking::select('timeslot_booking.panel','timeslot_booking.userid',
-            'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots')
+            'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots','eval.decision')
         ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
+        ->leftjoin('student_evaluation as eval', 'eval.userid', '=', 'u.id')
         ->where('u.active', 1)
         ->where('u.year', 2023)
         ->where('panel', $panel_no)
