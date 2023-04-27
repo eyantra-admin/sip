@@ -46,7 +46,7 @@
                               <span class="badge bg-success">{{$cur->decision}}</span>
                             @endif  
                             @if($cur->decision === 'No')
-                              <span class="badge bg-error">{{$cur->decision}}</span>
+                              <span class="badge bg-danger">{{$cur->decision}}</span>
                             @endif
                             @if($cur->decision === 'May Be')
                               <span class="badge bg-info">{{$cur->decision}}</span>
