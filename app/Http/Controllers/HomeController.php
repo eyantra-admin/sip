@@ -818,6 +818,7 @@ class HomeController extends Controller
                 (select count(*) from student_evaluation where projects.id = student_evaluation.projectpref2) as p2_count,
                 (select count(*) from student_evaluation where projects.id = student_evaluation.projectpref3) as p3_count
             '))
+            ->where('projects.id', '!=', 0)
             ->where('active',1)
             ->where('year', 2023)            
             ->get();
