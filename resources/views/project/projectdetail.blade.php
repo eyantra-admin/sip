@@ -56,8 +56,8 @@
                     <ul>
                         @foreach ($p1_list as $student)
                           <li>
-                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">Profile</a> |
-                            <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
+                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">{{$student->name}}</a> |
+                            <a href="{!!route('EvaluationResult', $student->id)!!}">Panel Remark</a>
                             @if($student->decision === 'Yes')
                               <span class="badge bg-success">{{$student->decision}}</span>
                             @endif  
@@ -79,8 +79,8 @@
                     <ul>
                         @foreach ($p2_list as $student)
                           <li>
-                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">Profile</a> |
-                            <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
+                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">{{$student->name}}</a> |
+                            <a href="{!!route('EvaluationResult', $student->id)!!}">Panel Remark{{$student->name}}</a>
                             @if($student->decision === 'Yes')
                               <span class="badge bg-success">{{$student->decision}}</span>
                             @endif  
@@ -102,8 +102,8 @@
                     <ul>
                         @foreach ($p3_list as $student)
                           <li>
-                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">Profile</a> |
-                            <a href="{!!route('EvaluationResult', $student->id)!!}">{{$student->name}}</a>
+                            <a target="_blank" href="{!!route('ViewMyRegistration', Crypt::encrypt($student->id))!!}">{{$student->name}}</a> |
+                            <a href="{!!route('EvaluationResult', $student->id)!!}">Panel Remark</a>
                             @if($student->decision === 'Yes')
                               <span class="badge bg-success">{{$student->decision}}</span>
                             @endif  

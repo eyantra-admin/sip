@@ -83,7 +83,7 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	
 	Route::any('/viewpreferences', ['as'=>'viewpreferences','uses'=>'HomeController@viewpreferences'
 	]);
-	Route::any('/viewtimeslot', ['as'=>'viewtimeslot','uses'=>'HomeController@viewtimeslot'
+	Route::any('/viewtimeslot/{id?}', ['as'=>'viewtimeslot','uses'=>'HomeController@viewtimeslot'
 	]);
 	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
 	Route::get('EvaluationResult/{userId}', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);

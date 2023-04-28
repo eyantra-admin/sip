@@ -389,9 +389,14 @@ class HomeController extends Controller
         return view('View_preferences')->with('preference', $result);
     }
 
-    public static function viewtimeslot(Request $request)
+    public static function viewtimeslot(Request $request, $panelId = null)
     {
-        $panel_no = UserPanel::where('userid', Auth::user()->id)->value('panelid');
+        if($panelId != null && $panelId < 6){
+            $panel_no = $panelId;
+        } else {
+            $panel_no = UserPanel::where('userid', Auth::user()->id)->value('panelid');
+        }
+
         $result = TimeslotBooking::select('timeslot_booking.panel','timeslot_booking.userid',
             'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots','eval.decision')
         ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
