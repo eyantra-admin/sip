@@ -398,9 +398,10 @@ class HomeController extends Controller
         }
 
         $result = TimeslotBooking::select('timeslot_booking.panel','timeslot_booking.userid',
-            'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots','eval.decision')
+            'u.name','u.email', 'timeslot_booking.date','timeslot_booking.availableslots','eval.decision','profile.branch')
         ->join('users as u', 'u.id', '=', 'timeslot_booking.userid')
         ->leftjoin('student_evaluation as eval', 'eval.userid', '=', 'u.id')
+        ->join('online_profile_response as profile', 'u.id', '=', 'profile.userid')
         ->where('u.active', 1)
         ->where('u.year', 2023)
         ->where('panel', $panel_no)
