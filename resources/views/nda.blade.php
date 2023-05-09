@@ -43,14 +43,13 @@
              <li>Understand that, NO material, data or information is to be copied/replicated/reproduced or stored without written permission of e-Yantra, IIT Bombay and the contents thereof must not be imparted/disseminated or disclosed for any unauthorized purpose and/or usage or any other reason whatsoever on any version control platforms like GitHub, Bitbucket etc.</li>
              <li>Understand that Indian Institute of Technology Bombay and e-Yantra shall own all the code and content which is created during eYSIP or as a result thereof.</li>
              <li>Understand that logos of e-Yantra and IIT Bombay shall not be used/utilized for/in any promotional or other event/activity by the student. Any use of the e-Yantra name/logo in any manner whatsoever needs prior written approval from the e-Yantra project, IIT Bombay.</li>
-             <li>Understand that I am not allowed to claim employment with e-Yantra or IIT Bombay on online social media platforms such as Facebook, LinkedIn etc without prior approval from e-Yantra. I am, however, allowed to claim association with e-Yantra as an e-YIP Intern between the time frame of June 2022 - July 2022.</li>
+             <li>Understand that I am not allowed to claim employment with e-Yantra or IIT Bombay on online social media platforms such as Facebook, LinkedIn etc without prior approval from e-Yantra. I am, however, allowed to claim association with e-Yantra as an e-YIP Intern between the time frame of June 2023 - July 2023.</li>
              <li>Understand that eYSIP is a full-time commitment and I need to put in at least 40 hours of work per week. I also understand that I am not allowed to participate in any other internship/job while being an active eYSIP intern.</li>
              <li>Understand that I am not eligible for a ‘Letter of Recommendation’ from any of the e-Yantra team members</li>
              <li>Understand that all data, forms, feedbacks etc. I partake during the internship can be used for research and educational purpose by e-Yantra, IIT Bombay.</li>
              <li>Understand that copyright of work products that arise out of my/our work for the project will be held by and shall vest in e-Yantra, IIT Bombay.</li>
              <li>Any publication arising from the work under eYSIP shall be duly acknowledged in a form and manner to the satisfaction of e-Yantra team, IIT Bombay and only submitted for publication after taking due written permission.</li>
-             <li>Accept that if project assigned to me is in-person, I must be available in Mumbai to work in e-Yantra Lab at IITB campus for the duration of the internship.</li>
-             <li>Understand that I must make arrangements for my own boarding and lodging in case an in-person project is assigned to me.</li>
+             <li>Accept that I must be available in Mumbai to work in e-Yantra Lab at IITB campus for the duration of the internship.</li>             
              <li>Will not hold e-Yantra IITB responsible in case of any mishaps, injury or loss of property during the period of internship.</li>             
            </ol>
           </b></h4>
@@ -119,14 +118,13 @@
              <li>Understand that, NO material, data or information is to be copied/replicated/reproduced or stored without written permission of e-Yantra, IIT Bombay and the contents thereof must not be imparted/disseminated or disclosed for any unauthorized purpose and/or usage or any other reason whatsoever on any version control platforms like GitHub, Bitbucket etc.</li>
              <li>Understand that Indian Institute of Technology Bombay and e-Yantra shall own all the code and content which is created during eYSIP or as a result thereof.</li>
              <li>Understand that logos of e-Yantra and IIT Bombay shall not be used/utilized for/in any promotional or other event/activity by the student. Any use of the e-Yantra name/logo in any manner whatsoever needs prior written approval from the e-Yantra project, IIT Bombay.</li>
-             <li>Understand that I am not allowed to claim employment with e-Yantra or IIT Bombay on online social media platforms such as Facebook, LinkedIn etc without prior approval from e-Yantra. I am, however, allowed to claim association with e-Yantra as an e-YSIP Intern between the time frame of June 2022 - July 2022. </li>
+             <li>Understand that I am not allowed to claim employment with e-Yantra or IIT Bombay on online social media platforms such as Facebook, LinkedIn etc without prior approval from e-Yantra. I am, however, allowed to claim association with e-Yantra as an e-YSIP Intern between the time frame of June 2023 - July 2023. </li>
              <li>Understand that eYSIP is a full-time commitment and I need to put in at least 40 hours of work per week. I also understand that I am not allowed to participate in any other internship/job while being an active eYSIP intern.</li>
              <li>Understand that I am not eligible for a ‘Letter of Recommendation’ from any of the e-Yantra team members</li>
              <li>Understand that copyright of work products that arise out of my/our work for the project will be held by and shall vest in e-Yantra, IIT Bombay.</li>
              <li>Understand that all data, forms, feedbacks, etc. I partake during the competition can be used for research and educational purposes by e-Yantra, IIT Bombay.</li>
              <li>Any publication arising from the work under eYSIP shall be duly acknowledged in a form and manner to the satisfaction of e-Yantra team, IIT Bombay and only submitted for publication after taking due written permission.</li>
-             <li>Accept that if project assigned to me is in-person, I must be available in Mumbai to work in e-Yantra Lab at IITB campus for the duration of the internship.</li>
-             <li>Understand that I must make arrangements for my own boarding and lodging in case an in-person project is assigned to me.</li>
+             <li>Accept that I must be available in Mumbai to work in e-Yantra Lab at IITB campus for the duration of the internship.</li>
              <li>Will not hold e-Yantra IITB responsible in case of any mishaps, injury or loss of property during the period of internship.</li>
            </ol>
 

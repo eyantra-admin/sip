@@ -179,7 +179,7 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 
 	//authenticated
 	Route::get('get-payment-info','PaymentController@getPaymentInfo')->name('paymentpage')->middleware('auth');
-	Route::post('make-payment','PaymentController@makePayment')->middleware('auth');
+	Route::post('make-payment','PaymentController@makePayment')->name('make-payment')->middleware('auth');
 
 	//for admin use
 	Route::get('/fetchrecon/{user_id}','PaymentController@reconciliationForUser'); //request server for ir response

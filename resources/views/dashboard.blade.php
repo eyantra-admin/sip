@@ -130,12 +130,12 @@ a.portfolio-link {
 @section('content')
   <div class="content">
     <div class="container-fluid">
-       @if($errors->any())
-      <div class="alert alert-danger" role='alert'>
-      @foreach($errors->all() as $error)
-      <p>{!!$error!!}</p>
-      @endforeach
-      </div>
+        @if($errors->any())
+          <div class="alert alert-danger" role='alert'>
+            @foreach($errors->all() as $error)
+              <p>{!!$error!!}</p>
+            @endforeach
+          </div>
       <hr/>
       @endif
 
@@ -156,77 +156,90 @@ a.portfolio-link {
         <div class="card-header card-header-warning">
           <b>Welcome to e-Yantra Summer Internship Program</b>
         </div>
+        
         @if($form_submitted != 1 and Auth::user()->role == 1)
           <div class="card-body">
             <center>
               <h2><b>
                 Congratulations !!!<br>
-                You have been shortlisted for e-Yantra Summer Internship Program.<br></b></h2>
+                You have been shortlisted for e-Yantra Summer Internship Program.<br></b>
+              </h2>
             
               <h4 class="card-title">
-                <b>You are required to submit your complete profile(along with projects you worked on).</b> </h4>
+                <b>You are required to submit your complete profile(along with projects you worked on).</b> 
+              </h4>
               <br><br>
+              
               <p class="card-text" style="color: Red"><b>NOTE:</b> Please note that, the information once filled cannot be changed/modified later. We will proceed with the information you submit here.</p>
               <p>Note: Please be very precise in adding description of the questions asked in the form.</p>
              
-              <a href="{!!route('SipRegistration')!!}" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> <br><br>
+              <a href="{!!route('SipRegistration')!!}" class="btn btn-primary" style="width: 200px;">Fill Profile Form</a> 
+              <br><br>
 
               <p>Please check your filled profile details <a href="{!! route('ViewMyRegistration', Crypt::encrypt(Auth::user()->id))!!}" target="_blank" class="">here.</a></p>
-              </center>
-            </div>
-          
+            </center>
+          </div>          
         @endif 
+
         @if($form_submitted == 1 and Auth::user()->role == 1)
-        <center>
+          <center>
             <div class="card-body">
               <h4 class="card-title"><b>Profile submission done successfully.</b> <br><br>
                 <p>To view your registration, click the below button</p>
               </h4>
               <!-- <a href="{!! route('ViewMyRegistration', Crypt::encrypt(Auth::user()->id))!!}" target="_blank" class="btn btn-primary"> -->
               <a href="{!! route('profile.edit')!!}" class="btn btn-primary">
-                {{ Auth::user()->name }}</a>
-            </center>
+                {{ Auth::user()->name }}
+              </a>
+            </div>  
+          </center>            
         @endif
+
         
         @if(Auth::user()->role == 2)
-        <center>
+          <center>
             <div class="card-body">
-              <h2 class="card-title" style = "color: Green"><b> !! Welcome to the Mentor Portal !!</b> <br><br>
+              <h2 class="card-title" style = "color: Green"><b> !! Welcome to the Mentor Portal !!</b> 
+              <br><br>
               </h2>
-            </center>
+            </div>  
+          </center>
         @endif
         
-          <!-- UNCOMMENT THIS WHEN INTERN IS SELECTED AFTER INTERVIEW -->
+        <!-- UNCOMMENT THIS WHEN INTERN IS SELECTED AFTER INTERVIEW -->
         @if(Auth::user()->selected == 1 and Auth::user()->role == 1 )
         <div>
-          <!-- <center>
-            <h2><b>
-              Congratulations !!!<br>
-              You have been selected for e-Yantra Summer Internship - 2022.<br></b></h2>
-              <h3 style="color:Red"> <b>Project Name:  {{$project_alloted[0]->projectname}} </b>
-          </center> -->
+          <center>
+            <h2>
+              <b>
+                Congratulations !!!<br>
+                You have been selected for e-Yantra Summer Internship - 2023.
+                <br>
+              </b>
+            </h2>
+            <h3 style="color:Red"> <b>Project Name:  {{$project_alloted[0]->projectname}} </b>
+          </center>
+          
           <!-- Certificate Download -->
           <div class="col m12 s12 text-center">
             @if(Auth::user()->MentorClearence == 1)
             <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
-            <h3><b>Certificate Details</b></h3>
-            <div class="divider"></div>
-              <h3 style="color:Red">
-                Hearty Congratulations!!! <br/>
-                on successful completion of eYSIP 2022 project.<br/>
-              </h3>
-            <hr/>
-            <span>
-              <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
-            </span>
-            </div>
-            
-      @endif
-    </div>
+              <h3><b>Certificate Details</b></h3>
+                <div class="divider"></div>
+                  <h3 style="color:Red">
+                    Hearty Congratulations!!! <br/>
+                    on successful completion of eYSIP 2022 project.<br/>
+                  </h3>
+                  <hr/>
+                <span>
+                  <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
+                </span>
+            </div>              
+            @endif
+          </div>
           <!-- End -->
-          <!-- Uncomment the div when projects are alloted -->
-          
 
+          <!-- Uncomment the div when projects are alloted -->
           <section id="timeline" class="timeline-outer" style="padding:10px">
             <div class="container" id="content" >
               <div class="row">
@@ -285,18 +298,14 @@ a.portfolio-link {
         @else
         <center>
           <h2><b>
-           <!--  Sorry !!!<br>
+            Sorry !!!<br>
             We regret to inform you that you haven't been selected for eYSIP.<br>
-            We wish you all the best for future endeavours! -->
+            We wish you all the best for future endeavours!
           </b></h2>
         </center>
         @endif  
-    </div>
-       
-  </div>
-
-
-  
+    </div>       
+  </div>  
 @endsection
 
 @push('js')

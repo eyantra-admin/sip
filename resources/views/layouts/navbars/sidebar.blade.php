@@ -60,7 +60,7 @@
       </li> -->
   @if(Auth::user()->role == 1)
     @if( Auth::user()->profilesubmitted == 1)
-    <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
+    <!-- <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
       <a class="nav-link" href="{{ route('timeslotbooking') }}">
         <i class="material-icons">library_books</i>
         <p>{{ __('Interview Slot') }}</p>
@@ -71,7 +71,7 @@
         <i class="material-icons">content_paste</i>
         <p>{{ __('Project Preference') }}</p>
       </a>
-    </li>   
+    </li> -->   
     @endif
   @endif
 
@@ -88,7 +88,7 @@
               <p>{{ __('NDA') }}</p>
           </a>
         </li>
-        <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
+        <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('survey') }}">
             <i class="material-icons">list</i>
               <p>{{ __('Internship Survey') }}</p>
@@ -105,7 +105,7 @@
             <i class="material-icons">unarchive</i>
               <p>{{ __('Verify your details') }}</p>
           </a>
-        </li>
+        </li> -->
        
         
         <!-- <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">

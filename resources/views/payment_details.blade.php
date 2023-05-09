@@ -16,10 +16,15 @@
 
                     You are required to pay an amount of <span style="font-weight:bold;color:teal">INR {{$fee}} ONLY </span></h3>
             
-                <form method="POST" action="/make-payment">
+                {{--<form method="POST" action="{!!route('make-payment')!!}">
                     @csrf
                     <button type="submit"class="btn btn-primary" >Make payment </button>
-                </form>
+                </form>--}}
+
+                <div class="alert alert-primary" role="alert">
+                    Payment option will be available soon !!!
+                </div>
+
             </div>
             @endif
         </div>
