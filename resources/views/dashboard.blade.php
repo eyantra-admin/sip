@@ -277,7 +277,7 @@ a.portfolio-link {
                     </li> -->
 
                     
-                    <li class="event" data-date="Survey">
+                    <!-- <li class="event" data-date="Survey">
                        @if(Auth::user()->survey_done == 0)
                       <h3 style="color: Red"><b>Internship Survey</b></h3>
                       @else
@@ -286,7 +286,7 @@ a.portfolio-link {
                       <p>
                         Please use the Internship Survey Tab to do so.
                       </p>
-                    </li>
+                    </li> -->
 
                     
                   </ul>
