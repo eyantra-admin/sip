@@ -217,7 +217,8 @@ a.portfolio-link {
                 <br>
               </b>
             </h2>
-            <h3 style="color:Red"> <b>Project Name:  {{$project_alloted[0]->projectname}} </b>
+            <h3 style="color:Red"> <b>Project Name: <a href="projectdetail/{{Crypt::encrypt($project_alloted[0]->id)}}" target="_blank">{{$project_alloted[0]->projectname}}</a></b>
+
           </center>
           
           <!-- Certificate Download -->
