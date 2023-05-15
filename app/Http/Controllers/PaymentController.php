@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\ClientException;
 
 use App\Model\Payment;
 use App\Model\ServerConf;
+use App\Model\OnlineProfile;
 use App\User;
 
 
@@ -72,6 +73,9 @@ class PaymentController extends Controller
         if($fee == -1)
          return redirect()->route('home');
         
+        //later need to delete
+        $trxData = OnlineProfile::where('userid',Auth::user()->id)->first(['trxDate','trxUTR']);
+
         //check if user has paid before once
         $payment = Payment::where('user_id',$user->id)->first();
  
@@ -82,6 +86,7 @@ class PaymentController extends Controller
                 'fee'=>$fee,
                 'enable_button'=>true,
                 'status'=>null,
+                'trxData'=>$trxData,
             ]);
         }
         else //if payment is done at least once
@@ -99,6 +104,7 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$trans_date,
                     'message'=>$payment->remark,
+                    'trxData'=>$trxData,
                 ]);
                 
             }
@@ -106,7 +112,8 @@ class PaymentController extends Controller
                 return view('payment_details',[
                     'fee'=>$fee,
                     'enable_button'=>true,
-                    'status'=>null
+                    'status'=>null,
+                    'trxData'=>$trxData,
                 ]);
             }
             
@@ -118,6 +125,7 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>$payment->remark,
+                    'trxData'=>$trxData,
          
                 ]);
             }
@@ -129,8 +137,7 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>'Not available',
-                
-
+                    'trxData'=>$trxData,
                 ]);
             }
             

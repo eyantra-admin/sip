@@ -626,8 +626,8 @@ class HomeController extends Controller
 
     public function saveBankdetails(Request $request)
     {
-        log::info(Auth::user()->id);
-        log::info($request->all());
+        //log::info(Auth::user()->id);
+        //log::info($request->all());
         $validator = Validator::make($request->all() , [
             'bank_doc' => 'required|mimes:jpeg,jpg,png|required|max:10000',
             ],
@@ -687,9 +687,8 @@ class HomeController extends Controller
     }
 
     public function Bankdetails()
-    {
+    {        
         return view('bank_details');
-
     }
 
 
@@ -825,5 +824,28 @@ class HomeController extends Controller
             ->get();
 
         return view('projectPreferenceByPanel')->with('projects', $data);
+   }
+
+   public function submitTrxDetails(Request $request){
+        $validator = Validator::make($request->all() , [
+            'trxDate' => 'required',
+            'trxUTR' => 'required',
+        ],[
+            'trxDate.required' => 'Please mention your transaction Date',
+            'trxUTR.required' => 'Mention your transaction reference number',
+        ]);
+            
+
+        if($validator->fails()){
+            return back()->withErrors($validator);
+        } else {
+            $intern = OnlineProfile::where('userid',Auth::user()->id)->first();
+            
+            $intern->trxDate = $request->trxDate;
+            $intern->trxUTR = $request->trxUTR;            
+            $intern->save();
+
+            return back()->withStatus(__('Information saved successfully. Once we verifiy the transaction details, Will update the payment status.'));
+        }
    }
 }

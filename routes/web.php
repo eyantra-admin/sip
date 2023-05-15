@@ -154,6 +154,8 @@ Route::group(['middleware' => ['isStudent','keycloak-web']], function ()
 	Route::put('updateexp', ['as' => 'updateexp', 'uses' => 'ProfileController@updateSection4']);
 	Route::put('updateproj', ['as' => 'updateproj', 'uses' => 'ProfileController@updateproj']);
 	Route::put('updateAffiliation', ['as' => 'updateAffiliation', 'uses' => 'ProfileController@updateAffiliation']);
+
+	Route::post('/submitTrxDetails',['as'=>'submitTrxDetails','uses'=>'HomeController@submitTrxDetails']) ->middleware('auth');
 });
 
 //get log info
