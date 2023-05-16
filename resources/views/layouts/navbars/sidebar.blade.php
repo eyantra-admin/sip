@@ -82,13 +82,13 @@
               <p>{{ __('Internship Fee Payment') }}</p>
           </a>
         </li>
-        <li class="nav-item{{ $activePage == 'nda' ? ' active' : '' }}">
+        <!-- <li class="nav-item{{ $activePage == 'nda' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('nda') }}">
             <i class="material-icons">content_paste</i>
               <p>{{ __('NDA') }}</p>
           </a>
         </li>
-        <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
+        <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('survey') }}">
             <i class="material-icons">list</i>
               <p>{{ __('Internship Survey') }}</p>
