@@ -487,13 +487,13 @@ class HomeController extends Controller
     }
     public static function nda()
     {
-        return redirect()->route('home')->withStatus(__('Closed.'));
-        //return view('nda');
+        //return redirect()->route('home')->withStatus(__('Closed.'));
+        return view('nda');
     }
 
     public function submitnda(Request $request)
     {
-        return redirect()->route('home')->withStatus(__('Closed.'));
+        //return redirect()->route('home')->withStatus(__('Closed.'));
         //log::info($request->all());
         $validator = Validator::make($request->all(), [
             'photo' => 'required|mimes:jpeg,jpg,png|required|max:10000',
