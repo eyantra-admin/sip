@@ -375,8 +375,9 @@ class PaymentController extends Controller
                         'purpose' => 'eYSIP2023',
                         'currency' => 'INR',
                     ],
-                    'cert' => storage_path().'/payment_ssl/epay_eyantra_cse_iitb_ac_in.crt',
-                    'ssl_key' => storage_path().'/payment_ssl/epay_eyantra_cse_iitb_ac_in.key'
+                    'verify' => false,
+                    //'cert' => storage_path().'/payment_ssl/epay_eyantra_cse_iitb_ac_in.crt',
+                    //'ssl_key' => storage_path().'/payment_ssl/epay_eyantra_cse_iitb_ac_in.key'
                 ])->getBody();
                 Log::info($response);
             
