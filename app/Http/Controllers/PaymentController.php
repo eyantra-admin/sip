@@ -307,7 +307,8 @@ class PaymentController extends Controller
                     //create another client without token in header
                     $client= new Client([
                         'Content-Type' => 'application/json',
-                        'base_uri' => $server->base_uri
+                        'base_uri' => $server->base_uri,
+                        'verify' => false,
                     ]);
 
                     //make a request to get new token
