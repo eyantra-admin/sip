@@ -269,7 +269,7 @@ class PaymentController extends Controller
                 $response =null;
                 //create user at payment gateway
                 try{
-                    Log::info('make user create request');
+                    Log::info('make user create request++');
                     Log::info($user);
                     $response = $client->post('users', [
                         'json' => [
