@@ -487,6 +487,7 @@ class HomeController extends Controller
     }
     public static function nda()
     {
+        //dd(storage_path());
         //return redirect()->route('home')->withStatus(__('Closed.'));
         return view('nda');
     }

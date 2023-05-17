@@ -145,6 +145,88 @@ class PaymentController extends Controller
         
     }
 
+    //delete-later
+    protected function getPaymentInfoBackup(){
+
+        $user=Auth::user();
+
+        $fee=$this->getFees($user);
+
+        if($fee == -1)
+         return redirect()->route('home');
+        
+        //later need to delete
+        $trxData = OnlineProfile::where('userid',Auth::user()->id)->first(['trxDate','trxUTR']);
+
+        //check if user has paid before once
+        $payment = Payment::where('user_id',$user->id)->first();
+ 
+        
+        //if no payments are done before
+        if( $payment==NULL ){
+            return view('payment_details',[
+                'fee'=>$fee,
+                'enable_button'=>true,
+                'status'=>null,
+                'trxData'=>$trxData,
+            ]);
+        }
+        else //if payment is done at least once
+        {
+            if($payment->status == 'S'  || $payment->reconciled == 1){
+          
+                $trans_date=$payment->trans_date;
+                if($payment->trans_date == null )
+                    $trans_date=$payment->recon_date;
+
+                return view('payment_details_backup',[
+                    'fee'=>$payment->amount,
+                    'enable_button'=>false,
+                    'status'=>'success',
+                    'trans_id'=> $payment->trans_id,
+                    'trans_date'=>$trans_date,
+                    'message'=>$payment->remark,
+                    'trxData'=>$trxData,
+                ]);
+                
+            }
+            if($payment->status == null ){
+                return view('payment_details_backup',[
+                    'fee'=>$fee,
+                    'enable_button'=>true,
+                    'status'=>null,
+                    'trxData'=>$trxData,
+                ]);
+            }
+            
+            if($payment->status == 'F' ){
+                return view('payment_details_backup',[
+                    'fee'=>$payment->amount,
+                    'enable_button'=>true,
+                    'status'=>'fail',
+                    'trans_id'=> $payment->trans_id,
+                    'trans_date'=>$payment->trans_date,
+                    'message'=>$payment->remark,
+                    'trxData'=>$trxData,
+         
+                ]);
+            }
+            if($payment->status == 'X'){
+                return view('payment_details_backup',[
+                    'fee'=>$payment->amount,
+                    'enable_button'=>false,
+                    'status'=>'X',
+                    'trans_id'=> $payment->trans_id,
+                    'trans_date'=>$payment->trans_date,
+                    'message'=>'Not available',
+                    'trxData'=>$trxData,
+                ]);
+            }
+            
+        }
+        
+    }//delete
+
 
     public function makePayment(Request $request){
         $user=Auth::user();
@@ -195,8 +277,8 @@ class PaymentController extends Controller
                             'name' => $user->name,
                             'emailId' => $user->email,
                         ],
-                        //'cert' => '/path/to/openyes.crt.pem',
-                        //'ssl_key' => '/path/to/openyes.key.pem'
+                        'cert' => storage_path().'/epay_eyantra_cse_iitb_ac_in.crt',
+                        'ssl_key' => storage_path().'/epay_eyantra_cse_iitb_ac_in.key'
                     ])->getBody();
                     
                 }
@@ -293,7 +375,6 @@ class PaymentController extends Controller
                         'purpose' => 'eYSIP2023',
                         'currency' => 'INR',
                     ],
-                    'verify' => false,
                 ])->getBody();
             
             } 
