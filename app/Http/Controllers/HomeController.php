@@ -46,7 +46,8 @@ class HomeController extends Controller
      * Show the application dashboard.
      *
      * @return \Illuminate\View\View
-     */
+     */    
+
     public function index(){
         //log::info('Inside Home');
         //log::info(Auth::user());
