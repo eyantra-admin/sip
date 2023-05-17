@@ -170,7 +170,7 @@ class PaymentController extends Controller
         $client = new Client([
             'Content-Type' => 'application/json',
             'base_uri' => $server->base_uri,
-            'verify' => false,
+            //'verify' => false,
             'headers' => [
             'Authorization' => 'Bearer '.$server->token,
             ]
@@ -194,7 +194,9 @@ class PaymentController extends Controller
                             'clientUserId' => $user->id,
                             'name' => $user->name,
                             'emailId' => $user->email,
-                        ]
+                        ],
+                        //'cert' => '/path/to/openyes.crt.pem',
+                        //'ssl_key' => '/path/to/openyes.key.pem'
                     ])->getBody();
                     
                 }
@@ -213,7 +215,7 @@ class PaymentController extends Controller
                         $client= new Client([
                             'Content-Type' => 'application/json',
                             'base_uri' => $server->base_uri,
-                            'verify' => false,
+                            //'verify' => false,
                         ]);
 
                         //make a request to get new token
@@ -232,7 +234,7 @@ class PaymentController extends Controller
                         $client= new Client([
                             'Content-Type' => 'application/json',
                             'base_uri' => $server->base_uri,
-                            'verify' => false,
+                            //'verify' => false,
                             'headers' => [
                                 'Authorization' => 'Bearer '.$server->token,
                                 ]
@@ -290,7 +292,8 @@ class PaymentController extends Controller
                         // 'amountDue' => 1,
                         'purpose' => 'eYSIP2023',
                         'currency' => 'INR',
-                    ]
+                    ],
+                    'verify' => false,
                 ])->getBody();
             
             } 
@@ -311,7 +314,7 @@ class PaymentController extends Controller
                     $client= new Client([
                         'Content-Type' => 'application/json',
                         'base_uri' => $server->base_uri,
-                        'verify' => false,
+                        //'verify' => false,
                     ]);
 
                     //make a request to get new token
@@ -331,7 +334,7 @@ class PaymentController extends Controller
                     $client= new Client([
                         'Content-Type' => 'application/json',
                         'base_uri' => $server->base_uri,
-                        'verify' => false,
+                        //'verify' => false,
                         'headers' => [
                             'Authorization' => 'Bearer '.$server->token,
                             ]
@@ -597,7 +600,7 @@ class PaymentController extends Controller
                 $client = new Client([
                     'Content-Type' => 'application/json',
                     'base_uri' => $server->base_uri,
-                    'verify' => false,
+                    //'verify' => false,
                     'headers' => [
                     'Authorization' => 'Bearer '.$server->token,
                     ]
@@ -671,7 +674,7 @@ class PaymentController extends Controller
                 $client = new Client([
                     'Content-Type' => 'application/json',
                     'base_uri' => $server->base_uri,
-                    'verify' => false,
+                    //'verify' => false,
                     'headers' => [
                     'Authorization' => 'Bearer '.$server->token,
                     ]
