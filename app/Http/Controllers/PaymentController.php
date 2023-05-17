@@ -230,6 +230,7 @@ class PaymentController extends Controller
                         $client= new Client([
                             'Content-Type' => 'application/json',
                             'base_uri' => $server->base_uri,
+                            'verify' => false,
                             'headers' => [
                                 'Authorization' => 'Bearer '.$server->token,
                                 ]
