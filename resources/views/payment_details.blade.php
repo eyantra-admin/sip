@@ -30,11 +30,11 @@
 
                     You are required to pay an amount of <span style="font-weight:bold;color:teal">INR {{$fee}} ONLY </span></h3>
             
-                {{--<form method="POST" action="{!!route('make-payment')!!}">
+                <form method="POST" action="{!!route('make-payment')!!}">
                     @csrf
                     <button type="submit"class="btn btn-primary" >Make payment </button>
                     <p>If you have done a bank tranfer, Please ignore this.</p>
-                </form>--}}
+                </form>
 
                 <!-- @if(is_null($trxData->trxDate) && is_null($trxData->trxUTR))
                 <div class="alert alert-info" role="alert" style="color: black;">
