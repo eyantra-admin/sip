@@ -182,7 +182,7 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 
 	//authenticated
 	Route::get('get-payment-info','PaymentController@getPaymentInfo')->name('paymentpage')->middleware('auth');
-	//Route::get('get-payment-info-backup','PaymentController@getPaymentInfoBackup')->name('paymentpage-backup')->middleware('auth');
+	Route::get('get-payment-info-backup','PaymentController@getPaymentInfoBackup')->name('paymentpage-backup')->middleware('auth');
 	Route::post('make-payment','PaymentController@makePayment')->name('make-payment')->middleware('auth');
 
 	//for admin use
