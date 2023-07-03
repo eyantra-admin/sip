@@ -38,7 +38,7 @@
                     <p class="text-red-500 text-lg mt-4 font-bold">If you have already done a IITB vendor registration, Please skip this step.</p>
 
                     <h4><strong>Vendor Registration:</strong></h4>
-                    <p class="mt-2">To transfer your Travel expenses and prize money(if applicable) each member require to create a vendor registration.</p>
+                    <p class="mt-2">To transfer your internship stipend(if applicable) each member require to create a vendor registration.</p>
                     
                     <p class="mt-2">To ensure the seamless distribution of above, kindly register on the IIT Bombay vendor portal- <a class="text-blue-500" target="_blank" href="https://portal.iitb.ac.in/vrp">https://portal.iitb.ac.in/vrp</a>.</p>
                     
