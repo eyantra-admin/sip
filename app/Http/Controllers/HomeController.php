@@ -630,69 +630,28 @@ class HomeController extends Controller
 
     public function saveBankdetails(Request $request)
     {
-        //log::info(Auth::user()->id);
-        //log::info($request->all());
         $validator = Validator::make($request->all() , [
-            'bank_doc' => 'required|mimes:jpeg,jpg,png|required|max:10000',
-            ],
-            [
-            'bank_doc' => 'Document is required',
-            ]);
-            if($validator->fails())
-            {
-                return back()->withErrors($validator);
-            }
-            else
-            {
-                $feed1 = EysipUploads::where("userid" , Auth::user()->id)->first();
-                // $feed1->userid = Auth::user()->id;
-                // $feed1->bank_doc = $request->bank_doc;
-
-                if($request->hasFile('bank_doc')){
-                    //log::info('inside save bank_doc');
-                    $format = strtolower($request->bank_doc->getClientOriginalExtension());
-                    $size = $request->file('bank_doc')->getSize();
-
-                    if($size > 2097152)
-                    {
-                        return back()->withErrors(__('Unable to upload the image. File size is more than 1 MB.'));
-                    }
-
-                    $permitted_chars1 = '0123456789abcdefghijklmnopqrstuvwxyz';
-                    $random_str1 = substr(str_shuffle($permitted_chars1), 0, 7);
-                    
-                    $userid = Auth::user()->id;
-
-                    $file = $request->bank_doc;
-                    $newfilename = $userid.'_bank_doc.'. $format;
-                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file,$newfilename);
-
-                    $feed1->bank_doc = $userid.'_bank_doc.'.$format;
-                    $feed1->save();
-                }
-            }
+            'vendorId' => 'required|alpha_num|min:5|max:10',
+        ], [
+            'vendorId' => 'VendorId is required',
+        ]);
+            
+        if($validator->fails()) {
+            return back()->withErrors($validator);
+        } 
 
         $check_id = Auth::user()->id;
-        $intern = OnlineProfile::where('online_profile_response.userid','=',$check_id)
-                ->first();
-        $intern->addressline1 = $request->addressline1;
-        $intern->addressline2 = $request->addressline2;
-        $intern->city = $request->city;
-        $intern->statename = $request->statename;
-        $intern->pincode = $request->pincode;
-        $intern->bank_accountno = $request->bank_accountno;
-        $intern->name_inbank = $request->name_inbank;
-        $intern->bank_type = $request->bank_type;
-        $intern->ifsc = $request->ifsc;
-        $intern->bank_name = $request->bank_name;
-        $intern->bank_address = $request->bank_address;
+        $intern = OnlineProfile::where('online_profile_response.userid','=',$check_id)->first();
+        $intern->bank_accountno = $request->vendorId;
         $intern->save();
-        return back()->withStatus(__('Information saved successfully.'));
+        return redirect()->route('bank_details')->withStatus(__('Vendor ID saved successfully.'));
     }
 
     public function Bankdetails()
     {        
-        return view('bank_details');
+        $intern = OnlineProfile::where('online_profile_response.userid','=', Auth::user()->id)->first(['bank_accountno']);
+        
+        return view('bank_details')->with('intern', $intern);
     }
 
 

@@ -1,180 +1,106 @@
 @extends('layouts.app', ['activePage' => 'bank_details', 'titlePage' => __('Bank Details Form')])
 
 @section('content') 
-  <div class="content">
-    <div class="container-fluid">
-      <div class="col-md-12">
-        <form method="post" id="sectionForm" action="{{ route('savebank_details') }}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
-          @csrf
-         
-
-          @if($errors->any())
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-md-12">
+        @if($errors->any())
           <div class="alert alert-danger" role='alert'>
-          @foreach($errors->all() as $error)
-          <p>{!!$error!!}</p>
-          @endforeach
+            @foreach($errors->all() as $error)
+              <p>{!!$error!!}</p>
+            @endforeach
           </div>
           <hr/>
-          @endif
+        @endif
 
-          @if (session('status'))
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="alert alert-success">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <i class="material-icons">close</i>
-              </button>
-              <span>{{ session('status') }}</span>
+        @if (session('status'))
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="material-icons">close</i>
+                </button>
+                <span>{{ session('status') }}</span>
+              </div>
             </div>
           </div>
-        </div>
-      @endif
-          <div class="card">
-            <div class="card-header card-header-primary">
-                <h4 class="card-title"><b>{{ __('Personal Details Form') }}</b></h4>
-                <p>All the information is mandatory to be filled.</p>
-            </div>
-            <div class="card-body">
-                  <div id="test1" class="col s12">
-                    <form method="post" action="{{ route('bank_details') }}" autocomplete="off" 
-                      class="form-horizontal">
-                      @csrf
-                      <div class="row">
-                        <h3> Communication Address </h3>
-                      </div>
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Address Line1') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('addressline1') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="addressline1" id="addressline1" placeholder="Address Line1" value="{{ old('addressline1') }}" required>
-                            @if ($errors->has('addressline1'))
-                              <span id="fullname-error" class="error text-danger" for="addressline1">{{ $errors->first('addressline1') }}</span>
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Address Line2') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('addressline2') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="addressline2" id="addressline2" placeholder="Address Line2" value="{{ old('addressline2')}}">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('City') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('city') ? ' has-danger' : '' }}">
-                            <input class="form-control" name="city" id="city" placeholder="city" value="{{ old('city')}}" rows="4" wrap="physical" required>
-                            @if ($errors->has('city'))
-                              <span id="city-error" class="error text-danger" for="email">{{ $errors->first('city') }}</span>
-                            @endif
-                          </div>
-                        </div>
+        @endif
+        
+        <div class="card">
+          <div class="card-header card-header-primary">
+              <h4 class="card-title"><b>{{ __('Submit IITB Vendor ID') }}</b></h4>
+              <p>All interns requested to fill your vendor ID</p>
+          </div>
+          <div class="card-body">
+              <div id="test1" class="col s12">
+                @if($intern->bank_accountno == null)  
+                  <div class="mt-3 text-lg text-justify">
+                    <p class="text-red-500 text-lg mt-4 font-bold">If you have already done a IITB vendor registration, Please skip this step.</p>
 
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('State') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('statename') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="statename" id="statename" placeholder="State" value="{{old('statename')}}" required>
-                            @if ($errors->has('statename'))
-                              <span id="statename-error" class="error text-danger" for="statename">{{ $errors->first('statename') }}</span>
-                            @endif
-                          </div>
-                        </div>
+                    <h4><strong>Vendor Registration:</strong></h4>
+                    <p class="mt-2">To transfer your Travel expenses and prize money(if applicable) each member require to create a vendor registration.</p>
+                    
+                    <p class="mt-2">To ensure the seamless distribution of above, kindly register on the IIT Bombay vendor portal- <a class="text-blue-500" target="_blank" href="https://portal.iitb.ac.in/vrp">https://portal.iitb.ac.in/vrp</a>.</p>
+                    
+                    <p class="font-bold mt-4">The steps are mentioned below:</p>
 
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Pin Code') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('pincode') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="pincode" id="pincode" placeholder="Pin Code" value="{{old('pincode')}}" required>
-                            @if ($errors->has('pincode'))
-                              <span id="pincode-error" class="error text-danger" for="pincode">{{ $errors->first('pincode') }}</span>
-                            @endif
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <h3> Bank Details </h3>
-                      </div>
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Account Holder Name') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('name_inbank') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="name_inbank" id="name_inbank" placeholder="Bank Name" value="{{ old('name_inbank')}}" required>
-                            @if ($errors->has('name_inbank'))
-                              <span id="fullname-error" class="error text-danger" for="name_inbank">{{ $errors->first('name_inbank') }}</span>
-                            @endif
-                          </div>
-                        </div>
+                    <ul class="list-decimal ml-8 mt-4">             
+                      <li>Visit  <a class="text-blue-500" target="_blank" href="https://portal.iitb.ac.in/vrp">https://portal.iitb.ac.in/vrp</a></li>
+                      <li>Select Indian Ext. User / Vendor</li>
+                      <li>Enter your PAN and email address</li>
+                      <li>In students' and teachers' cases, you may not have GST. In such a case, you should select ‘unregistered.’</li>
+                      <li>You will receive an email from the IITB portal. Make sure to fill in all details correctly.</li>
+                      <li>
+                        Keep scanned copies of the following documents ready-
+                        <ul class="list-decimal ml-8">
+                          <li>The first page of the passbook / online bank statement / canceled cheque (It should have the bank account number and IFSC), and</li> 
+                          <li>PAN Card</li>
+                        </ul>             
+                      </li>
+                      <li>
+                        After submitting the details, you will receive a BREG Form. The following signatures will be required on this form-
+                        <ul class="list-decimal ml-8">
+                          <li>You as a Vendor.</li>
+                          <li>Your Bank Officer.</li> 
+                          <li>Your Bank Stamp (if you show the form to the Bank, they will know where to sign it).</li>
+                        </ul>
+                        <p class="mt-2 bg-red-200 px-4 py-2 rounded-md text-md"><b>Note:</b> BREG Form number is not your vendor id, After BREG from submission you will receive a vendor id from IITB</p>                
+                      </li>
+                      <li>Send the scanned copies of the documents to <mail>helpdesk.mdm@iitb.ac.in</mail> to complete registration.</li>        
+                    </ul>                    
+                </div>
+                <hr>                
+                <form method="post" action="{{ route('savebank_details') }}" autocomplete="off" class="form-horizontal">
+                  @csrf            
 
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold">{{ __('Select Account Type') }}</label>
-                        <div class="col-sm-3">
-                          <select id="bank_type" class="form-control" name="bank_type" required>
-                            <option hidden value="">Select Type</option>
-                            <option value="Current" {{old('bank_type') == 'Current' ? 'selected': '' }}>Current</option>
-                            <option value="Saving" {{old('bank_type') == 'Saving' ? 'selected': '' }}>Saving</option>
-                          </select>
-                        </div>
+                  <!-- vendor id-->
+                  <div class="row">
+                    <p class="col-sm-12 col-lg-12">Once you get your vendor ID, Please fill the following details:</p>
+                    <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Vendor ID') }}<span style="color:red;">*</span></label>
+                    <div class="col-sm-3">
+                      <div class="input-field {{ $errors->has('vendorID') ? ' has-danger' : '' }}">
+                        <input class="form-control" type="text" name="vendorId" id="vendorId" placeholder="Your IITB VendorId" value="{{ old('vendorId') }}" required>
+                        @if ($errors->has('vendorId'))
+                          <span id="vendorId-error" class="error text-danger" for="vendorId">
+                            {{ $errors->first('vendorId') }}
+                          </span>
+                        @endif
                       </div>
-                      <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Account Number') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('bank_accountno') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="numeric" name="bank_accountno" id="bank_accountno" placeholder="Account Number" value="{{ old('bank_accountno')}}" required>
-                            @if ($errors->has('bank_accountno'))
-                              <span id="bank_accountno-error" class="error text-danger" for="bank_accountno">{{ $errors->first('bank_accountno') }}</span>
-                            @endif
-                          </div>
-                        </div>
-
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('IFSC Code') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('ifsc') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="ifsc" id="ifsc" placeholder="IFSC Code" value="{{ old('ifsc')}}" required>
-                            @if ($errors->has('ifsc'))
-                              <span id="ifsc-error" class="error text-danger" for="ifsc">{{ $errors->first('ifsc') }}</span>
-                            @endif
-                          </div>
-                        </div>
-                       </div>
-                       <div class="row">
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Bank Name') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('bank_name') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="bank_name" id="bank_name" placeholder="Bank Name" value="{{ old('bank_name')}}" required>
-                            @if ($errors->has('bank_name'))
-                              <span id="bank_name-error" class="error text-danger" for="bank_name">{{ $errors->first('bank_name') }}</span>
-                            @endif
-                          </div>
-                        </div>
-                        </div>
-                        <div class="row"> 
-                        <label class="col-sm-2 col-form-label" style = "color:black;font-weight: bold;">{{ __('Bank Address') }}</label>
-                        <div class="col-sm-3">
-                          <div class="input-field {{ $errors->has('bank_address') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="numeric" name="bank_address" id="bank_address" placeholder="Bank Address" value="{{ old('bank_address')}}" required>
-                            @if ($errors->has('bank_address'))
-                              <span id="bank_address-error" class="error text-danger" for="bank_address">{{ $errors->first('bank_address') }}</span>
-                            @endif
-                          </div>
-                       </div>
-                    </div>  
-                    <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
-                      <center>
-                        <h3><b>You are required to upload a cancelled cheque or photograph of first page of the passbook of above mentioned bank.<br>
-                            Format: JPEG / PNG / JPG<br/>
-                            Size: < 1MB
-                        </b></h3>
-                      </center>
-                      <br>                           
-                          <h4 style="padding-left: 20px"><b>Upload Document</b></h4>
-                          <input style="padding-left: 20px" type="file" name="bank_doc" id="bank_doc" required />
-                        <br/><br/>
                     </div>
-                       <div class="card-footer ml-auto mr-auto">
-                <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
-              </form>
+                  </div>                 
+                  <div class="card-footer ml-auto mr-auto">                      
+                    <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
+                  </div>  
+                </form>
+                @else
+                  <p>Your Vendor Id is: {{$intern->bank_accountno}}</p>
+                @endif
               </div>
-</div>
+          </div>    
+        </div>
+    </div>
+  </div>
+</div>    
 @endsection
 
 @push('js')

@@ -88,6 +88,12 @@
               <p>{{ __('NDA') }}</p>
           </a>
         </li>
+        <li class="nav-item{{ $activePage == 'bank_details' ? ' active' : '' }}">
+          <a class="nav-link" href="{{ route('bank_details') }}">
+            <i class="material-icons">content_paste</i>
+              <p>{{ __('Submit VendorID') }}</p>
+          </a>
+        </li>
         <!-- <li class="nav-item{{ $activePage == 'survey' ? ' active' : '' }}">
           <a class="nav-link" href="{{ route('survey') }}">
             <i class="material-icons">list</i>
