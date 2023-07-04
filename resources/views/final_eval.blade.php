@@ -253,7 +253,7 @@
                 dataType: 'json',
             }).done(function (data) {
                 console.log(data);
-                 $('#projectpref1').append($('<option>').text(data.projectname).attr('value', data.id));
+                $('#projectpref1').empty().append($('<option>').text(data.projectname).attr('value', data.id));
                 /*$('#projectpref1').append($('<option>').text('--Select Project--').attr( {'value': '','selected': true}));
                 for(var i = 0; i < data.length; i++){
                   alert(data[i]);
