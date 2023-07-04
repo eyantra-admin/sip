@@ -49,10 +49,22 @@ class final_evalController extends Controller
         $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
         return view ('final_eval')->with('projects', $projects)->with('interns', $interns);
     }
+
+    public function getInternProject(Request $request){
+        $internId = $request->internId;
+
+        $intern = User::where('id', $internId)->first(['project_alloted']);
+
+        if($intern){        
+            $projects = Projects::where('id', $intern->project_alloted)->first(['id','projectname']);
+        }   
+    
+        return json_encode($projects);
+    }
+
     public function FinalEvaluationSubmit(Request $request)
     {
        $check_internid = $request->internname;
-       log::info($request);
 
        $inter = InternEvaluation::where('intern_eval.userid','=',$check_internid)
                 ->first();

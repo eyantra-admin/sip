@@ -60,7 +60,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <!-- <div class="row">
                 <label class="col-sm-2 col-form-label " style = "color:#black;font-weight: bold">{{ __('Project') }}</label>
                 <div class="col-sm-7">
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -69,6 +69,17 @@
                       @foreach($projects as $project)
                         <option value="{{$project->id}}" {{old('projectpref1') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
+                    </select>
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="row">
+                <label class="col-sm-2 col-form-label " style = "color:#black;font-weight: bold">{{ __('Project') }}</label>
+                <div class="col-sm-7">
+                  <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
+                    <select class="form-control" name="projectpref1" id="projectpref1" required>
+                      <option hidden value="0">Select Project Name</option>                        
                     </select>
                   </div>
                 </div>
@@ -229,3 +240,29 @@
     </div>
   </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#internname").change(function(){
+      if($('#internname').val() != null){
+            $.ajax({
+                type    : 'POST',
+                url     : '{!! route("getInternProject") !!}',
+                data    : {"internId"   : $('#internname').val(), _token: '{{csrf_token()}}' },
+                dataType: 'json',
+            }).done(function (data) {
+                console.log(data);
+                 $('#projectpref1').append($('<option>').text(data.projectname).attr('value', data.id));
+                /*$('#projectpref1').append($('<option>').text('--Select Project--').attr( {'value': '','selected': true}));
+                for(var i = 0; i < data.length; i++){
+                  alert(data[i]);
+                  $('#projectpref1').append($('<option>').text(data[i]).attr('value', data[i]));
+                }*/
+            }).fail(function () {
+                alert('Sorry, No Project Found');
+            });
+      }//end of if condition
+    });
+  });
+</script>
