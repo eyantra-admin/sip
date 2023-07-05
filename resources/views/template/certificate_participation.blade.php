@@ -57,23 +57,22 @@ tr:nth-child(even) {
 		Powai, Mumbai-400 076.<br />
     	</p>
     </div>
-    <img src="{{asset('img/ring.png')}}" name="image02.png" widht="259" Height="246" border="0" style="position: absolute;width: 259px;margin-left:1.6in; margin-bottom:0.5in;" />
+    <img src="{{asset('img/ring.png')}}" name="image02.png" widht="259" Height="246" border="0" style="position:relative ;width: 259px;" />
 
-    <div class= 'layout-middle' style="position:absolute; margin-top:2.4in;margin-left:.3in;">
-    	@if($student_details->proj_duration != NULL)
-    	<span style="font-family:Optima; font-size:12pt; float: right; padding-right:1cm; padding-top:.5cm; padding-bottom:.5cm;" >
-    	Date of Issue: {{$cert_template->issue_date}}
-    	</span><br><br>
-    	@endif
-		<p style="font-family:Optima; font-size:21pt;">{!! $cert_template->title !!}
-		</p>
+    <div class= 'layout-middle' style="position:relative;margin-top: .2in; font-family:Optima; font-size:21pt;">
+{!! $cert_template->title !!}
 	</div>
-	<br><br><br>
 
-	<div class= 'layout-body' style="height:200px;margin-top:2.8in;margin-right:0.5in; margin-bottom:2in; margin-left:.3in;font-family:Optima;font-size:12pt;line-height:130%;">
-		<p style=" text-align:;">
+	<div class= 'layout-body' style="margin-right:0.6in; margin-bottom:.2in;font-family:Optima;font-size:12pt;line-height:130%;">
+	
 		@yield('content')
-		</p>
+
+	</div>
+
+	<div class= 'layout-body' style="margin-right:0.6in;margin-bottom:.8in;font-family:Optima;font-size:12pt;line-height:130%;">
+	
+		{!! $certi_details->back_content !!}
+
 	</div>
 
 	<div class= "panel" style="margin-right:.5in; float:right;">
@@ -99,7 +98,7 @@ tr:nth-child(even) {
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 </page>
-<page size="A4">
+<!-- <page size="A4">
 	
    <img src="{{asset('img/sidepanel.png')}}"  name="image03.png" class="img2" vspace="5">
 
@@ -108,7 +107,7 @@ tr:nth-child(even) {
 
 		</p>
 		<div style= "padding-left: 2px; padding-right: 50px;">
-		{!! $certi_details->back_content !!}
+		<p class="text-align:justify;">{!! $certi_details->back_content !!}</p> 
 		<br><br><br>
 		
 		<table>
@@ -149,20 +148,11 @@ tr:nth-child(even) {
 		    <td style="text-align: center;"><b>{!! $certi_details->rating8 !!}</b> </td>
 		</tr>
 		  
-		  <!-- <tr>
-		    <td>{!! $certi_details->rating1 !!} </td>
-		    <td>{!! $certi_details->rating2 !!} </td>
-		    <td>{!! $certi_details->rating3 !!} </td>
-		    <td>{!! $certi_details->rating4 !!} </td>
-		    <td>{!! $certi_details->rating5 !!} </td>
-		    <td>{!! $certi_details->rating6 !!} </td>
-		    <td>{!! $certi_details->rating7 !!} </td>
-		    <td>{!! $certi_details->rating8 !!} </td>
-		  </tr> -->
+
 		</table>
 		</div>
 	</div>
 
-</page>
+</page> -->
 </body>
 </html>
