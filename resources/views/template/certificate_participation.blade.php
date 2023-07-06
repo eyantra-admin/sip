@@ -57,7 +57,7 @@ tr:nth-child(even) {
 		Powai, Mumbai-400 076.<br />
     	</p>
     </div>
-    <img src="{{asset('img/ring.png')}}" name="image02.png" widht="259" Height="246" border="0" style="position:relative ;width: 259px;" />
+    <img src="{{asset('img/ring.png')}}" name="image02.png" widht="259" Height="246" border="0" style="margin-top: 1.2in; position:relative ;width: 259px;" />
 
     <div class= 'layout-middle' style="position:relative;margin-top: .2in; font-family:Optima; font-size:21pt;">
 {!! $cert_template->title !!}
@@ -84,7 +84,7 @@ tr:nth-child(even) {
 	Indian Institute of Technology Bombay<br/>
 	</p>
 	</div>
-	<div id="footer" style="margin-left:.1in; margin-top: 1in;">
+	<div id="footer" style="margin-left:.1in;">
 	_________________________________________________________________________________
 	<span style="font-family:'Arial';display:block;font-size:.80em;font-weight:bold;">e-Yantra is a project sponsored by MHRD, Government of India, under the National Mission on Education through ICT (NMEICT).</span>
 	<!-- Scripts -->
