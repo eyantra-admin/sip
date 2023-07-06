@@ -96,11 +96,11 @@ tr:nth-child(even) {
 	
    <img src="{{asset('img/sidepanel.png')}}"  name="image03.png" class="img2" vspace="5">
 
-    <div style="position:relative; left:130px; margin-top:1in; padding-right: 50px">
+    <div style="position:absolute; left:130px; margin-top:1in; padding-right: 50px">
 		<p style="font-family:Optima; font-size:21pt;">Intern Evaluation
 
 		</p>
-		<div style= "padding-right: 50px; word-spacing: 2px; ">
+		<div style= "padding-right: 50px; word-spacing: 4px;">
 			<p>{!! $student_details->cert_back_content !!}</p> 
 		<br><br><br>
 		
