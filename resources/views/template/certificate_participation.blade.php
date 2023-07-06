@@ -101,7 +101,7 @@ tr:nth-child(even) {
 
 		</p>
 		<div style= "padding-right: 50px;">
-			<p style="word-spacing: 4px;">{!! $student_details->cert_back_content !!}</p> 
+			<p style="white-space: normal; text-align: justify;">{!! $student_details->cert_back_content !!}</p> 
 		<br><br><br>
 		
 		<!-- <table>
