@@ -63,7 +63,7 @@ tr:nth-child(even) {
 {!! $cert_template->title !!}
 	</div>
 
-	<div class= 'layout-body' style="margin-right:0.6in; margin-bottom:2.4in;font-family:Optima;font-size:12pt;line-height:130%;">
+	<div class= 'layout-body' style="margin-right:0.6in; text-align: justify; margin-bottom:2.4in;font-family:Optima;font-size:12pt;line-height:130%;">
 	
 		@yield('content')
 
