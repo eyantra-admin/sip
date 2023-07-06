@@ -71,7 +71,7 @@ tr:nth-child(even) {
 
 	<div class= 'layout-body' style="margin-right:0.6in;margin-bottom:.8in;font-family:Optima;font-size:12pt;line-height:130%;">
 	
-		{!! $certi_details->back_content !!}
+		{!! $student_details->cert_back_content !!}
 
 	</div>
 

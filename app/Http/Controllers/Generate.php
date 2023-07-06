@@ -25,16 +25,18 @@ class Generate extends Controller
     public function run() //used for purpose of testing 
     {
 
-    $students = OnlineProfile::where('cert_level', 1)->whereIn('userid',[255, 538, 489, 563])->get();
+    $students = OnlineProfile::where('cert_level', 1)->whereIn('userid', function($query){
+        $query->select('id')->from('users')->where('selected', 1)->where('year', 2023)->where('role', 1);
+    })->get();
 
     foreach ($students as $studs) {
-    $student_details=OnlineProfile::where('userid',$studs->userid)->first();
+    $student_details = $studs;//OnlineProfile::where('userid',$studs->userid)->first();
     $user_project = User::where('id',$studs->userid)->first();
     $project_name = Projects::where('id',$user_project->project_alloted)->first();
     $pdf = \App::make('dompdf.wrapper');
     
     $certi_details = Certificate::where('userid', $student_details->userid)->first();
-    Log::info($certi_details);
+    //Log::info($certi_details);
     $cert_template= Template::where('id',3)->first();
     $cert_event = Event::where('id', 3)->first();
     
@@ -55,8 +57,8 @@ class Generate extends Controller
         'name' => $student_details->name,
         'college_name'=>$student_details->college,
         'project_name'=>$project_name->projectname,
-        'duration'=>$student_details->proj_duration
-        ];
+        'duration'=>$student_details->proj_duration,       
+    ];
     $keyvalue=  json_encode($arr);
 
     $certificate = Certificate::updateorCreate(['userid' => $student_details->userid]);
@@ -68,7 +70,8 @@ class Generate extends Controller
             $certificate->hash = $hash;
             $certificate->random = $random;
             $certificate->keyValue = $keyvalue;
-            $certificate->digitalFlag= 1;           
+            $certificate->digitalFlag= 1;
+            $certificate->back_content= $studs->cert_back_content;        
             $certificate->generated_at = Carbon::now();
             $certificate->save();
             /*Certificate Table*/
@@ -77,11 +80,11 @@ class Generate extends Controller
         # code...
         $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','project_name', 'certi_details'));
         
-        //$pdf->save(storage_path().'/certificate/eysip2023/certi_'.$student_details->userid.'.pdf');
+        $pdf->save(storage_path().'/certificate/eysip2023/certi_'.$student_details->userid.'.pdf');
     }
     
         
-        return $pdf->stream('certificate.pdf');
+        //return $pdf->stream('certificate.pdf');
         
         }
         
