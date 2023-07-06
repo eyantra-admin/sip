@@ -57,7 +57,7 @@ tr:nth-child(even) {
 		Powai, Mumbai-400 076.<br />
     	</p>
     </div>
-    <img src="{{asset('img/ring.png')}}" name="image02.png" widht="259" Height="246" border="0" style="margin-top: .2in; position:relative ;width: 259px;" />
+    <img src="{{asset('img/ring.png')}}" name="image02.png" widht="259" Height="246" border="0" style="margin-top: .3in; position:relative ;width: 259px;" />
 
     <div class= 'layout-middle' style="position:relative;margin-top: .2in; font-family:Optima; font-size:21pt;">
 {!! $cert_template->title !!}
