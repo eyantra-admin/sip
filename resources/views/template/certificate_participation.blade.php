@@ -63,15 +63,9 @@ tr:nth-child(even) {
 {!! $cert_template->title !!}
 	</div>
 
-	<div class= 'layout-body' style="margin-right:0.6in; margin-bottom:.2in;font-family:Optima;font-size:12pt;line-height:130%;">
+	<div class= 'layout-body' style="margin-right:0.6in; margin-bottom:2.4in;font-family:Optima;font-size:12pt;line-height:130%;">
 	
 		@yield('content')
-
-	</div>
-
-	<div class= 'layout-body' style="margin-right:0.6in;margin-bottom:.8in;font-family:Optima;font-size:12pt;line-height:130%;">
-	
-		{!! $student_details->cert_back_content !!}
 
 	</div>
 
@@ -90,12 +84,68 @@ tr:nth-child(even) {
 	Indian Institute of Technology Bombay<br/>
 	</p>
 	</div>
-	<div id="footer" style="margin-left:.1in;">
+	<div id="footer" style="margin-left:.1in; margin-top: 1in;">
 	_________________________________________________________________________________
 	<span style="font-family:'Arial';display:block;font-size:.80em;font-weight:bold;">e-Yantra is a project sponsored by MHRD, Government of India, under the National Mission on Education through ICT (NMEICT).</span>
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+</page>
+<page size="A4">
+	
+   <img src="{{asset('img/sidepanel.png')}}"  name="image03.png" class="img2" vspace="5">
+
+    <div style="position:absolute; left:160px; margin-top:1in; padding-left: 2px; padding-right: 50px">
+		<p style="font-family:Optima; font-size:21pt;">Intern Evaluation
+
+		</p>
+		<div style= "padding-left: 2px; padding-right: 50px; text-align:justify;">
+			<p>{!! $student_details->cert_back_content !!}</p> 
+		<br><br><br>
+		
+		<!-- <table>
+		  <tr>
+		    <th>Criteria</th>
+		    <th style="text-align: center;">Rating</th>
+		  </tr>
+		  <tr>
+		    <td>Intern's understanding of technical concepts<br> pertaining to Project</td>
+		    <td style="text-align: center;">{!! $certi_details->rating1 !!} </td>
+		</tr>
+		<tr>
+		    <td>Quality of Solution Provided</td>
+		    <td style="text-align: center;">{!! $certi_details->rating2 !!} </td>
+		</tr>
+		<tr>
+		    <td>Attitude</td>
+		    <td style="text-align: center;">{!! $certi_details->rating3 !!} </td>
+		</tr>
+		<tr>
+		    <td>Punctuality</td>
+		    <td style="text-align: center;">{!! $certi_details->rating4 !!} </td>
+		</tr>
+		<tr>
+		    <td>Capacity to work in Team</td>
+		    <td style="text-align: center;">{!! $certi_details->rating5 !!} </td>
+		</tr>
+		<tr>
+		    <td>Documentation Skills</td>
+		    <td style="text-align: center;">{!! $certi_details->rating6 !!} </td>
+		</tr>
+		<tr>
+		    <td>Presentation Skills</td>
+		    <td style="text-align: center;">{!! $certi_details->rating7 !!} </td>
+		</tr>
+		<tr>
+		    <td><b>Overall</b></td>
+		    <td style="text-align: center;"><b>{!! $certi_details->rating8 !!}</b> </td>
+		</tr>
+		  
+
+		</table> -->
+		</div>
+	</div>
 
 </page>
 </body>
