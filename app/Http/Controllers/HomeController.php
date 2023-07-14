@@ -657,16 +657,17 @@ class HomeController extends Controller
 
     public function mentorclearence(Request $request)
     {   $start_date = date('2022-05-01 00:00:00');
-        $stud_list = User::select('users.id', 'users.name', 'users.email', 'project_alloted', 
-                                        'p.projectname', 'users.Iconfirm','users.MentorClearence')
-                                ->join('online_profile_response as o','o.userid', '=', 'users.id')
-                                ->join('projects as p','p.id', '=', 'users.project_alloted')
-                                ->where('users.year', 2023)
-                                //->where('o.created_at', '>=', $start_date)
-                                ->where('users.selected', 1)
-                                ->get();                   
-        return view('mentorclearence')
-        ->with('stud_list', $stud_list);
+        $stud_list = User::select('users.id', 'users.name', 'users.email', 'project_alloted', 'p.projectname', 'users.Iconfirm',
+            'users.MentorClearence')
+                        ->join('online_profile_response as o','o.userid', '=', 'users.id')
+                        ->join('projects as p','p.id', '=', 'users.project_alloted')
+                        ->where('users.year', 2023)
+                        ->where('users.selected', 1)
+                        ->where('p.mentor1userid', '=', Auth::user()->id)
+                        ->orwhere('p.mentor2userid', '=', Auth::user()->id)
+                        ->orwhere('p.mentor3userid', '=', Auth::user()->id)
+                        ->get();                   
+        return view('mentorclearence')->with('stud_list', $stud_list);
     }
     public function approveclearence($userid)
     {

@@ -222,7 +222,7 @@ a.portfolio-link {
           </center>
           
           <!-- Certificate Download -->
-          <div class="col m12 s12 text-center">
+          {{--<div class="col m12 s12 text-center">
             @if(Auth::user()->MentorClearence == 1)
             <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
               <h3><b>Certificate Details</b></h3>
@@ -237,7 +237,7 @@ a.portfolio-link {
                 </span>
             </div>              
             @endif
-          </div>
+          </div>--}}
           <!-- End -->
 
           <!-- Uncomment the div when projects are alloted -->

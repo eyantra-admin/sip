@@ -187,6 +187,13 @@
         </a>
       </li>
 
+      <li class="nav-item{{ $activePage == 'mentorclearence' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('mentorclearence') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('Mentor Clearence') }}</p>
+        </a>
+      </li>
+
     @endif
 
     <!--   ***********ADMIN INTERFACE******** -->
@@ -209,13 +216,7 @@
           <i class="material-icons">content_paste</i>
             <p>{{ __('View NDA Submissions') }}</p>
         </a>
-      </li>
-      <li class="nav-item{{ $activePage == 'mentorclearence' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('mentorclearence') }}">
-          <i class="material-icons">content_paste</i>
-            <p>{{ __('Mentor Clearence') }}</p>
-        </a>
-      </li>
+      </li>      
       <li class="nav-item{{ $activePage == 'View_projects' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('View_projects') }}">
           <i class="material-icons">content_paste</i>

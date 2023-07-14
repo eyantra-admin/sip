@@ -67,10 +67,6 @@ Route::group(['middleware' => ['isAdmin','keycloak-web']], function ()
 	]);
 	Route::get('/all-nda', ['as' => 'nda_all', 'uses' =>	'HomeController@listAllnda']);
 	Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeController@downloadNDA']);
-
-	Route::any('/mentorclearence', ['as'=>'mentorclearence','uses'=>'HomeController@mentorclearence']);
-	Route::any('/approveclearence/{userid}', ['as'=>'approveclearence','uses'=>'HomeController@approveclearence']);
-
 });
 
 
@@ -100,6 +96,9 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	//get project details
 	Route::any('/mentorprojectdetail/{projectid}','HomeController@getprojectdetail');
 	Route::get('/prjPreferencePanel',['as'=>'prjPreferenceByPanel', 'uses' => 'HomeController@getProjectPrefernceByPanel']);
+
+	Route::any('/mentorclearence', ['as'=>'mentorclearence','uses'=>'HomeController@mentorclearence']);
+	Route::any('/approveclearence/{userid}', ['as'=>'approveclearence','uses'=>'HomeController@approveclearence']);
 });
 //MENTOR COMPLETE----------------------------------------------------------------------------
 
@@ -191,10 +190,10 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 	Route::get('/fetchir/{user_id}','PaymentController@immediateResponseForUser'); //request server for recon response
 
 	/**************** certificate for students ****************/
-	Route::get('/generate/run', [
+	/*Route::get('/generate/run', [
 		'as' 			=> 'GenerateCertificate',
 		'uses' 			=> 'Generate@run'
-		]);
+	]);*/
 
 	Route::get('validate', 'ValidateController@index')->name('validate');
 	Route::post('validate', 'ValidateController@verify');
