@@ -213,7 +213,7 @@ a.portfolio-link {
             <h2>
               <b>
                 Congratulations !!!<br>
-                You have been selected for e-Yantra Summer Internship - 2023.
+                You have been selected for e-Yantra Summer Internship - 2024.
                 <br>
               </b>
             </h2>
@@ -297,13 +297,13 @@ a.portfolio-link {
           </section>
         </div>
         @else
-        <center>
+        <!-- <center>
           <h2><b>
             Sorry !!!<br>
             We regret to inform you that you haven't been selected for eYSIP.<br>
             We wish you all the best for future endeavours!
           </b></h2>
-        </center>
+        </center> -->
         @endif  
     </div>       
   </div>  

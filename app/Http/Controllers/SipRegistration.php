@@ -423,23 +423,48 @@ class SipRegistration extends Controller
 	//-----------------------------END OF SECTION 5------------------------------------------------
 	public function submitSection6(Request $request) // EYANTRA affiliation
 	{
+		$input = $request->all();
+		$validator = Validator::make($request->all(), [
+			'exam_start' => 'required|date_format:d-m-Y',
+			'exam_end' => 'required|date_format:d-m-Y',		
+			'NuOfLeaves' => 'required|numeric|max:6',	
+		],
+		[
+			'exam_start.required' => 'Exam Start Date is required',
+			'exam_end.required' => 'Exam End Date is required',
+			'NuOfLeaves.required' => 'Mention number of leaves',
+			'NuOfLeaves.numeric' => 'Mention number 0-6 only',
+			'exam_start.date_format' => 'Exam Start Date: Enter valid date',
+			'exam_end.date_format' => 'Exam End Date: Enter Valid date',
+			'NuOfLeaves.max' => 'Enter number between 0:6',
+		]);
+
+		if($validator->fails()){
+	      	return Redirect::back()->withErrors($validator);
+	    }
+
 		$userid =  Auth::user()->id;	
 		$tab1cnt = OnlineProfile::where('userid', $userid)->value('tab1count');
-    $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
-    $tab4cnt = OnlineProfile::where('userid', $userid)->value('tab4count');
-    $tab5cnt = OnlineProfile::where('userid', $userid)->value('tab5count');
+	    $tab2cnt = OnlineProfile::where('userid', $userid)->value('tab2count');
+	    $tab4cnt = OnlineProfile::where('userid', $userid)->value('tab4count');
+	    $tab5cnt = OnlineProfile::where('userid', $userid)->value('tab5count');
 
-		if($tab1cnt == 1 && $tab2cnt == 1 && $tab4cnt == 1 && $tab5cnt == 1)
-		{
-			$profile = new OnlineProfile;
-      $confirm = DB::table('users')
+		if($tab1cnt == 1 && $tab2cnt == 1 && $tab4cnt == 1 && $tab5cnt == 1){
+			//$profile = new OnlineProfile;
+			$basicdtls = DB::table('online_profile_response')
+                ->where('userid', $userid)
+                ->update([
+                	'exam_start' => $request->exam_start, 
+                  	'exam_end' => $request->exam_end, 
+                  	'nu_leaves' => $request->NuOfLeaves,
+                ]);
+
+      		$confirm = DB::table('users')
                 ->where('id', $userid)
                 ->update(['profilesubmitted' => 1 ]);
-      return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
-    }
-    else
-    {
-			return back()->withErrors(__('Please submit the information asked in all mandatory tabs to complete your profile submission.'));
+      		return redirect()->route('SipRegistration')->withStatus(__('Details submitted successfully.'));
+    	} else {
+				return back()->withErrors(__('Please submit the information asked in all mandatory tabs to complete your profile submission.'));
 		}
 	}
 

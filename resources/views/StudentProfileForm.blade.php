@@ -34,6 +34,8 @@
                 <p>Fill your complete profile for further assessment </p>
                 <p><b>The data on the tabs 1, 2, 4 and 5 is mandatory to be filled. <br>
                 Please go to the <b style="color:black;">"Final Confirmation"</b>  tab when all the data is submitted successfully and Click on "I Confirm" Checkbox. Only then, your profile will be considered as complete and submitted.</b></p>
+
+                <!-- <p>Please check your filled profile details <a style="color:red;" href="{!! route('ViewMyRegistration', Crypt::encrypt(Auth::user()->id))!!}" target="_blank" class="">here.</a></p> -->
             </div>
 
             <div class="row">
@@ -46,7 +48,6 @@
                     <li class="tab waves-effect waves-light btn"><a href="#test4" style="color: Red">Experience Details<br><b>(4)*</b></a></li>
                     <li class="tab waves-effect waves-light btn"><a  href="#test5" style="color: Red">e-Yantra Affiliations<br><b>(5)*</b></a></li>
                     <li class="tab waves-effect waves-light btn"><a  href="#test6"><b>Final <br>Confirmation</b></a></li>
-
                 @else
 
                     @if($data_exsits->tab1count == 0)
@@ -81,7 +82,7 @@
               
 
                 <div class="card-body">
-                  <div id="test1" class="col s12">
+                  <div id="test1" class="col s12">                    
                     <p class="ml-4 px-4" style="color:red;">All fields are mandatory</p>
                     <form method="post" action="{{ route('submitSection1') }}" autocomplete="off" 
                       class="form-horizontal">
@@ -537,6 +538,40 @@
                     <form method="post" action="{{ route('submitSection6') }}" autocomplete="off" 
                       class="form-horizontal">
                       @csrf
+                      <div class="row">
+                        <label class="col-sm-4 col-form-label" style = "color:black;font-weight: bold;">{{ __('Tentative college exam schedule') }}<span style="color:red;">*</span></label>
+                        <div class="col-sm-3">
+                          <div class="input-field {{ $errors->has('exam_start') ? ' has-danger' : '' }}">
+                            <input class="form-control" type="text" name="exam_start" id="exam_start" placeholder="Exam Start Date" value="{{ old('exam_start') }}" required>
+                            @if($errors->has('exam_start'))
+                              <span id="exam_start" class="error text-danger" for="exam_start">{{ $errors->first('exam_start') }}</span>
+                            @endif
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="input-field {{ $errors->has('exam_end') ? ' has-danger' : '' }}">
+                            <input class="form-control" type="text" name="exam_end" id="exam_end" placeholder="Exam End Date" value="{{ old('exam_end') }}" required>
+                            @if($errors->has('exam_end'))
+                              <span id="exam_end" class="error text-danger" for="exam_end">{{ $errors->first('exam_end') }}</span>
+                            @endif
+                          </div>
+                        </div>   
+                      </div>
+
+                      <div class="row">  
+                        <label class="col-sm-6 col-form-label" style = "color:black;font-weight: bold">{{ __('Mention the number of days you wish to take leaves.') }}<span style="color:red;">*</span></label>
+                        <div class="col-sm-3">
+                          <input type="number" class="form-control" name="NuOfLeaves" id="NuOfLeaves" placeholder="No of Team Members" value="{{old('NuOfLeaves')}}">
+                          @if($errors->has('exam_end'))
+                            <span id="NuOfLeaves" class="error text-danger" for="NuOfLeaves">{{ $errors->first('NuOfLeaves') }}</span>
+                          @endif
+                        </div>
+                        <br>
+                        <div class="col-sm-12">
+                          <p>(**<b>Leave Policy:</b> Since the internship is only for a short duration, you will be allowed to take only a maximum of 6 days leave during the whole course of the internship. Any clashes with the exam schedule or other reasons have to be limited to 6 days. The final decision for approving your leave lies with e-Yantra.)</p>
+                        </div>
+                      </div>
+                      
                       <div class="row">
                         <label class="col-sm-9 col-form-label">
                           <input name="confirm" value="1" type="checkbox" required />

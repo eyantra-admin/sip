@@ -88,7 +88,7 @@ hr {
 	    <li><a data-toggle="pill" href="#menu2" style="font-size:20px;">MOOC</a></li>
 	    <li><a data-toggle="pill" href="#menu3" style="font-size:20px;">Experience Details</a></li>
 	    <li><a data-toggle="pill" href="#menu4" style="font-size:20px;">e-Yantra Affiliations</a></li>
-	    <!-- <li><a data-toggle="pill" href="#menu5" style="font-size:20px;">General Questions</a></li> -->
+	    <li><a data-toggle="pill" href="#menu5" style="font-size:20px;">Exam Schedule</a></li>
 	  </ul>
 
 	<div class="tab-content">
@@ -346,7 +346,24 @@ hr {
 	 				<label>List of hardware that student has(other than theme kit) for immediate use in eYSIP. (ex. Microcontrollers, Sensors, Actuators, etc)</label>
 	 				<input type="text" class="form-control" disabled value= "{{$student->otherhw}}">
 	 			</div>
+ 			</div>
+  		</div>
+    </div>
+    <div id="menu5" class="tab-pane fade">
+	   	<div class="panel panel-info">
+ 			<div class="panel-heading">
+ 				<label>Exam Schedule</label>
+ 			</div>
+ 			
+ 			<div class="panel-body">
+ 				<div class="form-group col-lg-10 form-group-lg col-lg-offset-1">
+	 				<p><b>Exam Start</b>:{{$student->exam_start}}</p>
+	 				<p><b>Exam End</b>  :{{$student->exam_end}}</p>
+	 			</div>
 
+ 				<div class="form-group col-lg-10 form-group-lg col-lg-offset-1">
+	 				<p><b>Number of leaves to take:</b> {{$student->nu_leaves}}</p>
+	 			</div> 				
  			</div>
   		</div>
     </div>
