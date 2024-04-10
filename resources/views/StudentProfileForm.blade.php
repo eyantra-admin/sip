@@ -470,19 +470,19 @@
                             <input type="radio" id="eyrc" name="competition" value="eyrc" {{old('competition') == 'eyrc' ? 'checked' : '' }} onclick="showeyrc();" required>
                             <label for="eyrc">eYRC</label>
                           </div>
-                          <div class="radio">
+                          <div>
                             <input type="radio" id="eyic" name="competition" value="eyic" {{old('competition') == 'eyic' ? 'checked' : '' }} onclick="hideeyrc();">
                             <label for="eyic">eYIC</label>
                           </div>
-                          <div class="radio">
+                          <div>
                             <input type="radio" id="mooc" name="competition" value="mooc" {{old('competition') == 'mooc' ? 'checked' : '' }} onclick="hideeyrc();">
                             <label for="mooc">MOOC</label>
                           </div>
-                          <div class="radio">
+                          <div>
                             <input type="radio" id="hackathon" name="competition" value="hackathon" {{old('competition') == 'hackathon' ? 'checked' : '' }} onclick="hideeyrc();">
                                   <label for="mooc">Hackathon</label>
                           </div>
-                          <div class="radio">
+                          <div>
                             <input type="radio" id="design" name="competition" value="design" {{old('competition') == 'design' ? 'checked' : '' }} onclick="hideeyrc();">
                             <label for="mooc">Design Sprint</label>
                           </div>
@@ -496,13 +496,12 @@
                           <div class="col-lg-2">
                             <select name="theme" id="theme" class="form-control">
                               <option hidden>Select theme</option>
-                              <option value="FB" {{old('theme') == 1 ? 'selected' : '' }}>Functional RoadBot (FB)</option>
-                              <option value="KB" {{old('theme') == 1 ? 'selected' : '' }}>Krishi Bot (KB)</option>
-                              <option value="PB" {{old('theme') == 1 ? 'selected' : '' }}>Pharma Bot (PB)</option>
-                              <option value="SB" {{old('theme') == 1 ? 'selected' : '' }}>Swatchhta Bot (SB)</option>
-                              <option value="DB" {{old('theme') == 1 ? 'selected' : '' }}>Delivery Bike (DB)</option>
-                              <option value="SD" {{old('theme') == 1 ? 'selected' : '' }}>Sentinel Drone (SD)</option>
-                              <option value="HB" {{old('theme') == 1 ? 'selected' : '' }}>HolA Bot (HB)</option>
+                              <option value="AB" {{old('theme') == 1 ? 'selected' : '' }}>AstroTinker Bot (AB)</option>
+                              <option value="CL" {{old('theme') == 1 ? 'selected' : '' }}>Cosmo Logistic (CL)</option>
+                              <option value="GG" {{old('theme') == 1 ? 'selected' : '' }}>GeoGuide (GG)</option>
+                              <option value="HB" {{old('theme') == 1 ? 'selected' : '' }}>Hologlyph Bots (HB)</option>
+                              <option value="LD" {{old('theme') == 1 ? 'selected' : '' }}>Luminosity Drone (LD)</option>
+                              <option value="LS" {{old('theme') == 1 ? 'selected' : '' }}>Lunar Scout (LS)</option>
                             </select>
                           </div>
                           <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Where is your Theme Kit?') }}</label>
@@ -542,7 +541,7 @@
                         <label class="col-sm-4 col-form-label" style = "color:black;font-weight: bold;">{{ __('Tentative college exam schedule') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('exam_start') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="exam_start" id="exam_start" placeholder="Exam Start Date" value="{{ old('exam_start') }}" required>
+                            <input class="form-control" type="text" name="exam_start" id="exam_start" placeholder="Exam Start Date - dd-mm-YYYY" value="{{ old('exam_start') }}" required>
                             @if($errors->has('exam_start'))
                               <span id="exam_start" class="error text-danger" for="exam_start">{{ $errors->first('exam_start') }}</span>
                             @endif
@@ -550,7 +549,7 @@
                         </div>
                         <div class="col-sm-3">
                           <div class="input-field {{ $errors->has('exam_end') ? ' has-danger' : '' }}">
-                            <input class="form-control" type="text" name="exam_end" id="exam_end" placeholder="Exam End Date" value="{{ old('exam_end') }}" required>
+                            <input class="form-control" type="text" name="exam_end" id="exam_end" placeholder="Exam End Date - dd-mm-YYYY" value="{{ old('exam_end') }}" required>
                             @if($errors->has('exam_end'))
                               <span id="exam_end" class="error text-danger" for="exam_end">{{ $errors->first('exam_end') }}</span>
                             @endif
@@ -561,7 +560,7 @@
                       <div class="row">  
                         <label class="col-sm-6 col-form-label" style = "color:black;font-weight: bold">{{ __('Mention the number of days you wish to take leaves.') }}<span style="color:red;">*</span></label>
                         <div class="col-sm-3">
-                          <input type="number" class="form-control" name="NuOfLeaves" id="NuOfLeaves" placeholder="No of Team Members" value="{{old('NuOfLeaves')}}">
+                          <input type="number" class="form-control" name="NuOfLeaves" id="NuOfLeaves" placeholder="No of days" value="{{old('NuOfLeaves')}}">
                           @if($errors->has('exam_end'))
                             <span id="NuOfLeaves" class="error text-danger" for="NuOfLeaves">{{ $errors->first('NuOfLeaves') }}</span>
                           @endif
