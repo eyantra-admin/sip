@@ -118,13 +118,18 @@ class HomeController extends Controller
 
     public static function projectpreference(Request $request)
     {
-        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
+        //e-yantra projects
+        $projects = Projects::select('id','projectname','location')->where(['active' => 1, 'year' => 2024, 'source' => 1])->orderBy('projectname')->get();
+        //outside projects
+        $projects_outside = Projects::select('id','projectname','location')->where(['active' => 1, 'year' => 2024, 'source' => 2])->orderBy('projectname')->get();
+
         $proj_prefer = StudentProjPrefer ::where('userid', Auth::user()->id)->count();
         if($proj_prefer == 0)
         {
             return view ('project.preference')
             ->with('proj_prefer',$proj_prefer)
-            ->with('projects', $projects);
+            ->with('projects', $projects)
+            ->with('projects_outside', $projects_outside);
         }
         else
         {
@@ -142,7 +147,8 @@ class HomeController extends Controller
             ->with('project4', $project4)
             ->with('project5', $project5)
             ->with('proj_prefer',$proj_prefer)
-            ->with('projects', $projects);
+            ->with('projects', $projects)
+            ->with('projects_outside', $projects_outside);
         }
     }
 
@@ -150,18 +156,20 @@ class HomeController extends Controller
     {
         $input = $request->all();
         $rules=[
-        'project_preference_1'  => 'required|not_in:0',
-        'project_preference_2'  => 'required|not_in:0',
-        'project_preference_3'  => 'required|not_in:0',
-        'project_preference_4'  => 'required|not_in:0',
-        'project_preference_5'  => 'required|not_in:0',
+            'project_preference_1'  => 'required|not_in:0',
+            'project_preference_2'  => 'required|not_in:0',
+            'project_preference_3'  => 'required|not_in:0',
+            'project_preference_4'  => 'required|not_in:0',
+            'project_preference_5'  => 'required|not_in:0',
         ];
-        $messages = [   'project_preference_1.required' => 'Select first project preference',
-                        'project_preference_2.required' => 'Select second project preference',
-                        'project_preference_3.required' => 'Select third project preference',
-                        'project_preference_4.required' => 'Select fourth project preference',
-                        'project_preference_5.required' => 'Select fifth project preference',
-                    ];
+        $messages = [   
+            'project_preference_1.required' => 'Select first project preference',
+            'project_preference_2.required' => 'Select second project preference',
+            'project_preference_3.required' => 'Select third project preference',
+            'project_preference_4.required' => 'Select fourth project preference',
+            'project_preference_5.required' => 'Select fifth project preference',
+        ];
+
         $validate=Validator::make($request->all(),$rules,$messages);
 
         if($validate->fails())
@@ -171,27 +179,23 @@ class HomeController extends Controller
         else
         {
             //Check if profile is submitted, if yes then only proceed with adding preferences
-            if(Auth::user()->profilesubmitted == 0)
-            {
+            if(Auth::user()->profilesubmitted == 0){
                 return back()->withErrors(__('You have not submitted your profile.'));
-            }
-            else
-            {
+            } else {
                 if($request->project_preference_1 && $request->project_preference_2 && 
                    $request->project_preference_3 && $request->project_preference_4 &&
-                   $request->project_preference_5 !=0)
-                {
-                    $prefer1= $request->project_preference_1;
-                    $prefer2= $request->project_preference_2;
-                    $prefer3= $request->project_preference_3;
-                    $prefer4= $request->project_preference_4;
-                    $prefer5= $request->project_preference_5;
-                    $userid= Auth::user()->id;
+                   $request->project_preference_5 !=0) {
+                        $prefer1= $request->project_preference_1;
+                        $prefer2= $request->project_preference_2;
+                        $prefer3= $request->project_preference_3;
+                        $prefer4= $request->project_preference_4;
+                        $prefer5= $request->project_preference_5;
+                        $userid= Auth::user()->id;
                     //Check if all 5 dropdowns have different selections
                     $chkarr  = array($prefer1,$prefer2,$prefer3,$prefer4,$prefer5);
-                    log::info($chkarr);
+                    //log::info($chkarr);
                     $unique_values = count(array_count_values($chkarr));
-                    log::info($unique_values);
+                    //log::info($unique_values);
                     if($unique_values == 5)
                     {
                         $user = StudentProjPrefer::where('userid', '=', $userid)->first();

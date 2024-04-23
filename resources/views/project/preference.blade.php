@@ -70,17 +70,27 @@
                 <thead class=" text-primary">
                   <th><b>Sr No.</b></th>
                   <th><b>Project Name</b></th>
+                  <th><b>Project Location</b></th>
                   <th><b>Project Details</b></th>
                 </thead>
                     <tbody>
                       @foreach($projects as $key=>$cur)
                       <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$cur->projectname}}</td>
-                        <!-- <td>{{$cur->projectdesc}}</td> -->
+                        <td style="text-align: left;">{{$cur->projectname}}</td>
+                        <td>{{$cur->location}}</td>
                         <td><a href="projectdetail/{{Crypt::encrypt($cur->id)}}" target="_blank">View Detail</a></td>
                       </tr>
                       @endforeach
+                      @foreach($projects_outside as $key=>$cur)
+                      <tr>
+                        <td>{{$key+1}}</td>
+                        <td style="text-align: left;">{{$cur->projectname}}</td>
+                        <td>{{$cur->location}}</td>
+                        <td><a href="projectdetail/{{Crypt::encrypt($cur->id)}}" target="_blank">View Detail</a></td>
+                      </tr>
+                      @endforeach
+
                     </tbody>
                   </table>
               </div>
@@ -90,6 +100,7 @@
       </div>
 
       <!-- ------Preference table------- -->
+    {{--
     @if(Auth::user()->role == 1)
       @if($proj_prefer == 0)
       <div class="col-md-12" style="margin-top: 100px">
@@ -160,7 +171,7 @@
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                     <select class="col s12" name="project_preference_4" id="projectpref4" required>
                       <option hidden value="0">Select your fourth project preference</option>
-                      @foreach($projects as $project)
+                      @foreach($projects_outside as $project)
                         <option value="{{$project->id}}" {{old('projectpref4') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
                     </select>
@@ -176,7 +187,7 @@
                   <div class="input-field {{ $errors->has('name') ? ' has-danger' : '' }}">
                     <select class="col s12" name="project_preference_5" id="projectpref5" required>
                       <option hidden value="0">Select your fifth project preference</option>
-                      @foreach($projects as $project)
+                      @foreach($projects_outside as $project)
                         <option value="{{$project->id}}" {{old('projectpref5') == $project->id ? 'selected' : ''  }}>{{$project->projectname}}</option>
                       @endforeach
                     </select>
@@ -198,6 +209,7 @@
       </div> 
       @endif
     @endif
+    --}}
     </div>
   </div>
 @endsection
