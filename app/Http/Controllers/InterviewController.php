@@ -67,7 +67,7 @@ class InterviewController extends Controller
                             ->where('st.userid', '!=', null)
                             ->where('st.panel', $panel_no)
                             ->where('users.active', 1)
-                            ->where('users.year', 2023)
+                            ->where('users.year', 2024)
                             ->orderBy('st.date','asc')
                             ->orderBy('st.availableslots','asc')
                             ->distinct('online_profile_response.id')
@@ -118,12 +118,12 @@ class InterviewController extends Controller
                 $panel_eval = null;
             }
         } else {
-            $students = User::select('id','name')->where('role', 1)->where('year', 2023)
+            $students = User::select('id','name')->where('role', 1)->where('year', 2024)
             ->where('active', 1)->orderby('name')->get();
 
             $preferences = null;
         }        
-        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
+        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2024])->orderBy('projectname')->get();
         
         return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('preferences', $preferences)->with('panel_eval', $panel_eval);
     }
