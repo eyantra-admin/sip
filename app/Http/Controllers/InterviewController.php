@@ -108,7 +108,7 @@ class InterviewController extends Controller
                 $panel_eval = StudentEvaluation::select(
                         'p1.id as p1_id','p1.projectname as p1_name',
                         'p2.id as p2_id','p2.projectname as p2_name',
-                        'p3.id as p3_id','p3.projectname as p3_name','decision','technicalstrength','remark'
+                        'p3.id as p3_id','p3.projectname as p3_name','decision','technicalstrength','outside_prj_willingness','remark'
                     )->join('projects as p1','p1.id', '=', 'student_evaluation.projectpref1')
                     ->join('projects as p2','p2.id', '=', 'student_evaluation.projectpref2')
                     ->join('projects as p3','p3.id', '=', 'student_evaluation.projectpref3')
@@ -162,6 +162,7 @@ class InterviewController extends Controller
                 'projectpref3' => $request->projectpref3,  
                 'decision' => $request->decision,
                 'technicalstrength' => $request->technicalstrength,
+                'outside_prj_willingness' => $request->outside_prj_willingness,
                 'remark' => $request->remark
             ]);
 

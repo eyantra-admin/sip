@@ -165,8 +165,22 @@
               </div>
 
               <div class="row">
+                <p class="col-form-label ml-2">Are they actually willing to work on the projects filled in 4th and 5th preferences (at the location mentioned)?</p>
+              </div>
+              <div class="row">                
+                <label class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <select class="form-control"  name="outside_prj_willingness" id="outside_prj_willingness" required>
+                      <option hidden value="0">Select</option>
+                        <option value="Yes" style="text-align:center;">Yes</option>
+                        <option value="No" style="text-align:center;">No</option>
+                    </select>
+                </div>
+              </div>
+
+              <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Remark') }}</label>
-                <div class="col-sm-7">
+                <div class="col-sm-8">
                     <textarea id= "remark" class="form-control" name="remark" maxlength="2000" placeholder="Short remark for your evaluation " rows="4" required></textarea>
                 </div>
               </div>
@@ -186,8 +200,9 @@
                   <ul style="list-style-type: circle;">
                       <li><b>Decision:</b> {{$panel_eval->decision}}</li>
                       <li><b>Technical Strenth:</b> {{$panel_eval->technicalstrength}}</li>                     
+                      <li><b>Willingness for Outside Projects:</b> {{$panel_eval->outside_prj_willingness}}</li>
                   </ul>
-                  <p>{{$panel_eval->remark}}</p>
+                  <p class="mx-4">{{$panel_eval->remark}}</p>
                 </div>                    
               </div>
               @endif
