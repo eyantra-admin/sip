@@ -61,7 +61,7 @@
         <div class="col-md-12" style="margin-top: 25px">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title ">Project List</h4>
+              <h4 class="card-title ">Project List 1</h4>
               <p class="card-category"> List of all available projects along with its details.</p>
             </div>
             <div class="card-body">
@@ -82,6 +82,27 @@
                         <td><a href="projectdetail/{{Crypt::encrypt($cur->id)}}" target="_blank">View Detail</a></td>
                       </tr>
                       @endforeach
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title ">Project List 2</h4>
+              <p class="card-category"> List of all available projects along with its details.</p>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table" id="project_table" style="text-align: center;"> 
+                <thead class=" text-primary">
+                  <th><b>Sr No.</b></th>
+                  <th><b>Project Name</b></th>
+                  <th><b>Project Location</b></th>
+                  <th><b>Project Details</b></th>
+                </thead>
+                    <tbody>                      
                       @foreach($projects_outside as $key=>$cur)
                       <tr>
                         <td>{{$key+1}}</td>
@@ -99,8 +120,7 @@
         </div>
       </div>
 
-      <!-- ------Preference table------- -->
-    {{--
+    <!-- ------Preference table------- -->    
     @if(Auth::user()->role == 1)
       @if($proj_prefer == 0)
       <div class="col-md-12" style="margin-top: 100px">
@@ -208,8 +228,7 @@
         </form>
       </div> 
       @endif
-    @endif
-    --}}
+    @endif    
     </div>
   </div>
 @endsection
