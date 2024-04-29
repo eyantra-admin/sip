@@ -21,7 +21,7 @@
                   <thead class=" text-primary">
                     <th><b>Sr No.</b></th>
                     <th><b>User Id</b></th>
-                    <!-- <th><b>Panel No</b></th> -->
+                    <th><b>Panel No</b></th>
                     <th><b>Student Name</b></th>
                     <th><b>Email Id</b></th>
                   </thead>
@@ -31,7 +31,14 @@
                       <tr>
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->userid}}</b></td>
-                        <!-- <td><b>{{$cur->panelid}}</b></td> -->
+                        <td>
+                            @if(!empty($cur->panelid))
+                            <b>{{$cur->panelid}}</b>
+                            @else
+                            <p>Yet to assign</p>
+                            @endif
+                            | <b><a href="{!!route('EvaluationResultAdmin', $cur->userid)!!}">Evaluate</a></b>
+                        </td>
                         <td><b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank" class="col-sm-4 col-form-label"><b>{{ $cur->name }}</b></a></b></td>
 
                         <td><b>{{$cur->email}}</b></td>

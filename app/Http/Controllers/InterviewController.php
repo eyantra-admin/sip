@@ -127,6 +127,7 @@ class InterviewController extends Controller
         
         return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('preferences', $preferences)->with('panel_eval', $panel_eval);
     }
+
     public function EvaluationSubmit(Request $request)
     {
         
@@ -171,5 +172,52 @@ class InterviewController extends Controller
 
         }        
    }
+
+    public function EvaluationResultAdmin($userId){   
+        if($userId){
+            $student = User::select('users.id','name', 'panelid')
+                    ->leftjoin('user_panel as panel', 'users.id', '=', 'panel.userid') 
+                    ->where('users.id', $userId)
+                    ->first();
+
+            //student project preferences
+            if(StudentProjPrefer::where('userid', $userId)->exists()) {                
+                $preferences = StudentProjPrefer::select(
+                        'p1.id as p1_id','p1.projectname as p1_name',
+                        'p2.id as p2_id','p2.projectname as p2_name',
+                        'p3.id as p3_id','p3.projectname as p3_name',
+                        'p4.id as p4_id','p4.projectname as p4_name',
+                        'p5.id as p5_id','p5.projectname as p5_name'
+                    )->join('projects as p1','p1.id', '=', 'studentprojprefer.projectprefer1')
+                    ->join('projects as p2','p2.id', '=', 'studentprojprefer.projectprefer2')
+                    ->join('projects as p3','p3.id', '=', 'studentprojprefer.projectprefer3')
+                    ->join('projects as p4','p4.id', '=', 'studentprojprefer.projectprefer4')
+                    ->join('projects as p5','p5.id', '=', 'studentprojprefer.projectprefer5')
+                    ->where('studentprojprefer.userid', '=', $userId)
+                    ->first();
+                // exists
+            } else {
+                $preferences = null;
+            }   
+
+            //evaluation by panel
+            if(StudentEvaluation::where('userid', $userId)->exists()){
+                $panel_eval = StudentEvaluation::select(
+                        'p1.id as p1_id','p1.projectname as p1_name',
+                        'p2.id as p2_id','p2.projectname as p2_name',
+                        'p3.id as p3_id','p3.projectname as p3_name','decision','technicalstrength','outside_prj_willingness','exam_schedule_clash','student_evaluation.remark'
+                    )->join('projects as p1','p1.id', '=', 'student_evaluation.projectpref1')
+                    ->join('projects as p2','p2.id', '=', 'student_evaluation.projectpref2')
+                    ->join('projects as p3','p3.id', '=', 'student_evaluation.projectpref3')
+                    ->where('student_evaluation.userid', '=', $userId)
+                    ->first();
+            } else {
+                $panel_eval = null;
+            }
+
+            return view ('EvaluationAdmin')->with('student', $student)->with('preferences', $preferences)->with('panel_eval', $panel_eval);
+        }         
+        
+    }
    
 }

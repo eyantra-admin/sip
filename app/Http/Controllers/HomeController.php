@@ -726,13 +726,14 @@ class HomeController extends Controller
     public static function View_studentprofiles(Request $request)
     {   
         $result = OnlineProfile::select('online_profile_response.name','online_profile_response.email',
-                'online_profile_response.phone','online_profile_response.userid')
+                'online_profile_response.phone','online_profile_response.userid','panelid')
                 ->join('users as u', 'u.id', '=', 'online_profile_response.userid')
-                //->join('user_panel as up', 'up.userid', '=', 'u.id')
+                ->leftjoin('user_panel as panel', 'panel.userid', '=', 'u.id')
                 //->where('u.profilesubmitted', 1)
                 ->where('u.active', 1)
                 ->where('u.role', 1)
                 ->where('u.year', 2024)
+                ->whereNotNull('online_profile_response.name')
                 ->orderBy('online_profile_response.name')
                 ->get();
                 return view('View_studentprofiles')->with('profile_list', $result);
