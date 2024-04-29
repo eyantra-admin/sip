@@ -51,12 +51,8 @@
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Student Name') }}</label>
                 <div class="col-sm-7">
-                  <select class="form-control" name="studentname" id="studentname" required>
-                    <option hidden value="">Select Student Name</option>
-                      @foreach($students as $student)
-                        <option value="{{ $student->id }}">{{ $student->name }}</option>
-                      @endforeach
-                  </select>
+                  <input type="text" class="form-control" name="txt_studentname" value="{{$students->name}}" readonly="true">
+                  <input type="hidden" name="studentname" id="studentname" value="{{$students->id}}">                  
                 </div>
               </div>
 

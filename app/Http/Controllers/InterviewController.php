@@ -81,7 +81,7 @@ class InterviewController extends Controller
     public function EvaluationResult($userId)
     {   //$start_date = date('2022-05-01 00:00:00');
         if($userId){
-            $students = User::select('id','name')->where('id', $userId)->get();
+            $students = User::select('id','name')->where('id', $userId)->first();
 
             //student project preferences
             if(StudentProjPrefer::where('userid', $userId)->exists()) {                

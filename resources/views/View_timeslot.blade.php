@@ -13,20 +13,18 @@
           <div class="card">
             <div class="card-header card-header-primary">
               <h4 class="card-title ">Time Slot Bookings</h4>
-              <p class="card-category"></p>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table" id="timeslot_table" style="text-align: center;"> 
                 <thead class=" text-primary">
-                  <th><b>Sr No.</b></th>
+                  <th><b>#</b></th>
                   <th><b>Panel No</b></th>
-                  <!-- <th><b>User Id</b></th> -->
                   <th><b>Intern Name</b></th>
                   <th><b>Department</b></th>
                   <th><b>Interview Date</b></th>
-                  <th><b>Time Slot Booked</b></th>
-                  <th><b>Evaluate</b></th>
+                  <th><b>Time</b></th>
+                  <th><b>#</b></th>
                   <th><b>Panel Decision</b></th>
                 </thead>
                 
@@ -35,8 +33,9 @@
                       <tr>
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->panel}}</b></td>
-                        <!-- <td><b>{{$cur->userid}}</b></td> -->
-                        <td>{{$cur->userid}} | <b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank">{{ $cur->name}}</a></b></td>
+                        <td class="text-right"><b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank">
+                          {{ $cur->name}}</a></b>
+                        </td>
                         <td>
                           @if($cur->branch != null)
                           <b>{{$cur->branch}}</b>
