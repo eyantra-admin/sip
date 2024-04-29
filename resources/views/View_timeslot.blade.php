@@ -33,7 +33,7 @@
                       <tr>
                         <td><b>{{$key+1}}</b></td>
                         <td><b>{{$cur->panel}}</b></td>
-                        <td class="text-right"><b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank">
+                        <td class="text-left">{{$cur->userid}}|<b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank">
                           {{ $cur->name}}</a></b>
                         </td>
                         <td>
