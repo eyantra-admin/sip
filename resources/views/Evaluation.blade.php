@@ -68,9 +68,9 @@
                             <p><b>Time:</b>{{$project->projDuration}} / <b>Members:</b> {{$project->projMembers}} / {{$project->projectRole}}</p>
                             @if($project->projGithub)
                               <a href="{{$project->projGithub}}" target="_blank">Check Git repo</a>
-                            @endif
-                            Skills:
-                            <ol>
+                            @endif                            
+                            <br>
+                            <ol>                              
                               <li>{{$project->skills1}}: <b>{{$project->rating1}}</b></li>
                               <li>{{$project->skills2}}: <b>{{$project->rating2}}</b></li>
                               <li>{{$project->skills3}}: <b>{{$project->rating3}}</b></li>
@@ -78,6 +78,7 @@
                             <hr>
                         </div>  
                       @endforeach
+                      <p><b>Exam Schedule:</b> {{$students->exam_start}} - {{$students->exam_end}} / Leaves: {{$students->nu_leaves}} </p>
                   </div>
 
 
