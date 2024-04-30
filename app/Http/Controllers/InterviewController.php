@@ -12,6 +12,7 @@ use App\Model\TimeslotBooking;
 use App\Model\UserPanel;
 use App\Model\EysipUploads;
 use App\Model\PreInternshipSurvey;
+use App\Model\StudentProjDtls;
 
 use Illuminate\Http\Request; 
 use Illuminate\Support\Facades\Input;
@@ -81,7 +82,16 @@ class InterviewController extends Controller
     public function EvaluationResult($userId)
     {   //$start_date = date('2022-05-01 00:00:00');
         if($userId){
-            $students = User::select('id','name')->where('id', $userId)->first();
+            $students = User::select('users.id','profile.name','profile.phone','profile.year','branch','college')
+                    ->join('online_profile_response as profile','profile.userid','=','users.id')
+                    ->where('users.id', $userId)->first();
+
+            $student_projects = StudentProjDtls::select('student_project_dtls.*','s1.skill as skills1','s2.skill as skills2','s3.skill as skills3')
+                ->join('skills_list as s1','student_project_dtls.skills1','=','s1.id')
+                ->join('skills_list as s2','student_project_dtls.skills2','=','s2.id')
+                ->join('skills_list as s3','student_project_dtls.skills3','=','s3.id')
+                ->where('userid', $userId)
+                ->get();        
 
             //student project preferences
             if(StudentProjPrefer::where('userid', $userId)->exists()) {                
@@ -125,7 +135,7 @@ class InterviewController extends Controller
         }        
         $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2024])->orderBy('projectname')->get();
         
-        return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('preferences', $preferences)->with('panel_eval', $panel_eval);
+        return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('student_projects', $student_projects)->with('preferences', $preferences)->with('panel_eval', $panel_eval);
     }
 
     public function EvaluationSubmit(Request $request)

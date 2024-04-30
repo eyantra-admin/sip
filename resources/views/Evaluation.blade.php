@@ -55,6 +55,33 @@
                   <input type="hidden" name="studentname" id="studentname" value="{{$students->id}}">                  
                 </div>
               </div>
+              <div class="row my-4">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-7" style="background-color:#ADD8E6;">
+                      <p>{{$students->college}} / {{$students->year}} / {{$students->branch}}</p>
+                      <p>Contact: {{$students->phone}}</p>
+                      <hr>
+                      @foreach($student_projects as $project)
+                        <div class="col-sm-7" style="background-color:#ADD8E6;">
+                            <h5>Title: {{$project->projectTitle}}</h5>
+                            <p class="text-justify">{{$project->projDesc}}</p>
+                            <p><b>Time:</b>{{$project->projDuration}} / <b>Members:</b> {{$project->projMembers}} / {{$project->projectRole}}</p>
+                            @if($project->projGithub)
+                              <a href="{{$project->projGithub}}" target="_blank">Check Git repo</a>
+                            @endif
+                            Skills:
+                            <ol>
+                              <li>{{$project->skills1}}: <b>{{$project->rating1}}</b></li>
+                              <li>{{$project->skills2}}: <b>{{$project->rating2}}</b></li>
+                              <li>{{$project->skills3}}: <b>{{$project->rating3}}</b></li>
+                            </ol>
+                            <hr>
+                        </div>  
+                      @endforeach
+                  </div>
+
+
+              </div>        
 
               @if($preferences != null)
                   <div class="row my-4">
