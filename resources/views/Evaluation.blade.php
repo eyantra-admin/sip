@@ -56,13 +56,13 @@
                 </div>
               </div>
               <div class="row my-4">
-                  <div class="col-sm-2"></div>
-                  <div class="col-sm-7" style="background-color:#ADD8E6;">
+                  <div class="col-sm-1"></div>                  
+                  <div class="col-sm-10" style="background-color:#ADD8E6;">
                       <p>{{$students->college}} / {{$students->year}} / {{$students->branch}}</p>
                       <p>Contact: {{$students->phone}}</p>
                       <hr>
                       @foreach($student_projects as $project)
-                        <div class="col-sm-7" style="background-color:#ADD8E6;">
+                        <div class="col-sm-12" style="background-color:#ADD8E6;">
                             <h5>Title: {{$project->projectTitle}}</h5>
                             <p class="text-justify">{{$project->projDesc}}</p>
                             <p><b>Time:</b>{{$project->projDuration}} / <b>Members:</b> {{$project->projMembers}} / {{$project->projectRole}}</p>
@@ -80,8 +80,6 @@
                       @endforeach
                       <p><b>Exam Schedule:</b> {{$students->exam_start}} - {{$students->exam_end}} / Leaves: {{$students->nu_leaves}} </p>
                   </div>
-
-
               </div>        
 
               @if($preferences != null)
