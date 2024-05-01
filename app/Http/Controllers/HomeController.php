@@ -315,6 +315,7 @@ class HomeController extends Controller
 
     public static function booktimeslot(Request $request)
     {
+        return back()->withErrors(__('TimeSlot booking has been closed.'));
         //log::info('into time slot booking');
         $rules=[
         'date' => 'required',
