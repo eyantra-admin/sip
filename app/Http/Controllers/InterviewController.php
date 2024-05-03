@@ -251,10 +251,10 @@ class InterviewController extends Controller
                     ->orderByRaw("STR_TO_DATE(availableslots, '%l:%i %p')")
                     ->get();
 
-            $csvFileName = 'evaluation.csv';
+            /*$csvFileName = 'evaluation.csv';
             $headers = [
                 'Content-Type' => 'text/csv',
-                'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+                //'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
             ];
 
             $handle = fopen('php://output', 'w');
@@ -276,7 +276,7 @@ class InterviewController extends Controller
                 'remark',
                 'mentor_preference1',
                 'mentor_preference2',
-                'mentor_preference3',
+                'mentor_preference3'
 
             ]); // Add more headers as needed
 
@@ -299,13 +299,78 @@ class InterviewController extends Controller
                     $evaluation->remark,
                     $evaluation->mentor_preference1,
                     $evaluation->mentor_preference2,
-                    $evaluation->mentor_preference3,
+                    $evaluation->mentor_preference3
                 ]); // Add more fields as needed
             }
 
             fclose($handle);
 
-            return Response::make('', 200, $headers);
+            return Response::make('', 200, $headers);*/
+
+            $fileName = 'tasks.csv';
+            
+            $headers = array(
+                "Content-type"        => "text/csv",
+                "Content-Disposition" => "attachment; filename=$fileName",
+                "Pragma"              => "no-cache",
+                "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+                "Expires"             => "0"
+            );
+
+            $columns = array(
+                'name', 
+                'email',
+                'student_preference1',
+                'student_preference2',
+                'student_preference3',
+                'student_preference4',
+                'student_preference5',
+                'interview_date',
+                'interview_time',
+                'panel',
+                'decision',
+                'technicalstrength',
+                'outside_prj_willingness',
+                'exam_schedule_clash',
+                'remark',
+                'mentor_preference1',
+                'mentor_preference2',
+                'mentor_preference3'
+            );
+
+            $callback = function() use($data, $columns) {
+                $file = fopen('php://output', 'w');
+                fputcsv($file, $columns);
+
+                foreach ($data as $evaluation) {
+                    $row['name']  = $evaluation->name;
+                    $row['email']    = $evaluation->email;
+                    $row['student_preference1']  = $evaluation->student_preference1;
+                    $row['student_preference2']  = $evaluation->student_preference2;
+                    $row['student_preference3']  = $evaluation->student_preference3;
+                    $row['student_preference4']  = $evaluation->student_preference4;
+                    $row['student_preference5']  = $evaluation->student_preference5;
+                    $row['interview_date']  = $evaluation->interview_date;
+                    $row['interview_time']  = $evaluation->interview_time;
+                    $row['panel']  = $evaluation->panel;
+                    $row['decision']  = $evaluation->decision;
+                    $row['technicalstrength']  = $evaluation->technicalstrength;
+                    $row['outside_prj_willingness']  = $evaluation->outside_prj_willingness;
+                    $row['exam_schedule_clash']  = $evaluation->exam_schedule_clash;
+                    $row['remark']  = $evaluation->remark;
+                    $row['mentor_preference1']  = $evaluation->mentor_preference1;
+                    $row['mentor_preference2']  = $evaluation->mentor_preference2;
+                    $row['mentor_preference3']  = $evaluation->mentor_preference3;
+
+                    fputcsv($file, array($row['name'], $row['email'], $row['student_preference1'], $row['student_preference2'], $row['student_preference3'], $row['student_preference4'], $row['student_preference5'], $row['interview_date'], $row['interview_time'], $row['panel'], $row['decision'], $row['technicalstrength'], $row['outside_prj_willingness'], $row['exam_schedule_clash'], $row['remark'], $row['mentor_preference1'], 
+                        $row['mentor_preference2'], $row['mentor_preference3']));                   
+                }
+
+                fclose($file);
+            };
+
+            return response()->stream($callback, 200, $headers);
+            
         }
    
 }
