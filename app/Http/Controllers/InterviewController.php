@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Response;
 use App\Model\OnlineProfile;
 use App\Model\CollegeDetails;
 use App\Model\ElsiState;
@@ -229,5 +231,81 @@ class InterviewController extends Controller
         }         
         
     }
+
+    public function ExportEvaluationResult(Request $request){
+            $data = User::select('users.name','users.email','tb.date as interview_date','availableslots as interview_time','panel','decision','technicalstrength','outside_prj_willingness','exam_schedule_clash','se.remark as remark')
+                    ->selectRaw('(select projects.projectname from projects where sp.projectprefer1 = projects.id) as student_preference1')
+                    ->selectRaw('(select projects.projectname from projects where sp.projectprefer2 = projects.id) as student_preference2')
+                    ->selectRaw('(select projects.projectname from projects where sp.projectprefer3 = projects.id) as student_preference3')
+                    ->selectRaw('(select projects.projectname from projects where sp.projectprefer4 = projects.id) as student_preference4')
+                    ->selectRaw('(select projects.projectname from projects where sp.projectprefer5 = projects.id) as student_preference5')
+                    ->selectRaw('(select projects.projectname from projects where se.projectpref1 = projects.id) as mentor_preference1')
+                    ->selectRaw('(select projects.projectname from projects where se.projectpref2 = projects.id) as mentor_preference2')
+                    ->selectRaw('(select projects.projectname from projects where se.projectpref3 = projects.id) as mentor_preference3')
+                    ->leftjoin('studentprojprefer as sp', 'sp.userid', '=', 'users.id')
+                    ->leftjoin('student_evaluation as se', 'se.userid', '=', 'users.id')
+                    ->leftjoin('timeslot_booking as tb', 'tb.userid', '=', 'users.id')
+                    ->where(['role' => 1, 'users.year' => 2024])
+                    ->orderBy('tb.panel')
+                    ->orderBy('tb.date')
+                    ->orderByRaw("STR_TO_DATE(availableslots, '%l:%i %p')")
+                    ->get();
+
+            $csvFileName = 'evaluation.csv';
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="' . $csvFileName . '"',
+            ];
+
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, [
+                'name', 
+                'email',
+                'student_preference1',
+                'student_preference2',
+                'student_preference3',
+                'student_preference4',
+                'student_preference5',
+                'interview_date',
+                'interview_time',
+                'panel',
+                'decision',
+                'technicalstrength',
+                'outside_prj_willingness',
+                'exam_schedule_clash',
+                'remark',
+                'mentor_preference1',
+                'mentor_preference2',
+                'mentor_preference3',
+
+            ]); // Add more headers as needed
+
+            foreach ($data as $evaluation) {
+                fputcsv($handle, [
+                    $evaluation->name, 
+                    $evaluation->email,
+                    $evaluation->student_preference1,
+                    $evaluation->student_preference2,
+                    $evaluation->student_preference3,
+                    $evaluation->student_preference4,
+                    $evaluation->student_preference5,
+                    $evaluation->interview_date,
+                    $evaluation->interview_time,
+                    $evaluation->panel,
+                    $evaluation->decision,
+                    $evaluation->technicalstrength,
+                    $evaluation->outside_prj_willingness,
+                    $evaluation->exam_schedule_clash,
+                    $evaluation->remark,
+                    $evaluation->mentor_preference1,
+                    $evaluation->mentor_preference2,
+                    $evaluation->mentor_preference3,
+                ]); // Add more fields as needed
+            }
+
+            fclose($handle);
+
+            return Response::make('', 200, $headers);
+        }
    
 }

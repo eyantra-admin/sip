@@ -5,7 +5,8 @@
   <div class="container-fluid">
     <div class = "row">
       <div class="col-md-12" style="margin-left: 20px">
-        <button onclick="exportTableToCSV('SIPStudentList.csv')" class="btn btn-primary"> Export to CSV File</button>  
+        <button onclick="exportTableToCSV('SIPStudentList.csv')" class="btn btn-primary"> Export to CSV File</button> 
+        <a href="{!!route('ExportEvaluation')!!}" target="_blank">Export Evaluation Result</a> 
       </div>
 
 
@@ -17,6 +18,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
+
                 <table class="table" id="timeslot_table" style="text-align: center;"> 
                   <thead class=" text-primary">
                     <th><b>Sr No.</b></th>

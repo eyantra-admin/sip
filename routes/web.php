@@ -69,6 +69,7 @@ Route::group(['middleware' => ['isAdmin','keycloak-web']], function ()
 	Route::any('/download-nda/{id}', ['as'=>'download_nda_all','uses'=>'HomeController@downloadNDA']);
 
 	Route::get('EvaluationResultAdmin/{userId}', ['as' => 'EvaluationResultAdmin', 'uses' => 'InterviewController@EvaluationResultAdmin']);
+	Route::get('ExportEvaluationResult', ['as' => 'ExportEvaluation', 'uses' => 'InterviewController@ExportEvaluationResult']);
 });
 
 
