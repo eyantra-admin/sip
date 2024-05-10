@@ -230,7 +230,7 @@ class PaymentController extends Controller
 
     public function makePayment(Request $request){
 
-        return redirect()->back()->with('error','Please Wait, Coming soon....');
+        //return redirect()->back()->with('error','Please Wait, Coming soon....');
 
         $user=Auth::user();
        
@@ -356,7 +356,7 @@ class PaymentController extends Controller
                 $payment->payer_user_id = $data->id;
                 $payment->amount = $fee;
                 $payment->currency= 'INR';
-                $payment->purpose='eYSIP2023';
+                $payment->purpose='eYSIP2024';
                 $payment->save();
             }//if ends
     
@@ -373,7 +373,7 @@ class PaymentController extends Controller
                         'userId' => $payment->payer_user_id,
                         'amountDue' => (float)$payment->amount,  
                         // 'amountDue' => 1,
-                        'purpose' => 'eYSIP2023',
+                        'purpose' => 'eYSIP2024',
                         'currency' => 'INR',
                     ],
                 ])->getBody();

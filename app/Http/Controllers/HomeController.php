@@ -594,7 +594,7 @@ class HomeController extends Controller
     public function downloadNDA($id)
     {
         //log::info('---------------------------');
-        $nda_data=EysipUploads::where('userid', $id)->first();
+        $nda_data=EysipUploads::where('userid', $id)->orderBy('created_at', 'desc')->first();
         $user_data = User::find($id);        
         //storage/sip_uploads/'.$nda_data->photo
         //Log::info($nda_data);
