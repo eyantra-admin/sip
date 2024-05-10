@@ -229,6 +229,9 @@ class PaymentController extends Controller
 
 
     public function makePayment(Request $request){
+
+        return redirect()->back()->with('error','Please Wait, Coming soon....');
+
         $user=Auth::user();
        
         $fee=$this->getFees($user);//get the amount to be paid

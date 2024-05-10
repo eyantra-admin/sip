@@ -58,7 +58,9 @@
           </ul>
         </div>
       </li> -->
+      
   @if(Auth::user()->role == 1)
+    {{--
     @if( Auth::user()->profilesubmitted == 1)
     <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
       <a class="nav-link" href="{{ route('timeslotbooking') }}">
@@ -73,7 +75,7 @@
       </a>
     </li>   
     @endif
-  @endif
+    --}}  
 
     @if(Auth::user()->selected == 1)
         <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
@@ -127,6 +129,7 @@
           </a>
         </li> -->
     @endif
+  @endif  
 
 
     <!--   ***********MENTOR INTERFACE******** -->
