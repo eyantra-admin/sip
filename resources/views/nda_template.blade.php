@@ -25,11 +25,10 @@
 <body>
 <div>
   <div class="header-container">
-    <h3 style="text-align: center;">eYSIP 2021 - Student NDA</h3>
-    <?php $url = Storage::url('app/public/sip_uploads/') ?>
-    {{$url}}
+    <h3 style="text-align: center;">eYSIP {{date("Y")}} - Student NDA</h3>
+    <?php $url = Storage::url('app/sip_uploads/') ?>
     <div class="row">
-      <div class="column">
+      <div class="column">          
           <img src="{{ URL::asset('storage/sip_uploads/'.$nda_data->photo) }}" height="170" width="130"><br/>
       </div>
       <div class="column">

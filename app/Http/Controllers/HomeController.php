@@ -551,20 +551,20 @@ class HomeController extends Controller
                     $userid = Auth::user()->id;
 
                     $file1 = $request->photo;
-                    $newfilename1 = $userid.'_photo.'. $format1;
-                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file1,$newfilename1);
+                    $newfilename1 = $userid.time().'_photo.'. $format1;
+                    $path = Storage::disk('local')->putFileAs('public/sip_uploads',$file1,$newfilename1);
 
                     $file2 = $request->signature;
-                    $newfilename2 = $userid.'_sign.'. $format2;
-                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file2,$newfilename2);
+                    $newfilename2 = $userid.time().'_sign.'. $format2;
+                    $path = Storage::disk('local')->putFileAs('public/sip_uploads',$file2,$newfilename2);
 
                     $file3 = $request->pancard;
-                    $newfilename3 = $userid.'_pan.'. $format3;
-                    $path = Storage::disk('local')->putFileAs('sip_uploads',$file3,$newfilename3);
+                    $newfilename3 = $userid.time().'_pan.'. $format3;
+                    $path = Storage::disk('local')->putFileAs('public/sip_uploads',$file3,$newfilename3);
 
-                    $feed->photo = $userid. '_photo.' .$format1;
-                    $feed->signature = $userid. '_sign.' .$format2;
-                    $feed->pancard = $userid. '_pan.' .$format3;
+                    $feed->photo = $newfilename1;
+                    $feed->signature = $newfilename2;
+                    $feed->pancard = $newfilename3;
                     $feed->save();
 
                     $updatenda = DB::table('users')
@@ -595,14 +595,14 @@ class HomeController extends Controller
     {
         //log::info('---------------------------');
         $nda_data=EysipUploads::where('userid', $id)->first();
-        $user_data = User::find($id);
+        $user_data = User::find($id);        
+        //storage/sip_uploads/'.$nda_data->photo
         //Log::info($nda_data);
         $pdf = \App::make('dompdf.wrapper');
 
         $pdf = PDF::loadView('nda_template', ['nda_data'=>$nda_data, 'user_data'=> $user_data]);
         return view('nda_template', compact('nda_data', 'user_data'));
     }
-    
 
     public function verifydetails(Request $request)
     {
