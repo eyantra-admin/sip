@@ -140,7 +140,7 @@
         @endif
 
         @if($status !='success')
-        <div><h3><b>If you have made the payment and the amount has been debited, then wait for 2-3 days for it to be reflected here.<br> If the page is not updated then send us an email at support@e-yantra.org</b></h3></div>
+        <div><h3><b>If you have made the payment and the amount has been debited, then wait for 2-3 days for it to be reflected here.<br> If the page is not updated then send us an email at eysip@e-yantra.org</b></h3></div>
         @endif        
     <br><br>
         <div>
