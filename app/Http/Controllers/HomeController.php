@@ -491,60 +491,48 @@ class HomeController extends Controller
     {
         return view('faq');
     }
-    public static function nda()
-    {
-        //dd(storage_path());
-        //return redirect()->route('home')->withStatus(__('Closed.'));
-        return view('nda');
+    
+    public static function nda(){       
+        return view('nda')->with('ndaFlag', Auth::user()->nda_done);
     }
 
     public function submitnda(Request $request)
     {
-        //return redirect()->route('home')->withStatus(__('Closed.'));
-        //log::info($request->all());
+        
         $validator = Validator::make($request->all(), [
-            'photo' => 'required|mimes:jpeg,jpg,png|required|max:10000',
-            'signature' => 'required|mimes:jpeg,jpg,png|required|max:10000',
-            'pancard' => 'required|mimes:jpeg,jpg,png|required|max:10000',
-            'conduct' => 'required',                        
-            ],
-            [
-            'photo' => 'Photograph is required!',
-            'signatures' => 'Digital signature is required',
-            'pancard' => 'Pan card is required',
-            'conduct' => 'I agree not selected!',
+                'photo' => 'required|mimes:jpeg,jpg,png|required|max:10000',
+                'signature' => 'required|mimes:jpeg,jpg,png|required|max:10000',
+                'conduct' => 'required',                        
+            ],[
+                'photo' => 'Photograph is required!',
+                'signatures' => 'Digital signature is required',
+                'conduct' => 'I agree not selected!',
             ]);
 
-            if($validator->fails())
-            {
+            if($validator->fails()) {
                 return back()->withErrors($validator);
             }
-            else
-            {   
+            else {   
                 $feed = new EysipUploads;
                 
                 $feed->userid = Auth::user()->id;
                 $feed->photo = $request->photo;
-                $feed->signature = $request->signature;
-                $feed->pancard = $request->pancard;
+                $feed->signature = $request->signature;                
                 $feed->conduct = $request->conduct;
 
-                if($request->hasFile('photo') && $request->hasFile('pancard') 
-                    && $request->hasFile('signature'))
+                if($request->hasFile('photo') && $request->hasFile('signature'))
                 {
-                    log::info('inside');
                     $format1 = strtolower($request->photo->getClientOriginalExtension());
-                    $format2 = strtolower($request->pancard->getClientOriginalExtension());
-                    $format3 = strtolower($request->signature->getClientOriginalExtension());
+                    $format2 = strtolower($request->signature->getClientOriginalExtension());
                     
-                    $size1 = $request->file('photo')->getSize();
-                    $size2 = $request->file('pancard')->getSize();
+                    
+                    $size1 = $request->file('photo')->getSize();                    
                     $size3 = $request->file('signature')->getSize();
-                    //Log::info($size);
-                if($size1 > 2097152 ||  $size2 > 2097152 || $size3 > 2097152)
-                {
-                    return back()->withErrors(__('Unable to upload the image. File size is more than 1 MB.'));
-                }
+                    
+                    if($size1 > 2097152 || $size3 > 2097152){
+                        return back()->withErrors(__('Unable to upload the image. File size is more than 1 MB.'));
+                    }
+                    
                     $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
                     $random_str = substr(str_shuffle($permitted_chars), 0, 7);
                     
@@ -556,15 +544,11 @@ class HomeController extends Controller
 
                     $file2 = $request->signature;
                     $newfilename2 = $userid.time().'_sign.'. $format2;
-                    $path = Storage::disk('local')->putFileAs('public/sip_uploads',$file2,$newfilename2);
-
-                    $file3 = $request->pancard;
-                    $newfilename3 = $userid.time().'_pan.'. $format3;
-                    $path = Storage::disk('local')->putFileAs('public/sip_uploads',$file3,$newfilename3);
+                    $path = Storage::disk('local')->putFileAs('public/sip_uploads',$file2,$newfilename2);                    
 
                     $feed->photo = $newfilename1;
                     $feed->signature = $newfilename2;
-                    $feed->pancard = $newfilename3;
+                    
                     $feed->save();
 
                     $updatenda = DB::table('users')
@@ -727,9 +711,10 @@ class HomeController extends Controller
     public static function View_studentprofiles(Request $request)
     {   
         $result = OnlineProfile::select('online_profile_response.name','online_profile_response.email',
-                'online_profile_response.phone','online_profile_response.userid','panelid')
+                'online_profile_response.phone','online_profile_response.userid','panelid','payments.remark as payment')
                 ->join('users as u', 'u.id', '=', 'online_profile_response.userid')
                 ->leftjoin('user_panel as panel', 'panel.userid', '=', 'u.id')
+                ->leftjoin('payments as payments', 'u.id', '=', 'payments.user_id')
                 //->where('u.profilesubmitted', 1)
                 ->where('u.active', 1)
                 ->where('u.role', 1)

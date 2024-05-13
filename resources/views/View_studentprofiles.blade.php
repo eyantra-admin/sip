@@ -26,6 +26,7 @@
                     <th><b>Panel No</b></th>
                     <th><b>Student Name</b></th>
                     <th><b>Email Id</b></th>
+                    <th><b>Payment Status</b></th>
                   </thead>
                 
                   <tbody>
@@ -44,6 +45,13 @@
                         <td><b><a href="{!! route('ViewMyRegistration', Crypt::encrypt($cur->userid))!!}" target="_blank" class="col-sm-4 col-form-label"><b>{{ $cur->name }}</b></a></b></td>
 
                         <td><b>{{$cur->email}}</b></td>
+                        <td>
+                          @if(!empty($cur->payment))
+                            <b>{{$cur->payment}}</b>
+                          @else
+                            <b class="text-warning">Yet to Receive</b>  
+                          @endif  
+                        </td>
                       </tr>
                       @endforeach
                   </tbody>

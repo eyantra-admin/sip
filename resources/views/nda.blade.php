@@ -53,45 +53,47 @@
              <li>Will not hold e-Yantra IITB responsible in case of any mishaps, injury or loss of property during the period of internship.</li>             
            </ol>
           </b></h4>
-          <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
-            <center>
-              <h3><b>You are required to upload your Photograph, Digital signature and Pancard/Aadhar card.<br>
-                  Format: JPEG / PNG / JPG<br/>
-                  Size: < 1MB
-              </b></h3>
-             </center>
-            <br>
-            <div style="margin-left: 25px; margin-bottom: 25px;">
-            <form method="post" action="{{ route('submitnda') }}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
-               @csrf
-            @method('put')
-                  
-                <h4><b>Upload Photograph</b></h4>
-                <input type="file" name="photo" id="photo" required />
-                <br><br>
-                <h4><b>Upload Digital Signature</b></h4>
-                <input type="file" name="signature" id="signature" required />
-                <br><br>
-                <h4><b>Upload Pancard/Aadhar Card</b></h4>
-                <input type="file" name="pancard" id="pancard" required />
-                <br><br>
-                <h4>
-                <input name="conduct" value="1" type="checkbox" required />
-                I have read the above NDA agreement and <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Declaration Document</button> carefully and accept that this is a legally valid and binding obligation and hereby agree to the above content.
-                </h4>
-          <br/><br/>
+          
+          @if(!$ndaFlag)
+            <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
+              <ol style="padding-top: 20px;">
+                <h5>You are required to upload:</h5>
+                <li>Your identity size photo</li>
+                <li>Photo copy of your signature</li>
+                <p>
+                    <b>Format:</b> JPEG / PNG / JPG<br/>
+                    <b>Size:</b> < 1MB</p>
+              </ol>            
+              <br>
+              <div style="margin-left: 25px; margin-bottom: 25px;">
+                <form method="post" action="{{ route('submitnda') }}" enctype="multipart/form-data" autocomplete="off" class="form-horizontal">
+                    @csrf
+                    @method('put')
+                      
+                    <h4><b>Upload Your Photograph</b></h4>
+                    <input type="file" name="photo" id="photo" required />
+                    <br><br>
+                    <h4><b>Upload Photocopy of Your Signature</b></h4>
+                    <input type="file" name="signature" id="signature" required />                
+                    <br><br>
+                    <h4>
+                    <input name="conduct" value="1" type="checkbox" required />
+                    I have read the above NDA agreement and <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#exampleModal">Declaration Document</button> carefully and accept that this is a legally valid and binding obligation and hereby agree to the above content.
+                    </h4>
+                    <br/><br/>
+              
+                    <div class="card-footer ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary"  style="margin-left: 300px">{{ __('Submit') }}</button>
+                    </div>
+                </form>
+              </div>        
             </div>
-            <div class="card-footer ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Submit') }}</button>
-            </div>
-            </form>
-           
-          </div>
-        
-        </div>
-      </div>
-
-     
+          @else
+            <div style="background-color: #f1cbf7; border-radius: 5px; padding: 25px">
+              <h4>Received your submissions.</h4>
+            </div>  
+          @endif  
+      </div>    
      
     </div>
   </div>
