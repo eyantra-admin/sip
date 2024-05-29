@@ -40,6 +40,10 @@ class ProfileController extends Controller
      */
     public function edit()
     {
+        if(Auth::user()->role == 4){
+            return redirect()->back()->with('error', 'You don\'t need to fill out your profile details.');
+        }
+
         $colleges = CollegeDetails::select('clg_code','college_name')->orderBy('college_name')->get();
         //dd($colleges);
         $departments = ElsiDepartments::select('id', 'name')->orderBy('name')->get();

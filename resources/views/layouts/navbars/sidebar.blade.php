@@ -129,6 +129,23 @@
           </a>
         </li> -->
     @endif
+  @endif
+
+  <!-- only for J&K students -->
+  @if(Auth::user()->role == 4)
+    <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
+      <a class="nav-link" href="{{ route('paymentpage') }}">
+        <i class="material-icons">Payment</i>
+        <p>{{ __('Internship Fee Payment') }}</p>
+      </a>
+    </li>
+
+    <li>
+      <a class="nav-link" href="{{ route('keycloak.logout') }}">
+        <i class="material-icons">Logout</i>
+        <p>{{ __('Logout') }}</p>
+      </a>
+    </li>
   @endif  
 
 

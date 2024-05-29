@@ -59,8 +59,11 @@ class PaymentController extends Controller
        //  Log::info('Fee:'.$fee);
        //  // $fee=1;
        //  return $fee;
-        return 5000;
-
+        if($user->role == 1){
+            return 5000;
+        } elseif($user->role == 4) { // only for J & K
+            return 20000;
+        }
     }
 
 
@@ -73,9 +76,6 @@ class PaymentController extends Controller
         if($fee == -1)
          return redirect()->route('home');
         
-        //later need to delete
-        $trxData = OnlineProfile::where('userid',Auth::user()->id)->first(['trxDate','trxUTR']);
-
         //check if user has paid before once
         $payment = Payment::where('user_id',$user->id)->first();
  
@@ -86,7 +86,6 @@ class PaymentController extends Controller
                 'fee'=>$fee,
                 'enable_button'=>true,
                 'status'=>null,
-                'trxData'=>$trxData,
             ]);
         }
         else //if payment is done at least once
@@ -104,7 +103,6 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$trans_date,
                     'message'=>$payment->remark,
-                    'trxData'=>$trxData,
                 ]);
                 
             }
@@ -113,7 +111,6 @@ class PaymentController extends Controller
                     'fee'=>$fee,
                     'enable_button'=>true,
                     'status'=>null,
-                    'trxData'=>$trxData,
                 ]);
             }
             
@@ -125,7 +122,6 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>$payment->remark,
-                    'trxData'=>$trxData,
          
                 ]);
             }
@@ -137,7 +133,6 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>'Not available',
-                    'trxData'=>$trxData,
                 ]);
             }
             
@@ -155,9 +150,6 @@ class PaymentController extends Controller
         if($fee == -1)
          return redirect()->route('home');
         
-        //later need to delete
-        $trxData = OnlineProfile::where('userid',Auth::user()->id)->first(['trxDate','trxUTR']);
-
         //check if user has paid before once
         $payment = Payment::where('user_id',$user->id)->first();
  
@@ -168,7 +160,6 @@ class PaymentController extends Controller
                 'fee'=>$fee,
                 'enable_button'=>true,
                 'status'=>null,
-                'trxData'=>$trxData,
             ]);
         }
         else //if payment is done at least once
@@ -186,7 +177,6 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$trans_date,
                     'message'=>$payment->remark,
-                    'trxData'=>$trxData,
                 ]);
                 
             }
@@ -195,7 +185,6 @@ class PaymentController extends Controller
                     'fee'=>$fee,
                     'enable_button'=>true,
                     'status'=>null,
-                    'trxData'=>$trxData,
                 ]);
             }
             
@@ -207,7 +196,6 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>$payment->remark,
-                    'trxData'=>$trxData,
          
                 ]);
             }
@@ -219,7 +207,6 @@ class PaymentController extends Controller
                     'trans_id'=> $payment->trans_id,
                     'trans_date'=>$payment->trans_date,
                     'message'=>'Not available',
-                    'trxData'=>$trxData,
                 ]);
             }
             

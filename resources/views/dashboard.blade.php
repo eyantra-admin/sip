@@ -152,9 +152,22 @@ a.portfolio-link {
         </div>
       @endif
 
+      @if (session('error'))
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <i class="material-icons">close</i>
+            </button>
+            <span>{{ session('error') }}</span>
+          </div>
+        </div>
+      </div>
+        @endif
+
       <div class="card card-nav-tabs">
         <div class="card-header card-header-warning">
-          <b>Welcome to e-Yantra Summer Internship Program</b>
+          <b class="h3">Welcome to e-Yantra Summer Internship Program</b>
         </div>
         
         @if($form_submitted != 1 and Auth::user()->role == 1)
@@ -305,6 +318,13 @@ a.portfolio-link {
           </b></h2>
         </center> -->
         @endif  
+
+        <!-- for J & K -->
+        @if(Auth::user()->role == 4)
+        <div class="card-body">
+          <p class="h4">We're excited to have you join our team and embark on this learning journey with us. Please complete your payment to confirm your spot and get started. Your prompt action ensures a smooth onboarding process. Thank you, and we look forward to working with you!</p>
+        </div>
+        @endif
     </div>       
   </div>  
 @endsection
