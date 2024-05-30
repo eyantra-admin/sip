@@ -62,7 +62,7 @@ class PaymentController extends Controller
         if($user->role == 1){
             return 5000;
         } elseif($user->role == 4) { // only for J & K
-            return 20000;
+            return 8900;
         }
     }
 
