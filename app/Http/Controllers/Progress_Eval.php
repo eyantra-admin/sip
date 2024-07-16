@@ -45,9 +45,9 @@ class Progress_Eval extends Controller
     }
     public function ProgressEvaluationResult()
     {   $start_date = date('2022-05-01 00:00:00');
-        $interns = User::select('id','name')->where('role', 1)->where('year', 2023)->where('active', 1)->where('selected',1)
+        $interns = User::select('id','name')->where('role', 1)->where('year', 2024)->where('active', 1)->where('selected',1)
         ->orderby('name')->get();
-        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2023])->orderBy('projectname')->get();
+        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2024])->orderBy('projectname')->get();
         return view ('Progress_Eval')->with('projects', $projects)->with('interns', $interns);
     }
     public function ProgressEvaluationSubmit(Request $request)
