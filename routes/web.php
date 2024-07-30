@@ -193,10 +193,10 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 	Route::get('/fetchir/{user_id}','PaymentController@immediateResponseForUser'); //request server for recon response
 
 	/**************** certificate for students ****************/
-	/*Route::get('/generate/run', [
+	Route::get('/generate/run', [
 		'as' 			=> 'GenerateCertificate',
 		'uses' 			=> 'Generate@run'
-	]);*/
+	]);
 
 	Route::get('validate', 'ValidateController@index')->name('validate');
 	Route::post('validate', 'ValidateController@verify');
