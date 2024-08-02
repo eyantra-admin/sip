@@ -38,6 +38,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Auth::routes();
 
 Route::any('/home', 'HomeController@index')->name('home');
+Route::any('/download_cert', 'Generate@download_cert')->name('download_cert');
 //see dashboard after profile submission
 Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@dashboard'])->middleware('auth');
 Route::any('/error', 'HomeController@error')->name('error');

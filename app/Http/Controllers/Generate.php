@@ -16,6 +16,7 @@ use App\User;
 use App\Model\Projects;
 use Auth;
 use Log;
+use Storage;
 use File;
 
 
@@ -24,8 +25,7 @@ class Generate extends Controller
     
     public function run() //used for purpose of testing 
     {
-
-    $students = OnlineProfile::where('cert_level', 1)->whereIn('userid', function($query){
+        $students = OnlineProfile::where('cert_level', 1)->whereIn('userid', function($query){
         $query->select('id')->from('users')->where('selected', 1)->where('year', 2024)->where('role', 1);
     })->get();
 
@@ -85,10 +85,13 @@ class Generate extends Controller
     
         
         //return $pdf->stream('certificate.pdf');
-        
-        }
-        
-        
+    }
+}
+
+    public function download_cert()
+    {
+        $path = '/certificate/eysip2024'.'/certi_'.auth()->user()->id.'.pdf';
+        return Storage::disk('public')->download($path);
     }
 
 

@@ -242,11 +242,11 @@ a.portfolio-link {
                 <div class="divider"></div>
                   <h3 style="color:Red">
                     Hearty Congratulations!!! <br/>
-                    on successful completion of eYSIP 2022 project.<br/>
+                    on successful completion of eYSIP 2024 project.<br/>
                   </h3>
                   <hr/>
                 <span>
-                  <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
+                  <a href="{!! route('cert_download') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
                 </span>
             </div>              
             @endif
