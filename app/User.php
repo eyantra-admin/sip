@@ -108,7 +108,7 @@ class User extends Authenticatable
                     'password' => 'null', 
                     'role' => '1', 
                     'active' => '1',
-                    'year' => '2023',
+                    'year' => '2025',
                 ]);
             } else {
                 $user=User::updateOrCreate([
@@ -118,7 +118,7 @@ class User extends Authenticatable
                     'password' => 'null', 
                     'role' => '0', 
                     'active' => '0',
-                    'year' => '2023',
+                    'year' => '0000',
                 ]);     
             }    
         }   
