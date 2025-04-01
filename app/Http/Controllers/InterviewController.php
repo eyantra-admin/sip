@@ -70,7 +70,7 @@ class InterviewController extends Controller
                             ->where('st.userid', '!=', null)
                             ->where('st.panel', $panel_no)
                             ->where('users.active', 1)
-                            ->where('users.year', 2024)
+                            ->where('users.year', 2025)
                             ->orderBy('st.date','asc')
                             ->orderBy('st.availableslots','asc')
                             ->distinct('online_profile_response.id')
@@ -130,12 +130,12 @@ class InterviewController extends Controller
                 $panel_eval = null;
             }
         } else {
-            $students = User::select('id','name')->where('role', 1)->where('year', 2024)
+            $students = User::select('id','name')->where('role', 1)->where('year', 2025)
             ->where('active', 1)->orderby('name')->get();
 
             $preferences = null;
         }        
-        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2024])->orderBy('projectname')->get();
+        $projects = Projects::select('id','projectname')->where(['active' => 1, 'year' => 2025])->orderBy('projectname')->get();
         
         return view ('Evaluation')->with('projects', $projects)->with('students', $students)->with('student_projects', $student_projects)->with('preferences', $preferences)->with('panel_eval', $panel_eval);
     }
@@ -245,7 +245,7 @@ class InterviewController extends Controller
                     ->leftjoin('studentprojprefer as sp', 'sp.userid', '=', 'users.id')
                     ->leftjoin('student_evaluation as se', 'se.userid', '=', 'users.id')
                     ->leftjoin('timeslot_booking as tb', 'tb.userid', '=', 'users.id')
-                    ->where(['role' => 1, 'users.year' => 2024])
+                    ->where(['role' => 1, 'users.year' => 2025])
                     ->orderBy('tb.panel')
                     ->orderBy('tb.date')
                     ->orderByRaw("STR_TO_DATE(availableslots, '%l:%i %p')")

@@ -343,7 +343,7 @@ class PaymentController extends Controller
                 $payment->payer_user_id = $data->id;
                 $payment->amount = $fee;
                 $payment->currency= 'INR';
-                $payment->purpose='eYSIP2024';
+                $payment->purpose='eYSIP2025';
                 $payment->save();
             }//if ends
     
@@ -360,7 +360,7 @@ class PaymentController extends Controller
                         'userId' => $payment->payer_user_id,
                         'amountDue' => (float)$payment->amount,  
                         // 'amountDue' => 1,
-                        'purpose' => 'eYSIP2024',
+                        'purpose' => 'eYSIP2025',
                         'currency' => 'INR',
                     ],
                 ])->getBody();
