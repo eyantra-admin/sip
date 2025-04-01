@@ -16,6 +16,7 @@ use App\User;
 use App\Model\Projects;
 use Auth;
 use Log;
+use Storage;
 use File;
 
 
@@ -24,9 +25,8 @@ class Generate extends Controller
     
     public function run() //used for purpose of testing 
     {
-
-    $students = OnlineProfile::where('cert_level', 1)->whereIn('userid', function($query){
-        $query->select('id')->from('users')->where('selected', 1)->where('year', 2023)->where('role', 1);
+        $students = OnlineProfile::where('cert_level', 1)->whereIn('userid', function($query){
+        $query->select('id')->from('users')->where('selected', 1)->where('year', 2024)->where('role', 1);
     })->get();
 
     foreach ($students as $studs) {
@@ -38,7 +38,7 @@ class Generate extends Controller
     $certi_details = Certificate::where('userid', $student_details->userid)->first();
     //Log::info($certi_details);
     $cert_template= Template::where('id',3)->first();
-    $cert_event = Event::where('id', 3)->first();
+    $cert_event = Event::where('id', 4)->first();
     
     if (!empty($certi_details)) {
         # code...
@@ -80,15 +80,18 @@ class Generate extends Controller
         # code...
         $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','project_name', 'certi_details'));
         
-        $pdf->save(storage_path().'/certificate/eysip2023/certi_'.$student_details->userid.'.pdf');
+        $pdf->save(storage_path().'/certificate/eysip2024/certi_'.$student_details->userid.'.pdf');
     }
     
         
         //return $pdf->stream('certificate.pdf');
-        
-        }
-        
-        
+    }
+}
+
+    public function download_cert()
+    {
+        $path = '/certificate/eysip2024'.'/certi_'.auth()->user()->id.'.pdf';
+        return Storage::disk('public')->download($path);
     }
 
 

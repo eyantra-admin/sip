@@ -38,6 +38,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Auth::routes();
 
 Route::any('/home', 'HomeController@index')->name('home');
+Route::any('/download_cert', 'Generate@download_cert')->name('download_cert');
 //see dashboard after profile submission
 Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@dashboard'])->middleware('auth');
 Route::any('/error', 'HomeController@error')->name('error');
@@ -193,10 +194,10 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 	Route::get('/fetchir/{user_id}','PaymentController@immediateResponseForUser'); //request server for recon response
 
 	/**************** certificate for students ****************/
-	/*Route::get('/generate/run', [
+	Route::get('/generate/run', [
 		'as' 			=> 'GenerateCertificate',
 		'uses' 			=> 'Generate@run'
-	]);*/
+	]);
 
 	Route::get('validate', 'ValidateController@index')->name('validate');
 	Route::post('validate', 'ValidateController@verify');

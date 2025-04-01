@@ -235,22 +235,22 @@ a.portfolio-link {
           </center>
           
           <!-- Certificate Download -->
-          {{--<div class="col m12 s12 text-center">
+          <div class="col m12 s12 text-center">
             @if(Auth::user()->MentorClearence == 1)
             <div style="background-color: #f1cbf7; border-radius: 5px; margin: 50px">
               <h3><b>Certificate Details</b></h3>
                 <div class="divider"></div>
                   <h3 style="color:Red">
                     Hearty Congratulations!!! <br/>
-                    on successful completion of eYSIP 2022 project.<br/>
+                    on successful completion of eYSIP 2024 project.<br/>
                   </h3>
                   <hr/>
                 <span>
-                  <a href="{!! route('GenerateCertificate') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
+                  <a href="{!! route('download_cert') !!}" target="_blank" class="btn btn-primary">Download Certificate</a>
                 </span>
             </div>              
             @endif
-          </div>--}}
+          </div>
           <!-- End -->
 
           <!-- Uncomment the div when projects are alloted -->
