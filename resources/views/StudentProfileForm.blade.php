@@ -496,12 +496,10 @@
                           <div class="col-lg-2">
                             <select name="theme" id="theme" class="form-control">
                               <option hidden>Select theme</option>
-                              <option value="AB" {{old('theme') == 1 ? 'selected' : '' }}>AstroTinker Bot (AB)</option>
-                              <option value="CL" {{old('theme') == 1 ? 'selected' : '' }}>Cosmo Logistic (CL)</option>
-                              <option value="GG" {{old('theme') == 1 ? 'selected' : '' }}>GeoGuide (GG)</option>
-                              <option value="HB" {{old('theme') == 1 ? 'selected' : '' }}>Hologlyph Bots (HB)</option>
-                              <option value="LD" {{old('theme') == 1 ? 'selected' : '' }}>Luminosity Drone (LD)</option>
-                              <option value="LS" {{old('theme') == 1 ? 'selected' : '' }}>Lunar Scout (LS)</option>
+                              <option value="BB" {{old('theme') == 1 ? 'selected' : '' }}>Balancing Builder Bot (BB)</option>
+                              <option value="EB" {{old('theme') == 1 ? 'selected' : '' }}>EcoMender Bot(EB)</option>
+                              <option value="LB" {{old('theme') == 1 ? 'selected' : '' }}>Logistic coBot (LB)</option>
+                              <option value="WD" {{old('theme') == 1 ? 'selected' : '' }}>Warehouse Drone (WD)</option>
                             </select>
                           </div>
                           <label class="col-sm-3 col-form-label" style = "color:black;font-weight: bold">{{ __('Where is your Theme Kit?') }}</label>
