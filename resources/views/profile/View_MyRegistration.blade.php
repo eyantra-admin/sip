@@ -366,6 +366,19 @@ hr {
 	 			</div> 				
  			</div>
   		</div>
+  		<!-- outside project willingness -->
+  		<div class="panel panel-info">
+ 			<div class="panel-heading">
+ 				<label>Other Details</label>
+ 			</div>
+ 			
+ 			<div class="panel-body">
+ 				<div class="form-group col-lg-10 form-group-lg col-lg-offset-1">
+	 				<p><b>Outside Projects Willingness</b> : {{$student->outside_prj_willingness}}</p>
+	 				<p><b>Preferred Internship Duration</b> : {{$student->preferred_internship_time}}</p>
+	 			</div> 				
+ 			</div>
+  		</div>
     </div>
 	</div>
 </div>
