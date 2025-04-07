@@ -78,6 +78,8 @@
                             <hr>
                         </div>  
                       @endforeach
+                      <p>Outside Project Willingness: <b>{{$students->outside_prj_willingness}}</b></p>
+                      <p>Preferred Internship duration: <b>{{$students->preferred_internship_time}}</b></p>
                       <p><b>Exam Schedule:</b> {{$students->exam_start}} - {{$students->exam_end}} / Leaves: {{$students->nu_leaves}} </p>
                   </div>
               </div>        

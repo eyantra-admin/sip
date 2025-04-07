@@ -84,7 +84,7 @@ class InterviewController extends Controller
     public function EvaluationResult($userId)
     {   //$start_date = date('2022-05-01 00:00:00');
         if($userId){
-            $students = User::select('users.id','profile.name','profile.phone','profile.year','branch','college','exam_start','exam_end','nu_leaves')
+            $students = User::select('users.id','profile.name','profile.phone','profile.year','branch','college','exam_start','exam_end','nu_leaves','outside_prj_willingness','preferred_internship_time')
                     ->join('online_profile_response as profile','profile.userid','=','users.id')
                     ->where('users.id', $userId)->first();
 
