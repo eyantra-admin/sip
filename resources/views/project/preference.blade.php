@@ -116,6 +116,7 @@
                   </table>
               </div>
             </div>
+            <p class="py-4">We will be adding more projects to this list.</p>
           </div>
         </div>
       </div>

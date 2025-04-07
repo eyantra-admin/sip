@@ -59,8 +59,7 @@
         </div>
       </li> -->
       
-  @if(Auth::user()->role == 1)
-    {{--
+  @if(Auth::user()->role == 1)    
     @if( Auth::user()->profilesubmitted == 1)
     <li class="nav-item{{ $activePage == 'timeslotbooking' ? ' active' : '' }}">
       <a class="nav-link" href="{{ route('timeslotbooking') }}">
@@ -74,8 +73,7 @@
         <p>{{ __('Project Preference') }}</p>
       </a>
     </li>   
-    @endif
-    --}}  
+    @endif      
 
     @if(Auth::user()->selected == 1)
         <li class="nav-item{{ $activePage == 'get-payment-info' ? ' active' : '' }}">
@@ -224,7 +222,12 @@
             <p>{{ __('View All Interns Data') }}</p>
         </a>
       </li>
-
+      <li class="nav-item{{ $activePage == 'prjPreferenceByPanel' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('prjPreferenceByPanel') }}">
+          <i class="material-icons">content_paste</i>
+            <p>{{ __('View Projects') }}</p>
+        </a>
+      </li>
       <li class="nav-item{{ $activePage == 'Allocate_Project' ? ' active' : '' }}">
         <a class="nav-link" href="{{ route('Allocate_Project') }}">
           <i class="material-icons">content_paste</i>
