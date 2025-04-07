@@ -48,8 +48,8 @@
              <h3><b><li>{{$project1}}</b></h3></li>
              <h3><b><li>{{$project2}}</b></h3></li>
              <h3><b><li>{{$project3}}</b></h3></li>
-             <h3><b><li>{{$project4}}</b></h3></li>
-             <h3><b><li>{{$project5}}</b></h3></li>
+             <!-- <h3><b><li>{{$project4}}</b></h3></li>
+             <h3><b><li>{{$project5}}</b></h3></li> -->
            </ol>
           
           </div>
@@ -135,7 +135,7 @@
               <p class="card-category">{{ __('Select your project preferences based on the skills you acquire') }}</p>
             </div>
             <div class="card-body">
-              <h3><b>Please select 5 different projects below.</b> </h3><br>
+              <h3><b>Please select 3 different projects below.</b> </h3><br>
               <h3><b>Please apply due deligence while adding project preferences. Preferences once added cannot be modified.</b></h3><br>
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 1') }}</label>
@@ -186,6 +186,7 @@
                   </div>
                 </div>
               </div>
+              {{--
               <div class="row">
                 <label class="col-sm-2 col-form-label">{{ __('Project 4') }}</label>
                 <div class="col-sm-7">
@@ -218,8 +219,47 @@
                   </div>
                 </div>
               </div>
+              --}}
+              <div class="row mb-3 mt-3">
+                <div class="col-sm-9">
+                  <label for="projectpref4" class="form-label px-4">Are you interested in doing outside projects (Refer Project List 2)?</label>
+                  <div class="input-field {{ $errors->has('project_preference_4') ? ' has-danger' : '' }} mx-4">
+                    <select class="form-select w-100 px-4" name="project_preference_4" id="projectpref4" required>
+                      <option value="" disabled selected>Select an option</option>
+                      <option value="Yes">Yes</option>
+                      <option value="Maybe">Maybe</option>
+                      <option value="No">No</option>
+                    </select>
+                    @if ($errors->has('project_preference_4'))
+                    <span id="projectpref4-error" class="error text-danger" for="project_preference_4">
+                      {{ $errors->first('project_preference_4') }}
+                    </span>
+                    @endif
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <div class="col-sm-9">
+                  <label for="projectpref5" class="form-label px-4">Preferred Internship Duration</label>
+                  <div class="input-field {{ $errors->has('project_preference_5') ? ' has-danger' : '' }} mx-4">
+                    <select class="form-select w-100 px-4" name="project_preference_5" id="projectpref5" required>
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="8 weeks">8 weeks</option>
+                        <option value="8 weeks to 3 months">8 weeks to 3 months</option>
+                        <option value="3 months to 6 months">3 months to 6 months</option>
+                        <option value="More than 6 months">More than 6 months</option>
+                    </select>
+                    @if ($errors->has('project_preference_5'))
+                    <span id="projectpref5-error" class="error text-danger" for="project_preference_5">
+                      {{ $errors->first('project_preference_5') }}
+                    </span>
+                    @endif
+                  </div>
+                </div>
+              </div>
               
-                <div class="card-footer ml-auto mr-auto">
+              <div class="card-footer ml-auto mr-auto">
                 <button type="submit" class="btn btn-primary"  style="margin-left: 500px">{{ __('Save') }}</button>
               </div>
              

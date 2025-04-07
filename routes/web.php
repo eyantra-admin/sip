@@ -38,7 +38,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Auth::routes();
 
 Route::any('/home', 'HomeController@index')->name('home');
-Route::any('/download_cert', 'Generate@download_cert')->name('download_cert');
 //see dashboard after profile submission
 Route::get('/dashboard', ['as' => 'dashboard', 'uses' => 'HomeController@dashboard'])->middleware('auth');
 Route::any('/error', 'HomeController@error')->name('error');
@@ -82,10 +81,8 @@ Route::group(['middleware' => ['isMentor','keycloak-web']], function ()
 	
 	Route::post('project', ['as' => 'project.savementorproject', 'uses' => 'HomeController@savementorproject']);
 	
-	Route::any('/viewpreferences', ['as'=>'viewpreferences','uses'=>'HomeController@viewpreferences'
-	]);
-	Route::any('/viewtimeslot/{id?}', ['as'=>'viewtimeslot','uses'=>'HomeController@viewtimeslot'
-	]);
+	Route::any('/viewpreferences', ['as'=>'viewpreferences','uses'=>'HomeController@viewpreferences']);
+	Route::any('/viewtimeslot/{id?}', ['as'=>'viewtimeslot','uses'=>'HomeController@viewtimeslot']);
 	Route::get('Evaluation', ['as' => 'Evaluation', 'uses' => 'InterviewController@Evaluation']);
 	Route::get('EvaluationResult/{userId}', ['as' => 'EvaluationResult', 'uses' => 'InterviewController@EvaluationResult']);
 	Route::put('EvaluationSubmit', ['as' => 'EvaluationSubmit', 'uses' => 'InterviewController@EvaluationSubmit']);
@@ -121,8 +118,7 @@ Route::group(['middleware' => ['isStudent','keycloak-web']], function ()
 
 	Route::any('/submitprofile', ['as'=>	'submitprofile','uses'	=>	'SipRegistration@submitprofile']);
 
-	Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload'
-		]);
+	Route::any('/attachmentUpload', ['as'=>	'attachmentUpload','uses'=>	'SipRegistration@attachment_upload']);
 
 	Route::any('/SipStudent/{user}', 'SipRegistration@sip_student')->middleware('auth');
 
@@ -194,10 +190,10 @@ Route::get('/log/eraseLogFile/{year}/{month}/{date}', 'LogController@eraseLogFil
 	Route::get('/fetchir/{user_id}','PaymentController@immediateResponseForUser'); //request server for recon response
 
 	/**************** certificate for students ****************/
-	Route::get('/generate/run', [
+	/*Route::get('/generate/run', [
 		'as' 			=> 'GenerateCertificate',
 		'uses' 			=> 'Generate@run'
-	]);
+	]);*/
 
 	Route::get('validate', 'ValidateController@index')->name('validate');
 	Route::post('validate', 'ValidateController@verify');

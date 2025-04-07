@@ -159,22 +159,22 @@ class HomeController extends Controller
             'project_preference_1'  => 'required|not_in:0',
             'project_preference_2'  => 'required|not_in:0',
             'project_preference_3'  => 'required|not_in:0',
-            'project_preference_4'  => 'required|not_in:0',
-            'project_preference_5'  => 'required|not_in:0',
+            'project_preference_4'  => 'required',
+            'project_preference_5'  => 'required',
         ];
         $messages = [   
             'project_preference_1.required' => 'Select first project preference',
             'project_preference_2.required' => 'Select second project preference',
             'project_preference_3.required' => 'Select third project preference',
-            'project_preference_4.required' => 'Select fourth project preference',
-            'project_preference_5.required' => 'Select fifth project preference',
+            'project_preference_4.required' => 'Select options for outside projects',
+            'project_preference_5.required' => 'Select the preferred internship duration',
         ];
 
         $validate=Validator::make($request->all(),$rules,$messages);
 
         if($validate->fails())
         {
-            return redirect()->route('project.preferenceupdate')->withErrors($validate)->withInput($input);
+            return redirect()->route('projectpreference')->withErrors($validate)->withInput($input);
         }
         else
         {
@@ -182,9 +182,11 @@ class HomeController extends Controller
             if(Auth::user()->profilesubmitted == 0){
                 return back()->withErrors(__('You have not submitted your profile.'));
             } else {
-                if($request->project_preference_1 && $request->project_preference_2 && 
+                /*if($request->project_preference_1 && $request->project_preference_2 && 
                    $request->project_preference_3 && $request->project_preference_4 &&
-                   $request->project_preference_5 !=0) {
+                   $request->project_preference_5 !=0)*/ 
+                if($request->project_preference_1 && $request->project_preference_2 && 
+                   $request->project_preference_3 !=0){
                         $prefer1= $request->project_preference_1;
                         $prefer2= $request->project_preference_2;
                         $prefer3= $request->project_preference_3;
@@ -192,11 +194,11 @@ class HomeController extends Controller
                         $prefer5= $request->project_preference_5;
                         $userid= Auth::user()->id;
                     //Check if all 5 dropdowns have different selections
-                    $chkarr  = array($prefer1,$prefer2,$prefer3,$prefer4,$prefer5);
+                    $chkarr  = array($prefer1,$prefer2,$prefer3);//,$prefer4,$prefer5);
                     //log::info($chkarr);
                     $unique_values = count(array_count_values($chkarr));
                     //log::info($unique_values);
-                    if($unique_values == 5)
+                    if($unique_values == 3)
                     {
                         $user = StudentProjPrefer::where('userid', '=', $userid)->first();
                         if ($user === null) 
@@ -207,9 +209,16 @@ class HomeController extends Controller
                             'projectprefer1' => $prefer1,
                             'projectprefer2' => $prefer2,
                             'projectprefer3' => $prefer3,
-                            'projectprefer4' => $prefer4,
-                            'projectprefer5' => $prefer5,
+                            'projectprefer4' => 0,//$prefer4,
+                            'projectprefer5' => 0,//$prefer5,
                             ]);
+
+                            $dtls = DB::table('online_profile_response')
+                                ->where('userid', $userid)
+                                ->update([
+                                  'outside_prj_willingness' => $request->project_preference_4, 
+                                  'preferred_internship_time' => $request->project_preference_5,                                   
+                                ]);
                             return back()->withStatus(__('Project preferences added successfully.'));
                         }
                         else
