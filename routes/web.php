@@ -23,7 +23,6 @@ Route::get('/',['as' => 'welcome', 'uses' => 'WelcomeController@index'])->name('
 // Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 // Route::post('login', 'Auth\LoginController@login');
 // Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-Route::any('/download_cert', 'Generate@download_cert')->name('download_cert');
 // Registration Routes...
 Route::get('registration', 'Auth\RegisterController@showRegistrationForm')->name('registration');
 Route::post('register', 'Auth\RegisterController@register');
@@ -52,6 +51,7 @@ Route::group(['middleware' => 'auth'], function ()
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 });
 
+Route::any('/download_cert', 'Generate@download_cert')->name('download_cert');
 
 
 //ADMIN---------------------------------------------------------------------------------------
