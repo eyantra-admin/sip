@@ -26,7 +26,7 @@ class Generate extends Controller
     public function run() //used for purpose of testing 
     {
         $students = OnlineProfile::where('cert_level', 1)->whereIn('userid', function($query){
-        $query->select('id')->from('users')->where('selected', 1)->where('year', 2024)->where('role', 1);
+        $query->select('id')->from('users')->where('selected', 1)->where('year', 2025)->where('role', 1);
     })->get();
 
     foreach ($students as $studs) {
@@ -80,7 +80,7 @@ class Generate extends Controller
         # code...
         $pdf->loadView('template.student_merit' , compact('cert_template','cert_event','student_details', 'hash','project_name', 'certi_details'));
         
-        $pdf->save(storage_path().'/certificate/eysip2024/certi_'.$student_details->userid.'.pdf');
+        $pdf->save(storage_path().'/certificate/eysip2025/certi_'.$student_details->userid.'.pdf');
     }
     
         
