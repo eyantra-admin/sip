@@ -226,7 +226,7 @@ a.portfolio-link {
             <h2>
               <b>
                 Congratulations !!!<br>
-                You have been selected for e-Yantra Summer Internship - 2024.
+                You have been selected for e-Yantra Summer Internship - 2025.
                 <br>
               </b>
             </h2>
@@ -242,7 +242,7 @@ a.portfolio-link {
                 <div class="divider"></div>
                   <h3 style="color:Red">
                     Hearty Congratulations!!! <br/>
-                    on successful completion of eYSIP 2024 project.<br/>
+                    on successful completion of eYSIP 2025 project.<br/>
                   </h3>
                   <hr/>
                 <span>
