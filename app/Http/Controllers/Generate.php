@@ -90,8 +90,9 @@ class Generate extends Controller
 
     public function download_cert()
     {
-        $path = '/certificate/eysip2025'.'/certi_'.auth()->user()->id.'.pdf';
-        return Storage::disk('public')->download($path);
+        $path = base_path('storage/certificate/eysip2025'.'/certi_'.auth()->user()->id.'.pdf');
+        return response()->download($path);
+
     }
 
 
